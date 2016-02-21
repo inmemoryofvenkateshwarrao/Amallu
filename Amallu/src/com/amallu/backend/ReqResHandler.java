@@ -19,6 +19,31 @@ public class ReqResHandler implements AsyncCallback{
 	private CommonHandlerType handlerType;
 	private Response response;
 	private static final String TAG="ReqResHandler";
+	
+	public void loginRequest(Context context, Response responseHandler,String email,String password){
+		Log.i(TAG, "loginRequest() Entering.");
+		handlerType = CommonHandlerType.LOGIN;
+		
+		response = responseHandler;
+		uiContext = context;
+		
+		//http://www.app.amallu.com/api/user/login?_format=json
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put(ReqResNodes.EMAIL,email);
+		paramsMap.put(ReqResNodes.PASSWORD,password);
+		
+		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
+		+"/"+URLDetails.COMMON_URL+"/"+URLDetails.LOGIN;
+		Log.d(TAG,"LOGIN URL : "+url);
+		if(checkNetworkAvailability(context)){
+			Log.v(TAG,"Network is available. Initiating LOGIN webservice call.");
+			asyncServiceRequest = new AsyncServiceRequest(this,paramsMap,uiContext,ReqResNodes.POST);
+			asyncServiceRequest.execute(url);
+		}else{
+			Log.e(TAG,"Network connection not available.");
+		}
+		Log.i(TAG, "loginRequest() Exiting.");
+	}
 
 	//SignUp API Call.
 	//POST Request
@@ -47,7 +72,7 @@ public class ReqResHandler implements AsyncCallback{
 				+"/"+URLDetails.COMMON_URL+"/"+URLDetails.SIGNUP;
 		Log.d(TAG,"SIGNUP URL : "+url);
 		if(checkNetworkAvailability(context)){
-			Log.v(TAG,"Network is available. Initiating REGISTRATION webservice call.");
+			Log.v(TAG,"Network is available. Initiating SIGNUP webservice call.");
 			asyncServiceRequest = new AsyncServiceRequest(this,paramsMap,uiContext,ReqResNodes.POST);
 			asyncServiceRequest.execute(url);
 		}else{
@@ -112,7 +137,7 @@ public class ReqResHandler implements AsyncCallback{
 	//GET Request.
 	public void usersRequest(Context context, Response responseHandler){
 		Log.i(TAG, "usersRequest() Entering.");
-		handlerType = CommonHandlerType.PROFILE;
+		handlerType = CommonHandlerType.USERS;
 		
 		response = responseHandler;
 		uiContext = context;

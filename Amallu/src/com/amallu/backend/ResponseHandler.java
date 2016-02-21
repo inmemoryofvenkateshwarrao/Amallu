@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.amallu.exception.AmalluException;
 import com.amallu.ui.ForgetPasswordScreen;
+import com.amallu.ui.LoginScreen;
 import com.amallu.ui.ProfileScreen;
 import com.amallu.ui.SignUpScreen;
 import com.amallu.ui.UsersScreen;
@@ -17,7 +18,7 @@ public class ResponseHandler implements Response{
 			if(result.equalsIgnoreCase("Exception")){
 				Log.e(TAG, "LOGIN Exception caught.");
 			}
-			//((LoginScreen)context).proceedUI(result,ex);
+			((LoginScreen)context).proceedUI(result,ex);
 		}
 		if(uiHandler.equals(CommonHandlerType.SIGNUP)){
 			if(result.equalsIgnoreCase("Exception")){
