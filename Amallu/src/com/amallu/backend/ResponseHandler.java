@@ -50,5 +50,41 @@ public class ResponseHandler implements Response{
 			}
 			//((UsersScreen)context).proceedUI(result,ex);
 		}
+		if(uiHandler.equals(CommonHandlerType.COMMENT)){
+			if(result.equalsIgnoreCase("Exception")){
+				Log.e(TAG, "COMMENT Exception caught.");
+			}
+			//((UsersScreen)context).proceedUI(result,ex);
+		}
+		if(uiHandler.equals(CommonHandlerType.LIKECHANNEL)){
+			if(result.equalsIgnoreCase("Exception")){
+				Log.e(TAG, "LIKECHANNEL Exception caught.");
+			}
+			//((UsersScreen)context).proceedUI(result,ex);
+		}
+		if(uiHandler.equals(CommonHandlerType.DISLIKECHANNEL)){
+			if(result.equalsIgnoreCase("Exception")){
+				Log.e(TAG, "DISLIKECHANNEL Exception caught.");
+			}
+			//((UsersScreen)context).proceedUI(result,ex);
+		}
+		if(uiHandler.equals(CommonHandlerType.CREATECOMMENT)){
+			if(result.equalsIgnoreCase("Exception")){
+				Log.e(TAG, "CREATECOMMENT Exception caught.");
+			}
+			//((UsersScreen)context).proceedUI(result,ex);
+		}
+		if(uiHandler.equals(CommonHandlerType.EDITCOMMENT)){
+			if(result.equalsIgnoreCase("Exception")){
+				Log.e(TAG, "EDITCOMMENT Exception caught.");
+			}
+			//((UsersScreen)context).proceedUI(result,ex);
+		}
+		if(uiHandler.equals(CommonHandlerType.DELETECOMMENT)){
+			if(result.equalsIgnoreCase("Exception")){
+				Log.e(TAG, "DELETECOMMENT Exception caught.");
+			}
+			//((UsersScreen)context).proceedUI(result,ex);
+		}
 	}
 }

@@ -59,10 +59,21 @@ public class ReqResNodes{
     public static final String TIME_WATCHED="time_watched";
     public static final String THUMBNAIL="thumbnail";
     
+    //Request properties for NextChannel
+    public static final String CHANNELID="channelid";
+    
+    //Response properties for Comment
+    public static final String COMMENT_ID="comment_id";
+    public static final String COMMENT="comment";
+    public static final String PREFERENCE_TYPE="preference_type";
+    public static final String HIDE_COMMENT="hide_comment";
+    public static final String PREFERENCE_ID="preference_id";
     
     //Common
     public static final String GET="get";
     public static final String POST="post";
+    public static final String SUCCESS="1";
+    public static final String FAILURE="0";
 	
 }
 

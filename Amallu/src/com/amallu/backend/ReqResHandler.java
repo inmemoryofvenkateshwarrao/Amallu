@@ -181,6 +181,194 @@ public class ReqResHandler implements AsyncCallback{
 		Log.i(TAG, "channelRequest() Exiting.");
 	}
 	
+	//Comment API Call.
+	//GET Request.
+	public void commentRequest(Context context, Response responseHandler){
+		Log.i(TAG, "commentRequest() Entering.");
+		handlerType = CommonHandlerType.COMMENT;
+		
+		response = responseHandler;
+		uiContext = context;
+		
+		//http://www.app.amallu.com/api/comment?_format=json
+		
+		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
+							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.COMMENT;
+		Log.d(TAG,"COMMENT URL : "+url);
+		if(checkNetworkAvailability(context)){
+			Log.v(TAG,"Network is available. Initiating COMMENT webservice call.");
+			asyncServiceRequest = new AsyncServiceRequest(this,null,uiContext,ReqResNodes.GET);
+			asyncServiceRequest.execute(url);
+		}else{
+			Log.e(TAG,"Network connection not available.");
+		}
+		Log.i(TAG, "commentRequest() Exiting.");
+	}
+		
+	//CreateComment API Call.
+	//POST Request.
+	public void createCommentRequest(Context context, Response responseHandler,String userid,
+			String channel_id,String preference_id,String comment){
+		Log.i(TAG, "createCommentRequest() Entering.");
+		handlerType = CommonHandlerType.CREATECOMMENT;
+		
+		response = responseHandler;
+		uiContext = context;
+		
+		//http://www.app.amallu.com/api/channel
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put(ReqResNodes.USERID,userid);
+		paramsMap.put(ReqResNodes.CHANNEL_ID,channel_id);
+		paramsMap.put(ReqResNodes.PREFERENCE_ID,preference_id);
+		paramsMap.put(ReqResNodes.COMMENT,comment);
+		
+		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
+							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.COMMENT;
+		Log.d(TAG,"CREATECOMMENT URL : "+url);
+		if(checkNetworkAvailability(context)){
+			Log.v(TAG,"Network is available. Initiating CREATECOMMENT webservice call.");
+			asyncServiceRequest = new AsyncServiceRequest(this,paramsMap,uiContext,ReqResNodes.POST);
+			asyncServiceRequest.execute(url);
+		}else{
+			Log.e(TAG,"Network connection not available.");
+		}
+		Log.i(TAG, "createCommentRequest() Exiting.");
+	}
+	
+	//EditComment API Call.
+	//POST Request.
+	public void editCommentRequest(Context context, Response responseHandler,String userid,
+			String channel_id,String preference_id,String comment){
+		Log.i(TAG, "editCommentRequest() Entering.");
+		handlerType = CommonHandlerType.EDITCOMMENT;
+		
+		response = responseHandler;
+		uiContext = context;
+		
+		//http://www.app.amallu.com/api/comment/2?_format=json
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put(ReqResNodes.USERID,userid);
+		paramsMap.put(ReqResNodes.CHANNEL_ID,channel_id);
+		paramsMap.put(ReqResNodes.PREFERENCE_ID,preference_id);
+		paramsMap.put(ReqResNodes.COMMENT,comment);
+		
+		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
+							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.COMMENT;
+		Log.d(TAG,"EDITCOMMENT URL : "+url);
+		if(checkNetworkAvailability(context)){
+			Log.v(TAG,"Network is available. Initiating EDITCOMMENT webservice call.");
+			asyncServiceRequest = new AsyncServiceRequest(this,paramsMap,uiContext,ReqResNodes.POST);
+			asyncServiceRequest.execute(url);
+		}else{
+			Log.e(TAG,"Network connection not available.");
+		}
+		Log.i(TAG, "editCommentRequest() Exiting.");
+	}
+		
+	//DeleteComment API Call.
+	//GET Request.With parameter
+	public void deleteCommentRequest(Context context, Response responseHandler,String id){
+		Log.i(TAG, "deleteCommentRequest() Entering.");
+		handlerType = CommonHandlerType.DELETECOMMENT;
+		
+		response = responseHandler;
+		uiContext = context;
+		
+		//http://www.app.amallu.com/api/comment/2?_format=json
+
+		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
+							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.COMMENT;
+		Log.d(TAG,"DELETECOMMENT URL : "+url);
+		if(checkNetworkAvailability(context)){
+			Log.v(TAG,"Network is available. Initiating DELETECOMMENT webservice call.");
+			asyncServiceRequest = new AsyncServiceRequest(this,null,uiContext,ReqResNodes.GET);
+			asyncServiceRequest.execute(url);
+		}else{
+			Log.e(TAG,"Network connection not available.");
+		}
+		Log.i(TAG, "deleteCommentRequest() Exiting.");
+	}
+	
+	//LikeChannel API Call.
+	//POST Request.With parameter
+	public void likeChannelRequest(Context context, Response responseHandler,String userid,
+			String channel_id,String preference_id,String comment){
+		Log.i(TAG, "likeChannelRequest() Entering.");
+		handlerType = CommonHandlerType.LIKECHANNEL;
+		
+		response = responseHandler;
+		uiContext = context;
+		
+		//http://www.app.amallu.com/api/channel/likechannel?_format=json
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put(ReqResNodes.USERID,userid);
+		paramsMap.put(ReqResNodes.CHANNEL_ID,channel_id);
+
+		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
+							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.LIKECHANNEL;
+		Log.d(TAG,"likeChannelRequest URL : "+url);
+		if(checkNetworkAvailability(context)){
+			Log.v(TAG,"Network is available. Initiating likeChannelRequest webservice call.");
+			asyncServiceRequest = new AsyncServiceRequest(this,paramsMap,uiContext,ReqResNodes.POST);
+			asyncServiceRequest.execute(url);
+		}else{
+			Log.e(TAG,"Network connection not available.");
+		}
+		Log.i(TAG, "likeChannelRequest() Exiting.");
+	}
+	
+	//DislikeChannel API Call.
+	//POST Request.With parameter
+	public void dislikeChannelRequest(Context context, Response responseHandler,String channel_id,String userid){
+		Log.i(TAG, "dislikeChannelRequest() Entering.");
+		handlerType = CommonHandlerType.DISLIKECHANNEL;
+		
+		response = responseHandler;
+		uiContext = context;
+		
+		//http://www.app.amallu.com/api/channel/dislikechannel?_format=json
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put(ReqResNodes.USERID,userid);
+		paramsMap.put(ReqResNodes.CHANNEL_ID,channel_id);
+
+		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
+							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.DISLIKECHANNEL;
+		Log.d(TAG,"DISLIKECHANNEL URL : "+url);
+		if(checkNetworkAvailability(context)){
+			Log.v(TAG,"Network is available. Initiating DISLIKECHANNEL webservice call.");
+			asyncServiceRequest = new AsyncServiceRequest(this,paramsMap,uiContext,ReqResNodes.POST);
+			asyncServiceRequest.execute(url);
+		}else{
+			Log.e(TAG,"Network connection not available.");
+		}
+		Log.i(TAG, "dislikeChannelRequest() Exiting.");
+	}
+		
+	//CreateComment API Call.
+	//GET Request.With parameter
+	public void deleteCommentRequest(Context context, Response responseHandler,String userid,
+			String channel_id,String preference_id,String comment){
+		Log.i(TAG, "deleteCommentRequest() Entering.");
+		handlerType = CommonHandlerType.DELETECOMMENT;
+		
+		response = responseHandler;
+		uiContext = context;
+		
+		//http://www.app.amallu.com/api/comment/2?_format=json
+
+		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
+							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.COMMENT;
+		Log.d(TAG,"DELETECOMMENT URL : "+url);
+		if(checkNetworkAvailability(context)){
+			Log.v(TAG,"Network is available. Initiating DELETECOMMENT webservice call.");
+			asyncServiceRequest = new AsyncServiceRequest(this,null,uiContext,ReqResNodes.GET);
+			asyncServiceRequest.execute(url);
+		}else{
+			Log.e(TAG,"Network connection not available.");
+		}
+		Log.i(TAG, "deleteCommentRequest() Exiting.");
+	}
+	
 	private boolean checkNetworkAvailability(Context ctx){
 		Log.i(TAG,"checkNetworkAvailability() Entering.");
 		boolean netWorkCheck=true;
@@ -246,6 +434,60 @@ public class ReqResHandler implements AsyncCallback{
 				Log.v(TAG, "Handler CHANNEL");
 				if (result.equalsIgnoreCase("Exception")){
 					Log.e(TAG, "CHANNEL Exception caught.");
+				}else{
+					//Do Nothing.
+				}
+				response.updateResponse(uiContext,result,handlerType,exception);
+			}
+			if(handlerType.equals(CommonHandlerType.LIKECHANNEL)){
+				Log.v(TAG, "Handler LIKECHANNEL");
+				if (result.equalsIgnoreCase("Exception")){
+					Log.e(TAG, "LIKECHANNEL Exception caught.");
+				}else{
+					//Do Nothing.
+				}
+				response.updateResponse(uiContext,result,handlerType,exception);
+			}
+			if(handlerType.equals(CommonHandlerType.DISLIKECHANNEL)){
+				Log.v(TAG, "Handler DISLIKECHANNEL");
+				if (result.equalsIgnoreCase("Exception")){
+					Log.e(TAG, "DISLIKECHANNEL Exception caught.");
+				}else{
+					//Do Nothing.
+				}
+				response.updateResponse(uiContext,result,handlerType,exception);
+			}
+			if(handlerType.equals(CommonHandlerType.COMMENT)){
+				Log.v(TAG, "Handler COMMENT");
+				if (result.equalsIgnoreCase("Exception")){
+					Log.e(TAG, "COMMENT Exception caught.");
+				}else{
+					//Do Nothing.
+				}
+				response.updateResponse(uiContext,result,handlerType,exception);
+			}
+			if(handlerType.equals(CommonHandlerType.CREATECOMMENT)){
+				Log.v(TAG, "Handler CREATECOMMENT");
+				if (result.equalsIgnoreCase("Exception")){
+					Log.e(TAG, "CREATECOMMENT Exception caught.");
+				}else{
+					//Do Nothing.
+				}
+				response.updateResponse(uiContext,result,handlerType,exception);
+			}
+			if(handlerType.equals(CommonHandlerType.EDITCOMMENT)){
+				Log.v(TAG, "Handler EDITCOMMENT");
+				if (result.equalsIgnoreCase("Exception")){
+					Log.e(TAG, "EDITCOMMENT Exception caught.");
+				}else{
+					//Do Nothing.
+				}
+				response.updateResponse(uiContext,result,handlerType,exception);
+			}
+			if(handlerType.equals(CommonHandlerType.DELETECOMMENT)){
+				Log.v(TAG, "Handler DELETECOMMENT");
+				if (result.equalsIgnoreCase("Exception")){
+					Log.e(TAG, "DELETECOMMENT Exception caught.");
 				}else{
 					//Do Nothing.
 				}
