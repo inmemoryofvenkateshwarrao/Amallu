@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Amallu</string>
+    <string name="action_settings">Settings</string>
+    
+    <string name="wifi">WIFI</string>
+    <string name="mobilenetwork">MOBILE</string>
+
+    <string name="failedResponse">Error Response code received, Please check the URL.</string>
+    <string name="outOfMemoryException">Out of memory exception</string>
+    <string name="ioException">Connection timed out. Please retry later!</string>
+    <string name="connectionException">Network not available. Please retry later!</string>
+    <string name="securityException">security manager check failed.Please check the security settings.</string>
+    <string name="exception">Connection timed out. Please retry later!</string>
+
+</resources>
