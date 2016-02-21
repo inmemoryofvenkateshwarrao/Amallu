@@ -2,6 +2,13 @@ package com.amallu.utility;
 
 public class ReqResNodes{
 	
+	//Request properties for Login Service.
+	public static final String EMAIL="email";
+	
+	//Response properties for Login Service
+	public static final String ISSUCCESS="isSuccess";
+	public static final String MESSAGE="message";
+	
 	//Request properties for User Sign Up Service.
 	public static final String EMAILID = "emailid";
 	public static final String FIRSTNAME = "firstname";
@@ -37,6 +44,23 @@ public class ReqResNodes{
     public static final String PROFILE_URL = "profile_url";
     public static final String MY_FRIENDS = "my_friends";
     
+    //Response properties for Channel
+    public static final String CHANNEL_ID="channel_id";
+    public static final String CHANNEL_CODE="channel_code";
+    public static final String CATEGORY_ID="category_id";
+    public static final String CHANNEL_NAME="channel_name";
+    public static final String LANGUAGE_ID="language_id";
+    public static final String DESCRIPTION="description";
+    public static final String RTMP_LINK="trmp_link";
+    public static final String FOLLOWERS="followers";
+    public static final String VIEWS="views";
+    public static final String DISPLAY_CHANNEL="display_channel";
+    public static final String DEFAULT_CHANNEL="default_channel";
+    public static final String TIME_WATCHED="time_watched";
+    public static final String THUMBNAIL="thumbnail";
+    
+    
+    //Common
     public static final String GET="get";
     public static final String POST="post";
 	

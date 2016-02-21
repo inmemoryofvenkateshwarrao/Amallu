@@ -6,7 +6,7 @@ import com.amallu.exception.AmalluException;
 
 public interface Response{
 	enum CommonHandlerType {
-		SIGNUP,FORGETPASSWORD,PROFILE,USERS
+		LOGIN,SIGNUP,FORGETPASSWORD,PROFILE,USERS,CHANNEL
 	};
 
 	public void updateResponse(Context context, String result,CommonHandlerType handlerType, 

@@ -13,6 +13,12 @@ public class ResponseHandler implements Response{
 
 	@Override
 	public void updateResponse(Context context, String result,CommonHandlerType uiHandler, AmalluException ex){
+		if(uiHandler.equals(CommonHandlerType.LOGIN)){
+			if(result.equalsIgnoreCase("Exception")){
+				Log.e(TAG, "LOGIN Exception caught.");
+			}
+			//((LoginScreen)context).proceedUI(result,ex);
+		}
 		if(uiHandler.equals(CommonHandlerType.SIGNUP)){
 			if(result.equalsIgnoreCase("Exception")){
 				Log.e(TAG, "SIGNUP Exception caught.");
@@ -36,6 +42,12 @@ public class ResponseHandler implements Response{
 				Log.e(TAG, "USERS Exception caught.");
 			}
 			((UsersScreen)context).proceedUI(result,ex);
+		}
+		if(uiHandler.equals(CommonHandlerType.CHANNEL)){
+			if(result.equalsIgnoreCase("Exception")){
+				Log.e(TAG, "CHANNEL Exception caught.");
+			}
+			//((UsersScreen)context).proceedUI(result,ex);
 		}
 	}
 }

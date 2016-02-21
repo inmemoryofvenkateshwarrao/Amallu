@@ -132,6 +132,30 @@ public class ReqResHandler implements AsyncCallback{
 		Log.i(TAG, "usersRequest() Exiting.");
 	}
 	
+	//Channel API Call.
+	//GET Request.
+	public void channelRequest(Context context, Response responseHandler){
+		Log.i(TAG, "channelRequest() Entering.");
+		handlerType = CommonHandlerType.PROFILE;
+		
+		response = responseHandler;
+		uiContext = context;
+		
+		//http://www.app.amallu.com/api/channel
+		
+		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
+							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.CHANNEL;
+		Log.d(TAG,"CHANNEL URL : "+url);
+		if(checkNetworkAvailability(context)){
+			Log.v(TAG,"Network is available. Initiating CHANNEL webservice call.");
+			asyncServiceRequest = new AsyncServiceRequest(this,null,uiContext,ReqResNodes.GET);
+			asyncServiceRequest.execute(url);
+		}else{
+			Log.e(TAG,"Network connection not available.");
+		}
+		Log.i(TAG, "channelRequest() Exiting.");
+	}
+	
 	private boolean checkNetworkAvailability(Context ctx){
 		Log.i(TAG,"checkNetworkAvailability() Entering.");
 		boolean netWorkCheck=true;
@@ -188,6 +212,15 @@ public class ReqResHandler implements AsyncCallback{
 				Log.v(TAG, "Handler USERS");
 				if (result.equalsIgnoreCase("Exception")){
 					Log.e(TAG, "USERS Exception caught.");
+				}else{
+					//Do Nothing.
+				}
+				response.updateResponse(uiContext,result,handlerType,exception);
+			}
+			if(handlerType.equals(CommonHandlerType.CHANNEL)){
+				Log.v(TAG, "Handler CHANNEL");
+				if (result.equalsIgnoreCase("Exception")){
+					Log.e(TAG, "CHANNEL Exception caught.");
 				}else{
 					//Do Nothing.
 				}
