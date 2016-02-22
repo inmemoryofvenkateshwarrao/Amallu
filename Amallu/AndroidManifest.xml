@@ -29,8 +29,8 @@
         android:theme="@android:style/Theme.NoTitleBar">
         
         <activity
-            android:name=".SplashScreen"
-            android:label="@string/app_name" >
+            android:name="com.amallu.multimedia.VideoViewDemo"
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -39,23 +39,23 @@
         
         <activity
             android:name=".LoginScreen"
-            android:configChanges="locale|keyboard|fontScale"/>
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation"/>
         
         <activity
             android:name=".SignUpScreen"
-            android:configChanges="locale|keyboard|fontScale"/>
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation"/>
         
         <activity
             android:name=".ForgetPasswordScreen"
-            android:configChanges="locale|keyboard|fontScale"/>
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|locale|keyboard|fontScale|fontScale|keyboardHidden|navigation"/>
         
         <activity
             android:name=".ProfileScreen"
-            android:configChanges="locale|keyboard|fontScale"/>
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation"/>
         
         <activity
             android:name=".UsersScreen"
-            android:configChanges="locale|keyboard|fontScale"/>
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation"/>
         
     </application>
 
