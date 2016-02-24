@@ -29,12 +29,17 @@
         android:theme="@android:style/Theme.NoTitleBar">
         
         <activity
-            android:name="com.amallu.multimedia.VideoViewDemo"
+            android:name=".SplashScreen"
             android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        
+        <activity
+            android:name="com.amallu.multimedia.VideoViewDemo"
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation">
         </activity>
         
         <activity
@@ -47,7 +52,7 @@
         
         <activity
             android:name=".ForgetPasswordScreen"
-            android:configChanges="orientation|screenSize|smallestScreenSize|locale|locale|keyboard|fontScale|fontScale|keyboardHidden|navigation"/>
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation"/>
         
         <activity
             android:name=".ProfileScreen"
