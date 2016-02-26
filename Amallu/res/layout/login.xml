@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg">
+    
+    <ScrollView 
+        android:id="@+id/scroll_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+    
+	 <LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    style="@style/content_style">
+	    
+	    <ImageView
+	        android:id="@+id/amallu_icon"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:src="@drawable/ic_launcher"
+	        android:contentDescription="@string/image_content_desc"
+	        android:layout_gravity="center_horizontal"
+	        style="@style/app_icon_style"/>
+	    
+	    <EditText 
+	        android:id="@+id/user_name_txt_view"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:hint="@string/username"
+	        android:maxLength="20"
+	        android:maxLines="1"
+	        android:imeOptions="actionNext"
+	        style="@style/edit_text_style"/>
+	    
+	    <TextView
+	        android:id="@+id/user_name_error_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/uname_error_msg"
+	        style="@style/error_text_style"/>
+	    
+	    <EditText 
+	        android:id="@+id/password_txt_view"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:hint="@string/password"
+	        android:inputType="textPassword"
+	        android:maxLength="20"
+	        android:maxLines="1"
+	        android:imeOptions="actionDone"
+	        style="@style/edit_text_style"/>
+	    
+	    <TextView
+	        android:id="@+id/password_error_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/pwd_error_msg"
+	        style="@style/error_text_style"/>
+	    
+	    <Button 
+	        android:id="@+id/login_btn"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/login"
+	        style="@style/button_style"/>
+	    
+	    <TextView
+	        android:id="@+id/forgot_your_pwd_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/forgot_your_password"
+	        android:textColor="@color/white"
+	        android:layout_gravity="center_horizontal"
+	        style="@style/text_margin_top_style"/>
+	    
+	    <RelativeLayout 
+	        android:id="@+id/member_signup_rel"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        style="@style/text_margin_top_style"
+	        android:gravity="center_horizontal">
+	        
+	        <TextView
+		        android:id="@+id/not_a_mem_yet_txt_view"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/not_a_member_yet"
+		        android:textColor="@color/white"
+		        android:paddingTop="3dp"
+		        android:layout_marginRight="3dp"/>
+	    
+	    	<Button 
+		        android:id="@+id/signup_btn"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/sign_up"
+		        android:layout_toRightOf="@id/not_a_mem_yet_txt_view"
+		        style="@style/button_style"/>
+	        
+	    </RelativeLayout>
+	    
+	    <TextView
+	        android:id="@+id/login_with_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/login_with"
+	        android:textColor="@color/white"
+	        android:layout_gravity="center_horizontal"
+	        style="@style/text_margin_top_style"/>
+	    
+	    <RelativeLayout 
+	        android:id="@+id/fb_tw_gmail_rel"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="center_horizontal"
+	        style="@style/social_media_style">
+	        
+	        <ImageView
+		        android:id="@+id/facebook_icon"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:src="@drawable/ic_launcher"
+		        android:contentDescription="@string/image_content_desc"/>
+	        
+	        <ImageView
+		        android:id="@+id/twitter_icon"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:src="@drawable/ic_launcher"
+		        android:contentDescription="@string/image_content_desc"
+		        android:layout_toRightOf="@id/facebook_icon"/>
+	        
+	        <ImageView
+		        android:id="@+id/gmail_icon"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:src="@drawable/ic_launcher"
+		        android:contentDescription="@string/image_content_desc"
+		        android:layout_toRightOf="@id/twitter_icon"/>
+	        
+	    </RelativeLayout>
+	    
+	 </LinearLayout>
+	 
+  </ScrollView>
+ 
+</RelativeLayout>

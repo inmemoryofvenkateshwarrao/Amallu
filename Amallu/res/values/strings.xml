@@ -13,5 +13,41 @@
     <string name="connectionException">Network not available. Please retry later!</string>
     <string name="securityException">security manager check failed.Please check the security settings.</string>
     <string name="exception">Connection timed out. Please retry later!</string>
+    
+    <string name="image_content_desc">ImageContentDesc</string>
+    
+    <!-- Login Screen Labels -->
+    <string name="username">USERNAME</string>
+    <string name="password">PASSWORD</string>
+    <string name="login">LOGIN</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="not_a_member_yet">Not a member yet? Feel free to</string>
+    <string name="sign_up">Sign up</string>
+    <string name="login_with">Login in With</string>
+    
+    <!-- Forgot Password Screen Labels -->
+    <string name="forgot_password">FORGOT PASSWORD</string>
+    <string name="enter_emaiid">ENTER EMAILID</string>
+    <string name="submit">SUBMIT</string>
+    
+    <!-- Signup Screen Labels -->
+    <string name="first_name">FIRST NAME</string>
+    <string name="last_name">LAST NAME</string>
+    <string name="email">EMAIL</string>
+    <string name="re_enter_password">RE ENTER PASSWORD</string>
+    <string name="date_of_birth">DATE OF BIRTH</string>
+    <string name="female">FEMALE</string>
+    <string name="male">MALE</string>
+    <string name="already_have_an_account">Already have an account?</string>   
+    
+    <!-- Error Messages -->
+    <string name="uname_error_msg">Please enter Username</string>
+    <string name="pwd_error_msg">Please enter Password</string>
+    <string name="firstname_error_msg">Please enter Firstname</string>
+    <string name="lastname_error_msg">Please enter Lastname</string>
+    <string name="re_enter_pwd_error_msg">Please re enter Password</string>
+    <string name="dob_error_msg">Please enter Date of birth</string>
+    <string name="gender_error_msg">Please select Gender</string>
+    
 
 </resources>
