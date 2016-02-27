@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    
+
     <style name="header_style">
-        <item name="android:layout_height">45dp</item>
+        <item name="android:layout_height">90dp</item>
         <item name="android:background">@color/black</item>
     </style>
     
     <style name="text_size_style">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">35sp</item>
     </style>
     
     <style name="normal_text_size_style">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">33sp</item>
     </style>
 
     <style name="button_style" parent="@style/text_size_style">
@@ -21,8 +21,8 @@
         <item name="android:background">@drawable/rounded_corners</item>
         <item name="android:paddingLeft">5dp</item>
         <item name="android:paddingRight">5dp</item>
-        <item name="android:layout_marginTop">5dp</item>
-        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginTop">18dp</item>
+        <item name="android:layout_height">100dp</item>
     </style>
     
     <style name="small_button_style" parent="@style/button_style">
@@ -31,30 +31,30 @@
     
     <style name="edit_text_style" parent="@style/text_size_style">
         <item name="android:textColor">@color/black</item>
-        <item name="android:layout_marginTop">5dp</item>
-        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginTop">18dp</item>
+        <item name="android:layout_height">100dp</item>
     </style>
     
     <style name="content_style" parent="@style/text_size_style">
         <item name="android:layout_marginTop">15dp</item>
-        <item name="android:layout_marginLeft">18dp</item>
-        <item name="android:layout_marginRight">18dp</item>
-        <item name="android:layout_marginBottom">13dp</item>
+        <item name="android:layout_marginLeft">50dp</item>
+        <item name="android:layout_marginRight">50dp</item>
+        <item name="android:layout_marginBottom">15dp</item>
     </style>
     
     <style name="social_media_style">
-        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginTop">20dp</item>
     </style>
     
     <style name="social_media_icon_style">
-        <item name="android:layout_marginRight">7dp</item>
-        <item name="android:layout_width">35dp</item>
-        <item name="android:layout_height">35dp</item>
+        <item name="android:layout_marginRight">23dp</item>
+        <item name="android:layout_width">90dp</item>
+        <item name="android:layout_height">90dp</item>
     </style>
     
     <style name="app_icon_style">
-        <item name="android:layout_marginBottom">18dp</item>
-        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:layout_marginBottom">40dp</item>
+        <item name="android:layout_marginTop">100dp</item>
     </style>
     
     <style name="error_text_style">
@@ -62,11 +62,11 @@
     </style>
     
     <style name="text_margin_top_style" parent="@style/normal_text_size_style">
-        <item name="android:layout_marginTop">14dp</item>
-    </style>
-    
-    <style name="radio_btn_right_style" parent="@style/text_size_style">
-        <item name="android:layout_marginRight">7dp</item>
+        <item name="android:layout_marginTop">40dp</item>
     </style>
 
+    <style name="radio_btn_right_style" parent="@style/text_size_style">
+        <item name="android:layout_marginRight">10dp</item>
+    </style>
+    
 </resources>

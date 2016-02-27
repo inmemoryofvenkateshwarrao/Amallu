@@ -20,7 +20,7 @@
 	        android:id="@+id/amallu_icon"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:src="@drawable/ic_launcher"
+	        android:src="@drawable/logo"
 	        android:contentDescription="@string/image_content_desc"
 	        android:layout_gravity="center_horizontal"
 	        style="@style/app_icon_style"/>
@@ -36,7 +36,6 @@
 	    <EditText 
 	        android:id="@+id/user_name_edit_txt_view"
 	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
 	        android:hint="@string/username"
 	        android:maxLength="20"
 	        android:maxLines="1"
@@ -54,7 +53,6 @@
 	    <EditText 
 	        android:id="@+id/password_edit_txt_view"
 	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
 	        android:hint="@string/password"
 	        android:inputType="textPassword"
 	        android:maxLength="20"
@@ -73,7 +71,6 @@
 	    <Button 
 	        android:id="@+id/login_btn"
 	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
 	        android:text="@string/login"
 	        style="@style/button_style"/>
 	    
@@ -100,7 +97,8 @@
 		        android:text="@string/not_a_member_yet"
 		        android:textColor="@color/white"
 		        android:layout_marginRight="3dp"
-		        android:layout_centerVertical="true"/>
+		        android:layout_centerVertical="true"
+		        style="@style/text_margin_top_style"/>
 	    
 	    	<Button 
 		        android:id="@+id/signup_btn"
@@ -108,7 +106,7 @@
 		        android:layout_height="wrap_content"
 		        android:text="@string/sign_up"
 		        android:layout_toRightOf="@id/not_a_mem_yet_txt_view"
-		        style="@style/button_style"/>
+		        style="@style/small_button_style"/>
 	        
 	    </RelativeLayout>
 	    
@@ -119,7 +117,7 @@
 	        android:text="@string/login_with"
 	        android:textColor="@color/white"
 	        android:layout_gravity="center_horizontal"
-	        style="@style/login_with_style"/>
+	        style="@style/text_margin_top_style"/>
 	    
 	    <RelativeLayout 
 	        android:id="@+id/fb_tw_gmail_rel"
@@ -130,26 +128,23 @@
 	        
 	        <ImageView
 		        android:id="@+id/facebook_icon"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:src="@drawable/ic_launcher"
-		        android:contentDescription="@string/image_content_desc"/>
+		        android:src="@drawable/facebook"
+		        android:contentDescription="@string/image_content_desc"
+		        style="@style/social_media_icon_style"/>
 	        
 	        <ImageView
 		        android:id="@+id/twitter_icon"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:src="@drawable/ic_launcher"
+		        android:src="@drawable/twitter"
 		        android:contentDescription="@string/image_content_desc"
-		        android:layout_toRightOf="@id/facebook_icon"/>
+		        android:layout_toRightOf="@id/facebook_icon"
+		        style="@style/social_media_icon_style"/>
 	        
 	        <ImageView
 		        android:id="@+id/gmail_icon"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:src="@drawable/ic_launcher"
+		        android:src="@drawable/google"
 		        android:contentDescription="@string/image_content_desc"
-		        android:layout_toRightOf="@id/twitter_icon"/>
+		        android:layout_toRightOf="@id/twitter_icon"
+		        style="@style/social_media_icon_style"/>
 	        
 	    </RelativeLayout>
 	    

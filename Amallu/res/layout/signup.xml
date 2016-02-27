@@ -20,7 +20,7 @@
 	        android:id="@+id/amallu_icon"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:src="@drawable/ic_launcher"
+	        android:src="@drawable/logo"
 	        android:contentDescription="@string/image_content_desc"
 	        android:layout_gravity="center_horizontal"
 	        style="@style/app_icon_style"/>
@@ -36,7 +36,6 @@
 	    <EditText 
 	        android:id="@+id/first_name_edit_txt_view"
 	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
 	        android:hint="@string/first_name"
 	        android:maxLength="20"
 	        android:maxLines="1"
@@ -54,7 +53,6 @@
 	    <EditText 
 	        android:id="@+id/last_name_edit_txt_view"
 	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
 	        android:hint="@string/last_name"
 	        android:maxLength="20"
 	        android:maxLines="1"
@@ -72,7 +70,6 @@
 	    <EditText 
 	        android:id="@+id/email_edit_txt_view"
 	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
 	        android:hint="@string/email"
 	        android:inputType="textEmailAddress"
 	        android:maxLength="20"
@@ -91,7 +88,6 @@
 	    <EditText 
 	        android:id="@+id/pwd_edit_txt_view"
 	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
 	        android:hint="@string/password"
 	        android:inputType="textPassword"
 	        android:maxLength="20"
@@ -110,7 +106,6 @@
 	    <EditText 
 	        android:id="@+id/re_enter_pwd_edit_txt_view"
 	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
 	        android:hint="@string/re_enter_password"
 	        android:inputType="textPassword"
 	        android:maxLength="20"
@@ -129,7 +124,6 @@
 	    <EditText 
 	        android:id="@+id/dob_edit_txt_view"
 	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
 	        android:hint="@string/date_of_birth"
 	        android:maxLength="20"
 	        android:maxLines="1"
@@ -153,12 +147,16 @@
 		        android:id="@+id/female_radio_btn"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="@string/female"/>
+		        android:text="@string/female"
+		        android:textStyle="bold"
+		        style="@style/radio_btn_right_style"/>
 		    <RadioButton 
 		        android:id="@+id/male_radio_btn"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="@string/male"/>
+		        android:textStyle="bold"
+		        android:text="@string/male"
+		        style="@style/radio_btn_right_style"/>
 	    </RadioGroup>
 	    
 	    <TextView
@@ -172,7 +170,6 @@
 	    <Button 
 	        android:id="@+id/signup_btn"
 	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
 	        android:text="@string/sign_up"
 	        style="@style/button_style"/>
 	    
@@ -198,7 +195,7 @@
 		        android:layout_height="wrap_content"
 		        android:text="@string/login"
 		        android:layout_toRightOf="@id/already_account_txt_view"
-		        style="@style/button_style"/>
+		        style="@style/small_button_style"/>
 	        
 	    </RelativeLayout>
 	    
