@@ -23,7 +23,7 @@ public class LoginScreen extends Activity implements OnClickListener{
 
 	private static final String TAG="LoginScreen";
 	private EditText user_name_edit_txt_view,password_edit_txt_view;
-	private TextView user_name_error_txt_view,password_error_txt_view,forgot_your_pwd_txt_view;
+	private TextView page_level_error_txt_view,user_name_error_txt_view,password_error_txt_view,forgot_your_pwd_txt_view;
 	private Button login_btn,signup_btn;
 	private ImageView facebook_icon,twitter_icon,gmail_icon;
 	
@@ -32,7 +32,7 @@ public class LoginScreen extends Activity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		Log.i(TAG,"onCreate Entering.");
-		setContentView(R.layout.splash);
+		setContentView(R.layout.login);
 		intializeViews();
 		setListeners();
 		Log.i(TAG,"onCreate() Exiting.");
@@ -43,6 +43,7 @@ public class LoginScreen extends Activity implements OnClickListener{
 		Log.i(TAG,"intializeViews() Entering.");
 		user_name_edit_txt_view=(EditText)findViewById(R.id.user_name_edit_txt_view);
 		password_edit_txt_view=(EditText)findViewById(R.id.password_edit_txt_view);
+		page_level_error_txt_view=(TextView)findViewById(R.id.page_level_error_txt_view);
 		user_name_error_txt_view=(TextView)findViewById(R.id.user_name_error_txt_view);
 		password_error_txt_view=(TextView)findViewById(R.id.password_error_txt_view);
 		forgot_your_pwd_txt_view=(TextView)findViewById(R.id.forgot_your_pwd_txt_view);

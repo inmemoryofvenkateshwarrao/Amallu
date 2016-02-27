@@ -27,7 +27,7 @@
     
     <!-- Forgot Password Screen Labels -->
     <string name="forgot_password">FORGOT PASSWORD</string>
-    <string name="enter_emaiid">ENTER EMAILID</string>
+    <string name="enter_emailid">ENTER EMAILID</string>
     <string name="submit">SUBMIT</string>
     
     <!-- Signup Screen Labels -->
@@ -48,6 +48,7 @@
     <string name="re_enter_pwd_error_msg">Please re enter Password</string>
     <string name="dob_error_msg">Please enter Date of birth</string>
     <string name="gender_error_msg">Please select Gender</string>
+    <string name="emailid_error_msg">Please enter Emailid</string>
     
 
 </resources>

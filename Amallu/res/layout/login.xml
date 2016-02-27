@@ -25,6 +25,14 @@
 	        android:layout_gravity="center_horizontal"
 	        style="@style/app_icon_style"/>
 	    
+	    <TextView
+	        android:id="@+id/page_level_error_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/connectionException"
+	        android:visibility="gone"
+	        style="@style/error_text_style"/>
+	    
 	    <EditText 
 	        android:id="@+id/user_name_edit_txt_view"
 	        android:layout_width="fill_parent"

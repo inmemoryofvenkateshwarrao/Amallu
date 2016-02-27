@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.amallu.backend.CustomProgressDialog;
 import com.amallu.backend.ReqResHandler;
@@ -17,13 +20,16 @@ import com.amallu.utility.ErrorCodes;
 public class ForgetPasswordScreen extends Activity implements OnClickListener{
 
 	private static final String TAG="ForgetPasswordScreen";
+	private EditText emailid_edit_txt_view;
+	private TextView emailid_error_txt_view,page_level_error_txt_view;
+	private Button submit_btn;
 	
 	//Method executes whenever object is created.
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		Log.i(TAG,"onCreate Entering.");
-		setContentView(R.layout.splash);
+		setContentView(R.layout.forgotpassword);
 		intializeViews();
 		setListeners();
 		Log.i(TAG,"onCreate() Exiting.");
@@ -32,15 +38,17 @@ public class ForgetPasswordScreen extends Activity implements OnClickListener{
 	//Method to initialize the Views of XML file.
 	private void intializeViews(){
 		Log.i(TAG,"intializeViews() Entering.");
-		//changempin_btn = (Button)findViewById(R.id.changempin_btn);
-		//failureTxt=(TextView)findViewById(R.id.failure_txt);
+		emailid_edit_txt_view=(EditText)findViewById(R.id.emailid_edit_txt_view);
+		emailid_error_txt_view=(TextView)findViewById(R.id.emailid_error_txt_view);
+		page_level_error_txt_view=(TextView)findViewById(R.id.page_level_error_txt_view);
+		submit_btn = (Button)findViewById(R.id.submit_btn);
 		Log.i(TAG,"intializeViews() Exiting.");
 	}
 
 	//Method to set the Listeners to the Views of XML file.
 	private void setListeners(){
 		Log.i(TAG,"setListeners() Entering.");
-		//changempin_btn.setOnClickListener(this);
+		submit_btn.setOnClickListener(this);
 		Log.i(TAG,"setListeners() Exiting");
 	}
 
@@ -48,10 +56,9 @@ public class ForgetPasswordScreen extends Activity implements OnClickListener{
 	public void onClick(View view){
 		Log.i(TAG,"onClick() Entering.");
 		switch(view.getId()){
-		/*case R.id.changempin_btn:
-			Log.i(TAG,"changempin_btn button clicked");
-			String emailid="";
-		
+		case R.id.submit_btn:
+			Log.i(TAG,"Submit button clicked");
+			String emailid=emailid_edit_txt_view.getText().toString();
 			boolean isValidated=validate(emailid);
 			if(isValidated){
 				Log.v(TAG,"ForgetPassword details validated successfully.");
@@ -59,7 +66,7 @@ public class ForgetPasswordScreen extends Activity implements OnClickListener{
 			}else{
 				Log.v(TAG,"forgetPassword validation failure.");
 			}
-			break;*/
+			break;
 		default:
 			Log.e(TAG,"In Default option");
 			break;
@@ -71,11 +78,12 @@ public class ForgetPasswordScreen extends Activity implements OnClickListener{
 	//Method to check for Android native validations.
 	private boolean validate(String emailid){
 		Log.i(TAG,"validate() Entering.");
-		
+		emailid_error_txt_view.setVisibility(View.GONE);
 		boolean isValidated=true;
 		if(emailid==null||emailid.trim().equals("")){
 			Log.e(TAG,"Please enter emailid");
 			//Attach Error text to View.
+			emailid_error_txt_view.setVisibility(View.VISIBLE);
 			isValidated=false;
 		}
 	    Log.i(TAG,"validate() Exiting.");

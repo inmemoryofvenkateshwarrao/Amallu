@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <style name="header_style">
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">@color/black</item>
+    </style>
+    
     <style name="text_size_style">
         <item name="android:textSize">18sp</item>
     </style>
@@ -33,6 +38,7 @@
     
     <style name="app_icon_style">
         <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:layout_marginTop">10dp</item>
     </style>
     
     <style name="error_text_style">
