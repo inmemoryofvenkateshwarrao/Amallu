@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_bg">
+    
+    <ScrollView 
+        android:id="@+id/scroll_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+    
+	 <LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    style="@style/content_style">
+	    
+	    <ImageView
+	        android:id="@+id/amallu_icon"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:src="@drawable/ic_launcher"
+	        android:contentDescription="@string/image_content_desc"
+	        android:layout_gravity="center_horizontal"
+	        style="@style/app_icon_style"/>
+	    
+	    <TextView
+	        android:id="@+id/page_level_error_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/connectionException"
+	        android:visibility="gone"
+	        style="@style/error_text_style"/>
+	    
+	    <EditText 
+	        android:id="@+id/first_name_edit_txt_view"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:hint="@string/first_name"
+	        android:maxLength="20"
+	        android:maxLines="1"
+	        android:imeOptions="actionNext"
+	        style="@style/edit_text_style"/>
+	    
+	    <TextView
+	        android:id="@+id/first_name_error_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/firstname_error_msg"
+	        android:visibility="gone"
+	        style="@style/error_text_style"/>
+	    
+	    <EditText 
+	        android:id="@+id/last_name_edit_txt_view"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:hint="@string/last_name"
+	        android:maxLength="20"
+	        android:maxLines="1"
+	        android:imeOptions="actionNext"
+	        style="@style/edit_text_style"/>
+	    
+	    <TextView
+	        android:id="@+id/last_name_error_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/lastname_error_msg"
+	        android:visibility="gone"
+	        style="@style/error_text_style"/>
+	    
+	    <EditText 
+	        android:id="@+id/email_edit_txt_view"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:hint="@string/email"
+	        android:inputType="textEmailAddress"
+	        android:maxLength="20"
+	        android:maxLines="1"
+	        android:imeOptions="actionNext"
+	        style="@style/edit_text_style"/>
+	    
+	    <TextView
+	        android:id="@+id/email_error_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/emailid_error_msg"
+	        android:visibility="gone"
+	        style="@style/error_text_style"/>
+	    
+	    <EditText 
+	        android:id="@+id/pwd_edit_txt_view"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:hint="@string/password"
+	        android:inputType="textPassword"
+	        android:maxLength="20"
+	        android:maxLines="1"
+	        android:imeOptions="actionNext"
+	        style="@style/edit_text_style"/>
+	    
+	    <TextView
+	        android:id="@+id/pwd_error_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/pwd_error_msg"
+	        android:visibility="gone"
+	        style="@style/error_text_style"/>
+	    
+	    <EditText 
+	        android:id="@+id/re_enter_pwd_edit_txt_view"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:hint="@string/re_enter_password"
+	        android:inputType="textPassword"
+	        android:maxLength="20"
+	        android:maxLines="1"
+	        android:imeOptions="actionNext"
+	        style="@style/edit_text_style"/>
+	    
+	    <TextView
+	        android:id="@+id/re_enter_pwd_error_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/re_enter_pwd_error_msg"
+	        android:visibility="gone"
+	        style="@style/error_text_style"/>
+	    
+	    <EditText 
+	        android:id="@+id/dob_edit_txt_view"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:hint="@string/date_of_birth"
+	        android:maxLength="20"
+	        android:maxLines="1"
+	        android:imeOptions="actionNext"
+	        style="@style/edit_text_style"/>
+	    
+	    <TextView
+	        android:id="@+id/dob_error_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/dob_error_msg"
+	        android:visibility="gone"
+	        style="@style/error_text_style"/>
+	    
+	    <RadioGroup
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal"
+		    android:visibility="visible">
+		    <RadioButton 
+		        android:id="@+id/female_radio_btn"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/female"/>
+		    <RadioButton 
+		        android:id="@+id/male_radio_btn"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/male"/>
+	    </RadioGroup>
+	    
+	    <Button 
+	        android:id="@+id/signup_btn"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/sign_up"
+	        style="@style/button_style"/>
+	    
+	    <RelativeLayout 
+	        android:id="@+id/already_account_rel"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        style="@style/text_margin_top_style"
+	        android:gravity="center_horizontal">
+	        
+	        <TextView
+		        android:id="@+id/already_account_txt_view"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/already_have_an_account"
+		        android:textColor="@color/white"
+		        android:layout_marginRight="3dp"
+		        android:layout_centerVertical="true"/>
+	    
+	    	<Button 
+		        android:id="@+id/login_btn"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/login"
+		        android:layout_toRightOf="@id/already_account_txt_view"
+		        style="@style/button_style"/>
+	        
+	    </RelativeLayout>
+	    
+	 </LinearLayout>
+	 
+  </ScrollView>
+ 
+</RelativeLayout>

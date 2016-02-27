@@ -23,7 +23,7 @@ public class SignUpScreen extends Activity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		Log.i(TAG,"onCreate Entering.");
-		setContentView(R.layout.splash);
+		setContentView(R.layout.signup);
 		intializeViews();
 		setListeners();
 		Log.i(TAG,"onCreate() Exiting.");
