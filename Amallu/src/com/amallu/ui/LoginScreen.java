@@ -1,10 +1,15 @@
 package com.amallu.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.amallu.backend.CustomProgressDialog;
 import com.amallu.backend.ReqResHandler;
@@ -17,6 +22,10 @@ import com.amallu.utility.ErrorCodes;
 public class LoginScreen extends Activity implements OnClickListener{
 
 	private static final String TAG="LoginScreen";
+	private EditText user_name_edit_txt_view,password_edit_txt_view;
+	private TextView user_name_error_txt_view,password_error_txt_view,forgot_your_pwd_txt_view;
+	private Button login_btn,signup_btn;
+	private ImageView facebook_icon,twitter_icon,gmail_icon;
 	
 	//Method executes whenever object is created.
 	@Override
@@ -32,15 +41,28 @@ public class LoginScreen extends Activity implements OnClickListener{
 	//Method to initialize the Views of XML file.
 	private void intializeViews(){
 		Log.i(TAG,"intializeViews() Entering.");
-		//changempin_btn = (Button)findViewById(R.id.changempin_btn);
-		//failureTxt=(TextView)findViewById(R.id.failure_txt);
+		user_name_edit_txt_view=(EditText)findViewById(R.id.user_name_edit_txt_view);
+		password_edit_txt_view=(EditText)findViewById(R.id.password_edit_txt_view);
+		user_name_error_txt_view=(TextView)findViewById(R.id.user_name_error_txt_view);
+		password_error_txt_view=(TextView)findViewById(R.id.password_error_txt_view);
+		forgot_your_pwd_txt_view=(TextView)findViewById(R.id.forgot_your_pwd_txt_view);
+		login_btn=(Button)findViewById(R.id.login_btn);
+		signup_btn=(Button)findViewById(R.id.signup_btn);
+		facebook_icon=(ImageView)findViewById(R.id.facebook_icon);
+		twitter_icon=(ImageView)findViewById(R.id.twitter_icon);
+		gmail_icon=(ImageView)findViewById(R.id.gmail_icon);
 		Log.i(TAG,"intializeViews() Exiting.");
 	}
 
 	//Method to set the Listeners to the Views of XML file.
 	private void setListeners(){
 		Log.i(TAG,"setListeners() Entering.");
-		//changempin_btn.setOnClickListener(this);
+		login_btn.setOnClickListener(this);
+		signup_btn.setOnClickListener(this);
+		facebook_icon.setOnClickListener(this);
+		twitter_icon.setOnClickListener(this);
+		gmail_icon.setOnClickListener(this);
+		forgot_your_pwd_txt_view.setOnClickListener(this);
 		Log.i(TAG,"setListeners() Exiting");
 	}
 
@@ -48,39 +70,62 @@ public class LoginScreen extends Activity implements OnClickListener{
 	public void onClick(View view){
 		Log.i(TAG,"onClick() Entering.");
 		switch(view.getId()){
-		/*case R.id.changempin_btn:
-			Log.i(TAG,"changempin_btn button clicked");
-			String emailid="";
-		    String password="";
-			boolean isValidated=validate(email,password);
-			if(isValidated){
-				Log.v(TAG,"Login details validated successfully.");
-				sendLoginReq(email,password);
-			}else{
-				Log.v(TAG,"Login validation failure.");
-			}
-			break;*/
-		default:
-			Log.e(TAG,"In Default option");
-			break;
+			case R.id.login_btn:
+				Log.i(TAG,"Login button clicked");
+				String username=user_name_edit_txt_view.getText().toString();
+			    String password=password_edit_txt_view.getText().toString();
+				boolean isValidated=validate(username,password);
+				if(isValidated){
+					Log.v(TAG,"Login details validated successfully.");
+					sendLoginReq(username,password);
+				}else{
+					Log.v(TAG,"Login validation failure.");
+				}
+				break;
+			case R.id.signup_btn:
+				Log.i(TAG,"Signup button clicked");
+				startActivity(new Intent(LoginScreen.this,SignUpScreen.class));
+				break;
+			case R.id.forgot_your_pwd_txt_view:
+				Log.i(TAG,"Forgot Password Link clicked");
+				startActivity(new Intent(LoginScreen.this,ForgetPasswordScreen.class));
+				break;
+			case R.id.facebook_icon:
+				Log.i(TAG,"Facebook Icon clicked");
+				//startActivity(new Intent(LoginScreen.this,ForgetPasswordScreen.class));
+				break;
+			case R.id.twitter_icon:
+				Log.i(TAG,"Twitter Icon clicked");
+				//startActivity(new Intent(LoginScreen.this,ForgetPasswordScreen.class));
+				break;
+			case R.id.gmail_icon:
+				Log.i(TAG,"Gmail Icon clicked");
+				//startActivity(new Intent(LoginScreen.this,ForgetPasswordScreen.class));
+				break;
+			default:
+				Log.e(TAG,"In Default option");
+				break;
 		}
 		Log.i(TAG,"onClick() Exiting");
 	}
 
 	
 	//Method to check for Android native validations.
-	private boolean validate(String email,String password){
+	private boolean validate(String username,String password){
 		Log.i(TAG,"validate() Entering.");
-		
+		user_name_error_txt_view.setVisibility(View.GONE);
+		password_error_txt_view.setVisibility(View.GONE);
 		boolean isValidated=true;
-		if(email==null||email.trim().equals("")){
-			Log.e(TAG,"Please enter email");
+		if(username==null||username.trim().equals("")){
+			Log.e(TAG,"Please enter Username");
 			//Attach Error text to View.
+			user_name_error_txt_view.setVisibility(View.VISIBLE);
 			isValidated=false;
 		}
 		if(password==null||password.trim().equals("")){
-			Log.e(TAG,"Please enter password");
+			Log.e(TAG,"Please enter Password");
 			//Attach Error text to View.
+			password_error_txt_view.setVisibility(View.VISIBLE);
 			isValidated=false;
 		}
 	    Log.i(TAG,"validate() Exiting.");
