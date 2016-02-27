@@ -1,10 +1,15 @@
 package com.amallu.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.amallu.backend.CustomProgressDialog;
 import com.amallu.backend.ReqResHandler;
@@ -17,6 +22,12 @@ import com.amallu.utility.ErrorCodes;
 public class SignUpScreen extends Activity implements OnClickListener{
 
 	private static final String TAG="SignUpScreen";
+	private EditText first_name_edit_txt_view,last_name_edit_txt_view,email_edit_txt_view,pwd_edit_txt_view,
+					 re_enter_pwd_edit_txt_view,dob_edit_txt_view;
+	private TextView first_name_error_txt_view,last_name_error_txt_view,email_error_txt_view,pwd_error_txt_view,
+					 re_enter_pwd_error_txt_view,dob_error_txt_view,page_level_error_txt_view,gender_error_txt_view;
+	private RadioButton female_radio_btn,male_radio_btn;
+	private Button signup_btn,login_btn;
 	
 	//Method executes whenever object is created.
 	@Override
@@ -32,15 +43,32 @@ public class SignUpScreen extends Activity implements OnClickListener{
 	//Method to initialize the Views of XML file.
 	private void intializeViews(){
 		Log.i(TAG,"intializeViews() Entering.");
-		//changempin_btn = (Button)findViewById(R.id.changempin_btn);
-		//failureTxt=(TextView)findViewById(R.id.failure_txt);
+		page_level_error_txt_view=(EditText)findViewById(R.id.page_level_error_txt_view);
+		first_name_edit_txt_view=(EditText)findViewById(R.id.first_name_edit_txt_view);
+		last_name_edit_txt_view=(EditText)findViewById(R.id.last_name_edit_txt_view);
+		email_edit_txt_view=(EditText)findViewById(R.id.email_edit_txt_view);
+		pwd_edit_txt_view=(EditText)findViewById(R.id.pwd_edit_txt_view);
+		re_enter_pwd_edit_txt_view=(EditText)findViewById(R.id.re_enter_pwd_edit_txt_view);
+		dob_edit_txt_view=(EditText)findViewById(R.id.dob_edit_txt_view);
+		first_name_error_txt_view=(TextView)findViewById(R.id.first_name_error_txt_view);
+		last_name_error_txt_view=(TextView)findViewById(R.id.last_name_error_txt_view);
+		email_error_txt_view=(TextView)findViewById(R.id.email_error_txt_view);
+		pwd_error_txt_view=(TextView)findViewById(R.id.pwd_error_txt_view);
+		re_enter_pwd_error_txt_view=(TextView)findViewById(R.id.re_enter_pwd_error_txt_view);
+		dob_error_txt_view=(TextView)findViewById(R.id.dob_error_txt_view);
+		gender_error_txt_view=(TextView)findViewById(R.id.gender_error_txt_view);
+		female_radio_btn=(RadioButton)findViewById(R.id.female_radio_btn);
+		male_radio_btn=(RadioButton)findViewById(R.id.male_radio_btn);
+		signup_btn=(Button)findViewById(R.id.signup_btn);
+		login_btn=(Button)findViewById(R.id.login_btn);
 		Log.i(TAG,"intializeViews() Exiting.");
 	}
 
 	//Method to set the Listeners to the Views of XML file.
 	private void setListeners(){
 		Log.i(TAG,"setListeners() Entering.");
-		//changempin_btn.setOnClickListener(this);
+		signup_btn.setOnClickListener(this);
+		login_btn.setOnClickListener(this);
 		Log.i(TAG,"setListeners() Exiting");
 	}
 
@@ -48,25 +76,31 @@ public class SignUpScreen extends Activity implements OnClickListener{
 	public void onClick(View view){
 		Log.i(TAG,"onClick() Entering.");
 		switch(view.getId()){
-		/*case R.id.changempin_btn:
-			Log.i(TAG,"changempin_btn button clicked");
-			String emailid="";
-			String firstname="";
-			String lastname="";
-			String password="";
-			String confPassword="";
+		case R.id.signup_btn:
+			Log.i(TAG,"Signup button clicked");
+			setErrorTxtViewsGone();
+			String emailid=email_edit_txt_view.getText().toString();
+			String firstname=first_name_edit_txt_view.getText().toString();
+			String lastname=last_name_edit_txt_view.getText().toString();
+			String password=pwd_edit_txt_view.getText().toString();
+			String confPassword=re_enter_pwd_edit_txt_view.getText().toString();
 			String gender="";
-			String month="";
-			String year="";
-			String day="";
-			boolean isValidated=validate(emailid,firstname,lastname,password,confPassword,gender,month,year,day);
+			String dob=dob_edit_txt_view.getText().toString();
+			String dobArr[]=dob.split("/");
+			String day=dobArr[0];
+			String month=dobArr[1];
+			String year=dobArr[2];
+			boolean isValidated=validate(emailid,firstname,lastname,password,confPassword,dob);
 			if(isValidated){
 				Log.v(TAG,"SignUp details validated successfully.");
-				sendSignUpReq(emailid,firstname,lastname,password,confPassword,gender,month,year,day);
+				//sendSignUpReq(emailid,firstname,lastname,password,confPassword,gender,month,year,day);
 			}else{
 				Log.v(TAG,"SignUp validation failure.");
 			}
-			break;*/
+			break;
+		case R.id.login_btn:
+			startActivity(new Intent(SignUpScreen.this,LoginScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+			break;
 		default:
 			Log.e(TAG,"In Default option");
 			break;
@@ -74,55 +108,65 @@ public class SignUpScreen extends Activity implements OnClickListener{
 		Log.i(TAG,"onClick() Exiting");
 	}
 	
+	//Method to make Error TextViews Gone.
+	private void setErrorTxtViewsGone(){
+		Log.i(TAG,"setErrorTxtViewGone() Entering.");
+		page_level_error_txt_view.setVisibility(View.GONE);
+		first_name_error_txt_view.setVisibility(View.GONE);
+		last_name_error_txt_view.setVisibility(View.GONE);
+		email_error_txt_view.setVisibility(View.GONE);
+		pwd_error_txt_view.setVisibility(View.GONE);
+		re_enter_pwd_error_txt_view.setVisibility(View.GONE);
+		dob_error_txt_view.setVisibility(View.GONE);
+		gender_error_txt_view.setVisibility(View.GONE);
+		Log.i(TAG,"setErrorTxtViewGone() Exiting.");
+	}
+	
 	//Method to check for Android native validations.
 	private boolean validate(String emailid,String firstname,String lastname,String password,String confPassword,
-			         String gender,String month,String year,String day){
+			         String dob){
 		Log.i(TAG,"validate() Entering.");
-		
 		boolean isValidated=true;
 		if(emailid==null||emailid.trim().equals("")){
 			Log.e(TAG,"Please enter emailid");
 			//Attach Error text to View.
+			email_error_txt_view.setVisibility(View.VISIBLE);
 			isValidated=false;
 		}
 		if(firstname==null||firstname.trim().equals("")){
 			Log.e(TAG,"Please enter firstname");
 			//Attach Error text to View.
+			first_name_error_txt_view.setVisibility(View.VISIBLE);
 			isValidated=false;
 		}
 		if(lastname==null||lastname.trim().equals("")){
 			Log.e(TAG,"Please enter lastname");
 			//Attach Error text to View.
+			last_name_error_txt_view.setVisibility(View.VISIBLE);
 			isValidated=false;
 		}
 		if(password==null||password.trim().equals("")){
-			Log.e(TAG,"Please send valid password");
+			Log.e(TAG,"Please enter password");
 			//Attach Error text to View.
+			pwd_error_txt_view.setVisibility(View.VISIBLE);
 			isValidated=false;
 		}
 		if(confPassword==null||confPassword.trim().equals("")){
-			Log.e(TAG,"Please send valid confPassword");
+			Log.e(TAG,"Please enter confPassword");
 			//Attach Error text to View.
+			re_enter_pwd_error_txt_view.setVisibility(View.VISIBLE);
 			isValidated=false;
 		}
-		if(gender==null||gender.trim().equals("")){
-			Log.e(TAG,"Please send valid gender");
+		if(!female_radio_btn.isChecked()&&!male_radio_btn.isChecked()){
+			Log.e(TAG,"Please select Gender");
 			//Attach Error text to View.
+			gender_error_txt_view.setVisibility(View.VISIBLE);
 			isValidated=false;
 		}
-		if(month==null||month.trim().equals("")){
-			Log.e(TAG,"Please send valid month");
+		if(dob==null||dob.trim().equals("")){
+			Log.e(TAG,"Please select DOB");
 			//Attach Error text to View.
-			isValidated=false;
-		}
-		if(year==null||year.trim().equals("")){
-			Log.e(TAG,"Please send valid year");
-			//Attach Error text to View.
-			isValidated=false;
-		}
-		if(day==null||day.trim().equals("")){
-			Log.e(TAG,"Please send valid day");
-			//Attach Error text to View.
+			dob_error_txt_view.setVisibility(View.VISIBLE);
 			isValidated=false;
 		}
 		Log.i(TAG,"validate() Exiting.");

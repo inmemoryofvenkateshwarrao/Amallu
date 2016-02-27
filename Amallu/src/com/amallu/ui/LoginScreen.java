@@ -73,12 +73,13 @@ public class LoginScreen extends Activity implements OnClickListener{
 		switch(view.getId()){
 			case R.id.login_btn:
 				Log.i(TAG,"Login button clicked");
+				setErrorTxtViewsGone();
 				String username=user_name_edit_txt_view.getText().toString();
 			    String password=password_edit_txt_view.getText().toString();
 				boolean isValidated=validate(username,password);
 				if(isValidated){
 					Log.v(TAG,"Login details validated successfully.");
-					sendLoginReq(username,password);
+					//sendLoginReq(username,password);
 				}else{
 					Log.v(TAG,"Login validation failure.");
 				}
@@ -109,13 +110,20 @@ public class LoginScreen extends Activity implements OnClickListener{
 		}
 		Log.i(TAG,"onClick() Exiting");
 	}
+	
+	//Method to make Error TextViews Gone.
+	private void setErrorTxtViewsGone(){
+		Log.i(TAG,"setErrorTxtViewGone() Entering.");
+		page_level_error_txt_view.setVisibility(View.GONE);
+		user_name_error_txt_view.setVisibility(View.GONE);
+		password_error_txt_view.setVisibility(View.GONE);
+		Log.i(TAG,"setErrorTxtViewGone() Exiting.");
+	}
 
 	
 	//Method to check for Android native validations.
 	private boolean validate(String username,String password){
 		Log.i(TAG,"validate() Entering.");
-		user_name_error_txt_view.setVisibility(View.GONE);
-		password_error_txt_view.setVisibility(View.GONE);
 		boolean isValidated=true;
 		if(username==null||username.trim().equals("")){
 			Log.e(TAG,"Please enter Username");

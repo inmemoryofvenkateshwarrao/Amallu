@@ -58,11 +58,12 @@ public class ForgetPasswordScreen extends Activity implements OnClickListener{
 		switch(view.getId()){
 		case R.id.submit_btn:
 			Log.i(TAG,"Submit button clicked");
+			setErrorTxtViewsGone();
 			String emailid=emailid_edit_txt_view.getText().toString();
 			boolean isValidated=validate(emailid);
 			if(isValidated){
 				Log.v(TAG,"ForgetPassword details validated successfully.");
-				sendForgetPasswordReq(emailid);
+				//sendForgetPasswordReq(emailid);
 			}else{
 				Log.v(TAG,"forgetPassword validation failure.");
 			}
@@ -74,6 +75,13 @@ public class ForgetPasswordScreen extends Activity implements OnClickListener{
 		Log.i(TAG,"onClick() Exiting");
 	}
 
+	//Method to make Error TextViews Gone.
+	private void setErrorTxtViewsGone(){
+		Log.i(TAG,"setErrorTxtViewGone() Entering.");
+		page_level_error_txt_view.setVisibility(View.GONE);
+		emailid_error_txt_view.setVisibility(View.GONE);
+		Log.i(TAG,"setErrorTxtViewGone() Exiting.");
+	}
 	
 	//Method to check for Android native validations.
 	private boolean validate(String emailid){

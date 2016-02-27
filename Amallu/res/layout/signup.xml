@@ -161,6 +161,14 @@
 		        android:text="@string/male"/>
 	    </RadioGroup>
 	    
+	    <TextView
+	        android:id="@+id/gender_error_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/gender_error_msg"
+	        android:visibility="gone"
+	        style="@style/error_text_style"/>
+	    
 	    <Button 
 	        android:id="@+id/signup_btn"
 	        android:layout_width="fill_parent"
