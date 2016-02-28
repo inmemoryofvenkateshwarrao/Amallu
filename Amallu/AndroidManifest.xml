@@ -54,11 +54,17 @@
             android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation"/>
         
         <activity
-            android:name=".UsersScreen"
+            android:theme="@android:style/Theme.Holo"
+            android:name=".OptionsScreen"
             android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation"/>
         
         <activity
             android:name="com.amallu.multimedia.VideoViewDemo"
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation">
+        </activity>
+        
+        <activity
+            android:name="com.amallu.multimedia.VideoViewBuffer"
             android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation">
         </activity>
         
