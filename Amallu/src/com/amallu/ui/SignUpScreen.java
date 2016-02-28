@@ -43,7 +43,7 @@ public class SignUpScreen extends Activity implements OnClickListener{
 	//Method to initialize the Views of XML file.
 	private void intializeViews(){
 		Log.i(TAG,"intializeViews() Entering.");
-		page_level_error_txt_view=(EditText)findViewById(R.id.page_level_error_txt_view);
+		page_level_error_txt_view=(TextView)findViewById(R.id.page_level_error_txt_view);
 		first_name_edit_txt_view=(EditText)findViewById(R.id.first_name_edit_txt_view);
 		last_name_edit_txt_view=(EditText)findViewById(R.id.last_name_edit_txt_view);
 		email_edit_txt_view=(EditText)findViewById(R.id.email_edit_txt_view);
@@ -86,10 +86,10 @@ public class SignUpScreen extends Activity implements OnClickListener{
 			String confPassword=re_enter_pwd_edit_txt_view.getText().toString();
 			String gender="";
 			String dob=dob_edit_txt_view.getText().toString();
-			String dobArr[]=dob.split("/");
-			String day=dobArr[0];
-			String month=dobArr[1];
-			String year=dobArr[2];
+			//String dobArr[]=dob.split("/");
+			//String day=dobArr[0];
+			//String month=dobArr[1];
+			//String year=dobArr[2];
 			boolean isValidated=validate(emailid,firstname,lastname,password,confPassword,dob);
 			if(isValidated){
 				Log.v(TAG,"SignUp details validated successfully.");
@@ -130,6 +130,14 @@ public class SignUpScreen extends Activity implements OnClickListener{
 		if(emailid==null||emailid.trim().equals("")){
 			Log.e(TAG,"Please enter emailid");
 			//Attach Error text to View.
+			email_error_txt_view.setText(getResources().getString(R.string.emailid_error_msg));
+			email_error_txt_view.setVisibility(View.VISIBLE);
+			isValidated=false;
+		}
+		if((emailid!=null)&&(!emailid.trim().equals(""))&&(!emailid.contains("@"))){
+			Log.e(TAG,"Email not in proper format");
+			//Attach Error text to View.
+			email_error_txt_view.setText(getResources().getString(R.string.emailid_prop_fmt_error_msg));
 			email_error_txt_view.setVisibility(View.VISIBLE);
 			isValidated=false;
 		}
@@ -154,6 +162,16 @@ public class SignUpScreen extends Activity implements OnClickListener{
 		if(confPassword==null||confPassword.trim().equals("")){
 			Log.e(TAG,"Please enter confPassword");
 			//Attach Error text to View.
+			re_enter_pwd_error_txt_view.setText(getResources().getString(R.string.re_enter_pwd_error_msg));
+			re_enter_pwd_error_txt_view.setVisibility(View.VISIBLE);
+			isValidated=false;
+		}
+		if((password!=null) && (!password.trim().equals("")) && 
+				(confPassword!=null) && (!confPassword.trim().equals("")) && 
+				(!password.equals(confPassword))){
+			Log.e(TAG,"Password and Re enter Password should be same");
+			//Attach Error text to View.
+			re_enter_pwd_error_txt_view.setText(getResources().getString(R.string.pwd_conf_pwd_error_msg));
 			re_enter_pwd_error_txt_view.setVisibility(View.VISIBLE);
 			isValidated=false;
 		}

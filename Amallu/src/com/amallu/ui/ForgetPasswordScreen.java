@@ -91,6 +91,14 @@ public class ForgetPasswordScreen extends Activity implements OnClickListener{
 		if(emailid==null||emailid.trim().equals("")){
 			Log.e(TAG,"Please enter emailid");
 			//Attach Error text to View.
+			emailid_error_txt_view.setText(getResources().getString(R.string.emailid_error_msg));
+			emailid_error_txt_view.setVisibility(View.VISIBLE);
+			isValidated=false;
+		}
+		if((emailid!=null)&&(!emailid.trim().equals(""))&&(!emailid.contains("@"))){
+			Log.e(TAG,"Email not in proper format");
+			//Attach Error text to View.
+			emailid_error_txt_view.setText(getResources().getString(R.string.emailid_prop_fmt_error_msg));
 			emailid_error_txt_view.setVisibility(View.VISIBLE);
 			isValidated=false;
 		}

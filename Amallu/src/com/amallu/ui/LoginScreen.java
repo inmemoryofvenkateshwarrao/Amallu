@@ -4,18 +4,22 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.amallu.backend.CustomProgressDialog;
 import com.amallu.backend.ReqResHandler;
 import com.amallu.backend.ResponseHandler;
 import com.amallu.exception.AmalluException;
 import com.amallu.model.Login;
+import com.amallu.multimedia.VideoViewDemo;
 import com.amallu.parser.LoginParser;
 import com.amallu.utility.ErrorCodes;
 
@@ -26,6 +30,8 @@ public class LoginScreen extends Activity implements OnClickListener{
 	private TextView page_level_error_txt_view,user_name_error_txt_view,password_error_txt_view,forgot_your_pwd_txt_view;
 	private Button login_btn,signup_btn;
 	private ImageView facebook_icon,twitter_icon,gmail_icon;
+	private Toast toast;
+	private TextView toastText;
 	
 	//Method executes whenever object is created.
 	@Override
@@ -80,6 +86,7 @@ public class LoginScreen extends Activity implements OnClickListener{
 				if(isValidated){
 					Log.v(TAG,"Login details validated successfully.");
 					//sendLoginReq(username,password);
+					startActivity(new Intent(LoginScreen.this,VideoViewDemo.class));
 				}else{
 					Log.v(TAG,"Login validation failure.");
 				}
@@ -94,14 +101,17 @@ public class LoginScreen extends Activity implements OnClickListener{
 				break;
 			case R.id.facebook_icon:
 				Log.i(TAG,"Facebook Icon clicked");
+				checkForToast();
 				//startActivity(new Intent(LoginScreen.this,ForgetPasswordScreen.class));
 				break;
 			case R.id.twitter_icon:
 				Log.i(TAG,"Twitter Icon clicked");
+				checkForToast();
 				//startActivity(new Intent(LoginScreen.this,ForgetPasswordScreen.class));
 				break;
 			case R.id.gmail_icon:
 				Log.i(TAG,"Gmail Icon clicked");
+				checkForToast();
 				//startActivity(new Intent(LoginScreen.this,ForgetPasswordScreen.class));
 				break;
 			default:
@@ -142,12 +152,58 @@ public class LoginScreen extends Activity implements OnClickListener{
 		return isValidated;
 	}
 	
+	//Method to display Toast message for unimplemented features for 2 Seconds.
+ 	protected void displayToast() {	
+ 		Log.d(TAG,"In displayToast Method");
+ 		 LayoutInflater inflater = getLayoutInflater();
+         View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.toast_layout));
+         toastText = (TextView)layout.findViewById(R.id.toast_text_1);
+         toastText.setText("Coming Soon !");
+         toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL,0,0);
+         toast.setDuration(Toast.LENGTH_SHORT);
+         toast.setView(layout);
+         toast.show();
+ 	}
+ 	
+ 	// Method to Cancel Toast it is showing. This will be used when we navigate to other screens.
+ 	protected void cancelToast(){
+ 		Log.d(TAG,"cancelToast");
+ 		Log.d(TAG,"Toast Object is : "+toast);
+ 		if(toast!=null && toast.getView().isShown()){
+ 			Log.d(TAG,"Toast not equal to null : Cancelling Toast");
+ 			toast.cancel();
+ 			Log.e(TAG,"toast object after cancelling"+toast);
+ 		}else{
+ 			Log.d(TAG,"Toast is equal to null");
+ 		}
+ 	}
+ 	
+ 	// Checks for Existence of Toast. If exists do nothing, if not exists displays Toast.
+ 	protected void checkForToast(){
+ 		Log.d(TAG,"checkForToast");
+ 		if(toast!=null){
+ 			Log.e(TAG,"Already Toast object is there Dont create Toast object");
+ 			if(toast.getView().isShown()){
+ 				Log.d(TAG,"Toast is showing using isShown method : "+true);
+ 			}else{
+ 				Log.d(TAG,"Show Toast : isShown :"+false);
+ 				displayToast();
+ 			}
+ 		}else{
+ 			Log.e(TAG,"Please create Toast object");
+ 			toast = new Toast(getApplicationContext());
+ 			displayToast();
+ 		}
+ 		
+ 	}
+
+	
 	//Method to send Login request.
 	private void sendLoginReq(String email,String password){
 		Log.i(TAG,"sendLoginReq() Entering.");
 		
 		ReqResHandler req = new ReqResHandler();
-		CustomProgressDialog.show(LoginScreen.this);
+		//CustomProgressDialog.show(LoginScreen.this);
 
 		req.loginRequest(LoginScreen.this,new ResponseHandler(),email,password);
 		
@@ -158,10 +214,10 @@ public class LoginScreen extends Activity implements OnClickListener{
 	public void proceedUI(String result,AmalluException amalluEx){
 		Log.i(TAG,"proceedUI() Entering.");
 		
-		if(CustomProgressDialog.IsShowing()) {
+		/*if(CustomProgressDialog.IsShowing()) {
 			Log.v(TAG, "proceedUI progress dialog dismissing..");
 			CustomProgressDialog.Dismiss();
-		}
+		}*/
 		if(result.equalsIgnoreCase("Exception")){
 			Log.v("proceedUI", "Exception Case");
 			if(amalluEx.getErrorCode().equals(ErrorCodes.FAILED_RESPONSE)){
