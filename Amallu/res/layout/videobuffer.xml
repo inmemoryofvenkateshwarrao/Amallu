@@ -2,61 +2,64 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
     
-    <io.vov.vitamio.widget.VideoView
-        android:id="@+id/buffer"
-        android:layout_alignParentTop="true"
-         android:layout_alignParentBottom="true"
-         android:layout_alignParentLeft="true"
-         android:layout_alignParentRight="true"
-         android:layout_width="fill_parent"
-         android:layout_height="fill_parent" />
+    <RelativeLayout
+        android:id="@+id/video_rel"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical">
+    
+	    <io.vov.vitamio.widget.VideoView
+	        android:id="@+id/buffer"
+	        android:layout_alignParentTop="true"
+	         android:layout_alignParentLeft="true"
+	         android:layout_alignParentRight="true"
+	         android:layout_width="fill_parent"
+	         android:layout_height="230dp" />
+	    
+	    <LinearLayout
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerInParent="true"
+	        android:orientation="horizontal">
 
-    <!-- <io.vov.vitamio.widget.CenterLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
-
-        <io.vov.vitamio.widget.VideoView
-            android:id="@+id/buffer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true" />
-    </io.vov.vitamio.widget.CenterLayout> -->
-
-    <LinearLayout
-        android:layout_width="wrap_content"
+	        <!-- <ProgressBar
+	            android:id="@+id/probar"
+	            style="?android:attr/progressBarStyleLarge"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" /> -->
+	            
+	        <ProgressBar
+	            android:id="@+id/probar"
+	            style="@android:style/Widget.ProgressBar.Small"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" />
+	
+	        <TextView
+	            android:id="@+id/download_rate"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center"
+	            android:text="" />
+	
+	        <TextView
+	            android:id="@+id/load_rate"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center"
+	            android:text="" />
+      </LinearLayout>
+    
+    </RelativeLayout>
+    
+    <include 
+        android:id="@+id/options_section"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="horizontal" >
+        android:layout_below="@id/video_rel"
+        layout="@layout/options"/>
 
-        <!-- <ProgressBar
-            android:id="@+id/probar"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" /> -->
-            
-        <ProgressBar
-            android:id="@+id/probar"
-            style="@android:style/Widget.ProgressBar.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/download_rate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="" />
-
-        <TextView
-            android:id="@+id/load_rate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="" />
-    </LinearLayout>
+    
 
 </RelativeLayout>

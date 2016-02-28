@@ -1,9 +1,16 @@
 package com.amallu.multimedia;
 
+import com.amallu.adapter.OptionsPagerAdapter;
 import com.amallu.ui.R;
+
+import android.app.ActionBar;
 import android.app.Activity;
+import android.app.FragmentTransaction;
+import android.app.ActionBar.Tab;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -17,8 +24,15 @@ import io.vov.vitamio.Vitamio;
 import io.vov.vitamio.widget.MediaController;
 import io.vov.vitamio.widget.VideoView;
 
-public class VideoViewBuffer extends Activity implements OnInfoListener, OnBufferingUpdateListener {
+public class VideoViewBuffer extends FragmentActivity implements OnInfoListener, OnBufferingUpdateListener, ActionBar.TabListener {
 
+	//extends FragmentActivity implements ActionBar.TabListener {
+		 
+	    private ViewPager viewPager;
+	    private OptionsPagerAdapter mAdapter;
+	    private ActionBar actionBar;
+	    // Tab titles
+	    private String[] tabs = { "Comment", "Trending", "Favorites", "Watching", "Friends", "Activities" };
   /**
    * TODO: Set the path variable to a streaming video URL or a local media file
    * path.
@@ -66,6 +80,41 @@ public class VideoViewBuffer extends Activity implements OnInfoListener, OnBuffe
         }
       });
     }
+    
+    viewPager = (ViewPager) findViewById(R.id.pager);
+    actionBar = getActionBar();
+    mAdapter = new OptionsPagerAdapter(getSupportFragmentManager());
+
+    viewPager.setAdapter(mAdapter);
+    actionBar.setHomeButtonEnabled(false);
+    actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);        
+
+    // Adding Tabs
+    for (String tab_name : tabs) {
+        actionBar.addTab(actionBar.newTab().setText(tab_name)
+                .setTabListener(this));
+    }
+
+    /**
+     * on swiping the viewpager make respective tab selected
+     * */
+    viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+        @Override
+        public void onPageSelected(int position) {
+            // on changing the page
+            // make respected tab selected
+            actionBar.setSelectedNavigationItem(position);
+        }
+
+        @Override
+        public void onPageScrolled(int arg0, float arg1, int arg2) {
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int arg0) {
+        }
+    });
 
   }
 
@@ -99,6 +148,21 @@ public class VideoViewBuffer extends Activity implements OnInfoListener, OnBuffe
   @Override
   public void onBufferingUpdate(MediaPlayer mp, int percent) {
     loadRateView.setText(percent + "%");
+  }
+  
+  @Override
+  public void onTabReselected(Tab tab, FragmentTransaction ft) {
+  }
+
+  @Override
+  public void onTabSelected(Tab tab, FragmentTransaction ft) {
+      // on tab selected
+      // show respected fragment view
+      viewPager.setCurrentItem(tab.getPosition());
+  }
+
+  @Override
+  public void onTabUnselected(Tab tab, FragmentTransaction ft) {
   }
 
 }

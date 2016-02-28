@@ -40,6 +40,14 @@
     <string name="male">MALE</string>
     <string name="already_have_an_account">Already have an account?</string>   
     
+    <!-- Options Labels -->
+    <string name="comment">Comment</string>
+    <string name="trending">Trending</string>
+    <string name="favorites">Favorites</string>
+    <string name="watching">Watching</string>
+    <string name="friends">Friends</string>
+    <string name="activities">Activities</string>
+    
     <!-- Error Messages -->
     <string name="uname_error_msg">Please enter Username</string>
     <string name="pwd_error_msg">Please enter Password</string>
