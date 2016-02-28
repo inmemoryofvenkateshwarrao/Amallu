@@ -2,14 +2,38 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
+    
+    <!-- <Button 
+        android:id="@+id/btn"
+        android:layout_width="fill_parent"
+        android:layout_height="400dp"
+        android:text="footer"
+        android:layout_alignParentBottom="true"/> -->
 
+    
+    
     <io.vov.vitamio.widget.VideoView
         android:id="@+id/surface_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    
+    <Button 
+        android:id="@+id/btn"
+        android:layout_width="fill_parent"
+        android:layout_height="400dp"
+        android:text="footer"
+        android:layout_below="@id/surface_view"/>
+    
+    
+    <!-- <io.vov.vitamio.widget.VideoView
+        android:id="@+id/surface_view"
         android:layout_alignParentTop="true"
-         android:layout_alignParentBottom="true"
          android:layout_alignParentLeft="true"
          android:layout_alignParentRight="true"
          android:layout_width="fill_parent"
-         android:layout_height="fill_parent" />
+         android:layout_height="wrap_content" 
+         android:layout_above="@id/btn"/> -->
+    
+    
 
 </RelativeLayout>
