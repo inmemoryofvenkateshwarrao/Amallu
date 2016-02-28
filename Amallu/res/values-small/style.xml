@@ -72,5 +72,15 @@
     <style name="radio_btn_right_style" parent="@style/text_size_style">
         <item name="android:layout_marginRight">5dp</item>
     </style>
+    
+    <!-- Toast Style -->
+    <style name="toast_text" parent="@style/text_size_style">
+       <item name="android:textColor">@color/toast</item>
+     </style>   
+     
+      <style name="toast_bck">
+ 		<item name="android:layout_width">120dip</item>
+         <item name="android:layout_height">80dip</item>  
+     </style>
 
 </resources>

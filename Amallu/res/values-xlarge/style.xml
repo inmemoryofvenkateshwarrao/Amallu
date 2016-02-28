@@ -39,7 +39,7 @@
         <item name="android:layout_marginTop">15dp</item>
         <item name="android:layout_marginLeft">50dp</item>
         <item name="android:layout_marginRight">50dp</item>
-        <item name="android:layout_marginBottom">15dp</item>
+        <item name="android:layout_marginBottom">19dp</item>
     </style>
     
     <style name="social_media_style">
@@ -68,5 +68,15 @@
     <style name="radio_btn_right_style" parent="@style/text_size_style">
         <item name="android:layout_marginRight">10dp</item>
     </style>
+    
+    <!-- Toast Style -->
+    <style name="toast_text" parent="@style/text_size_style">
+       <item name="android:textColor">@color/toast</item>
+     </style>   
+     
+      <style name="toast_bck">
+ 		<item name="android:layout_width">180dip</item>
+         <item name="android:layout_height">140dip</item>  
+     </style>
     
 </resources>

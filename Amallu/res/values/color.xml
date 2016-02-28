@@ -12,23 +12,13 @@
 	<color name="gray">#736F6E</color>
 	<color name="grey">#666666</color>
 	<color name="background">#868686</color>
-	<color name="textbg">#F1F1F1</color>
 	<color name="blue">#1280CF</color>
 	<color name="chartreuse">#32CD32</color>
 	<color name="page_title">#444444</color>
 	<color name="disabled_text">#bdbdbd</color>
-	<color name="sublayout">#ffffff</color>
-	<color name="menu_title">#FF0000</color>
-	<color name="menu_subtitle">#999999</color>
-	<color name="copyright_text">#CCCCCC</color>
-	<color name="slider_menu_bg">#30302f</color>
-	<color name="slider_menu_horizontal_line">#454544</color>
-	<color name="main_menu_item_bg">#282828</color>
 	<color name="yellow">#FFFF00</color>
 	<color name="social_link">#4d4d4d</color>
 	<color name="radio_btn_txt">#414141</color>
-	<color name="summary_page_mpin_note">#666666</color>
 	<color name="disabled_editbox">#ebebeb</color>
-	<color name="filter_str_highlight">#CC0000</color>
-	<color name="imps_bank_name">#2e2e2e</color>
+	<color name="toast">#67BA15</color>
 </resources>

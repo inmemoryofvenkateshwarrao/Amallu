@@ -23,7 +23,7 @@ public class VideoViewBuffer extends Activity implements OnInfoListener, OnBuffe
    * TODO: Set the path variable to a streaming video URL or a local media file
    * path.
    */
-  private String path = "http://pl.youku.com/playlist/m3u8?ts=1394676342&keyframe=0&vid=XNjU4MTc0Mjky&type=mp4";
+  private String path = "rtmp://stream.smcloud.net/live2/vox/vox_360p";
   private Uri uri;
   private VideoView mVideoView;
   private ProgressBar pb;

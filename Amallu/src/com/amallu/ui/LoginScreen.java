@@ -19,7 +19,7 @@ import com.amallu.backend.ReqResHandler;
 import com.amallu.backend.ResponseHandler;
 import com.amallu.exception.AmalluException;
 import com.amallu.model.Login;
-import com.amallu.multimedia.VideoViewDemo;
+import com.amallu.multimedia.VideoViewBuffer;
 import com.amallu.parser.LoginParser;
 import com.amallu.utility.ErrorCodes;
 
@@ -86,7 +86,7 @@ public class LoginScreen extends Activity implements OnClickListener{
 				if(isValidated){
 					Log.v(TAG,"Login details validated successfully.");
 					//sendLoginReq(username,password);
-					startActivity(new Intent(LoginScreen.this,VideoViewDemo.class));
+					startActivity(new Intent(LoginScreen.this,VideoViewBuffer.class));
 				}else{
 					Log.v(TAG,"Login validation failure.");
 				}
