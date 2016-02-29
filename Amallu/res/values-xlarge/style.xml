@@ -74,9 +74,22 @@
        <item name="android:textColor">@color/toast</item>
      </style>   
      
-      <style name="toast_bck">
+     <style name="toast_bck">
  		<item name="android:layout_width">180dip</item>
          <item name="android:layout_height">140dip</item>  
+     </style>
+     
+     <!-- Categories Screen Styles -->
+      
+     <style name="list_row_style">
+ 		<item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>  
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">20dp</item>
+     </style>
+     
+     <style name="list_row_item_left_style">
+ 		<item name="android:paddingLeft">20dp</item>
      </style>
     
 </resources>
