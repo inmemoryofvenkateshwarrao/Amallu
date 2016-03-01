@@ -80,16 +80,38 @@
      </style>
 
      <!-- Categories Screen Styles -->
-      
      <style name="list_row_style">
- 		<item name="android:paddingLeft">20dp</item>
-        <item name="android:paddingRight">20dp</item>  
-        <item name="android:paddingTop">20dp</item>
-        <item name="android:paddingBottom">20dp</item>
+ 		<item name="android:paddingLeft">9dp</item>
+        <item name="android:paddingRight">9dp</item>  
+        <item name="android:paddingTop">9dp</item>
+        <item name="android:paddingBottom">9dp</item>
      </style>
      
-     <style name="list_row_item_left_style">
- 		<item name="android:paddingLeft">20dp</item>
+     <style name="list_row_item_left_style" parent="@style/normal_text_size_style">
+ 		<item name="android:paddingLeft">9dp</item>
      </style>
      
+     <!-- Header Style -->
+     <style name="page_header_style"  parent="@style/list_row_style">
+ 		<item name="android:layout_height">45dp</item>
+     </style>
+     
+     <!-- Channels Screen -->
+     <style name="list_row_item_bottom_style" parent="@style/list_row_item_left_style">
+ 		<item name="android:paddingBottom">9dp</item>
+     </style>
+     
+     <style name="channel_row_height_style" parent="@style/list_row_style">
+ 		<item name="android:layout_height">80dp</item>
+     </style>
+     
+	 <style name="channel_row_icon_style" parent="@style/normal_text_size_style">
+ 		<item name="android:layout_height">80dp</item>
+ 		<item name="android:layout_marginLeft">9dp</item>
+     </style>
+     
+	 <style name="channel_row_text_style" parent="@style/normal_text_size_style">
+ 		<item name="android:layout_marginLeft">9dp</item>
+     </style>
+	 
 </resources>

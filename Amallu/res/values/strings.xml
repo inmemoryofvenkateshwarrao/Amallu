@@ -44,7 +44,10 @@
     <string name="watching">Watching</string>
     <string name="friends">Friends</string>
     <string name="activities">Activities</string>
-
+    
+    <string name="categories">Categories</string>
+    <string name="channels">Channels</string>
+    
     <!-- Error Messages -->
     <string name="uname_error_msg">Please enter Username</string>
     <string name="pwd_error_msg">Please enter Password</string>

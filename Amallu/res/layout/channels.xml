@@ -22,7 +22,7 @@
 	        android:id="@+id/title"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="@string/categories"
+	        android:text="@string/channels"
 	        android:layout_centerInParent="true"
 	        android:textStyle="bold"
 	        style="@style/text_view_style"/>
@@ -30,7 +30,7 @@
     </RelativeLayout>
 
     <ListView
-        android:id="@+id/category_list"
+        android:id="@+id/channel_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/header_rel"/>

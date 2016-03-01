@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" 
+	android:background="@color/white"
+	style="@style/channel_row_height_style">
+            
+     <ImageView
+        android:id="@+id/icon_channel"
+        android:layout_width="wrap_content"
+        android:src="@drawable/icon_channel"
+        android:contentDescription="@string/image_content_desc"
+        android:layout_alignParentLeft="true"
+        style="@style/channel_row_icon_style"/>
+          
+     <TextView 
+         android:id="@+id/channel_name"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:textColor="@color/black"
+         android:layout_toRightOf="@id/icon_channel"
+         style="@style/channel_row_text_style"/>
+          
+     <TextView 
+         android:id="@+id/channel_type"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:textColor="@color/black"
+         android:layout_centerVertical="true"
+         android:layout_toRightOf="@id/icon_channel"
+         style="@style/channel_row_text_style"/>
+          
+     <TextView 
+         android:id="@+id/channel_views"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:textColor="@color/black"
+         android:layout_toRightOf="@id/icon_channel"
+         android:layout_alignBottom="@id/icon_channel"
+         style="@style/channel_row_text_style"/>
+                
+</RelativeLayout>
