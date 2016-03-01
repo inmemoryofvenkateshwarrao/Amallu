@@ -19,7 +19,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import com.amallu.ui.CategoriesScreen.SpecialAdapter.CatRowViewHolder;
+import com.amallu.ui.CategoriesScreen.CategoryAdapter.CatRowViewHolder;
 
 public class CategoriesScreen extends Activity{
 	
@@ -65,7 +65,7 @@ public class CategoriesScreen extends Activity{
 	  catRowHM=new HashMap<String,Object>();
 	  catRowHM.put("category_type","Educational");
 	  catRowsHMList.add(catRowHM);
-	  SpecialAdapter categoryListAdapter=new SpecialAdapter(this,catRowsHMList,R.layout.categoryrow, new String[] {}, new int[] {});
+	  CategoryAdapter categoryListAdapter=new CategoryAdapter(this,catRowsHMList,R.layout.categoryrow, new String[] {}, new int[] {});
 	  categoryList.setAdapter(categoryListAdapter);
 	  categoryList.setOnItemClickListener(new OnItemClickListener(){
 		 @Override
@@ -77,11 +77,11 @@ public class CategoriesScreen extends Activity{
 	}
 
 	//Inner Class to make smooth swiping of list view.
-	public class SpecialAdapter extends SimpleAdapter{
+	public class CategoryAdapter extends SimpleAdapter{
 		
 	   ArrayList<HashMap<String,Object>> catRowArrList;
 
-	   public SpecialAdapter(Context context, List<HashMap<String,Object>> items,int resource,String[] from,int[] to){
+	   public CategoryAdapter(Context context, List<HashMap<String,Object>> items,int resource,String[] from,int[] to){
 		   super(context, items, resource, from, to);
 		   catRowArrList=(ArrayList<HashMap<String,Object>>)items;
 		   mInflater=(LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);

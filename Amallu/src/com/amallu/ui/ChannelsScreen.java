@@ -18,7 +18,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import com.amallu.ui.ChannelsScreen.SpecialAdapter.ChannelRowHolder;
+import com.amallu.ui.ChannelsScreen.ChannelAdapter.ChannelRowHolder;
 
 public class ChannelsScreen extends Activity{
 	
@@ -74,8 +74,8 @@ public class ChannelsScreen extends Activity{
 	  channelRowHM.put("channel_type","Polish | Entertainment");
 	  channelRowHM.put("channel_views","55k views-230148 sec");
 	  channelRowsHMList.add(channelRowHM);
-	  SpecialAdapter categoryListAdapter=new SpecialAdapter(this,channelRowsHMList,R.layout.channelrow,new String[]{},new int[]{});
-	  channelList.setAdapter(categoryListAdapter);
+	  ChannelAdapter channelListAdapter=new ChannelAdapter(this,channelRowsHMList,R.layout.channelrow,new String[]{},new int[]{});
+	  channelList.setAdapter(channelListAdapter);
 	  channelList.setOnItemClickListener(new OnItemClickListener(){
 		 @Override
 		 public void onItemClick(AdapterView<?> parent, View view, int position,long id){
@@ -86,11 +86,11 @@ public class ChannelsScreen extends Activity{
 	}
 
 	//Inner Class to make smooth swiping of list view.
-	public class SpecialAdapter extends SimpleAdapter{
+	public class ChannelAdapter extends SimpleAdapter{
 		
 	   ArrayList<HashMap<String,Object>> channelRowArrList;
 
-	   public SpecialAdapter(Context context, List<HashMap<String,Object>> items,int resource,String[] from,int[] to){
+	   public ChannelAdapter(Context context, List<HashMap<String,Object>> items,int resource,String[] from,int[] to){
 		   super(context, items, resource, from, to);
 		   channelRowArrList=(ArrayList<HashMap<String,Object>>)items;
 		   mInflater=(LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -98,7 +98,7 @@ public class ChannelsScreen extends Activity{
 		    
         public View getView(int position,View convertView, ViewGroup parent){
            if(convertView==null){
-        	  convertView = mInflater.inflate(R.layout.categoryrow,null);
+        	  convertView = mInflater.inflate(R.layout.channelrow,null);
         	  channelRowHolder=new ChannelRowHolder();
         	  channelRowHolder.icon_channel=(ImageView)convertView.findViewById(R.id.icon_channel);
         	  channelRowHolder.channel_name=(TextView)convertView.findViewById(R.id.channel_name);
