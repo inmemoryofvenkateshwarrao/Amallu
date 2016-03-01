@@ -11,11 +11,12 @@
         style="@style/page_header_style">
         
         <ImageView 
-            android:id="@+id/left_arrow_icon"
+            android:id="@+id/icon_left_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
+            android:src="@drawable/icon_left_arrow"
             android:contentDescription="@string/image_content_desc"/>
         
         <TextView 

@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -21,12 +22,13 @@ import android.widget.TextView;
 
 import com.amallu.ui.CategoriesScreen.CategoryAdapter.CatRowViewHolder;
 
-public class CategoriesScreen extends Activity{
+public class CategoriesScreen extends Activity implements OnClickListener{
 	
 	private static final String TAG="CategoriesScreen";
 	private CatRowViewHolder catRowHolder;
 	private LayoutInflater mInflater;
 	private ListView categoryList;
+	private ImageView icon_left_arrow;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
@@ -34,6 +36,7 @@ public class CategoriesScreen extends Activity{
 	  Log.i(TAG,"onCreate Entering.");
 	  setContentView(R.layout.categories);
 	  intializeViews();
+	  setListeners();
 	  setData();
 	  Log.i(TAG,"onCreate() Exiting.");
 	}	 
@@ -42,7 +45,27 @@ public class CategoriesScreen extends Activity{
 	private void intializeViews(){
 	  Log.i(TAG,"intializeViews() Entering.");
 	  categoryList=(ListView)findViewById(R.id.category_list);
+	  icon_left_arrow=(ImageView)findViewById(R.id.icon_left_arrow);
 	  Log.i(TAG,"intializeViews() Exiting.");
+	}
+	
+	//Method to set the Listeners to the Views of XML file.
+	private void setListeners(){
+		Log.i(TAG,"setListeners() Entering.");
+		icon_left_arrow.setOnClickListener(this);
+		Log.i(TAG,"setListeners() Exiting");
+	}
+
+	@Override
+	public void onClick(View view){
+	  switch(view.getId()){
+	  	case R.id.icon_left_arrow:
+			Log.d(TAG,"Left arrow in header clicked.");
+			finish();
+			break;
+		default:
+			break;
+		}
 	}
 	
 	//Populates ListView Data.

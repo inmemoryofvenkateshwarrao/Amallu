@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
@@ -20,12 +21,13 @@ import android.widget.TextView;
 
 import com.amallu.ui.ChannelsScreen.ChannelAdapter.ChannelRowHolder;
 
-public class ChannelsScreen extends Activity{
+public class ChannelsScreen extends Activity implements OnClickListener{
 	
 	private static final String TAG="ChannelsScreen";
 	private ChannelRowHolder channelRowHolder;
 	private LayoutInflater mInflater;
 	private ListView channelList;
+	private ImageView icon_left_arrow;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
@@ -33,6 +35,7 @@ public class ChannelsScreen extends Activity{
 	  Log.i(TAG,"onCreate Entering.");
 	  setContentView(R.layout.channels);
 	  intializeViews();
+	  setListeners();
 	  setData();
 	  Log.i(TAG,"onCreate() Exiting.");
 	}	 
@@ -41,7 +44,27 @@ public class ChannelsScreen extends Activity{
 	private void intializeViews(){
 	  Log.i(TAG,"intializeViews() Entering.");
 	  channelList=(ListView)findViewById(R.id.channel_list);
+	  icon_left_arrow=(ImageView)findViewById(R.id.icon_left_arrow);
 	  Log.i(TAG,"intializeViews() Exiting.");
+	}
+	
+	//Method to set the Listeners to the Views of XML file.
+	private void setListeners(){
+		Log.i(TAG,"setListeners() Entering.");
+		icon_left_arrow.setOnClickListener(this);
+		Log.i(TAG,"setListeners() Exiting");
+	}
+	
+	@Override
+	public void onClick(View view){
+	  switch(view.getId()){
+	  	case R.id.icon_left_arrow:
+			Log.d(TAG,"Left arrow in header clicked.");
+			finish();
+			break;
+		default:
+			break;
+		}
 	}
 	
 	//Populates ListView Data.
