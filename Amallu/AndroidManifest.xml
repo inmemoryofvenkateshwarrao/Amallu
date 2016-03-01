@@ -8,66 +8,66 @@
     <uses-sdk
         android:minSdkVersion="15"
         android:targetSdkVersion="23" />
-    
+
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    
-    <supports-screens 
-        android:smallScreens="true"
-        android:normalScreens="true"
+
+    <supports-screens
         android:largeScreens="true"
-        android:xlargeScreens="true"/>
-    
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.NoTitleBar">
-        
+        android:theme="@android:style/Theme.NoTitleBar" >
         <activity
             android:name=".SplashScreen"
-            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation">
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
         <activity
             android:name=".LoginScreen"
-            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation"/>
-        
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" />
         <activity
             android:name=".SignUpScreen"
-            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation"/>
-        
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" />
         <activity
             android:name=".ForgetPasswordScreen"
-            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation"/>
-        
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" />
         <activity
             android:name=".ProfileScreen"
-            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation"/>
-        
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" />
         <activity
-            android:theme="@android:style/Theme.Holo"
             android:name=".OptionsScreen"
-            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation"/>
-        
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation"
+            android:theme="@android:style/Theme.Holo" />
         <activity
             android:name="com.amallu.multimedia.VideoViewDemo"
-            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation">
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" >
         </activity>
-        
         <activity
             android:name="com.amallu.multimedia.VideoViewBuffer"
-            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation">
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" >
         </activity>
-        
+        <activity
+            android:name=".CategoriesScreen"
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" >
+        </activity>
+        <activity
+            android:name=".ChannelsScreen"
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" >
+        </activity>
     </application>
 
 </manifest>
