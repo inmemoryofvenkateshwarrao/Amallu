@@ -8,13 +8,9 @@ import io.vov.vitamio.MediaPlayer.OnInfoListener;
 import io.vov.vitamio.MediaPlayer.OnPreparedListener;
 import io.vov.vitamio.Vitamio;
 import io.vov.vitamio.widget.VideoView;
-import android.app.ActionBar;
-import android.app.FragmentTransaction;
-import android.app.ActionBar.Tab;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,21 +19,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.amallu.adapter.OptionsPagerAdapter;
 import com.amallu.ui.R;
 
 //http://www.techotopia.com/index.php/An_Android_Studio_VideoView_and_MediaController_Tutorial
 //Sky TG24 --- rtmp://cp49989.live.edgefcs.net:1935/live/streamRM1@2564
 //Music VOX TV - rtmp://stream.smcloud.net/live2/vox/vox_360p
-public class VideoViewBuffer extends FragmentActivity implements OnClickListener,OnInfoListener,
-								OnBufferingUpdateListener,OnPreparedListener,OnCompletionListener,OnErrorListener,
-								ActionBar.TabListener{
-	
-  private ViewPager viewPager;
-  private OptionsPagerAdapter mAdapter;
-  private ActionBar actionBar;
-  // Tab titles
-  private String[] tabs = { "Comment", "Trending", "Favorites"};
+public class VideoViewBuffer_Backup extends FragmentActivity implements OnClickListener,OnInfoListener,
+								OnBufferingUpdateListener,OnPreparedListener,OnCompletionListener,OnErrorListener{
 
   private static final String TAG="VideoViewBuffer";
   private String path1 = "rtmp://stream.smcloud.net/live2/vox/vox_360p";
@@ -55,51 +43,11 @@ public class VideoViewBuffer extends FragmentActivity implements OnClickListener
   public void onCreate(Bundle icicle){
     super.onCreate(icicle);
     Log.i(TAG,"onCreate() Entering.");
-    getActionBar().setDisplayShowHomeEnabled(false);
-    getActionBar().setDisplayShowTitleEnabled(false);
 	Vitamio.isInitialized(getApplicationContext());
     setContentView(R.layout.videobuffer);
     intializeViews();
 	setListeners();
 	checkChannelPath();
-	
-	
-	 viewPager = (ViewPager) findViewById(R.id.pager);
-	    actionBar = getActionBar();
-	    mAdapter = new OptionsPagerAdapter(getSupportFragmentManager());
-
-	    viewPager.setAdapter(mAdapter);
-	    actionBar.setHomeButtonEnabled(false);
-	    actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);        
-
-	    // Adding Tabs
-	    for (String tab_name : tabs) {
-	        actionBar.addTab(actionBar.newTab().setText(tab_name)
-	                .setTabListener(this));
-	    }
-
-	    /**
-	     * on swiping the viewpager make respective tab selected
-	     * */
-	    viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-
-	        @Override
-	        public void onPageSelected(int position) {
-	            // on changing the page
-	            // make respected tab selected
-	            actionBar.setSelectedNavigationItem(position);
-	        }
-
-	        @Override
-	        public void onPageScrolled(int arg0, float arg1, int arg2) {
-	        }
-
-	        @Override
-	        public void onPageScrollStateChanged(int arg0) {
-	        }
-	    });
-	
-	
     Log.i(TAG,"onCreate() Exiting.");
   }
   
@@ -286,21 +234,6 @@ public class VideoViewBuffer extends FragmentActivity implements OnClickListener
 	Toast.makeText(this,"Unable to stream video",Toast.LENGTH_LONG).show();
     Log.i(TAG,"onError() Exiting.");
   	return false;
-  }
-  
-  @Override
-  public void onTabReselected(Tab tab, FragmentTransaction ft) {
-  }
-
-  @Override
-  public void onTabSelected(Tab tab, FragmentTransaction ft) {
-      // on tab selected
-      // show respected fragment view
-      viewPager.setCurrentItem(tab.getPosition());
-  }
-
-  @Override
-  public void onTabUnselected(Tab tab, FragmentTransaction ft) {
   }
   
   //Method to handle Device back button.

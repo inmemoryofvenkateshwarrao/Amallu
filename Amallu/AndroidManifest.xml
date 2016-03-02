@@ -58,7 +58,8 @@
         </activity>
         <activity
             android:name="com.amallu.multimedia.VideoViewBuffer"
-            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" >
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" 
+            android:theme="@android:style/Theme.Holo" >
         </activity>
         <activity
             android:name=".CategoriesScreen"

@@ -196,7 +196,6 @@ public class LoginScreen extends Activity implements OnClickListener{
  		}
  		
  	}
-
 	
 	//Method to send Login request.
 	private void sendLoginReq(String email,String password){

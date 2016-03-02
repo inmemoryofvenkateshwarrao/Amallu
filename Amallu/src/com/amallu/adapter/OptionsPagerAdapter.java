@@ -30,7 +30,7 @@ public class OptionsPagerAdapter extends FragmentPagerAdapter {
         case 2:
             // Favorites fragment activity
             return new FavoritesScreen();
-        case 3:
+        /*case 3:
             // Watching fragment activity
             return new WatchingScreen();
         case 4:
@@ -38,7 +38,7 @@ public class OptionsPagerAdapter extends FragmentPagerAdapter {
             return new FriendsScreen();
         case 5:
             // Activities fragment activity
-            return new ActivitiesScreen();
+            return new ActivitiesScreen();*/
         }
  
         return null;
