@@ -114,4 +114,20 @@
  		<item name="android:layout_marginLeft">14dp</item>
      </style>
      
+     <style name="right_margin_style">
+ 		<item name="android:layout_marginRight">13dp</item>
+     </style>
+     
+     <style name="text_left_margin_style" parent="@style/normal_text_size_style">
+ 		<item name="android:layout_marginLeft">10dp</item>
+     </style>
+     
+     <style name="text_right_margin_style"  parent="@style/normal_text_size_style">
+ 		<item name="android:layout_marginRight">10dp</item>
+	 </style>
+	 
+     <style name="channel_text_rel_height_style" parent="@style/normal_text_size_style">
+ 		<item name="android:layout_width">170dp</item>
+     </style>
+     
 </resources>

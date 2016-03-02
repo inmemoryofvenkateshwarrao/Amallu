@@ -118,4 +118,20 @@
  		<item name="android:layout_marginLeft">7dp</item>
      </style>
      
+     <style name="right_margin_style">
+ 		<item name="android:layout_marginRight">7dp</item>
+     </style>
+     
+     <style name="text_left_margin_style" parent="@style/normal_text_size_style">
+ 		<item name="android:layout_marginLeft">4dp</item>
+     </style>
+     
+     <style name="text_right_margin_style"  parent="@style/normal_text_size_style">
+ 		<item name="android:layout_marginRight">4dp</item>
+     </style>
+     
+     <style name="channel_text_rel_height_style" parent="@style/normal_text_size_style">
+ 		<item name="android:layout_width">110dp</item>
+     </style>
+     
 </resources>

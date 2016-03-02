@@ -86,7 +86,7 @@ public class LoginScreen extends Activity implements OnClickListener{
 				if(isValidated){
 					Log.v(TAG,"Login details validated successfully.");
 					//sendLoginReq(username,password);
-					startActivity(new Intent(LoginScreen.this,CategoriesScreen.class));
+					startActivity(new Intent(LoginScreen.this,VideoViewBuffer.class));
 				}else{
 					Log.v(TAG,"Login validation failure.");
 				}

@@ -161,7 +161,7 @@ public class ReqResHandler implements AsyncCallback{
 	//GET Request.
 	public void channelRequest(Context context, Response responseHandler){
 		Log.i(TAG, "channelRequest() Entering.");
-		handlerType = CommonHandlerType.PROFILE;
+		handlerType = CommonHandlerType.CHANNEL;
 		
 		response = responseHandler;
 		uiContext = context;

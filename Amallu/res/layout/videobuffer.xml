@@ -24,7 +24,7 @@
 	        android:layout_centerInParent="true"
 	        android:orientation="horizontal">
 
-	        <!-- <ProgressBar
+	        <!--<ProgressBar
 	            android:id="@+id/probar"
 	            style="?android:attr/progressBarStyleLarge"
 	            android:layout_width="wrap_content"
@@ -54,12 +54,17 @@
     </RelativeLayout>
     
     <include 
-        android:id="@+id/options_section"
+        android:id="@+id/vitemeo_controls"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/video_rel"
-        layout="@layout/options"/>
-
-    
+        layout="@layout/vitameocontrols"/> 
+        
+    <include 
+        android:id="@+id/likedislike"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vitemeo_controls"
+        layout="@layout/likedislike"/>
 
 </RelativeLayout>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dp"
+    android:background="@color/white">
+    
+    <RelativeLayout
+        android:id="@+id/tv_rel"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal"
+	    android:padding="5dp"
+	    android:background="@color/white"
+	    style="@style/channel_text_rel_height_style">
+    
+    <TextView 
+        android:id="@+id/channel_name_txt_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rytas TV"
+        android:textStyle="bold"
+        style="@style/normal_text_size_style"/>
+    
+    <TextView 
+        android:id="@+id/channel_Type_txt_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="German, Entertainment"
+        android:textStyle="bold"
+        android:layout_below="@id/channel_name_txt_view"
+        style="@style/normal_text_size_style"/>
+    
+    </RelativeLayout>
+    
+    <ImageView 
+        android:id="@+id/icon_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/btn_star_big_on"
+        android:contentDescription="@string/image_content_desc"
+        android:layout_toRightOf="@id/tv_rel"
+        android:layout_centerVertical="true"
+        style="@style/text_left_margin_style"/>
+    
+    <TextView 
+        android:id="@+id/likes_txt_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="500"
+        android:textStyle="bold"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/icon_like"
+        style="@style/text_left_margin_style"/>
+    
+    <ImageView 
+        android:id="@+id/icon_dislike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/btn_star_big_off"
+        android:layout_toRightOf="@id/likes_txt_view"
+        android:contentDescription="@string/image_content_desc"
+        android:layout_centerVertical="true"
+        style="@style/text_left_margin_style"/>
+    
+    <TextView 
+        android:id="@+id/dislikes_txt_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12"
+        android:textStyle="bold"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/icon_dislike"
+        style="@style/text_left_margin_style"/>
+    
+    <ImageView 
+        android:id="@+id/icon_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_media_next"
+        android:visibility="visible"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/image_content_desc"
+        style="@style/right_margin_style"/>
+    
+    <ImageView 
+        android:id="@+id/icon_previous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_media_previous"
+        android:visibility="visible"
+        android:layout_toLeftOf="@id/icon_next"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/image_content_desc"
+        style="@style/right_margin_style"/>
+    
+</RelativeLayout>

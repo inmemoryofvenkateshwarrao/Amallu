@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="3dp"
+    android:background="@color/black">
+    
+    <ImageView 
+        android:id="@+id/icon_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_media_play"
+        android:visibility="invisible"
+        android:layout_below="@id/video_rel"
+        android:contentDescription="@string/image_content_desc"/>
+    
+    <ImageView 
+        android:id="@+id/icon_pause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_media_pause"
+        android:visibility="invisible"
+        android:contentDescription="@string/image_content_desc"/>
+     
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/live_broadcast"
+        android:layout_toRightOf="@id/icon_pause"
+        android:layout_centerVertical="true"
+        android:textStyle="bold"
+        style="@style/channel_row_text_style"/>
+    
+    <ImageView 
+        android:id="@+id/icon_maximize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_add"
+        android:visibility="visible"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/image_content_desc"
+        style="@style/right_margin_style"/>
+    
+    <ImageView 
+        android:id="@+id/icon_volume"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/arrow_up_float"
+        android:visibility="visible"
+        android:layout_toLeftOf="@id/icon_maximize"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/image_content_desc"
+        style="@style/right_margin_style"/>
+    
+</RelativeLayout>
