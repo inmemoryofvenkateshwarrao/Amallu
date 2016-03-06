@@ -21,12 +21,12 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -48,8 +48,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	private VideoView mVideoView;
 	private ProgressBar pb;
 	private TextView downloadRateView, loadRateView,dislikes_txt_view,likes_txt_view;
-	private ImageView icon_play,icon_pause,icon_maximize,icon_volume,icon_like,icon_dislike,icon_next,icon_previous;
-	private Button menuBtn;
+	private ImageView icon_play,icon_pause,icon_maximize,icon_volume,icon_like,icon_dislike,icon_next,icon_previous,menuIcon;
 	
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
@@ -84,8 +83,11 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 
 		//Enabling Action Bar application icon and behaving it as toggle button
 		
-		getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM); 
-		getActionBar().setCustomView(R.layout.action_bar_header);
+		getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+		LayoutInflater inflater = getLayoutInflater();
+        View actionBarLay=inflater.inflate(R.layout.action_bar_header,null);
+        menuIcon=(ImageView)actionBarLay.findViewById(R.id.icon_three_liner);
+		getActionBar().setCustomView(actionBarLay);
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
@@ -135,7 +137,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		icon_previous=(ImageView)findViewById(R.id.icon_previous);
 		mDrawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
 		mDrawerList=(ListView)findViewById(R.id.list_slidermenu);
-		menuBtn=(Button)findViewById(R.id.icon_three_liner);
+		menuIcon=(ImageView)findViewById(R.id.icon_three_liner);
 		Log.i(TAG,"intializeViews() Exiting.");
 	  }
 
@@ -155,7 +157,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		icon_dislike.setOnClickListener(this);
 		icon_next.setOnClickListener(this);
 		icon_previous.setOnClickListener(this);
-		menuBtn.setOnClickListener(this);
+		//menuBtn.setOnClickListener(this);
 		mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
 		Log.i(TAG,"setListeners() Exiting");
 	  }
@@ -239,6 +241,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 					checkChannelPath();
 					break;
 				case R.id.icon_three_liner:
+					mDrawerLayout.openDrawer(mDrawerLayout);
 					break;
 				default:
 					Log.e(TAG,"In Default option");
