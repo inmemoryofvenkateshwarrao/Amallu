@@ -28,7 +28,8 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.NoTitleBar" >
         <activity
-            android:name=".SplashScreen"
+            android:name=".PlayerScreen"
+            android:theme="@android:style/Theme.Holo"
             android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,18 +49,17 @@
         <activity
             android:name=".ProfileScreen"
             android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" />
-        <activity
-            android:name=".OptionsScreen"
+        <!-- <activity
+            android:name=".PlayerScreen"
             android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation"
-            android:theme="@android:style/Theme.Holo" />
+            android:theme="@android:style/Theme.Holo" /> -->
         <activity
             android:name="com.amallu.multimedia.VideoViewDemo"
             android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" >
         </activity>
         <activity
             android:name="com.amallu.multimedia.VideoViewBuffer"
-            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" 
-            android:theme="@android:style/Theme.Holo" >
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" >
         </activity>
         <activity
             android:name=".CategoriesScreen"

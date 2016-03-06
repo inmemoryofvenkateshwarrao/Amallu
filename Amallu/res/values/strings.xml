@@ -62,5 +62,39 @@
     <string name="pwd_conf_pwd_error_msg">Password and Re enter Password should be same</string>
     <string name="title_activity_categories_screen">CategoriesScreen</string>
     <string name="hello_world">Hello world!</string>
+    
+    
+    <!-- Nav Drawer Menu Items -->
+    <string-array name="nav_drawer_items">
+        <item >Krishna</item>
+        <item >Channels</item>
+        <item >Categories</item>
+        <item >Language</item>
+        <item >Friends</item>
+        <item >Activities</item>
+        <item >About</item>
+        <item >Advertise</item>
+        <item >Terms</item>
+        <item >Privacy Policy</item>
+    </string-array>
+    
+    <!-- Nav Drawer List Item Icons -->
+    <!-- Keep them in order as the titles are in -->
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_people</item>
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_people</item>
+        <item>@drawable/ic_photos</item>
+        <item>@drawable/ic_communities</item>
+        <item>@drawable/ic_pages</item>
+        <item>@drawable/ic_whats_hot</item>
+        <item>@drawable/ic_whats_hot</item>
+        <item>@drawable/ic_whats_hot</item>
+        <item>@drawable/ic_whats_hot</item>
+    </array>
+    
+    
+    <!-- Content Description -->
+    <string name="desc_list_item_icon">Item Icon</string>
 
 </resources>
