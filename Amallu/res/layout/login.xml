@@ -37,7 +37,7 @@
 	        android:id="@+id/user_name_edit_txt_view"
 	        android:layout_width="fill_parent"
 	        android:hint="@string/username"
-	        android:maxLength="40"
+	        android:maxLength="30"
 	        android:singleLine="true"
 	        android:imeOptions="actionNext"
 	        style="@style/edit_text_style"/>

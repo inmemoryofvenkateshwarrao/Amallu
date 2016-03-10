@@ -11,7 +11,7 @@
     </style>
     
     <style name="normal_text_size_style">
-        <item name="android:textSize">33sp</item>
+        <item name="android:textSize">28sp</item>
     </style>
 
     <style name="button_style" parent="@style/text_size_style">
@@ -57,6 +57,10 @@
         <item name="android:layout_marginTop">100dp</item>
     </style>
     
+    <style name="video_height_style">
+ 		<item name="android:layout_height">350dp</item>
+     </style>
+    
     <style name="error_text_style">
         <item name="android:textColor">@color/red</item>
     </style>
@@ -92,8 +96,18 @@
      </style>
      
      <!-- Header Style -->
+     
+     <style name="top_page_header_style">
+ 		<item name="android:layout_height">50dp</item>
+     </style>
+     
      <style name="page_header_style"  parent="@style/list_row_style">
  		<item name="android:layout_height">100dp</item>
+     </style>
+     
+     <style name="play_screen_header_style" parent="@style/page_header_style">
+ 		<item name="android:layout_height">40dp</item>
+ 		<item name="android:layout_marginRight">35dp</item>
      </style>
      
      <!-- Channels Screen -->
@@ -119,7 +133,7 @@
      </style>
      
      <style name="text_left_margin_style" parent="@style/normal_text_size_style">
- 		<item name="android:layout_marginLeft">10dp</item>
+ 		<item name="android:layout_marginLeft">15dp</item>
      </style>
      
      <style name="text_right_margin_style"  parent="@style/normal_text_size_style">
@@ -127,7 +141,7 @@
 	 </style>
 	 
      <style name="channel_text_rel_height_style" parent="@style/normal_text_size_style">
- 		<item name="android:layout_width">170dp</item>
+ 		<item name="android:layout_width">350dp</item>
      </style>
      
 </resources>

@@ -70,7 +70,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.player);
 		Vitamio.isInitialized(getApplicationContext());
 	    intializeViews();
 		setListeners();
@@ -84,10 +84,10 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		//Enabling Action Bar application icon and behaving it as toggle button
 		
 		getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-		LayoutInflater inflater = getLayoutInflater();
-        View actionBarLay=inflater.inflate(R.layout.action_bar_header,null);
-        menuIcon=(ImageView)actionBarLay.findViewById(R.id.icon_three_liner);
-		getActionBar().setCustomView(actionBarLay);
+		//LayoutInflater inflater = getLayoutInflater();
+        //View actionBarLay=inflater.inflate(R.layout.action_bar_header,null);
+        //menuIcon=(ImageView)actionBarLay.findViewById(R.id.icon_three_liner);
+		//getActionBar().setCustomView(actionBarLay);
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
@@ -137,7 +137,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		icon_previous=(ImageView)findViewById(R.id.icon_previous);
 		mDrawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
 		mDrawerList=(ListView)findViewById(R.id.list_slidermenu);
-		menuIcon=(ImageView)findViewById(R.id.icon_three_liner);
+		//menuIcon=(ImageView)findViewById(R.id.icon_three_liner);
 		Log.i(TAG,"intializeViews() Exiting.");
 	  }
 

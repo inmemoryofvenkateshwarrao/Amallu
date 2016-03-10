@@ -48,8 +48,7 @@ public class ReqResHandler implements AsyncCallback{
 	//SignUp API Call.
 	//POST Request
 	public void signUpRequest(Context context, Response responseHandler,String emailid,String firstname,
-			                String lastname,String password,String confPassword,String gender,String month,
-			                String year,String day){
+			                String lastname,String password,String confPassword,String gender,String dob){
 		Log.i(TAG, "signUpRequest() Entering.");
 		handlerType = CommonHandlerType.SIGNUP;
 
@@ -58,15 +57,13 @@ public class ReqResHandler implements AsyncCallback{
 		
 		//http://www.app.amallu.com/api/user/signup?_format=json
 		Map<String, String> paramsMap = new HashMap<String, String>();
-		paramsMap.put(ReqResNodes.EMAILID,emailid);
+		paramsMap.put(ReqResNodes.USERNAME,emailid);
 		paramsMap.put(ReqResNodes.FIRSTNAME,firstname);
 		paramsMap.put(ReqResNodes.LASTNAME,lastname);
 		paramsMap.put(ReqResNodes.PASSWORD,password);
 		paramsMap.put(ReqResNodes.CONFPASSWORD,confPassword);
 		paramsMap.put(ReqResNodes.GENDER,gender);
-		paramsMap.put(ReqResNodes.MONTH,month);
-		paramsMap.put(ReqResNodes.YEAR,year);
-		paramsMap.put(ReqResNodes.DAY,day);
+		paramsMap.put(ReqResNodes.DOB,dob);
 
 		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
 				+"/"+URLDetails.COMMON_URL+"/"+URLDetails.SIGNUP;

@@ -93,7 +93,7 @@ public class SignUpScreen extends Activity implements OnClickListener{
 			boolean isValidated=validate(emailid,firstname,lastname,password,confPassword,dob);
 			if(isValidated){
 				Log.v(TAG,"SignUp details validated successfully.");
-				//sendSignUpReq(emailid,firstname,lastname,password,confPassword,gender,month,year,day);
+				sendSignUpReq(emailid,firstname,lastname,password,confPassword,gender,dob);
 			}else{
 				Log.v(TAG,"SignUp validation failure.");
 			}
@@ -193,14 +193,14 @@ public class SignUpScreen extends Activity implements OnClickListener{
 	
 	//Method to send SignUp API request.
 	private void sendSignUpReq(String emailid,String firstname,String lastname,String password,String confPassword,
-	         String gender,String month,String year,String day){
+	         String gender,String dob){
 		Log.i(TAG,"sendSignUpReq() Entering.");
 		
 		ReqResHandler req = new ReqResHandler();
 		CustomProgressDialog.show(SignUpScreen.this);
 
 		req.signUpRequest(SignUpScreen.this,new ResponseHandler(),emailid,firstname,lastname,password,confPassword,
-		         gender,month,year,day);
+		         gender,dob);
 		
 		Log.i(TAG,"sendSignUpReq() Exiting.");
 	}

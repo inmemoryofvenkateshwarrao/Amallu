@@ -4,6 +4,7 @@ public class URLDetails{
 	
 	//http://stackoverflow.com/questions/5806220/how-to-connect-to-my-http-localhost-web-server-from-android-emulator-in-eclips
 	//public static final String GATEWAY_HOST="10.0.2.2";
+	//http://www.app.amallu.com/api/user/signup?_format=json
 	
 	//public static final String PORT="8090";
 	public static final String PROTOCOL= "http";
