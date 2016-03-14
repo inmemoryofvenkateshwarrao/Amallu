@@ -22,7 +22,7 @@ public class ForgetPasswordScreen extends Activity implements OnClickListener{
 	private static final String TAG="ForgetPasswordScreen";
 	private EditText emailid_edit_txt_view;
 	private TextView emailid_error_txt_view,page_level_error_txt_view;
-	private Button submit_btn;
+	private Button submit_btn,cancel_btn;
 	
 	//Method executes whenever object is created.
 	@Override
@@ -42,6 +42,7 @@ public class ForgetPasswordScreen extends Activity implements OnClickListener{
 		emailid_error_txt_view=(TextView)findViewById(R.id.emailid_error_txt_view);
 		page_level_error_txt_view=(TextView)findViewById(R.id.page_level_error_txt_view);
 		submit_btn = (Button)findViewById(R.id.submit_btn);
+		cancel_btn = (Button)findViewById(R.id.cancel_btn);
 		Log.i(TAG,"intializeViews() Exiting.");
 	}
 
@@ -49,6 +50,7 @@ public class ForgetPasswordScreen extends Activity implements OnClickListener{
 	private void setListeners(){
 		Log.i(TAG,"setListeners() Entering.");
 		submit_btn.setOnClickListener(this);
+		cancel_btn.setOnClickListener(this);
 		Log.i(TAG,"setListeners() Exiting");
 	}
 
@@ -68,6 +70,9 @@ public class ForgetPasswordScreen extends Activity implements OnClickListener{
 				Log.v(TAG,"forgetPassword validation failure.");
 			}
 			break;
+		case R.id.cancel_btn:
+			finish();
+		break;
 		default:
 			Log.e(TAG,"In Default option");
 			break;

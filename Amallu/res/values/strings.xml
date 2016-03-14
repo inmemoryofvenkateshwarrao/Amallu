@@ -26,6 +26,7 @@
     <string name="forgot_password">FORGOT PASSWORD</string>
     <string name="enter_emailid">ENTER EMAILID</string>
     <string name="submit">SUBMIT</string>
+    <string name="cancel">CANCEL</string>
 
     <!-- Signup Screen Labels -->
     <string name="first_name">FIRST NAME</string>
