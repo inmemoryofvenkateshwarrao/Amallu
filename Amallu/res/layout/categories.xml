@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/icon_left_arrow"
+            android:src="@drawable/ic_back"
             android:contentDescription="@string/image_content_desc"/>
         
         <TextView 

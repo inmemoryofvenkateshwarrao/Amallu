@@ -123,9 +123,9 @@ public class CategoriesScreen extends Activity implements OnClickListener{
             }
             HashMap<String,Object> catRowHM=(HashMap<String,Object>)catRowArrList.get(position);
              
-            catRowHolder.category_type_icon.setImageDrawable(getResources().getDrawable(R.drawable.icon_detail));
+            catRowHolder.category_type_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_activities));
             catRowHolder.category_name.setText(catRowHM.get("category_type").toString());
-            catRowHolder.icon_details.setImageDrawable(getResources().getDrawable(R.drawable.icon_detail));
+            catRowHolder.icon_details.setImageDrawable(getResources().getDrawable(R.drawable.ic_arrow_rt));
             return convertView;
         }
 	    

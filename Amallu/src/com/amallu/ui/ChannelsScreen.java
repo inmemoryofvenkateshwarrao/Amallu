@@ -133,7 +133,7 @@ public class ChannelsScreen extends Activity implements OnClickListener{
             }
             HashMap<String,Object> channelRowHM=(HashMap<String,Object>)channelRowArrList.get(position);
              
-            channelRowHolder.icon_channel.setImageDrawable(getResources().getDrawable(R.drawable.icon_channel));
+            channelRowHolder.icon_channel.setImageDrawable(getResources().getDrawable(R.drawable.ic_channels));
             channelRowHolder.channel_name.setText(channelRowHM.get("channel_name").toString());
             channelRowHolder.channel_type.setText(channelRowHM.get("channel_type").toString());
             channelRowHolder.channel_views.setText(channelRowHM.get("channel_views").toString());

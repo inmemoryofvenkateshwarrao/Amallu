@@ -9,7 +9,7 @@
         android:id="@+id/category_type_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/icon_detail"
+        android:src="@drawable/ic_activities"
         android:contentDescription="@string/image_content_desc"/>
         
      <TextView 
@@ -24,7 +24,7 @@
         android:id="@+id/icon_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/icon_detail"
+        android:src="@drawable/ic_arrow_rt"
         android:contentDescription="@string/image_content_desc"
         android:layout_alignParentRight="true"/>
     

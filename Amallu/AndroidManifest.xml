@@ -38,13 +38,16 @@
             </intent-filter> -->
         </activity>
         <activity
-            android:name=".LoginScreen"
+            android:name=".SplashScreen"
             android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            </activity>
+        </activity>
+        <activity
+            android:name=".LoginScreen"
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation"/>
         <activity
             android:name=".SignUpScreen"
             android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" />
@@ -54,10 +57,6 @@
         <activity
             android:name=".ProfileScreen"
             android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" />
-        <!-- <activity
-            android:name=".PlayerScreen"
-            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation"
-            android:theme="@android:style/Theme.Holo" /> -->
         <activity
             android:name="com.amallu.multimedia.VideoViewDemo"
             android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" >

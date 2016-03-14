@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_bg">
+    android:background="@drawable/app_bg">
     
     <ScrollView 
         android:id="@+id/scroll_view"
@@ -20,7 +20,7 @@
 	        android:id="@+id/amallu_icon"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:src="@drawable/logo"
+	        android:src="@drawable/ic_logo"
 	        android:contentDescription="@string/image_content_desc"
 	        android:layout_gravity="center_horizontal"
 	        style="@style/app_icon_style"/>
