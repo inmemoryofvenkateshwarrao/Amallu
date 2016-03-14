@@ -20,13 +20,13 @@ public class LoginParser{
 		try{
 			login=new Login();
 			JSONObject loginJSONObj=new JSONObject(loginStr);
-			if(loginJSONObj.get(ReqResNodes.ISSUCCESS)!=null)
+			if(!loginJSONObj.isNull(ReqResNodes.ISSUCCESS))
 				login.setIsSuccess(loginJSONObj.get(ReqResNodes.ISSUCCESS).toString());
-			if(loginJSONObj.get(ReqResNodes.USERID)!=null)
+			if(!loginJSONObj.isNull(ReqResNodes.USERID))
 				login.setUserid((loginJSONObj.get(ReqResNodes.USERID).toString()));
-			if(loginJSONObj.get(ReqResNodes.USERNAME)!=null)
+			if(!loginJSONObj.isNull(ReqResNodes.USERNAME))
 				login.setUsername((loginJSONObj.get(ReqResNodes.USERNAME).toString()));
-			if(loginJSONObj.get(ReqResNodes.MESSAGE)!=null)
+			if(!loginJSONObj.isNull(ReqResNodes.MESSAGE))
 				login.setMessage((loginJSONObj.get(ReqResNodes.MESSAGE).toString()));
 		}catch(JSONException e){
 			e.printStackTrace();

@@ -18,7 +18,7 @@ public class ResponseHandler implements Response{
 			if(result.equalsIgnoreCase("Exception")){
 				Log.e(TAG, "LOGIN Exception caught.");
 			}
-			((LoginScreen)context).proceedUI(result,ex);
+			((LoginScreen)context).loginProceedUI(result,ex);
 		}
 		if(uiHandler.equals(CommonHandlerType.SIGNUP)){
 			if(result.equalsIgnoreCase("Exception")){
@@ -30,7 +30,7 @@ public class ResponseHandler implements Response{
 			if(result.equalsIgnoreCase("Exception")){
 				Log.e(TAG, "FORGETPASSWORD Exception caught.");
 			}
-			((ForgetPasswordScreen)context).proceedUI(result,ex);
+			((ForgetPasswordScreen)context).forgetPasswordProceedUI(result,ex);
 		}
 		if(uiHandler.equals(CommonHandlerType.PROFILE)){
 			if(result.equalsIgnoreCase("Exception")){

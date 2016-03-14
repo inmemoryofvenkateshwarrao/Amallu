@@ -57,6 +57,7 @@ public class ReqResHandler implements AsyncCallback{
 		
 		//http://www.app.amallu.com/api/user/signup?_format=json
 		Map<String, String> paramsMap = new HashMap<String, String>();
+		//paramsMap.put("_format","json");
 		paramsMap.put(ReqResNodes.USERNAME,emailid);
 		paramsMap.put(ReqResNodes.FIRSTNAME,firstname);
 		paramsMap.put(ReqResNodes.LASTNAME,lastname);
@@ -391,6 +392,15 @@ public class ReqResHandler implements AsyncCallback{
 	public void updateAsyncResult(String result,AmalluException exception){
 		Log.i(TAG, "updateAsyncResult() Entering.");
 		try{
+			if(handlerType.equals(CommonHandlerType.LOGIN)){
+				Log.v(TAG, "Handler LOGIN");
+				if (result.equalsIgnoreCase("Exception")){
+					Log.e(TAG, "LOGIN Exception caught.");
+				}else{
+					//Do Nothing.
+				}
+				response.updateResponse(uiContext,result,handlerType,exception);
+			}
 			if(handlerType.equals(CommonHandlerType.SIGNUP)){
 				Log.v(TAG, "Handler SIGNUP");
 				if (result.equalsIgnoreCase("Exception")){

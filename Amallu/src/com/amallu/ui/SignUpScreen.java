@@ -18,6 +18,7 @@ import com.amallu.exception.AmalluException;
 import com.amallu.model.SignUp;
 import com.amallu.parser.SignUpParser;
 import com.amallu.utility.ErrorCodes;
+import com.amallu.utility.ReqResNodes;
 
 public class SignUpScreen extends Activity implements OnClickListener{
 
@@ -84,13 +85,13 @@ public class SignUpScreen extends Activity implements OnClickListener{
 			String lastname=last_name_edit_txt_view.getText().toString();
 			String password=pwd_edit_txt_view.getText().toString();
 			String confPassword=re_enter_pwd_edit_txt_view.getText().toString();
-			String gender="";
+			String gender="M";
 			String dob=dob_edit_txt_view.getText().toString();
 			//String dobArr[]=dob.split("/");
 			//String day=dobArr[0];
 			//String month=dobArr[1];
 			//String year=dobArr[2];
-			boolean isValidated=validate(emailid,firstname,lastname,password,confPassword,dob);
+			boolean isValidated=validate(emailid,firstname,lastname,password,confPassword,"1984-07-23");
 			if(isValidated){
 				Log.v(TAG,"SignUp details validated successfully.");
 				sendSignUpReq(emailid,firstname,lastname,password,confPassword,gender,dob);
@@ -214,90 +215,32 @@ public class SignUpScreen extends Activity implements OnClickListener{
 			CustomProgressDialog.Dismiss();
 		}
 		if(result.equalsIgnoreCase("Exception")){
-			Log.v("proceedUI", "Exception Case");
-			if(amalluEx.getErrorCode().equals(ErrorCodes.FAILED_RESPONSE)){
-				//errorText.setText(R.string.failedResponse);
-				//errorText.setVisibility(View.VISIBLE);
-			}else if(amalluEx.getErrorCode().equals(ErrorCodes.OUT_OF_MEMORY_EXCEPTION)){
-				//errorText.setText(R.string.outOfMemoryException);
-				//errorText.setVisibility(View.VISIBLE);
-			}else if(amalluEx.getErrorCode().equals(ErrorCodes.IO_EXCEPTION)){
-				//errorText.setText(R.string.ioException);
-				//errorText.setVisibility(View.VISIBLE);
-			}else if(amalluEx.getErrorCode().equals(ErrorCodes.CONNECTION_EXCEPTION)){
-				//errorText.setText(R.string.connectionException);
-				//errorText.setVisibility(View.VISIBLE);
-			}else if(amalluEx.getErrorCode().equals(ErrorCodes.SECURITY_EXCEPTION)){
-				//errorText.setText(R.string.securityException);
-				//errorText.setVisibility(View.VISIBLE);
-			}else{
-				//errorText.setText(R.string.exception);
-				//errorText.setVisibility(View.VISIBLE);
-			}
+			Log.e("proceedUI", "Exception Case");
+			
 		}else{
 			SignUp signUp=SignUpParser.getSignUpParsedResponse(result);
 			/*if(signUp!=null){
 				Log.v(TAG,"SignUp response parsing success.");
-				if(signUp.getErrorCode().equals(ErrorCodes.SQL_EXCEPTION_ERR_CODE)){
-					   Log.e(TAG,"Error Code : "+signUp.getErrorCode());
-					   Log.e(TAG,"Error Message : "+signUp.getErrorDescription());
-					}else if(signUp.getErrorCode().equals(ErrorCodes.INVALID_SESSION_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+signUp.getErrorCode());
-						Log.e(TAG,"Error Message : "+signUp.getErrorDescription());
-					}else if(signUp.getErrorCode().equals(ErrorCodes.SESSION_EXPIRED_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+signUp.getErrorCode());
-						Log.e(TAG,"Error Message : "+signUp.getErrorDescription());
-					}else if(signUp.getErrorCode().equals(ErrorCodes.COMMUNICATION_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+signUp.getErrorCode());
-						Log.e(TAG,"Error Message : "+signUp.getErrorDescription());
-					}/*else if(signUp.getErrorCode().equals(ErrorCodes.signUp_DETS_NOT_AVAIL_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+signUp.getErrorCode());
-						Log.e(TAG,"Error Message : "+signUp.getErrorDescription());
-					}else if(signUp.getErrorCode().equals(ErrorCodes.signUp_EMAIL_NOT_AVAIL_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+signUp.getErrorCode());
-						Log.e(TAG,"Error Message : "+signUp.getErrorDescription());
-					}else if(signUp.getErrorCode().equals(ErrorCodes.signUp_MOBNO_NOT_AVAIL_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+signUp.getErrorCode());
-						Log.e(TAG,"Error Message : "+signUp.getErrorDescription());
-					}else if(signUp.getErrorCode().equals(ErrorCodes.signUp_UNAME_NOT_AVAIL_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+signUp.getErrorCode());
-						Log.e(TAG,"Error Message : "+signUp.getErrorDescription());
-					}else if(signUp.getErrorCode().equals(ErrorCodes.signUp_UTYPE_NOT_AVAIL_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+signUp.getErrorCode());
-						Log.e(TAG,"Error Message : "+signUp.getErrorDescription());
-					}else if(signUp.getErrorCode().equals(ErrorCodes.signUp_EMAIL_NOT_PROP_FMT_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+signUp.getErrorCode());
-						Log.e(TAG,"Error Message : "+signUp.getErrorDescription());
-					}else if(signUp.getErrorCode().equals(ErrorCodes.signUp_MOBNO_LENGTH_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+signUp.getErrorCode());
-						Log.e(TAG,"Error Message : "+signUp.getErrorDescription());
-					}else if(signUp.getErrorCode().equals(ErrorCodes.signUp_ALREADY_AVAIL_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+signUp.getErrorCode());
-						Log.e(TAG,"Error Message : "+signUp.getErrorDescription());
-					}else if(signUp.getErrorCode().equals(ErrorCodes.signUp_UTYPE_INVALID_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+signUp.getErrorCode());
-						Log.e(TAG,"Error Message : "+signUp.getErrorDescription());
-					}else if(signUp.getErrorCode().equals(ErrorCodes.signUp_UNAME_AVAIL_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+signUp.getErrorCode());
-						Log.e(TAG,"Error Message : "+signUp.getErrorDescription());
-					}else if(signUp.getErrorCode().equals(ErrorCodes.signUp_EMAIL_AVAIL_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+signUp.getErrorCode());
-						Log.e(TAG,"Error Message : "+signUp.getErrorDescription());
-					}else if(signUp.getErrorCode().equals(ErrorCodes.signUp_MOBNO_AVAIL_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+signUp.getErrorCode());
-						Log.e(TAG,"Error Message : "+signUp.getErrorDescription());
-					}else if(signUp.getErrorCode().equals(ErrorCodes.signUp_MAX_LENGTH_EXCEEDED_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+signUp.getErrorCode());
-						Log.e(TAG,"Error Message : "+signUp.getErrorDescription());
-					}else{
-						Log.v(TAG,"User SignedUP Successfullly. Please find the below details.");
-						Log.d(TAG,"Text : "+signUp.getErrorDescription());
-						Log.d(TAG,"ErrCode : "+signUp.getErrorCode());
-						Log.d(TAG,"ID : "+signUp.getUserId());
-						Log.d(TAG,"Balance : "+signUp.getBalance());
-					}
+				if(login.getIsSuccess().equals(ErrorCodes.ISFAILURE)){
+				   Log.e(TAG,"isSuccess Value : "+login.getIsSuccess());
+				   Log.e(TAG,"Error Message : "+login.getMessage());
+				   page_level_error_txt_view.setText(login.getMessage());
+				   page_level_error_txt_view.setVisibility(View.VISIBLE);
+				   clearUserCredentials();
+				}else{
+					Log.v(TAG,"User login Successfully. Please find the below details.");
+					Log.d(TAG,"isSuccess : "+login.getIsSuccess());
+					Log.d(TAG,"userid : "+login.getUserid());
+					Log.d(TAG,"username : "+login.getUsername());
+					Log.d(TAG,"message : "+login.getMessage());
+					startActivity(new Intent(LoginScreen.this,PlayerScreen.class)
+					.putExtra(ReqResNodes.USERID,login.getUserid())
+					.putExtra(ReqResNodes.USERNAME,login.getUsername()));
+				}
 			}else{
 				Log.e(TAG,"SignUp response parsing failed.");
+				page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
+				page_level_error_txt_view.setVisibility(View.VISIBLE);
 			}*/
 		}
 		

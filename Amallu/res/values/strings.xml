@@ -12,6 +12,8 @@
     <string name="securityException">security manager check failed.Please check the security settings.</string>
     <string name="exception">Connection timed out. Please retry later!</string>
     <string name="image_content_desc">ImageContentDesc</string>
+    <string name="unable_to_login">Unable to login, please try after some time</string>
+    <string name="internal_error">Internal error, please try after some time</string>
 
     <!-- Login Screen Labels -->
     <string name="username">USERNAME</string>

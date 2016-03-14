@@ -105,25 +105,7 @@ public class ProfileScreen extends Activity implements OnClickListener{
 		}
 		if(result.equalsIgnoreCase("Exception")){
 			Log.v("proceedUI", "Exception Case");
-			if(amalluEx.getErrorCode().equals(ErrorCodes.FAILED_RESPONSE)){
-				//errorText.setText(R.string.failedResponse);
-				//errorText.setVisibility(View.VISIBLE);
-			}else if(amalluEx.getErrorCode().equals(ErrorCodes.OUT_OF_MEMORY_EXCEPTION)){
-				//errorText.setText(R.string.outOfMemoryException);
-				//errorText.setVisibility(View.VISIBLE);
-			}else if(amalluEx.getErrorCode().equals(ErrorCodes.IO_EXCEPTION)){
-				//errorText.setText(R.string.ioException);
-				//errorText.setVisibility(View.VISIBLE);
-			}else if(amalluEx.getErrorCode().equals(ErrorCodes.CONNECTION_EXCEPTION)){
-				//errorText.setText(R.string.connectionException);
-				//errorText.setVisibility(View.VISIBLE);
-			}else if(amalluEx.getErrorCode().equals(ErrorCodes.SECURITY_EXCEPTION)){
-				//errorText.setText(R.string.securityException);
-				//errorText.setVisibility(View.VISIBLE);
-			}else{
-				//errorText.setText(R.string.exception);
-				//errorText.setVisibility(View.VISIBLE);
-			}
+			
 		}else{
 			Profile profile=ProfileParser.getProfileParsedResponse(result);
 			/*if(profile!=null){

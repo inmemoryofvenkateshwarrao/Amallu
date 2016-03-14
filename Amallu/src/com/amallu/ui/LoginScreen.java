@@ -15,12 +15,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amallu.backend.CustomProgressDialog;
 import com.amallu.backend.ReqResHandler;
 import com.amallu.backend.ResponseHandler;
 import com.amallu.exception.AmalluException;
 import com.amallu.model.Login;
 import com.amallu.parser.LoginParser;
 import com.amallu.utility.ErrorCodes;
+import com.amallu.utility.ReqResNodes;
 
 public class LoginScreen extends Activity implements OnClickListener{
 
@@ -47,8 +49,7 @@ public class LoginScreen extends Activity implements OnClickListener{
 	protected void onPause(){
 		super.onPause();
 		Log.i(TAG,"onPause() Entering.");
-		user_name_edit_txt_view.setText("");
-		password_edit_txt_view.setText("");
+		clearUserCredentials();
 		Log.i(TAG,"onPause() Exiting.");
 	}
 	
@@ -93,8 +94,7 @@ public class LoginScreen extends Activity implements OnClickListener{
 				boolean isValidated=validate(username,password);
 				if(isValidated){
 					Log.v(TAG,"Login details validated successfully.");
-					//sendLoginReq(username,password);
-					startActivity(new Intent(LoginScreen.this,PlayerScreen.class));
+					sendLoginReq(username,password);
 				}else{
 					Log.v(TAG,"Login validation failure.");
 				}
@@ -160,6 +160,15 @@ public class LoginScreen extends Activity implements OnClickListener{
 		return isValidated;
 	}
 	
+	//Method to clear User Credentials
+	private void clearUserCredentials(){
+		Log.i(TAG,"clearUserCredentials() Entering.");
+		user_name_edit_txt_view.setText("");
+		password_edit_txt_view.setText("");
+		user_name_edit_txt_view.requestFocus();
+		Log.i(TAG,"clearUserCredentials() Exiting");
+	}
+	
 	//Method to display Toast message for unimplemented features for 2 Seconds.
  	protected void displayToast() {	
  		Log.d(TAG,"In displayToast Method");
@@ -210,7 +219,7 @@ public class LoginScreen extends Activity implements OnClickListener{
 		Log.i(TAG,"sendLoginReq() Entering.");
 		
 		ReqResHandler req = new ReqResHandler();
-		//CustomProgressDialog.show(LoginScreen.this);
+		CustomProgressDialog.show(LoginScreen.this);
 
 		req.loginRequest(LoginScreen.this,new ResponseHandler(),email,password);
 		
@@ -218,99 +227,42 @@ public class LoginScreen extends Activity implements OnClickListener{
 	}
 	
 	//Methods handles the response from Server.
-	public void proceedUI(String result,AmalluException amalluEx){
+	public void loginProceedUI(String result,AmalluException amalluEx){
 		Log.i(TAG,"proceedUI() Entering.");
 		
-		/*if(CustomProgressDialog.IsShowing()) {
+		if(CustomProgressDialog.IsShowing()) {
 			Log.v(TAG, "proceedUI progress dialog dismissing..");
 			CustomProgressDialog.Dismiss();
-		}*/
+		}
 		if(result.equalsIgnoreCase("Exception")){
-			Log.v("proceedUI", "Exception Case");
-			if(amalluEx.getErrorCode().equals(ErrorCodes.FAILED_RESPONSE)){
-				//errorText.setText(R.string.failedResponse);
-				//errorText.setVisibility(View.VISIBLE);
-			}else if(amalluEx.getErrorCode().equals(ErrorCodes.OUT_OF_MEMORY_EXCEPTION)){
-				//errorText.setText(R.string.outOfMemoryException);
-				//errorText.setVisibility(View.VISIBLE);
-			}else if(amalluEx.getErrorCode().equals(ErrorCodes.IO_EXCEPTION)){
-				//errorText.setText(R.string.ioException);
-				//errorText.setVisibility(View.VISIBLE);
-			}else if(amalluEx.getErrorCode().equals(ErrorCodes.CONNECTION_EXCEPTION)){
-				//errorText.setText(R.string.connectionException);
-				//errorText.setVisibility(View.VISIBLE);
-			}else if(amalluEx.getErrorCode().equals(ErrorCodes.SECURITY_EXCEPTION)){
-				//errorText.setText(R.string.securityException);
-				//errorText.setVisibility(View.VISIBLE);
-			}else{
-				//errorText.setText(R.string.exception);
-				//errorText.setVisibility(View.VISIBLE);
-			}
+			Log.e("proceedUI", "Exception Case");
+			page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
+			page_level_error_txt_view.setVisibility(View.VISIBLE);
 		}else{
 			Login login=LoginParser.getLoginParsedResponse(result);
-			/*if(login!=null){
+			if(login!=null){
 				Log.v(TAG,"login response parsing success.");
-				if(login.getErrorCode().equals(ErrorCodes.SQL_EXCEPTION_ERR_CODE)){
-					   Log.e(TAG,"Error Code : "+login.getErrorCode());
-					   Log.e(TAG,"Error Message : "+login.getErrorDescription());
-					}else if(login.getErrorCode().equals(ErrorCodes.INVALID_SESSION_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+login.getErrorCode());
-						Log.e(TAG,"Error Message : "+login.getErrorDescription());
-					}else if(login.getErrorCode().equals(ErrorCodes.SESSION_EXPIRED_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+login.getErrorCode());
-						Log.e(TAG,"Error Message : "+login.getErrorDescription());
-					}else if(login.getErrorCode().equals(ErrorCodes.COMMUNICATION_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+login.getErrorCode());
-						Log.e(TAG,"Error Message : "+login.getErrorDescription());
-					}/*else if(login.getErrorCode().equals(ErrorCodes.login_DETS_NOT_AVAIL_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+login.getErrorCode());
-						Log.e(TAG,"Error Message : "+login.getErrorDescription());
-					}else if(login.getErrorCode().equals(ErrorCodes.login_EMAIL_NOT_AVAIL_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+login.getErrorCode());
-						Log.e(TAG,"Error Message : "+login.getErrorDescription());
-					}else if(login.getErrorCode().equals(ErrorCodes.login_MOBNO_NOT_AVAIL_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+login.getErrorCode());
-						Log.e(TAG,"Error Message : "+login.getErrorDescription());
-					}else if(login.getErrorCode().equals(ErrorCodes.login_UNAME_NOT_AVAIL_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+login.getErrorCode());
-						Log.e(TAG,"Error Message : "+login.getErrorDescription());
-					}else if(login.getErrorCode().equals(ErrorCodes.login_UTYPE_NOT_AVAIL_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+login.getErrorCode());
-						Log.e(TAG,"Error Message : "+login.getErrorDescription());
-					}else if(login.getErrorCode().equals(ErrorCodes.login_EMAIL_NOT_PROP_FMT_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+login.getErrorCode());
-						Log.e(TAG,"Error Message : "+login.getErrorDescription());
-					}else if(login.getErrorCode().equals(ErrorCodes.login_MOBNO_LENGTH_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+login.getErrorCode());
-						Log.e(TAG,"Error Message : "+login.getErrorDescription());
-					}else if(login.getErrorCode().equals(ErrorCodes.login_ALREADY_AVAIL_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+login.getErrorCode());
-						Log.e(TAG,"Error Message : "+login.getErrorDescription());
-					}else if(login.getErrorCode().equals(ErrorCodes.login_UTYPE_INVALID_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+login.getErrorCode());
-						Log.e(TAG,"Error Message : "+login.getErrorDescription());
-					}else if(login.getErrorCode().equals(ErrorCodes.login_UNAME_AVAIL_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+login.getErrorCode());
-						Log.e(TAG,"Error Message : "+login.getErrorDescription());
-					}else if(login.getErrorCode().equals(ErrorCodes.login_EMAIL_AVAIL_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+login.getErrorCode());
-						Log.e(TAG,"Error Message : "+login.getErrorDescription());
-					}else if(login.getErrorCode().equals(ErrorCodes.login_MOBNO_AVAIL_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+login.getErrorCode());
-						Log.e(TAG,"Error Message : "+login.getErrorDescription());
-					}else if(login.getErrorCode().equals(ErrorCodes.login_MAX_LENGTH_EXCEEDED_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+login.getErrorCode());
-						Log.e(TAG,"Error Message : "+login.getErrorDescription());
-					}else{
-						Log.v(TAG,"User login Successfullly. Please find the below details.");
-						Log.d(TAG,"Text : "+login.getErrorDescription());
-						Log.d(TAG,"ErrCode : "+login.getErrorCode());
-						Log.d(TAG,"ID : "+login.getUserId());
-						Log.d(TAG,"Balance : "+login.getBalance());
-					}
+				if(login.getIsSuccess().equals(ErrorCodes.ISFAILURE)){
+				   Log.e(TAG,"isSuccess Value : "+login.getIsSuccess());
+				   Log.e(TAG,"Error Message : "+login.getMessage());
+				   page_level_error_txt_view.setText(login.getMessage());
+				   page_level_error_txt_view.setVisibility(View.VISIBLE);
+				   clearUserCredentials();
+				}else{
+					Log.v(TAG,"User login Successfully. Please find the below details.");
+					Log.d(TAG,"isSuccess : "+login.getIsSuccess());
+					Log.d(TAG,"userid : "+login.getUserid());
+					Log.d(TAG,"username : "+login.getUsername());
+					Log.d(TAG,"message : "+login.getMessage());
+					startActivity(new Intent(LoginScreen.this,PlayerScreen.class)
+					.putExtra(ReqResNodes.USERID,login.getUserid())
+					.putExtra(ReqResNodes.USERNAME,login.getUsername()));
+				}
 			}else{
 				Log.e(TAG,"login response parsing failed.");
-			}*/
+				page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
+				page_level_error_txt_view.setVisibility(View.VISIBLE);
+			}
 		}
 		
 		Log.i(TAG,"proceedUI() Exiting.");

@@ -1,6 +1,7 @@
 package com.amallu.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.amallu.exception.AmalluException;
 import com.amallu.model.ForgetPassword;
 import com.amallu.parser.ForgetPasswordParser;
 import com.amallu.utility.ErrorCodes;
+import com.amallu.utility.ReqResNodes;
 
 public class ForgetPasswordScreen extends Activity implements OnClickListener{
 
@@ -65,7 +67,7 @@ public class ForgetPasswordScreen extends Activity implements OnClickListener{
 			boolean isValidated=validate(emailid);
 			if(isValidated){
 				Log.v(TAG,"ForgetPassword details validated successfully.");
-				//sendForgetPasswordReq(emailid);
+				sendForgetPasswordReq(emailid);
 			}else{
 				Log.v(TAG,"forgetPassword validation failure.");
 			}
@@ -112,6 +114,13 @@ public class ForgetPasswordScreen extends Activity implements OnClickListener{
 		return isValidated;
 	}
 	
+	//Method to Clear Email ID
+	private void clearEmailID(){
+		Log.i(TAG,"clearEmaiID() Entering.");
+		emailid_edit_txt_view.setText("");
+		Log.i(TAG,"clearEmaiID() Exiting.");
+	}
+	
 	//Method to send ForgetPassword request.
 	private void sendForgetPasswordReq(String emailid){
 		Log.i(TAG,"sendforgetPasswordReq() Entering.");
@@ -125,7 +134,7 @@ public class ForgetPasswordScreen extends Activity implements OnClickListener{
 	}
 	
 	//Methods handles the response from Server.
-	public void proceedUI(String result,AmalluException amalluEx){
+	public void forgetPasswordProceedUI(String result,AmalluException amalluEx){
 		Log.i(TAG,"proceedUI() Entering.");
 		
 		if(CustomProgressDialog.IsShowing()) {
@@ -134,90 +143,30 @@ public class ForgetPasswordScreen extends Activity implements OnClickListener{
 		}
 		if(result.equalsIgnoreCase("Exception")){
 			Log.v("proceedUI", "Exception Case");
-			if(amalluEx.getErrorCode().equals(ErrorCodes.FAILED_RESPONSE)){
-				//errorText.setText(R.string.failedResponse);
-				//errorText.setVisibility(View.VISIBLE);
-			}else if(amalluEx.getErrorCode().equals(ErrorCodes.OUT_OF_MEMORY_EXCEPTION)){
-				//errorText.setText(R.string.outOfMemoryException);
-				//errorText.setVisibility(View.VISIBLE);
-			}else if(amalluEx.getErrorCode().equals(ErrorCodes.IO_EXCEPTION)){
-				//errorText.setText(R.string.ioException);
-				//errorText.setVisibility(View.VISIBLE);
-			}else if(amalluEx.getErrorCode().equals(ErrorCodes.CONNECTION_EXCEPTION)){
-				//errorText.setText(R.string.connectionException);
-				//errorText.setVisibility(View.VISIBLE);
-			}else if(amalluEx.getErrorCode().equals(ErrorCodes.SECURITY_EXCEPTION)){
-				//errorText.setText(R.string.securityException);
-				//errorText.setVisibility(View.VISIBLE);
-			}else{
-				//errorText.setText(R.string.exception);
-				//errorText.setVisibility(View.VISIBLE);
-			}
+			page_level_error_txt_view.setText("");
+			page_level_error_txt_view.setVisibility(View.VISIBLE);
 		}else{
 			ForgetPassword forgetPassword=ForgetPasswordParser.getForgetPasswordParsedResponse(result);
-			/*if(forgetPassword!=null){
+			if(forgetPassword!=null){
 				Log.v(TAG,"ForgetPassword response parsing success.");
-				if(forgetPassword.getErrorCode().equals(ErrorCodes.SQL_EXCEPTION_ERR_CODE)){
-					   Log.e(TAG,"Error Code : "+forgetPassword.getErrorCode());
-					   Log.e(TAG,"Error Message : "+forgetPassword.getErrorDescription());
-					}else if(forgetPassword.getErrorCode().equals(ErrorCodes.INVALID_SESSION_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+forgetPassword.getErrorCode());
-						Log.e(TAG,"Error Message : "+forgetPassword.getErrorDescription());
-					}else if(forgetPassword.getErrorCode().equals(ErrorCodes.SESSION_EXPIRED_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+forgetPassword.getErrorCode());
-						Log.e(TAG,"Error Message : "+forgetPassword.getErrorDescription());
-					}else if(forgetPassword.getErrorCode().equals(ErrorCodes.COMMUNICATION_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+forgetPassword.getErrorCode());
-						Log.e(TAG,"Error Message : "+forgetPassword.getErrorDescription());
-					}/*else if(forgetPassword.getErrorCode().equals(ErrorCodes.forgetPassword_DETS_NOT_AVAIL_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+forgetPassword.getErrorCode());
-						Log.e(TAG,"Error Message : "+forgetPassword.getErrorDescription());
-					}else if(forgetPassword.getErrorCode().equals(ErrorCodes.forgetPassword_EMAIL_NOT_AVAIL_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+forgetPassword.getErrorCode());
-						Log.e(TAG,"Error Message : "+forgetPassword.getErrorDescription());
-					}else if(forgetPassword.getErrorCode().equals(ErrorCodes.forgetPassword_MOBNO_NOT_AVAIL_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+forgetPassword.getErrorCode());
-						Log.e(TAG,"Error Message : "+forgetPassword.getErrorDescription());
-					}else if(forgetPassword.getErrorCode().equals(ErrorCodes.forgetPassword_UNAME_NOT_AVAIL_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+forgetPassword.getErrorCode());
-						Log.e(TAG,"Error Message : "+forgetPassword.getErrorDescription());
-					}else if(forgetPassword.getErrorCode().equals(ErrorCodes.forgetPassword_UTYPE_NOT_AVAIL_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+forgetPassword.getErrorCode());
-						Log.e(TAG,"Error Message : "+forgetPassword.getErrorDescription());
-					}else if(forgetPassword.getErrorCode().equals(ErrorCodes.forgetPassword_EMAIL_NOT_PROP_FMT_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+forgetPassword.getErrorCode());
-						Log.e(TAG,"Error Message : "+forgetPassword.getErrorDescription());
-					}else if(forgetPassword.getErrorCode().equals(ErrorCodes.forgetPassword_MOBNO_LENGTH_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+forgetPassword.getErrorCode());
-						Log.e(TAG,"Error Message : "+forgetPassword.getErrorDescription());
-					}else if(forgetPassword.getErrorCode().equals(ErrorCodes.forgetPassword_ALREADY_AVAIL_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+forgetPassword.getErrorCode());
-						Log.e(TAG,"Error Message : "+forgetPassword.getErrorDescription());
-					}else if(forgetPassword.getErrorCode().equals(ErrorCodes.forgetPassword_UTYPE_INVALID_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+forgetPassword.getErrorCode());
-						Log.e(TAG,"Error Message : "+forgetPassword.getErrorDescription());
-					}else if(forgetPassword.getErrorCode().equals(ErrorCodes.forgetPassword_UNAME_AVAIL_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+forgetPassword.getErrorCode());
-						Log.e(TAG,"Error Message : "+forgetPassword.getErrorDescription());
-					}else if(forgetPassword.getErrorCode().equals(ErrorCodes.forgetPassword_EMAIL_AVAIL_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+forgetPassword.getErrorCode());
-						Log.e(TAG,"Error Message : "+forgetPassword.getErrorDescription());
-					}else if(forgetPassword.getErrorCode().equals(ErrorCodes.forgetPassword_MOBNO_AVAIL_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+forgetPassword.getErrorCode());
-						Log.e(TAG,"Error Message : "+forgetPassword.getErrorDescription());
-					}else if(forgetPassword.getErrorCode().equals(ErrorCodes.forgetPassword_MAX_LENGTH_EXCEEDED_ERR_CODE)){
-						Log.e(TAG,"Error Code : "+forgetPassword.getErrorCode());
-						Log.e(TAG,"Error Message : "+forgetPassword.getErrorDescription());
-					}else{
-						Log.v(TAG,"User ForgetPassword Successfullly. Please find the below details.");
-						Log.d(TAG,"Text : "+forgetPassword.getErrorDescription());
-						Log.d(TAG,"ErrCode : "+forgetPassword.getErrorCode());
-						Log.d(TAG,"ID : "+forgetPassword.getUserId());
-						Log.d(TAG,"Balance : "+forgetPassword.getBalance());
-					}
+				if(forgetPassword.getIsSuccess().equals(ErrorCodes.ISFAILURE)){
+				   Log.e(TAG,"isSuccess Value : "+forgetPassword.getIsSuccess());
+				   Log.e(TAG,"Error Message : "+forgetPassword.getMessage());
+				   page_level_error_txt_view.setText(forgetPassword.getMessage());
+				   page_level_error_txt_view.setVisibility(View.VISIBLE);
+				   clearEmailID();
+				}else{
+					Log.v(TAG,"ForgetPassword Successfully. Please find the below details.");
+					Log.d(TAG,"isSuccess : "+forgetPassword.getIsSuccess());
+					Log.d(TAG,"password : "+forgetPassword.getPassword());
+					Log.d(TAG,"message : "+forgetPassword.getMessage());
+					startActivity(new Intent(ForgetPasswordScreen.this,LoginScreen.class));
+				}
 			}else{
 				Log.e(TAG,"forgetPassword response parsing failed.");
-			}*/
+				page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
+				page_level_error_txt_view.setVisibility(View.VISIBLE);
+			}
 		}
 		
 		Log.i(TAG,"proceedUI() Exiting.");
