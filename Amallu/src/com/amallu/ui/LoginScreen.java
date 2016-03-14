@@ -19,7 +19,6 @@ import com.amallu.backend.ReqResHandler;
 import com.amallu.backend.ResponseHandler;
 import com.amallu.exception.AmalluException;
 import com.amallu.model.Login;
-import com.amallu.multimedia.VideoViewBuffer;
 import com.amallu.parser.LoginParser;
 import com.amallu.utility.ErrorCodes;
 
@@ -42,6 +41,15 @@ public class LoginScreen extends Activity implements OnClickListener{
 		intializeViews();
 		setListeners();
 		Log.i(TAG,"onCreate() Exiting.");
+	}
+	
+	@Override
+	protected void onPause(){
+		super.onPause();
+		Log.i(TAG,"onPause() Entering.");
+		user_name_edit_txt_view.setText("");
+		password_edit_txt_view.setText("");
+		Log.i(TAG,"onPause() Exiting.");
 	}
 	
 	//Method to initialize the Views of XML file.
