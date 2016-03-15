@@ -13,7 +13,7 @@ public class URLDetails{
 	
 	public static final String LOGIN="user/login?_format=json";
 	public static final String SIGNUP="user/signup?_format=json";
-	public static final String FORGETPASSWORD="forgetpassword?_format=json";
+	public static final String FORGETPASSWORD="user/forgetpassword?_format=json";
 	public static final String PROFILE="profile?_format=json";
 	public static final String USERS="user?_format=json";
 	public static final String CHANNEL="channel";

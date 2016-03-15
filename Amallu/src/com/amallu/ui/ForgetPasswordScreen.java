@@ -148,7 +148,7 @@ public class ForgetPasswordScreen extends Activity implements OnClickListener{
 		}else{
 			ForgetPassword forgetPassword=ForgetPasswordParser.getForgetPasswordParsedResponse(result);
 			if(forgetPassword!=null){
-				Log.v(TAG,"ForgetPassword response parsing success.");
+				Log.v(TAG,"forgetPassword!=null.");
 				if(forgetPassword.getIsSuccess().equals(ErrorCodes.ISFAILURE)){
 				   Log.e(TAG,"isSuccess Value : "+forgetPassword.getIsSuccess());
 				   Log.e(TAG,"Error Message : "+forgetPassword.getMessage());
