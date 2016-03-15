@@ -91,7 +91,7 @@ public class SignUpScreen extends Activity implements OnClickListener{
 			//String day=dobArr[0];
 			//String month=dobArr[1];
 			//String year=dobArr[2];
-			boolean isValidated=validate(emailid,firstname,lastname,password,confPassword,"1984-07-23");
+			boolean isValidated=validate(emailid,firstname,lastname,password,confPassword,dob);
 			if(isValidated){
 				Log.v(TAG,"SignUp details validated successfully.");
 				sendSignUpReq(emailid,firstname,lastname,password,confPassword,gender,dob);
@@ -216,32 +216,58 @@ public class SignUpScreen extends Activity implements OnClickListener{
 		}
 		if(result.equalsIgnoreCase("Exception")){
 			Log.e("proceedUI", "Exception Case");
-			
+			page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
+			page_level_error_txt_view.setVisibility(View.VISIBLE);
 		}else{
 			SignUp signUp=SignUpParser.getSignUpParsedResponse(result);
-			/*if(signUp!=null){
+			if(signUp!=null){
 				Log.v(TAG,"SignUp response parsing success.");
-				if(login.getIsSuccess().equals(ErrorCodes.ISFAILURE)){
-				   Log.e(TAG,"isSuccess Value : "+login.getIsSuccess());
-				   Log.e(TAG,"Error Message : "+login.getMessage());
-				   page_level_error_txt_view.setText(login.getMessage());
-				   page_level_error_txt_view.setVisibility(View.VISIBLE);
-				   clearUserCredentials();
+				if(signUp.getIsSuccess().equals(ErrorCodes.ISFAILURE)){
+				   Log.e(TAG,"isSuccess Value : "+signUp.getIsSuccess());
+				   Log.e(TAG,"Error Message : "+signUp.getMessage());
+				   if(signUp.getFirstname()!=null){
+					  first_name_error_txt_view.setText(signUp.getFirstname());
+					  first_name_error_txt_view.setVisibility(View.VISIBLE);  
+				   }
+				   if(signUp.getLastname()!=null){
+				      last_name_error_txt_view.setText(signUp.getLastname());
+				      last_name_error_txt_view.setVisibility(View.VISIBLE);
+				   }
+				   if(signUp.getUsername()!=null){
+					  email_error_txt_view.setText(signUp.getUsername());
+					  email_error_txt_view.setVisibility(View.VISIBLE);
+					}
+				   if(signUp.getPassword()!=null){
+					  pwd_error_txt_view.setText(signUp.getPassword());
+					  pwd_error_txt_view.setVisibility(View.VISIBLE);
+					}
+				   if(signUp.getConfPassword()!=null){
+					  re_enter_pwd_error_txt_view.setText(signUp.getConfPassword());
+					  re_enter_pwd_error_txt_view.setVisibility(View.VISIBLE);
+					}
+				   if(signUp.getGender()!=null){
+					  gender_error_txt_view.setText(signUp.getGender());
+					  gender_error_txt_view.setVisibility(View.VISIBLE);
+					}
+				   if(signUp.getDob()!=null){
+					  gender_error_txt_view.setText(signUp.getDob());
+					  gender_error_txt_view.setVisibility(View.VISIBLE);
+				   }
 				}else{
-					Log.v(TAG,"User login Successfully. Please find the below details.");
-					Log.d(TAG,"isSuccess : "+login.getIsSuccess());
-					Log.d(TAG,"userid : "+login.getUserid());
-					Log.d(TAG,"username : "+login.getUsername());
-					Log.d(TAG,"message : "+login.getMessage());
-					startActivity(new Intent(LoginScreen.this,PlayerScreen.class)
-					.putExtra(ReqResNodes.USERID,login.getUserid())
-					.putExtra(ReqResNodes.USERNAME,login.getUsername()));
+					Log.v(TAG,"User Sign Up Successfully. Please find the below details.");
+					Log.d(TAG,"isSuccess : "+signUp.getIsSuccess());
+					Log.d(TAG,"userid : "+signUp.getUserid());
+					Log.d(TAG,"username : "+signUp.getUsername());
+					Log.d(TAG,"message : "+signUp.getMessage());
+					startActivity(new Intent(SignUpScreen.this,PlayerScreen.class)
+					.putExtra(ReqResNodes.USERID,signUp.getUserid())
+					.putExtra(ReqResNodes.USERNAME,signUp.getUsername()));
 				}
 			}else{
 				Log.e(TAG,"SignUp response parsing failed.");
 				page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
 				page_level_error_txt_view.setVisibility(View.VISIBLE);
-			}*/
+			}
 		}
 		
 		Log.i(TAG,"proceedUI() Exiting.");
