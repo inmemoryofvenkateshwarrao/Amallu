@@ -86,5 +86,11 @@ public class ResponseHandler implements Response{
 			}
 			//((UsersScreen)context).proceedUI(result,ex);
 		}
+		if(uiHandler.equals(CommonHandlerType.CHANNELINFO)){
+			if(result.equalsIgnoreCase("Exception")){
+				Log.e(TAG, "CHANNELINFO Exception caught.");
+			}
+			//((LoginScreen)context).channelInfoProceedUI(result,ex);
+		}
 	}
 }

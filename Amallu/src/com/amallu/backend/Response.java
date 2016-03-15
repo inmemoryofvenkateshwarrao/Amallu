@@ -7,7 +7,7 @@ import com.amallu.exception.AmalluException;
 public interface Response{
 	enum CommonHandlerType {
 		LOGIN,SIGNUP,FORGETPASSWORD,PROFILE,USERS,CHANNEL,COMMENT,CREATECOMMENT,EDITCOMMENT,DELETECOMMENT,
-		LIKECHANNEL,DISLIKECHANNEL
+		LIKECHANNEL,DISLIKECHANNEL,CHANNELINFO
 	};
 
 	public void updateResponse(Context context, String result,CommonHandlerType handlerType, 

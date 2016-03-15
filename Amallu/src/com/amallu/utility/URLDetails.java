@@ -22,5 +22,6 @@ public class URLDetails{
 	public static final String LIKECHANNEL="likechannel?_format=json";
 	public static final String DISLIKECHANNEL="dislikechannel?_format=json";
 	public static final String COMMENT="comment?_format=json";
+	public static final String CHANNELINFO="channel/channelinfo";
 	
 }

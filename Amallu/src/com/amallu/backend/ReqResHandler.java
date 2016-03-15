@@ -20,6 +20,8 @@ public class ReqResHandler implements AsyncCallback{
 	private Response response;
 	private static final String TAG="ReqResHandler";
 	
+	//Login API Call.
+	//POST Request
 	public void loginRequest(Context context, Response responseHandler,String email,String password){
 		Log.i(TAG, "loginRequest() Entering.");
 		handlerType = CommonHandlerType.LOGIN;
@@ -367,6 +369,30 @@ public class ReqResHandler implements AsyncCallback{
 		Log.i(TAG, "deleteCommentRequest() Exiting.");
 	}
 	
+	//Channelinfo API Call.
+	//POST Request
+	public void defaultChannelInfoRequest(Context context, Response responseHandler){
+		Log.i(TAG, "defaultChannelInfoRequest() Entering.");
+		handlerType = CommonHandlerType.CHANNELINFO;
+		
+		response = responseHandler;
+		uiContext = context;
+		
+		//http://www.app.amallu.com/api/channel/channelinfo
+		
+		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
+							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.CHANNELINFO;
+		Log.d(TAG,"CHANNELINFO URL : "+url);
+		if(checkNetworkAvailability(context)){
+			Log.v(TAG,"Network is available. Initiating CHANNELINFO webservice call.");
+			asyncServiceRequest = new AsyncServiceRequest(this,null,uiContext,ReqResNodes.GET);
+			asyncServiceRequest.execute(url);
+		}else{
+			Log.e(TAG,"Network connection not available.");
+		}
+		Log.i(TAG, "defaultChannelInfoRequest() Exiting.");
+	}
+	
 	private boolean checkNetworkAvailability(Context ctx){
 		Log.i(TAG,"checkNetworkAvailability() Entering.");
 		boolean netWorkCheck=true;
@@ -495,6 +521,15 @@ public class ReqResHandler implements AsyncCallback{
 				Log.v(TAG, "Handler DELETECOMMENT");
 				if (result.equalsIgnoreCase("Exception")){
 					Log.e(TAG, "DELETECOMMENT Exception caught.");
+				}else{
+					//Do Nothing.
+				}
+				response.updateResponse(uiContext,result,handlerType,exception);
+			}
+			if(handlerType.equals(CommonHandlerType.CHANNELINFO)){
+				Log.v(TAG, "Handler CHANNELINFO");
+				if (result.equalsIgnoreCase("Exception")){
+					Log.e(TAG, "CHANNELINFO Exception caught.");
 				}else{
 					//Do Nothing.
 				}

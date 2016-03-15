@@ -19,7 +19,9 @@ import com.amallu.backend.CustomProgressDialog;
 import com.amallu.backend.ReqResHandler;
 import com.amallu.backend.ResponseHandler;
 import com.amallu.exception.AmalluException;
+import com.amallu.model.ChannelInfo;
 import com.amallu.model.Login;
+import com.amallu.parser.ChannelInfoParser;
 import com.amallu.parser.LoginParser;
 import com.amallu.utility.ErrorCodes;
 import com.amallu.utility.ReqResNodes;
@@ -254,9 +256,10 @@ public class LoginScreen extends Activity implements OnClickListener{
 					Log.d(TAG,"userid : "+login.getUserid());
 					Log.d(TAG,"username : "+login.getUsername());
 					Log.d(TAG,"message : "+login.getMessage());
-					startActivity(new Intent(LoginScreen.this,PlayerScreen.class)
-					.putExtra(ReqResNodes.USERID,login.getUserid())
-					.putExtra(ReqResNodes.USERNAME,login.getUsername()));
+					sendDefaultChannelInfoReq();
+					//startActivity(new Intent(LoginScreen.this,PlayerScreen.class)
+					//.putExtra(ReqResNodes.USERID,login.getUserid())
+					//.putExtra(ReqResNodes.USERNAME,login.getUsername()));
 				}
 			}else{
 				Log.e(TAG,"login response parsing failed.");
@@ -266,6 +269,55 @@ public class LoginScreen extends Activity implements OnClickListener{
 		}
 		
 		Log.i(TAG,"proceedUI() Exiting.");
+	}
+	
+	//Method to send Login request.
+	private void sendDefaultChannelInfoReq(){
+		Log.i(TAG,"sendDefaultChannelInfoReq() Entering.");
+		
+		ReqResHandler req = new ReqResHandler();
+		CustomProgressDialog.show(LoginScreen.this);
+
+		req.defaultChannelInfoRequest(LoginScreen.this,new ResponseHandler());
+		
+		Log.i(TAG,"sendDefaultChannelInfoReq() Exiting.");
+	}
+	
+	//Methods handles the ChannelInfo response from Server.
+	public void channelInfoProceedUI(String result,AmalluException amalluEx){
+		Log.i(TAG,"channelInfoProceedUI() Entering.");
+		
+		if(CustomProgressDialog.IsShowing()) {
+			Log.v(TAG, "channelInfoProceedUI progress dialog dismissing..");
+			CustomProgressDialog.Dismiss();
+		}
+		if(result.equalsIgnoreCase("Exception")){
+			Log.e("proceedUI", "Exception Case");
+			page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
+			page_level_error_txt_view.setVisibility(View.VISIBLE);
+		}else{
+			ChannelInfo channelInfo=ChannelInfoParser.getChannelInfoParsedResponse(result);
+			if(channelInfo!=null){
+				Log.v(TAG,"ChannelInfo response parsing success.");
+				if(channelInfo.getIsSuccess().equals(ErrorCodes.ISFAILURE)){
+				   Log.e(TAG,"isSuccess Value : "+channelInfo.getIsSuccess());
+				   Log.e(TAG,"Error Message : "+channelInfo.getMessage());
+				   page_level_error_txt_view.setText(channelInfo.getMessage());
+				   page_level_error_txt_view.setVisibility(View.VISIBLE);
+				}else{
+					Log.v(TAG,"ChannelInfo fetched Successfully. Please find the below details.");
+					startActivity(new Intent(LoginScreen.this,PlayerScreen.class));
+					//.putExtra(ReqResNodes.USERID,login.getUserid())
+					//.putExtra(ReqResNodes.USERNAME,login.getUsername()));
+				}
+			}else{
+				Log.e(TAG,"ChannelInfo response parsing failed.");
+				page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
+				page_level_error_txt_view.setVisibility(View.VISIBLE);
+			}
+		}
+		
+		Log.i(TAG,"channelInfoProceedUI() Exiting.");
 	}
 
 	//Method to handle Device back button.

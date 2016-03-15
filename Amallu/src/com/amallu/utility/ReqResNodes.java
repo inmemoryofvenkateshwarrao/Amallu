@@ -69,6 +69,13 @@ public class ReqResNodes{
     public static final String HIDE_COMMENT="hide_comment";
     public static final String PREFERENCE_ID="preference_id";
     
+    //Response properties for ChannelDetail
+    public static final String CHANNELDETAIL="channeldetail";
+    public static final String NOOFWATCHINGMEMBERS="noofwatchingmembers";
+    public static final String LIKECOUNT="likecount";
+    public static final String DISLIKECOUNT="dislikecount";
+    public static final String COMMENTS="comments";
+    
     //Common
     public static final String GET="get";
     public static final String POST="post";
