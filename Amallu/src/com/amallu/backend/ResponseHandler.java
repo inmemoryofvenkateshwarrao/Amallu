@@ -24,7 +24,7 @@ public class ResponseHandler implements Response{
 			if(result.equalsIgnoreCase("Exception")){
 				Log.e(TAG, "SIGNUP Exception caught.");
 			}
-			((SignUpScreen)context).proceedUI(result,ex);
+			((SignUpScreen)context).signUpProceedUI(result,ex);
 		}
 		if(uiHandler.equals(CommonHandlerType.FORGETPASSWORD)){
 			if(result.equalsIgnoreCase("Exception")){

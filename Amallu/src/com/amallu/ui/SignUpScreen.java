@@ -85,7 +85,6 @@ public class SignUpScreen extends Activity implements OnClickListener{
 			String lastname=last_name_edit_txt_view.getText().toString();
 			String password=pwd_edit_txt_view.getText().toString();
 			String confPassword=re_enter_pwd_edit_txt_view.getText().toString();
-			String gender="M";
 			String dob=dob_edit_txt_view.getText().toString();
 			//String dobArr[]=dob.split("/");
 			//String day=dobArr[0];
@@ -94,7 +93,8 @@ public class SignUpScreen extends Activity implements OnClickListener{
 			boolean isValidated=validate(emailid,firstname,lastname,password,confPassword,dob);
 			if(isValidated){
 				Log.v(TAG,"SignUp details validated successfully.");
-				sendSignUpReq(emailid,firstname,lastname,password,confPassword,gender,dob);
+				String selGender=female_radio_btn.isChecked()?"F":"M";
+				sendSignUpReq(emailid,firstname,lastname,password,confPassword,selGender,dob);
 			}else{
 				Log.v(TAG,"SignUp validation failure.");
 			}
@@ -207,7 +207,7 @@ public class SignUpScreen extends Activity implements OnClickListener{
 	}
 	
 	//Methods handles the response from Server.
-	public void proceedUI(String result,AmalluException amalluEx){
+	public void signUpProceedUI(String result,AmalluException amalluEx){
 		Log.i(TAG,"proceedUI() Entering.");
 		
 		if(CustomProgressDialog.IsShowing()) {
@@ -221,10 +221,10 @@ public class SignUpScreen extends Activity implements OnClickListener{
 		}else{
 			SignUp signUp=SignUpParser.getSignUpParsedResponse(result);
 			if(signUp!=null){
-				Log.v(TAG,"SignUp response parsing success.");
+				Log.v(TAG,"signUp!=null.");
 				if(signUp.getIsSuccess().equals(ErrorCodes.ISFAILURE)){
 				   Log.e(TAG,"isSuccess Value : "+signUp.getIsSuccess());
-				   Log.e(TAG,"Error Message : "+signUp.getMessage());
+				   //Log.e(TAG,"Error Message : "+signUp.getMessage());
 				   if(signUp.getFirstname()!=null){
 					  first_name_error_txt_view.setText(signUp.getFirstname());
 					  first_name_error_txt_view.setVisibility(View.VISIBLE);  
@@ -250,8 +250,8 @@ public class SignUpScreen extends Activity implements OnClickListener{
 					  gender_error_txt_view.setVisibility(View.VISIBLE);
 					}
 				   if(signUp.getDob()!=null){
-					  gender_error_txt_view.setText(signUp.getDob());
-					  gender_error_txt_view.setVisibility(View.VISIBLE);
+					  dob_error_txt_view.setText(signUp.getDob());
+					  dob_error_txt_view.setVisibility(View.VISIBLE);
 				   }
 				}else{
 					Log.v(TAG,"User Sign Up Successfully. Please find the below details.");

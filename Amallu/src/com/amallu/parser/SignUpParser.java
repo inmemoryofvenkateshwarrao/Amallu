@@ -25,39 +25,53 @@ public class SignUpParser{
 			if(!signUpJSONObj.isNull(ReqResNodes.ISSUCCESS))
 				signUp.setIsSuccess(signUpJSONObj.get(ReqResNodes.ISSUCCESS).toString());
 			if(!signUpJSONObj.isNull(ReqResNodes.ISSUCCESS)&&
-					signUpJSONObj.get(ReqResNodes.ISSUCCESS).toString().equals(ErrorCodes.ISSUCCESS)){
+					signUpJSONObj.get(ReqResNodes.ISSUCCESS).toString().equals(ErrorCodes.ISFAILURE)){
 				JSONObject messageJSONObj=(JSONObject)signUpJSONObj.get(ReqResNodes.MESSAGE);
+				Log.v(TAG,"messageJSONObj : "+messageJSONObj);
 				for(int arr=0;arr<messageJSONObj.length();arr++){
-					
-					JSONArray firstNameArr=messageJSONObj.getJSONArray(ReqResNodes.FIRSTNAME);
-					String firstname=firstNameArr.get(arr).toString();
-					signUp.setFirstname(firstname);
-					
-					JSONArray lastNameArr=messageJSONObj.getJSONArray(ReqResNodes.LASTNAME);
-					String lastname=lastNameArr.get(arr).toString();
-					signUp.setLastname(lastname);
-					
-					JSONArray userNameArr=messageJSONObj.getJSONArray(ReqResNodes.USERNAME);
-					String username=userNameArr.get(arr).toString();
-					signUp.setUsername(username);
-					
-					JSONArray passwordArr=messageJSONObj.getJSONArray(ReqResNodes.PASSWORD);
-					String password=passwordArr.get(arr).toString();
-					signUp.setPassword(password);
-					
-					JSONArray confPasswordArr=messageJSONObj.getJSONArray(ReqResNodes.CONFPASSWORD);
-					String confPassword=confPasswordArr.get(arr).toString();
-					signUp.setConfPassword(confPassword);
-					
-					JSONArray genderArr=messageJSONObj.getJSONArray(ReqResNodes.GENDER);
-					String gender=genderArr.get(arr).toString();
-					signUp.setGender(gender);
-					
-					JSONArray dobArr=messageJSONObj.getJSONArray(ReqResNodes.DOB);
-					String dob=dobArr.get(arr).toString();
-					signUp.setDob(dob);
+					try{
+						JSONArray firstNameArr=messageJSONObj.getJSONArray(ReqResNodes.FIRSTNAME);
+						String firstname=firstNameArr.get(arr).toString();
+						signUp.setFirstname(firstname);
+					}catch(Exception e){}
+					try{
+						JSONArray lastNameArr=messageJSONObj.getJSONArray(ReqResNodes.LASTNAME);
+						String lastname=lastNameArr.get(arr).toString();
+						signUp.setLastname(lastname);
+					}catch(Exception e){}
+					try{
+						JSONArray userNameArr=messageJSONObj.getJSONArray(ReqResNodes.USERNAME);
+						String username=userNameArr.get(arr).toString();
+						signUp.setUsername(username);
+					}catch(Exception e){}
+					try{
+						JSONArray passwordArr=messageJSONObj.getJSONArray(ReqResNodes.PASSWORD);
+						String password=passwordArr.get(arr).toString();
+						signUp.setPassword(password);
+					}catch(Exception e){}
+					try{
+						JSONArray confPasswordArr=messageJSONObj.getJSONArray(ReqResNodes.CONFPASSWORD);
+						String confPassword=confPasswordArr.get(arr).toString();
+						signUp.setConfPassword(confPassword);
+					}catch(Exception e){}
+					try{
+						JSONArray genderArr=messageJSONObj.getJSONArray(ReqResNodes.GENDER);
+						String gender=genderArr.get(arr).toString();
+						signUp.setGender(gender);
+					}catch(Exception e){}
+					try{
+						JSONArray dobArr=messageJSONObj.getJSONArray(ReqResNodes.DOB);
+						String dob=dobArr.get(arr).toString();
+						signUp.setDob(dob);
+					}catch(Exception e){}
+					try{
+						JSONArray monthArr=messageJSONObj.getJSONArray(ReqResNodes.MONTH);
+						String month=monthArr.get(arr).toString();
+						signUp.setDob(month);
+					}catch(Exception e){}
 				}
 			}else{
+				Log.v(TAG,"signup success in parser");
 				if(!signUpJSONObj.isNull(ReqResNodes.MESSAGE))
 					signUp.setIsSuccess(signUpJSONObj.get(ReqResNodes.ISSUCCESS).toString());
 				if(!signUpJSONObj.isNull(ReqResNodes.USERID))
