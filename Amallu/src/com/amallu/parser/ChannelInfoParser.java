@@ -30,7 +30,6 @@ public class ChannelInfoParser{
 		try{
 			channelInfo=new ChannelInfo();
 			channelDetail=new ChannelDetail();
-			comment=new Comment();
 			commentsList=new ArrayList<Comment>();
 			JSONObject channelInfoJSONObj=new JSONObject(channelInfoStr);
 			if(!channelInfoJSONObj.isNull(ReqResNodes.ISSUCCESS))
@@ -44,9 +43,7 @@ public class ChannelInfoParser{
 			}else{
 				Log.v(TAG,"ChannelInfo success in parser");
 				JSONObject messageJSONObj=(JSONObject)channelInfoJSONObj.get(ReqResNodes.MESSAGE);
-				Log.v(TAG,"messageJSONObj : "+messageJSONObj);
 				JSONObject channelDetailJSONObj=(JSONObject)messageJSONObj.get(ReqResNodes.CHANNELDETAIL);
-				Log.v(TAG,"channelDetailJSONObj : "+channelDetailJSONObj);
 				
 				if(!channelDetailJSONObj.isNull(ReqResNodes.CHANNEL_ID))
 					channelDetail.setChannel_id(channelDetailJSONObj.get(ReqResNodes.CHANNEL_ID).toString());
@@ -80,20 +77,21 @@ public class ChannelInfoParser{
 				JSONArray commentsJSONArr=(JSONArray)messageJSONObj.getJSONArray(ReqResNodes.COMMENTS);
 				for(int c=0;c<commentsJSONArr.length();c++){
 					JSONObject commentJSONObj=(JSONObject)commentsJSONArr.get(c);
+					comment=new Comment();
 					if(!commentJSONObj.isNull(ReqResNodes.COMMENT_ID))
-						comment.setChannel_id(channelDetailJSONObj.get(ReqResNodes.COMMENT_ID).toString());
+						comment.setComment_id(commentJSONObj.get(ReqResNodes.COMMENT_ID).toString());
 					if(!commentJSONObj.isNull(ReqResNodes.USERID))
-						comment.setUserid(channelDetailJSONObj.get(ReqResNodes.USERID).toString());
+						comment.setUserid(commentJSONObj.get(ReqResNodes.USERID).toString());
 					if(!commentJSONObj.isNull(ReqResNodes.CHANNEL_ID))
-						comment.setChannel_id(channelDetailJSONObj.get(ReqResNodes.CHANNEL_ID).toString());
+						comment.setChannel_id(commentJSONObj.get(ReqResNodes.CHANNEL_ID).toString());
 					if(!commentJSONObj.isNull(ReqResNodes.COMMENT))
-						comment.setComment(channelDetailJSONObj.get(ReqResNodes.COMMENT).toString());
+						comment.setComment(commentJSONObj.get(ReqResNodes.COMMENT).toString());
 					if(!commentJSONObj.isNull(ReqResNodes.PREFERENCE_TYPE))
-						comment.setPreference_type(channelDetailJSONObj.get(ReqResNodes.PREFERENCE_TYPE).toString());
+						comment.setPreference_type(commentJSONObj.get(ReqResNodes.PREFERENCE_TYPE).toString());
 					if(!commentJSONObj.isNull(ReqResNodes.HIDE_COMMENT))
-						comment.setHide_comment(channelDetailJSONObj.get(ReqResNodes.HIDE_COMMENT).toString());
+						comment.setHide_comment(commentJSONObj.get(ReqResNodes.HIDE_COMMENT).toString());
 					if(!commentJSONObj.isNull(ReqResNodes.DT_CREATED))
-						comment.setDt_created(channelDetailJSONObj.get(ReqResNodes.DT_CREATED).toString());
+						comment.setDt_created(commentJSONObj.get(ReqResNodes.DT_CREATED).toString());
 					
 					commentsList.add(comment);
 				}
@@ -107,7 +105,7 @@ public class ChannelInfoParser{
 				channelInfo.setNoofwatchingmembers(noOfWatMems);
 				channelInfo.setLikecount(likeCount);
 				channelInfo.setDislikecount(disLikeCount);
-				Log.v(TAG,"commentsJSONArr : "+commentsJSONArr);
+				//Log.v(TAG,"commentsJSONArr : "+commentsJSONArr);
 			}
 			
 		}catch(JSONException e){

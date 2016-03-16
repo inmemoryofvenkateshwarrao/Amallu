@@ -124,8 +124,8 @@ public class SignUpScreen extends Activity implements OnClickListener{
 	}
 	
 	//Method to check for Android native validations.
-	private boolean validate(String emailid,String firstname,String lastname,String password,String confPassword,
-			         String dob){
+	private boolean validate(String emailid,String firstname,String lastname,String password,
+			String confPassword,String dob){
 		Log.i(TAG,"validate() Entering.");
 		boolean isValidated=true;
 		if(emailid==null||emailid.trim().equals("")){

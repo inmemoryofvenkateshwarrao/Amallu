@@ -159,17 +159,17 @@ public class ReqResHandler implements AsyncCallback{
 	
 	//Channel API Call.
 	//GET Request.
-	public void channelRequest(Context context, Response responseHandler){
+	public void channelRequest(Context context, Response responseHandler,String channelNo){
 		Log.i(TAG, "channelRequest() Entering.");
-		handlerType = CommonHandlerType.CHANNEL;
+		handlerType = CommonHandlerType.NEXTCHANNEL;
 		
 		response = responseHandler;
 		uiContext = context;
 		
-		//http://www.app.amallu.com/api/channel
+		//http://www.app.amallu.com/api/channel/nextchannel?_format=json&channelid=59
 		
 		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
-							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.CHANNEL;
+							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.NEXTCHANNEL+"/"+"channelid="+channelNo;
 		Log.d(TAG,"CHANNEL URL : "+url);
 		if(checkNetworkAvailability(context)){
 			Log.v(TAG,"Network is available. Initiating CHANNEL webservice call.");
@@ -463,7 +463,7 @@ public class ReqResHandler implements AsyncCallback{
 				}
 				response.updateResponse(uiContext,result,handlerType,exception);
 			}
-			if(handlerType.equals(CommonHandlerType.CHANNEL)){
+			if(handlerType.equals(CommonHandlerType.NEXTCHANNEL)){
 				Log.v(TAG, "Handler CHANNEL");
 				if (result.equalsIgnoreCase("Exception")){
 					Log.e(TAG, "CHANNEL Exception caught.");

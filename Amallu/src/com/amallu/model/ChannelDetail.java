@@ -2,6 +2,8 @@ package com.amallu.model;
 
 public class ChannelDetail {
 	
+	private String isSuccess;
+	private String message;
 	private String channel_id;
 	private String channel_code;
 	private String category_id;
@@ -16,6 +18,19 @@ public class ChannelDetail {
 	private String time_watched;
 	private String thumbnail;
 	
+	
+	public String getIsSuccess() {
+		return isSuccess;
+	}
+	public void setIsSuccess(String isSuccess) {
+		this.isSuccess = isSuccess;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
 	public String getChannel_id() {
 		return channel_id;
 	}

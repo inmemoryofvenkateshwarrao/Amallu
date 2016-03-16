@@ -1,5 +1,7 @@
 package com.amallu.model;
 
+
+//Unused Class
 public class NextChannel {
 	
 	private String isSuccess;

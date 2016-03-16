@@ -8,9 +8,10 @@ import android.util.Log;
 import com.amallu.model.NextChannel;
 import com.amallu.utility.ReqResNodes;
 
+//Unused Class
 public class NextChannelParser{
 	
-	private static final String TAG="ChannNextChannelParserelParser";
+	private static final String TAG="NextChannelParser";
 	
 	//Method Parses the JSON Response of NextChannel Web service.
 	public static NextChannel getNextChannelParsedResponse(String nextChannelsStr){

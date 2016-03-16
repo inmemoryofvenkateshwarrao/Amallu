@@ -51,7 +51,7 @@ public class ReqResNodes{
     public static final String CHANNEL_NAME="channel_name";
     public static final String LANGUAGE_ID="language_id";
     public static final String DESCRIPTION="description";
-    public static final String RTMP_LINK="trmp_link";
+    public static final String RTMP_LINK="rtmp_link";
     public static final String FOLLOWERS="followers";
     public static final String VIEWS="views";
     public static final String DISPLAY_CHANNEL="display_channel";

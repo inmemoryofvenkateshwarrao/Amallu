@@ -1,5 +1,7 @@
 package com.amallu.ui;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +21,9 @@ import com.amallu.backend.CustomProgressDialog;
 import com.amallu.backend.ReqResHandler;
 import com.amallu.backend.ResponseHandler;
 import com.amallu.exception.AmalluException;
+import com.amallu.model.ChannelDetail;
 import com.amallu.model.ChannelInfo;
+import com.amallu.model.Comment;
 import com.amallu.model.Login;
 import com.amallu.parser.ChannelInfoParser;
 import com.amallu.parser.LoginParser;
@@ -184,7 +188,7 @@ public class LoginScreen extends Activity implements OnClickListener{
          toast.show();
  	}
  	
- 	// Method to Cancel Toast it is showing. This will be used when we navigate to other screens.
+ 	//Method to Cancel Toast it is showing. This will be used when we navigate to other screens.
  	protected void cancelToast(){
  		Log.d(TAG,"cancelToast");
  		Log.d(TAG,"Toast Object is : "+toast);
@@ -197,7 +201,7 @@ public class LoginScreen extends Activity implements OnClickListener{
  		}
  	}
  	
- 	// Checks for Existence of Toast. If exists do nothing, if not exists displays Toast.
+ 	//Checks for Existence of Toast. If exists do nothing, if not exists displays Toast.
  	protected void checkForToast(){
  		Log.d(TAG,"checkForToast");
  		if(toast!=null){
@@ -230,7 +234,7 @@ public class LoginScreen extends Activity implements OnClickListener{
 	
 	//Methods handles the response from Server.
 	public void loginProceedUI(String result,AmalluException amalluEx){
-		Log.i(TAG,"proceedUI() Entering.");
+		Log.i(TAG,"loginProceedUI() Entering.");
 		
 		if(CustomProgressDialog.IsShowing()) {
 			Log.v(TAG, "proceedUI progress dialog dismissing..");
@@ -268,7 +272,7 @@ public class LoginScreen extends Activity implements OnClickListener{
 			}
 		}
 		
-		Log.i(TAG,"proceedUI() Exiting.");
+		Log.i(TAG,"loginProceedUI() Exiting.");
 	}
 	
 	//Method to send Login request.
@@ -306,9 +310,70 @@ public class LoginScreen extends Activity implements OnClickListener{
 				   page_level_error_txt_view.setVisibility(View.VISIBLE);
 				}else{
 					Log.v(TAG,"ChannelInfo fetched Successfully. Please find the below details.");
-					startActivity(new Intent(LoginScreen.this,PlayerScreen.class));
-					//.putExtra(ReqResNodes.USERID,login.getUserid())
-					//.putExtra(ReqResNodes.USERNAME,login.getUsername()));
+					Log.v(TAG,"ChannelDetail Details.");
+					ChannelDetail channelDetail=channelInfo.getChannelDetail();
+					String channelID=channelDetail.getChannel_id();
+					String channelCode=channelDetail.getChannel_code();
+					String categoryID=channelDetail.getCategory_id();
+					String channelName=channelDetail.getChannel_name();
+					String languageID=channelDetail.getLanguage_id();
+					String description=channelDetail.getDescription();
+					String rtmpLink=channelDetail.getRtmp_link();
+					String followers=channelDetail.getFollowers();
+					String views=channelDetail.getViews();
+					String displayChannel=channelDetail.getDisplay_channel();
+					String defaultChannel=channelDetail.getDefault_channel();
+					String timeWatched=channelDetail.getTime_watched();
+					String thumbnail=channelDetail.getThumbnail();
+					
+					Log.d(TAG,"channelID : "+channelID);
+					Log.d(TAG,"channelCode : "+channelCode);
+					Log.d(TAG,"categoryID : "+categoryID);
+					Log.d(TAG,"channelName : "+channelName);
+					Log.d(TAG,"languageID : "+languageID);
+					Log.d(TAG,"description : "+description);
+					Log.d(TAG,"rtmpLink : "+rtmpLink);
+					Log.d(TAG,"followers : "+followers);
+					Log.d(TAG,"views : "+views);
+					Log.d(TAG,"displayChannel : "+displayChannel);
+					Log.d(TAG,"defaultChannel : "+defaultChannel);
+					Log.d(TAG,"timeWatched : "+timeWatched);
+					Log.d(TAG,"thumbnail : "+thumbnail);
+					
+					Log.v(TAG,"Comment Details.");
+					List<Comment> commentList=channelInfo.getCommentsList();
+					for(int c=0;c<commentList.size();c++){
+					   Log.v(TAG,"Iteration : "+c);
+					   Comment comment=commentList.get(c);
+					   String commentID=comment.getComment_id();
+					   String userID=comment.getUserid();
+					   String channelID1=comment.getChannel_id();
+					   String com=comment.getComment();
+					   String prefType=comment.getPreference_type();
+					   String hideComment=comment.getHide_comment();
+					   String dateCreated=comment.getDt_created();
+					   Log.d(TAG,"comment_id : "+commentID);
+					   Log.d(TAG,"userid : "+userID);
+					   Log.d(TAG,"channel_id : "+channelID1);
+					   Log.d(TAG,"comment : "+com);
+					   Log.d(TAG,"preference_type : "+prefType);
+					   Log.d(TAG,"hide_comment : "+hideComment);
+					   Log.d(TAG,"dt_created : "+dateCreated);	
+					}
+					startActivity(new Intent(LoginScreen.this,PlayerScreen.class)
+					.putExtra(ReqResNodes.CHANNEL_ID,channelID)
+					.putExtra(ReqResNodes.CHANNEL_CODE,channelCode)
+					.putExtra(ReqResNodes.CATEGORY_ID,categoryID)
+					.putExtra(ReqResNodes.CHANNEL_NAME,channelName)
+					.putExtra(ReqResNodes.LANGUAGE_ID,languageID)
+					.putExtra(ReqResNodes.DESCRIPTION,description)
+					.putExtra(ReqResNodes.RTMP_LINK,rtmpLink)
+					.putExtra(ReqResNodes.FOLLOWERS,followers)
+					.putExtra(ReqResNodes.VIEWS,views)
+					.putExtra(ReqResNodes.DISPLAY_CHANNEL,displayChannel)
+					.putExtra(ReqResNodes.DEFAULT_CHANNEL,defaultChannel)
+					.putExtra(ReqResNodes.TIME_WATCHED,timeWatched)
+					.putExtra(ReqResNodes.THUMBNAIL,thumbnail));
 				}
 			}else{
 				Log.e(TAG,"ChannelInfo response parsing failed.");

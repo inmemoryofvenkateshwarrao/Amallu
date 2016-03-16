@@ -44,11 +44,11 @@ public class ResponseHandler implements Response{
 			}
 			((UsersScreen)context).proceedUI(result,ex);
 		}
-		if(uiHandler.equals(CommonHandlerType.CHANNEL)){
+		if(uiHandler.equals(CommonHandlerType.NEXTCHANNEL)){
 			if(result.equalsIgnoreCase("Exception")){
 				Log.e(TAG, "CHANNEL Exception caught.");
 			}
-			//((UsersScreen)context).proceedUI(result,ex);
+			//((PlayerScreen)context).nextorPreviousChannelProceedUI(result,ex);
 		}
 		if(uiHandler.equals(CommonHandlerType.COMMENT)){
 			if(result.equalsIgnoreCase("Exception")){
@@ -90,7 +90,7 @@ public class ResponseHandler implements Response{
 			if(result.equalsIgnoreCase("Exception")){
 				Log.e(TAG, "CHANNELINFO Exception caught.");
 			}
-			//((LoginScreen)context).channelInfoProceedUI(result,ex);
+			((LoginScreen)context).channelInfoProceedUI(result,ex);
 		}
 	}
 }

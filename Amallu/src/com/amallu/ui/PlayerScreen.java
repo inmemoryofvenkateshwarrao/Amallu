@@ -21,7 +21,6 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,7 +33,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amallu.adapter.NavDrawerListAdapter;
+import com.amallu.backend.CustomProgressDialog;
+import com.amallu.backend.ReqResHandler;
+import com.amallu.backend.ResponseHandler;
+import com.amallu.exception.AmalluException;
+import com.amallu.model.ChannelDetail;
 import com.amallu.model.NavDrawerItem;
+import com.amallu.parser.ChannelParser;
+import com.amallu.utility.ErrorCodes;
 
 @SuppressWarnings("deprecation")
 public class PlayerScreen extends FragmentActivity implements OnClickListener,OnInfoListener,
@@ -233,12 +239,18 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 				case R.id.icon_next:
 					Log.i(TAG,"Next Icon clicked");
 					mVideoView.clearFocus();
-					checkChannelPath();
+					int currentChannelID=1;
+					currentChannelID=currentChannelID+1;
+					sendChannelDetailReq(Integer.toString(currentChannelID));
+					//checkChannelPath();
 					break;
 				case R.id.icon_previous:
 					Log.i(TAG,"Previous Icon clicked");
 					mVideoView.clearFocus();
-					checkChannelPath();
+					currentChannelID=1;
+					currentChannelID=currentChannelID-1;
+					sendChannelDetailReq(Integer.toString(currentChannelID));
+					//checkChannelPath();
 					break;
 				case R.id.icon_three_liner:
 					mDrawerLayout.openDrawer(mDrawerLayout);
@@ -454,5 +466,79 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	    Log.i(TAG,"onError() Exiting.");
 	  	return false;
 	  }
+	  
+	//Method to send SignUp API request.
+	private void sendChannelDetailReq(String channelNo){
+		Log.i(TAG,"sendChannelDetailReq() Entering.");
+		
+		ReqResHandler req = new ReqResHandler();
+		CustomProgressDialog.show(PlayerScreen.this);
+
+		req.channelRequest(PlayerScreen.this,new ResponseHandler(),channelNo);
+		
+		Log.i(TAG,"sendChannelDetailReq() Exiting.");
+	}
+	
+	//Methods handles the response from Server.
+	public void channelDetailProceedUI(String result,AmalluException amalluEx){
+		Log.i(TAG,"channelDetailProceedUI() Entering.");
+		
+		if(CustomProgressDialog.IsShowing()) {
+			Log.v(TAG, "proceedUI progress dialog dismissing..");
+			CustomProgressDialog.Dismiss();
+		}
+		if(result.equalsIgnoreCase("Exception")){
+			Log.e("proceedUI", "Exception Case");
+			//page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
+			//page_level_error_txt_view.setVisibility(View.VISIBLE);
+		}else{
+			ChannelDetail channelDetail=ChannelParser.getChannelParsedResponse(result);
+			if(channelDetail!=null){
+				Log.v(TAG,"ChannelDetail response parsing success.");
+				if(channelDetail.getIsSuccess().equals(ErrorCodes.ISFAILURE)){
+				   Log.e(TAG,"isSuccess Value : "+channelDetail.getIsSuccess());
+				   Log.e(TAG,"Error Message : "+channelDetail.getMessage());
+				   //page_level_error_txt_view.setText(channelInfo.getMessage());
+				   //page_level_error_txt_view.setVisibility(View.VISIBLE);
+				}else{
+					Log.v(TAG,"Channel Details fetched Successfully. Please find the below details.");
+					Log.v(TAG,"ChannelDetail Details.");
+					String channelID=channelDetail.getChannel_id();
+					String channelCode=channelDetail.getChannel_code();
+					String categoryID=channelDetail.getCategory_id();
+					String channelName=channelDetail.getChannel_name();
+					String languageID=channelDetail.getLanguage_id();
+					String description=channelDetail.getDescription();
+					String rtmpLink=channelDetail.getRtmp_link();
+					String followers=channelDetail.getFollowers();
+					String views=channelDetail.getViews();
+					String displayChannel=channelDetail.getDisplay_channel();
+					String defaultChannel=channelDetail.getDefault_channel();
+					String timeWatched=channelDetail.getTime_watched();
+					String thumbnail=channelDetail.getThumbnail();
+					
+					Log.d(TAG,"channelID : "+channelID);
+					Log.d(TAG,"channelCode : "+channelCode);
+					Log.d(TAG,"categoryID : "+categoryID);
+					Log.d(TAG,"channelName : "+channelName);
+					Log.d(TAG,"languageID : "+languageID);
+					Log.d(TAG,"description : "+description);
+					Log.d(TAG,"rtmpLink : "+rtmpLink);
+					Log.d(TAG,"followers : "+followers);
+					Log.d(TAG,"views : "+views);
+					Log.d(TAG,"displayChannel : "+displayChannel);
+					Log.d(TAG,"defaultChannel : "+defaultChannel);
+					Log.d(TAG,"timeWatched : "+timeWatched);
+					Log.d(TAG,"thumbnail : "+thumbnail);
+				}		
+			}else{
+				Log.e(TAG,"Channel response parsing failed.");
+				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
+				//page_level_error_txt_view.setVisibility(View.VISIBLE);
+			}
+		}
+		
+		Log.i(TAG,"channelDetailProceedUI() Exiting.");
+	}
 
 }
