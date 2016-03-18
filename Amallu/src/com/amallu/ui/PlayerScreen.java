@@ -10,9 +10,12 @@ import io.vov.vitamio.Vitamio;
 import io.vov.vitamio.widget.VideoView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.net.Uri;
@@ -39,7 +42,9 @@ import com.amallu.backend.ResponseHandler;
 import com.amallu.exception.AmalluException;
 import com.amallu.model.ChannelDetail;
 import com.amallu.model.NavDrawerItem;
+import com.amallu.parser.CategoryListParser;
 import com.amallu.parser.ChannelParser;
+import com.amallu.parser.ChannelsListParser;
 import com.amallu.utility.ErrorCodes;
 
 @SuppressWarnings("deprecation")
@@ -540,5 +545,88 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		
 		Log.i(TAG,"channelDetailProceedUI() Exiting.");
 	}
+	
+	//Sends Channels API Request.
+	private void sendChannelsReq(){
+		Log.i(TAG,"sendChannelsReq() Entering.");
+		
+		ReqResHandler req = new ReqResHandler();
+		CustomProgressDialog.show(PlayerScreen.this);
+
+		req.ChannelsListRequest(PlayerScreen.this,new ResponseHandler());
+		
+		Log.i(TAG,"sendChannelsReq() Exiting.");
+	}
+	
+	//Methods handles the response from Server.
+	public void channelsProceedUI(String result,AmalluException amalluEx){
+		Log.i(TAG,"channelsProceedUI() Entering.");
+		
+		if(CustomProgressDialog.IsShowing()) {
+			Log.v(TAG, "channelsProceedUI progress dialog dismissing..");
+			CustomProgressDialog.Dismiss();
+		}
+		if(result.equalsIgnoreCase("Exception")){
+			Log.e(TAG, "channelsProceedUI Exception Case");
+			//page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
+			//page_level_error_txt_view.setVisibility(View.VISIBLE);
+		}else{
+			List<HashMap<String,Object>> channelsHMList=ChannelsListParser.getChannelsListParsedResponse(result);
+			if(channelsHMList!=null&& !channelsHMList.isEmpty()){
+				Log.v(TAG,"Channels Available.");
+				ChannelsScreen.channelsList.clear();
+				ChannelsScreen.channelsList=channelsHMList;
+				startActivity(new Intent(PlayerScreen.this,ChannelsScreen.class));
+			}else{
+				Log.e(TAG,"Channels not Available.");
+				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
+				//page_level_error_txt_view.setVisibility(View.VISIBLE);
+			}
+		}
+		
+		Log.i(TAG,"channelsProceedUI() Exiting.");
+	}
+
+	//Sends Channels API Request.
+	private void sendCategoriesReq(){
+		Log.i(TAG,"sendCategoriesReq() Entering.");
+		
+		ReqResHandler req = new ReqResHandler();
+		CustomProgressDialog.show(PlayerScreen.this);
+
+		req.categoriesListRequest(PlayerScreen.this,new ResponseHandler());
+		
+		Log.i(TAG,"sendCategoriesReq() Exiting.");
+	}
+	
+	//Methods handles the response from Server.
+	public void categoriesProceedUI(String result,AmalluException amalluEx){
+		Log.i(TAG,"categoriesProceedUI() Entering.");
+		
+		if(CustomProgressDialog.IsShowing()) {
+			Log.v(TAG, "categoriesProceedUI progress dialog dismissing..");
+			CustomProgressDialog.Dismiss();
+		}
+		if(result.equalsIgnoreCase("Exception")){
+			Log.e(TAG, "channelsProceedUI Exception Case");
+			//page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
+			//page_level_error_txt_view.setVisibility(View.VISIBLE);
+		}else{
+			List<HashMap<String,Object>> categoriesHMList=CategoryListParser.getCategoriesListParsedResponse(result);
+			if(categoriesHMList!=null&& !categoriesHMList.isEmpty()){
+				Log.v(TAG,"Categories Available.");
+				CategoriesScreen.categoriesList.clear();
+				CategoriesScreen.categoriesList=categoriesHMList;
+				startActivity(new Intent(PlayerScreen.this,CategoriesScreen.class));
+			}else{
+				Log.e(TAG,"Categories not Available.");
+				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
+				//page_level_error_txt_view.setVisibility(View.VISIBLE);
+			}
+		}
+		
+		Log.i(TAG,"categoriesProceedUI() Exiting.");
+	}
+
 
 }

@@ -37,5 +37,13 @@
          android:layout_toRightOf="@id/icon_channel"
          android:layout_alignBottom="@id/icon_channel"
          style="@style/channel_row_text_style"/>
+     
+     <ImageView
+        android:id="@+id/icon_right"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_send"
+        android:contentDescription="@string/image_content_desc"
+        android:layout_alignParentRight="true"
+        style="@style/channel_row_icon_style"/>
                 
 </RelativeLayout>

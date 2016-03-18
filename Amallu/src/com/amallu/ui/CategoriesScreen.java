@@ -21,10 +21,12 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.amallu.ui.CategoriesScreen.CategoryAdapter.CatRowViewHolder;
+import com.amallu.utility.ReqResNodes;
 
 public class CategoriesScreen extends Activity implements OnClickListener{
 	
 	private static final String TAG="CategoriesScreen";
+	public static List<HashMap<String,Object>> categoriesList=new ArrayList<HashMap<String,Object>>();
 	private CatRowViewHolder catRowHolder;
 	private LayoutInflater mInflater;
 	private ListView categoryList;
@@ -71,24 +73,7 @@ public class CategoriesScreen extends Activity implements OnClickListener{
 	//Populates ListView Data.
 	private void setData(){
 	  Log.i(TAG,"setData() Entering.");
-	  List<HashMap<String,Object>> catRowsHMList=new ArrayList<HashMap<String,Object>>();
-	  HashMap<String,Object> catRowHM;
-	  catRowHM=new HashMap<String,Object>();
-	  catRowHM.put("category_type","Entertainment");
-	  catRowsHMList.add(catRowHM);
-	  catRowHM=new HashMap<String,Object>();
-	  catRowHM.put("category_type","Sports");
-	  catRowsHMList.add(catRowHM);
-	  catRowHM=new HashMap<String,Object>();
-	  catRowHM.put("category_type","News");
-	  catRowsHMList.add(catRowHM);
-	  catRowHM=new HashMap<String,Object>();
-	  catRowHM.put("category_type","Business");
-	  catRowsHMList.add(catRowHM);
-	  catRowHM=new HashMap<String,Object>();
-	  catRowHM.put("category_type","Educational");
-	  catRowsHMList.add(catRowHM);
-	  CategoryAdapter categoryListAdapter=new CategoryAdapter(this,catRowsHMList,R.layout.categoryrow, new String[] {}, new int[] {});
+	  CategoryAdapter categoryListAdapter=new CategoryAdapter(this,categoriesList,R.layout.categoryrow, new String[] {}, new int[] {});
 	  categoryList.setAdapter(categoryListAdapter);
 	  categoryList.setOnItemClickListener(new OnItemClickListener(){
 		 @Override
@@ -124,8 +109,8 @@ public class CategoriesScreen extends Activity implements OnClickListener{
             HashMap<String,Object> catRowHM=(HashMap<String,Object>)catRowArrList.get(position);
              
             catRowHolder.category_type_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_activities));
-            catRowHolder.category_name.setText(catRowHM.get("category_type").toString());
-            catRowHolder.icon_details.setImageDrawable(getResources().getDrawable(R.drawable.ic_arrow_rt));
+            catRowHolder.category_name.setText(catRowHM.get(ReqResNodes.CATEGORY_NAME).toString());
+            catRowHolder.icon_details.setImageDrawable(getResources().getDrawable(R.drawable.ic_send));
             return convertView;
         }
 	    
@@ -136,6 +121,47 @@ public class CategoriesScreen extends Activity implements OnClickListener{
         }
 	        
 	}
+	
+	//Method to send Category request.
+	/*private void sendCategoriesReq(){
+		Log.i(TAG,"sendCategoriesReq() Entering.");
+		
+		ReqResHandler req = new ReqResHandler();
+		CustomProgressDialog.show(PlayerScreen.this);
+
+		req.categoriesListRequest(PlayerScreen.this,new ResponseHandler());
+		
+		Log.i(TAG,"sendCategoriesReq() Exiting.");
+	}
+	
+	//Methods handles the response from Server.
+	public void categoriesProceedUI(String result,AmalluException amalluEx){
+		Log.i(TAG,"categoriesProceedUI() Entering.");
+		
+		if(CustomProgressDialog.IsShowing()) {
+			Log.v(TAG, "categoriesProceedUI progress dialog dismissing..");
+			CustomProgressDialog.Dismiss();
+		}
+		if(result.equalsIgnoreCase("Exception")){
+			Log.e(TAG, "channelsProceedUI Exception Case");
+			//page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
+			//page_level_error_txt_view.setVisibility(View.VISIBLE);
+		}else{
+			List<HashMap<String,Object>> categoriesHMList=CategoryListParser.getCategoriesListParsedResponse(result);
+			if(categoriesHMList!=null&& !categoriesHMList.isEmpty()){
+				Log.v(TAG,"Categories Available.");
+				//CategoriesScreen.categoriesList.clear();
+				//CategoriesScreen.categoriesList=categoriesHMList;
+				//startActivity(new Intent(PlayerScreen.this,CategoriesScreen.class));
+			}else{
+				Log.e(TAG,"Categories not Available.");
+				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
+				//page_level_error_txt_view.setVisibility(View.VISIBLE);
+			}
+		}
+		
+		Log.i(TAG,"categoriesProceedUI() Exiting.");
+	}*/
 	
 	//Method to handle Device back button.
 	@Override

@@ -10,8 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
@@ -20,10 +20,12 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.amallu.ui.ChannelsScreen.ChannelAdapter.ChannelRowHolder;
+import com.amallu.utility.ReqResNodes;
 
 public class ChannelsScreen extends Activity implements OnClickListener{
 	
 	private static final String TAG="ChannelsScreen";
+	public static List<HashMap<String,Object>> channelsList=new ArrayList<HashMap<String,Object>>();
 	private ChannelRowHolder channelRowHolder;
 	private LayoutInflater mInflater;
 	private ListView channelList;
@@ -70,34 +72,7 @@ public class ChannelsScreen extends Activity implements OnClickListener{
 	//Populates ListView Data.
 	private void setData(){
 	  Log.i(TAG,"setData() Entering.");
-	  List<HashMap<String,Object>> channelRowsHMList=new ArrayList<HashMap<String,Object>>();
-	  HashMap<String,Object> channelRowHM;
-	  channelRowHM=new HashMap<String,Object>();
-	  channelRowHM.put("channel_name","Sky TG24");
-	  channelRowHM.put("channel_type","Polish | Entertainment");
-	  channelRowHM.put("channel_views","55k views-230148 sec");
-	  channelRowsHMList.add(channelRowHM);
-	  channelRowHM=new HashMap<String,Object>();
-	  channelRowHM.put("channel_name","Sky TG24");
-	  channelRowHM.put("channel_type","Polish | Entertainment");
-	  channelRowHM.put("channel_views","55k views-230148 sec");
-	  channelRowsHMList.add(channelRowHM);
-	  channelRowHM=new HashMap<String,Object>();
-	  channelRowHM.put("channel_name","Sky TG24");
-	  channelRowHM.put("channel_type","Polish | Entertainment");
-	  channelRowHM.put("channel_views","55k views-230148 sec");
-	  channelRowsHMList.add(channelRowHM);
-	  channelRowHM=new HashMap<String,Object>();
-	  channelRowHM.put("channel_name","Sky TG24");
-	  channelRowHM.put("channel_type","Polish | Entertainment");
-	  channelRowHM.put("channel_views","55k views-230148 sec");
-	  channelRowsHMList.add(channelRowHM);
-	  channelRowHM=new HashMap<String,Object>();
-	  channelRowHM.put("channel_name","Sky TG24");
-	  channelRowHM.put("channel_type","Polish | Entertainment");
-	  channelRowHM.put("channel_views","55k views-230148 sec");
-	  channelRowsHMList.add(channelRowHM);
-	  ChannelAdapter channelListAdapter=new ChannelAdapter(this,channelRowsHMList,R.layout.channelrow,new String[]{},new int[]{});
+	  ChannelAdapter channelListAdapter=new ChannelAdapter(this,channelsList,R.layout.channelrow,new String[]{},new int[]{});
 	  channelList.setAdapter(channelListAdapter);
 	  channelList.setOnItemClickListener(new OnItemClickListener(){
 		 @Override
@@ -124,6 +99,7 @@ public class ChannelsScreen extends Activity implements OnClickListener{
         	  convertView = mInflater.inflate(R.layout.channelrow,null);
         	  channelRowHolder=new ChannelRowHolder();
         	  channelRowHolder.icon_channel=(ImageView)convertView.findViewById(R.id.icon_channel);
+        	  channelRowHolder.icon_right=(ImageView)convertView.findViewById(R.id.icon_right);
         	  channelRowHolder.channel_name=(TextView)convertView.findViewById(R.id.channel_name);
         	  channelRowHolder.channel_type=(TextView)convertView.findViewById(R.id.channel_type);
         	  channelRowHolder.channel_views=(TextView)convertView.findViewById(R.id.channel_views);
@@ -133,20 +109,65 @@ public class ChannelsScreen extends Activity implements OnClickListener{
             }
             HashMap<String,Object> channelRowHM=(HashMap<String,Object>)channelRowArrList.get(position);
              
-            channelRowHolder.icon_channel.setImageDrawable(getResources().getDrawable(R.drawable.ic_channels));
-            channelRowHolder.channel_name.setText(channelRowHM.get("channel_name").toString());
-            channelRowHolder.channel_type.setText(channelRowHM.get("channel_type").toString());
-            channelRowHolder.channel_views.setText(channelRowHM.get("channel_views").toString());
+            channelRowHolder.icon_channel.setImageDrawable(getResources().getDrawable(R.drawable.ic_default_channel));
+            channelRowHolder.icon_right.setImageDrawable(getResources().getDrawable(R.drawable.ic_send));
+            channelRowHolder.channel_name.setText(channelRowHM.get(ReqResNodes.CHANNEL_NAME).toString());
+            channelRowHolder.channel_type.setText(channelRowHM.get(ReqResNodes.DESCRIPTION).toString());
+            //55k views-230148 sec
+            String channelViews=channelRowHM.get(ReqResNodes.VIEWS).toString()+" "+
+            					"views"+"-"+channelRowHM.get(ReqResNodes.TIME_WATCHED).toString()+" "+"sec";
+            channelRowHolder.channel_views.setText(channelViews);
             return convertView;
         }
 	    
         //Inner Class to hold views of list item.
         class ChannelRowHolder{
-    	    ImageView icon_channel;
+    	    ImageView icon_channel,icon_right;
     	    TextView channel_name,channel_type,channel_views;
         }
 	        
 	}
+	
+	//Method to send Channels List request.
+	/*private void sendChannelsReq(){
+		Log.i(TAG,"sendChannelsReq() Entering.");
+		
+		ReqResHandler req = new ReqResHandler();
+		CustomProgressDialog.show(PlayerScreen.this);
+
+		req.ChannelsListRequest(PlayerScreen.this,new ResponseHandler());
+		
+		Log.i(TAG,"sendChannelsReq() Exiting.");
+	}
+	
+	//Methods handles the response from Server.
+	public void channelsProceedUI(String result,AmalluException amalluEx){
+		Log.i(TAG,"channelsProceedUI() Entering.");
+		
+		if(CustomProgressDialog.IsShowing()) {
+			Log.v(TAG, "channelsProceedUI progress dialog dismissing..");
+			CustomProgressDialog.Dismiss();
+		}
+		if(result.equalsIgnoreCase("Exception")){
+			Log.e(TAG, "channelsProceedUI Exception Case");
+			//page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
+			//page_level_error_txt_view.setVisibility(View.VISIBLE);
+		}else{
+			List<HashMap<String,Object>> channelsHMList=ChannelsListParser.getChannelsListParsedResponse(result);
+			if(channelsHMList!=null&& !channelsHMList.isEmpty()){
+				Log.v(TAG,"Channels Available.");
+				//ChannelsScreen.channelsList.clear();
+				//ChannelsScreen.channelsList=channelsHMList;
+				//startActivity(new Intent(PlayerScreen.this,ChannelsScreen.class));
+			}else{
+				Log.e(TAG,"Channels not Available.");
+				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
+				//page_level_error_txt_view.setVisibility(View.VISIBLE);
+			}
+		}
+		
+		Log.i(TAG,"channelsProceedUI() Exiting.");
+	}*/
 	
 	//Method to handle Device back button.
 	@Override

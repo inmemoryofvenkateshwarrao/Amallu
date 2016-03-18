@@ -1,5 +1,6 @@
 package com.amallu.ui;
 
+import java.util.HashMap;
 import java.util.List;
 
 import android.app.Activity;
@@ -25,6 +26,7 @@ import com.amallu.model.ChannelDetail;
 import com.amallu.model.ChannelInfo;
 import com.amallu.model.Comment;
 import com.amallu.model.Login;
+import com.amallu.parser.CategoryListParser;
 import com.amallu.parser.ChannelInfoParser;
 import com.amallu.parser.LoginParser;
 import com.amallu.utility.ErrorCodes;
@@ -107,7 +109,8 @@ public class LoginScreen extends Activity implements OnClickListener{
 				break;
 			case R.id.signup_btn:
 				Log.i(TAG,"Signup button clicked");
-				startActivity(new Intent(LoginScreen.this,SignUpScreen.class));
+				//startActivity(new Intent(LoginScreen.this,SignUpScreen.class));
+				sendCategoriesReq();
 				break;
 			case R.id.forgot_your_pwd_txt_view:
 				Log.i(TAG,"Forgot Password Link clicked");
@@ -384,7 +387,7 @@ public class LoginScreen extends Activity implements OnClickListener{
 		
 		Log.i(TAG,"channelInfoProceedUI() Exiting.");
 	}
-
+	
 	//Method to handle Device back button.
 	@Override
 	public void onBackPressed(){

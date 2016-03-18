@@ -76,6 +76,15 @@ public class ReqResNodes{
     public static final String DISLIKECOUNT="dislikecount";
     public static final String COMMENTS="comments";
     
+    //Response properties for Categories
+    public static final String PARENT_ID="parent_id";
+    public static final String CATEGORY_NAME="category_name";
+    public static final String IS_ACTIVE="is_active";
+    public static final String DISPLAY_ORDER="display_order";
+    
+    //Response properties for Language
+    public static final String LANGUAGE="language";
+    
     //Common
     public static final String GET="get";
     public static final String POST="post";

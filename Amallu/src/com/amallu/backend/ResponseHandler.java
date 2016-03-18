@@ -5,6 +5,7 @@ import android.util.Log;
 import com.amallu.exception.AmalluException;
 import com.amallu.ui.ForgetPasswordScreen;
 import com.amallu.ui.LoginScreen;
+import com.amallu.ui.PlayerScreen;
 import com.amallu.ui.ProfileScreen;
 import com.amallu.ui.SignUpScreen;
 import com.amallu.ui.UsersScreen;
@@ -91,6 +92,18 @@ public class ResponseHandler implements Response{
 				Log.e(TAG, "CHANNELINFO Exception caught.");
 			}
 			((LoginScreen)context).channelInfoProceedUI(result,ex);
+		}
+		if(uiHandler.equals(CommonHandlerType.CATEGORY)){
+			if(result.equalsIgnoreCase("Exception")){
+				Log.e(TAG, "CATEGORY Exception caught.");
+			}
+			((PlayerScreen)context).categoriesProceedUI(result,ex);
+		}
+		if(uiHandler.equals(CommonHandlerType.CHANNEL)){
+			if(result.equalsIgnoreCase("Exception")){
+				Log.e(TAG, "CHANNEL Exception caught.");
+			}
+			((PlayerScreen)context).channelsProceedUI(result,ex);
 		}
 	}
 }

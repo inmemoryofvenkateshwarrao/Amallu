@@ -157,7 +157,7 @@ public class ReqResHandler implements AsyncCallback{
 		Log.i(TAG, "usersRequest() Exiting.");
 	}
 	
-	//Channel API Call.
+	//NextChannel API Call.
 	//GET Request.
 	public void channelRequest(Context context, Response responseHandler,String channelNo){
 		Log.i(TAG, "channelRequest() Entering.");
@@ -369,6 +369,54 @@ public class ReqResHandler implements AsyncCallback{
 		Log.i(TAG, "deleteCommentRequest() Exiting.");
 	}
 	
+	//Categories List API Call.
+	//GET Request
+	public void categoriesListRequest(Context context, Response responseHandler){
+		Log.i(TAG, "categoriesListRequest() Entering.");
+		handlerType = CommonHandlerType.CATEGORY;
+		
+		response = responseHandler;
+		uiContext = context;
+		
+		//http://www.app.amallu.com/api/category
+		
+		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
+							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.CATEGORY;
+		Log.d(TAG,"CATEGORY URL : "+url);
+		if(checkNetworkAvailability(context)){
+			Log.v(TAG,"Network is available. Initiating CATEGORY webservice call.");
+			asyncServiceRequest = new AsyncServiceRequest(this,null,uiContext,ReqResNodes.GET);
+			asyncServiceRequest.execute(url);
+		}else{
+			Log.e(TAG,"Network connection not available.");
+		}
+		Log.i(TAG, "categoriesListRequest() Exiting.");
+	}
+	
+	//Channels List API Call.
+	//GET Request
+	public void ChannelsListRequest(Context context, Response responseHandler){
+		Log.i(TAG, "ChannelsListRequest() Entering.");
+		handlerType = CommonHandlerType.CHANNEL;
+		
+		response = responseHandler;
+		uiContext = context;
+		
+		//http://www.app.amallu.com/api/channel
+		
+		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
+							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.CHANNEL;
+		Log.d(TAG,"CHANNEL URL : "+url);
+		if(checkNetworkAvailability(context)){
+			Log.v(TAG,"Network is available. Initiating CHANNEL webservice call.");
+			asyncServiceRequest = new AsyncServiceRequest(this,null,uiContext,ReqResNodes.GET);
+			asyncServiceRequest.execute(url);
+		}else{
+			Log.e(TAG,"Network connection not available.");
+		}
+		Log.i(TAG, "ChannelsListRequest() Exiting.");
+	}
+	
 	//Channelinfo API Call.
 	//POST Request
 	public void defaultChannelInfoRequest(Context context, Response responseHandler){
@@ -530,6 +578,24 @@ public class ReqResHandler implements AsyncCallback{
 				Log.v(TAG, "Handler CHANNELINFO");
 				if (result.equalsIgnoreCase("Exception")){
 					Log.e(TAG, "CHANNELINFO Exception caught.");
+				}else{
+					//Do Nothing.
+				}
+				response.updateResponse(uiContext,result,handlerType,exception);
+			}
+			if(handlerType.equals(CommonHandlerType.CATEGORY)){
+				Log.v(TAG, "Handler CATEGORY");
+				if (result.equalsIgnoreCase("Exception")){
+					Log.e(TAG, "CATEGORY Exception caught.");
+				}else{
+					//Do Nothing.
+				}
+				response.updateResponse(uiContext,result,handlerType,exception);
+			}
+			if(handlerType.equals(CommonHandlerType.CHANNEL)){
+				Log.v(TAG, "Handler CHANNEL");
+				if (result.equalsIgnoreCase("Exception")){
+					Log.e(TAG, "CHANNEL Exception caught.");
 				}else{
 					//Do Nothing.
 				}
