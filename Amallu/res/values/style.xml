@@ -2,7 +2,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Style for customized progress bar -->
-    <style name="CustomProgressDialog">
+    <style name="CustomProgressDialog" parent="android:Theme.Holo.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsFloating">true</item>

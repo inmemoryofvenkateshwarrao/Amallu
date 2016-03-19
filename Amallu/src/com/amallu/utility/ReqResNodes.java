@@ -90,6 +90,9 @@ public class ReqResNodes{
     public static final String NEWPASSWORD="newPassword";
     public static final String CONFIRMPASSWORD="confirmPassword";
     
+    //Response properties for ChannelsByCategory
+    public static final String CHANNELS="channels";
+    
     //Common
     public static final String GET="get";
     public static final String POST="post";

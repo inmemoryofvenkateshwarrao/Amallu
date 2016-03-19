@@ -19,17 +19,19 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import com.amallu.ui.ChannelsScreen.ChannelAdapter.ChannelRowHolder;
+import com.amallu.model.ChannelsByCategory;
+import com.amallu.ui.ChannelsByCategoryScreen.ChannelAdapter.ChannelRowHolder;
 import com.amallu.utility.ReqResNodes;
 
-public class ChannelsScreen extends Activity implements OnClickListener{
+public class ChannelsByCategoryScreen extends Activity implements OnClickListener{
 	
-	private static final String TAG="ChannelsScreen";
-	public static List<HashMap<String,Object>> channelsList=new ArrayList<HashMap<String,Object>>();
+	private static final String TAG="ChannelsByCategoryScreen";
+	public static ChannelsByCategory channelsByCategory=null;
 	private ChannelRowHolder channelRowHolder;
 	private LayoutInflater mInflater;
 	private ListView channelList;
 	private ImageView icon_left_arrow;
+	private TextView categoryTitle;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
@@ -38,13 +40,14 @@ public class ChannelsScreen extends Activity implements OnClickListener{
 	  setContentView(R.layout.channels);
 	  intializeViews();
 	  setListeners();
-	  setData();
+	  setData(channelsByCategory.getCategory_name(),channelsByCategory.getChannelsHMList());
 	  Log.i(TAG,"onCreate() Exiting.");
 	}	 
 	
 	//Method to initialize the Views of XML file.
 	private void intializeViews(){
 	  Log.i(TAG,"intializeViews() Entering.");
+	  categoryTitle=(TextView)findViewById(R.id.title);
 	  channelList=(ListView)findViewById(R.id.channel_list);
 	  icon_left_arrow=(ImageView)findViewById(R.id.icon_left_arrow);
 	  Log.i(TAG,"intializeViews() Exiting.");
@@ -70,14 +73,15 @@ public class ChannelsScreen extends Activity implements OnClickListener{
 	}
 	
 	//Populates ListView Data.
-	private void setData(){
+	private void setData(String title,List<HashMap<String,Object>> channelsList){
 	  Log.i(TAG,"setData() Entering.");
+	  categoryTitle.setText(title);
 	  ChannelAdapter channelListAdapter=new ChannelAdapter(this,channelsList,R.layout.channelrow,new String[]{},new int[]{});
 	  channelList.setAdapter(channelListAdapter);
 	  channelList.setOnItemClickListener(new OnItemClickListener(){
 		 @Override
 		 public void onItemClick(AdapterView<?> parent, View view, int position,long id){
-		    //HashMap (HashMap<String,Object>)view.getTag();
+		    
 		 } 
 	   });
 	  Log.i(TAG,"setData() Exiting.");

@@ -74,6 +74,10 @@
             android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" >
         </activity>
         <activity
+            android:name=".ChannelsByCategoryScreen"
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" >
+        </activity>
+        <activity
             android:name=".LanguagesScreen"
             android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" >
         </activity>

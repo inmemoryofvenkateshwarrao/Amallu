@@ -181,11 +181,15 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	  //Starts Live Streaming.
 	  private void startLiveStreaming(String path){
 		 Log.i(TAG,"startLiveStreaming() Entering.");
-		 if(path!=null && path==""){
+		 if(path==null || path.equals("")){
 		      Log.e(TAG,"path is null or empty");
-		      Toast.makeText(this,"Unable to fetch Video URL",Toast.LENGTH_LONG).show();
+		      Toast.makeText(this,"Unable to fetch next Video URL",Toast.LENGTH_LONG).show();
 		      return;
-		    }else{
+		  }else{
+		      channel_name_txt_view.setText(channelDetail.getChannel_name());
+			  channel_Type_txt_view.setText(channelDetail.getDescription());
+			  likes_txt_view.setText(channelInfo.getLikecount());
+			  dislikes_txt_view.setText(channelInfo.getDislikecount());
 		      uri=Uri.parse(path);
 		      mVideoView.setVideoQuality(MediaPlayer.VIDEOQUALITY_HIGH);
 		      mVideoView.setVideoURI(uri);
@@ -303,10 +307,10 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		Log.i(TAG,"setChannelInfoData() Entering.");
 		String path=channelDetail.getRtmp_link();
 		startLiveStreaming(path);
-		channel_name_txt_view.setText(channelDetail.getChannel_name());
+		/*channel_name_txt_view.setText(channelDetail.getChannel_name());
 		channel_Type_txt_view.setText(channelDetail.getDescription());
 		likes_txt_view.setText(channelInfo.getLikecount());
-		dislikes_txt_view.setText(channelInfo.getDislikecount());
+		dislikes_txt_view.setText(channelInfo.getDislikecount());*/
 		Log.i(TAG,"setChannelInfoData() Exiting.");
 	 }
 	
@@ -358,19 +362,25 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	 * */
 	private void displayView(int position){
 		//update the main content by replacing fragments
-		Fragment fragment = null;
+		//Fragment fragment = null;
 		switch(position){
 			case 0:
 				//fragment = new HomeFragment();
 				break;
 			case 1:
 				//fragment = new FindPeopleFragment();
+				//startActivity(new Intent(PlayerScreen.this,ChannelsScreen.class));
+				sendChannelsReq();
 				break;
 			case 2:
 				//fragment = new PhotosFragment();
+				//startActivity(new Intent(PlayerScreen.this,CategoriesScreen.class));
+				sendCategoriesReq();
 				break;
 			case 3:
 				//fragment = new CommunityFragment();
+				//startActivity(new Intent(PlayerScreen.this,LanguagesScreen.class));
+				sendLanguagesReq();
 				break;
 			case 4:
 				//fragment = new PagesFragment();
@@ -569,11 +579,17 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 					   Log.d(TAG,"hide_comment : "+hideComment);
 					   Log.d(TAG,"dt_created : "+dateCreated);	
 					}
-					PlayerScreen.channelInfo=null;
-					PlayerScreen.channelInfo=channelInfo;
-					PlayerScreen.channelDetail=null;
-					PlayerScreen.channelDetail=channelDetail;
-					setChannelInfoData();
+					if(rtmpLink==null || rtmpLink.equals("")){
+					   Log.e(TAG,"path is null or empty");
+					   Toast.makeText(this,"Unable to fetch next Video URL",Toast.LENGTH_LONG).show();
+					   return;
+					 }else{
+						 PlayerScreen.channelInfo=null;
+						 PlayerScreen.channelInfo=channelInfo;
+						 PlayerScreen.channelDetail=null;
+						 PlayerScreen.channelDetail=channelDetail;
+						 setChannelInfoData();
+					 }
 					//startActivity(new Intent(LoginScreen.this,PlayerScreen.class));
 								/*.putExtra(ReqResNodes.CHANNEL_ID,channelID)
 								.putExtra(ReqResNodes.CHANNEL_CODE,channelCode)

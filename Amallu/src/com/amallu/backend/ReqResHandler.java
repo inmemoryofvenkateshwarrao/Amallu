@@ -169,7 +169,7 @@ public class ReqResHandler implements AsyncCallback{
 		//http://www.app.amallu.com/api/channel/nextchannel?_format=json&channelid=59
 		
 		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
-							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.NEXTCHANNEL+"/"+"channelid="+channelNo;
+							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.NEXTCHANNEL+"&"+"channelid="+channelNo;
 		Log.d(TAG,"NEXTCHANNEL URL : "+url);
 		if(checkNetworkAvailability(context)){
 			Log.v(TAG,"Network is available. Initiating NEXTCHANNEL webservice call.");

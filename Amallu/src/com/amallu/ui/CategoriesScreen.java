@@ -78,7 +78,7 @@ public class CategoriesScreen extends Activity implements OnClickListener{
 	  categoryList.setOnItemClickListener(new OnItemClickListener(){
 		 @Override
 		 public void onItemClick(AdapterView<?> parent, View view, int position,long id){
-		    startActivity(new Intent(CategoriesScreen.this,ChannelsScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+		    //startActivity(new Intent(CategoriesScreen.this,ChannelsScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 		 } 
 	   });
 	  Log.i(TAG,"setData() Exiting.");
