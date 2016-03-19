@@ -159,8 +159,8 @@ public class ReqResHandler implements AsyncCallback{
 	
 	//NextChannel API Call.
 	//GET Request.
-	public void channelRequest(Context context, Response responseHandler,String channelNo){
-		Log.i(TAG, "channelRequest() Entering.");
+	public void nextChannelRequest(Context context, Response responseHandler,String channelNo){
+		Log.i(TAG, "nextChannelRequest() Entering.");
 		handlerType = CommonHandlerType.NEXTCHANNEL;
 		
 		response = responseHandler;
@@ -170,15 +170,15 @@ public class ReqResHandler implements AsyncCallback{
 		
 		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
 							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.NEXTCHANNEL+"/"+"channelid="+channelNo;
-		Log.d(TAG,"CHANNEL URL : "+url);
+		Log.d(TAG,"NEXTCHANNEL URL : "+url);
 		if(checkNetworkAvailability(context)){
-			Log.v(TAG,"Network is available. Initiating CHANNEL webservice call.");
+			Log.v(TAG,"Network is available. Initiating NEXTCHANNEL webservice call.");
 			asyncServiceRequest = new AsyncServiceRequest(this,null,uiContext,ReqResNodes.GET);
 			asyncServiceRequest.execute(url);
 		}else{
 			Log.e(TAG,"Network connection not available.");
 		}
-		Log.i(TAG, "channelRequest() Exiting.");
+		Log.i(TAG, "nextChannelRequest() Exiting.");
 	}
 	
 	//Comment API Call.
@@ -566,9 +566,9 @@ public class ReqResHandler implements AsyncCallback{
 				response.updateResponse(uiContext,result,handlerType,exception);
 			}
 			if(handlerType.equals(CommonHandlerType.NEXTCHANNEL)){
-				Log.v(TAG, "Handler CHANNEL");
+				Log.v(TAG, "Handler NEXTCHANNEL");
 				if (result.equalsIgnoreCase("Exception")){
-					Log.e(TAG, "CHANNEL Exception caught.");
+					Log.e(TAG, "NEXTCHANNEL Exception caught.");
 				}else{
 					//Do Nothing.
 				}

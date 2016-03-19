@@ -28,7 +28,6 @@ import com.amallu.model.Login;
 import com.amallu.parser.ChannelInfoParser;
 import com.amallu.parser.LoginParser;
 import com.amallu.utility.ErrorCodes;
-import com.amallu.utility.ReqResNodes;
 
 public class LoginScreen extends Activity implements OnClickListener{
 
@@ -107,7 +106,7 @@ public class LoginScreen extends Activity implements OnClickListener{
 				break;
 			case R.id.signup_btn:
 				Log.i(TAG,"Signup button clicked");
-				//startActivity(new Intent(LoginScreen.this,SignUpScreen.class));
+				startActivity(new Intent(LoginScreen.this,SignUpScreen.class));
 				break;
 			case R.id.forgot_your_pwd_txt_view:
 				Log.i(TAG,"Forgot Password Link clicked");
@@ -360,20 +359,24 @@ public class LoginScreen extends Activity implements OnClickListener{
 					   Log.d(TAG,"hide_comment : "+hideComment);
 					   Log.d(TAG,"dt_created : "+dateCreated);	
 					}
-					startActivity(new Intent(LoginScreen.this,PlayerScreen.class)
-					.putExtra(ReqResNodes.CHANNEL_ID,channelID)
-					.putExtra(ReqResNodes.CHANNEL_CODE,channelCode)
-					.putExtra(ReqResNodes.CATEGORY_ID,categoryID)
-					.putExtra(ReqResNodes.CHANNEL_NAME,channelName)
-					.putExtra(ReqResNodes.LANGUAGE_ID,languageID)
-					.putExtra(ReqResNodes.DESCRIPTION,description)
-					.putExtra(ReqResNodes.RTMP_LINK,rtmpLink)
-					.putExtra(ReqResNodes.FOLLOWERS,followers)
-					.putExtra(ReqResNodes.VIEWS,views)
-					.putExtra(ReqResNodes.DISPLAY_CHANNEL,displayChannel)
-					.putExtra(ReqResNodes.DEFAULT_CHANNEL,defaultChannel)
-					.putExtra(ReqResNodes.TIME_WATCHED,timeWatched)
-					.putExtra(ReqResNodes.THUMBNAIL,thumbnail));
+					PlayerScreen.channelInfo=null;
+					PlayerScreen.channelInfo=channelInfo;
+					PlayerScreen.channelDetail=null;
+					PlayerScreen.channelDetail=channelDetail;
+					startActivity(new Intent(LoginScreen.this,PlayerScreen.class));
+								/*.putExtra(ReqResNodes.CHANNEL_ID,channelID)
+								.putExtra(ReqResNodes.CHANNEL_CODE,channelCode)
+								.putExtra(ReqResNodes.CATEGORY_ID,categoryID)
+								.putExtra(ReqResNodes.CHANNEL_NAME,channelName)
+								.putExtra(ReqResNodes.LANGUAGE_ID,languageID)
+								.putExtra(ReqResNodes.DESCRIPTION,description)
+								.putExtra(ReqResNodes.RTMP_LINK,rtmpLink)
+								.putExtra(ReqResNodes.FOLLOWERS,followers)
+								.putExtra(ReqResNodes.VIEWS,views)
+								.putExtra(ReqResNodes.DISPLAY_CHANNEL,displayChannel)
+								.putExtra(ReqResNodes.DEFAULT_CHANNEL,defaultChannel)
+								.putExtra(ReqResNodes.TIME_WATCHED,timeWatched)
+								.putExtra(ReqResNodes.THUMBNAIL,thumbnail));*/
 				}
 			}else{
 				Log.e(TAG,"ChannelInfo response parsing failed.");

@@ -18,7 +18,6 @@ public class ChannelDetail {
 	private String time_watched;
 	private String thumbnail;
 	
-	
 	public String getIsSuccess() {
 		return isSuccess;
 	}

@@ -49,7 +49,7 @@ public class ResponseHandler implements Response{
 			if(result.equalsIgnoreCase("Exception")){
 				Log.e(TAG, "CHANNEL Exception caught.");
 			}
-			//((PlayerScreen)context).nextorPreviousChannelProceedUI(result,ex);
+			((PlayerScreen)context).nextChannelProceedUI(result,ex);
 		}
 		if(uiHandler.equals(CommonHandlerType.COMMENT)){
 			if(result.equalsIgnoreCase("Exception")){
