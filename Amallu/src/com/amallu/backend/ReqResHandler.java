@@ -395,8 +395,8 @@ public class ReqResHandler implements AsyncCallback{
 	
 	//Channels List API Call.
 	//GET Request
-	public void ChannelsListRequest(Context context, Response responseHandler){
-		Log.i(TAG, "ChannelsListRequest() Entering.");
+	public void channelsListRequest(Context context, Response responseHandler){
+		Log.i(TAG, "channelsListRequest() Entering.");
 		handlerType = CommonHandlerType.CHANNEL;
 		
 		response = responseHandler;
@@ -414,7 +414,7 @@ public class ReqResHandler implements AsyncCallback{
 		}else{
 			Log.e(TAG,"Network connection not available.");
 		}
-		Log.i(TAG, "ChannelsListRequest() Exiting.");
+		Log.i(TAG, "channelsListRequest() Exiting.");
 	}
 	
 	//Channelinfo API Call.
@@ -439,6 +439,60 @@ public class ReqResHandler implements AsyncCallback{
 			Log.e(TAG,"Network connection not available.");
 		}
 		Log.i(TAG, "defaultChannelInfoRequest() Exiting.");
+	}
+	
+	//Languages List API Call.
+	//GET Request
+	public void languagesListRequest(Context context, Response responseHandler){
+		Log.i(TAG, "languagesListRequest() Entering.");
+		handlerType = CommonHandlerType.LANGUAGE;
+		
+		response = responseHandler;
+		uiContext = context;
+		
+		//http://www.app.amallu.com/api/language
+		
+		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
+							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.LANGUAGE;
+		Log.d(TAG,"LANGUAGE URL : "+url);
+		if(checkNetworkAvailability(context)){
+			Log.v(TAG,"Network is available. Initiating LANGUAGE webservice call.");
+			asyncServiceRequest = new AsyncServiceRequest(this,null,uiContext,ReqResNodes.GET);
+			asyncServiceRequest.execute(url);
+		}else{
+			Log.e(TAG,"Network connection not available.");
+		}
+		Log.i(TAG, "languagesListRequest() Exiting.");
+	}
+	
+	//Change Password API Call.
+	//POST Request
+	public void changePasswordRequest(Context context, Response responseHandler,String emailid,String oldPwd,
+									String newPwd,String confirmPwd){
+		Log.i(TAG, "changePasswordRequest() Entering.");
+		handlerType = CommonHandlerType.CHANGEPASSWORD;
+		
+		response = responseHandler;
+		uiContext = context;
+		
+		//http://www.app.amallu.com/api/user/changepassword?_format=json
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put(ReqResNodes.EMAILID,emailid);
+		paramsMap.put(ReqResNodes.OLDPASSWORD,oldPwd);
+		paramsMap.put(ReqResNodes.NEWPASSWORD,newPwd);
+		paramsMap.put(ReqResNodes.CONFIRMPASSWORD,confirmPwd);
+		
+		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
+							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.CHANGEPASSWORD;
+		Log.d(TAG,"CHANGEPASSWORD URL : "+url);
+		if(checkNetworkAvailability(context)){
+			Log.v(TAG,"Network is available. Initiating CHANGEPASSWORD webservice call.");
+			asyncServiceRequest = new AsyncServiceRequest(this,paramsMap,uiContext,ReqResNodes.POST);
+			asyncServiceRequest.execute(url);
+		}else{
+			Log.e(TAG,"Network connection not available.");
+		}
+		Log.i(TAG, "changePasswordRequest() Exiting.");
 	}
 	
 	private boolean checkNetworkAvailability(Context ctx){
@@ -596,6 +650,24 @@ public class ReqResHandler implements AsyncCallback{
 				Log.v(TAG, "Handler CHANNEL");
 				if (result.equalsIgnoreCase("Exception")){
 					Log.e(TAG, "CHANNEL Exception caught.");
+				}else{
+					//Do Nothing.
+				}
+				response.updateResponse(uiContext,result,handlerType,exception);
+			}
+			if(handlerType.equals(CommonHandlerType.LANGUAGE)){
+				Log.v(TAG, "Handler LANGUAGE");
+				if (result.equalsIgnoreCase("Exception")){
+					Log.e(TAG, "LANGUAGE Exception caught.");
+				}else{
+					//Do Nothing.
+				}
+				response.updateResponse(uiContext,result,handlerType,exception);
+			}
+			if(handlerType.equals(CommonHandlerType.CHANGEPASSWORD)){
+				Log.v(TAG, "Handler CHANGEPASSWORD");
+				if (result.equalsIgnoreCase("Exception")){
+					Log.e(TAG, "CHANGEPASSWORD Exception caught.");
 				}else{
 					//Do Nothing.
 				}

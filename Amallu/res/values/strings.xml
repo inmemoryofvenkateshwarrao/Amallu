@@ -51,6 +51,15 @@
     
     <string name="categories">Categories</string>
     <string name="channels">Channels</string>
+    <string name="languages">Languages</string>
+    
+    <string name="current_passsword">Current Password</string>
+    <string name="new_password">New Password</string>
+    <string name="retype_new_password">Re-type new Password</string>
+    <string name="change">CHANGE</string>
+    <string name="curr_pwd_error_msg">Please enter current Password</string>
+    <string name="new_pwd_error_msg">Please enter new Password</string>
+    <string name="re_type_new_pwd_error_msg">Please re enter new Password</string>
     
     <!-- Error Messages -->
     <string name="uname_error_msg">Please enter Username</string>

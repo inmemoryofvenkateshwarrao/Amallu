@@ -105,5 +105,17 @@ public class ResponseHandler implements Response{
 			}
 			((PlayerScreen)context).channelsProceedUI(result,ex);
 		}
+		if(uiHandler.equals(CommonHandlerType.LANGUAGE)){
+			if(result.equalsIgnoreCase("Exception")){
+				Log.e(TAG, "LANGUAGE Exception caught.");
+			}
+			((PlayerScreen)context).languageProceedUI(result,ex);
+		}
+		if(uiHandler.equals(CommonHandlerType.CHANGEPASSWORD)){
+			if(result.equalsIgnoreCase("Exception")){
+				Log.e(TAG, "CHANGEPASSWORD Exception caught.");
+			}
+			//((ChangePasswordScreen)context).changePWDProceedUI(result,ex);
+		}
 	}
 }

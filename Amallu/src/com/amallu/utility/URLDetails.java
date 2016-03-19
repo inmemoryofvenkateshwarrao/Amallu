@@ -14,10 +14,12 @@ public class URLDetails{
 	public static final String LOGIN="user/login?_format=json";
 	public static final String SIGNUP="user/signup?_format=json";
 	public static final String FORGETPASSWORD="user/forgetpassword?_format=json";
+	public static final String CHANGEPASSWORD="user/changepassword?_format=json";
 	public static final String PROFILE="profile?_format=json";
 	public static final String USERS="user?_format=json";
 	public static final String CATEGORY="category";
 	public static final String CHANNEL="channel";
+	public static final String LANGUAGE="language";
 	public static final String NEXTCHANNEL="nextchannel?_format=json";
 	public static final String PREVIOUSCHANNEL="previouschannel?_format=json";
 	public static final String LIKECHANNEL="likechannel?_format=json";

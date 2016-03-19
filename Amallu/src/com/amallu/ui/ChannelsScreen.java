@@ -128,6 +128,14 @@ public class ChannelsScreen extends Activity implements OnClickListener{
 	        
 	}
 	
+	//Method to handle Device back button.
+	@Override
+	public void onBackPressed(){
+	   Log.i(TAG,"onBackPressed Entering.");
+	   super.onBackPressed();
+	   Log.i(TAG,"onBackPressed Exiting.");
+	}
+	
 	//Method to send Channels List request.
 	/*private void sendChannelsReq(){
 		Log.i(TAG,"sendChannelsReq() Entering.");
@@ -168,13 +176,5 @@ public class ChannelsScreen extends Activity implements OnClickListener{
 		
 		Log.i(TAG,"channelsProceedUI() Exiting.");
 	}*/
-	
-	//Method to handle Device back button.
-	@Override
-	public void onBackPressed(){
-	   Log.i(TAG,"onBackPressed Entering.");
-	   super.onBackPressed();
-	   Log.i(TAG,"onBackPressed Exiting.");
-	}
 	
 }

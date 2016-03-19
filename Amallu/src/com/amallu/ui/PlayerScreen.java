@@ -45,6 +45,7 @@ import com.amallu.model.NavDrawerItem;
 import com.amallu.parser.CategoryListParser;
 import com.amallu.parser.ChannelParser;
 import com.amallu.parser.ChannelsListParser;
+import com.amallu.parser.LanguageListParser;
 import com.amallu.utility.ErrorCodes;
 
 @SuppressWarnings("deprecation")
@@ -553,7 +554,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		ReqResHandler req = new ReqResHandler();
 		CustomProgressDialog.show(PlayerScreen.this);
 
-		req.ChannelsListRequest(PlayerScreen.this,new ResponseHandler());
+		req.channelsListRequest(PlayerScreen.this,new ResponseHandler());
 		
 		Log.i(TAG,"sendChannelsReq() Exiting.");
 	}
@@ -627,6 +628,46 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		
 		Log.i(TAG,"categoriesProceedUI() Exiting.");
 	}
+	
+	//Sends Languages API Request.
+	private void sendLanguagesReq(){
+		Log.i(TAG,"sendLanguagesReq() Entering.");
+		
+		ReqResHandler req = new ReqResHandler();
+		CustomProgressDialog.show(PlayerScreen.this);
 
+		req.languagesListRequest(PlayerScreen.this,new ResponseHandler());
+		
+		Log.i(TAG,"sendLanguagesReq() Exiting.");
+	}
+	
+	//Methods handles the response from Server.
+	public void languageProceedUI(String result,AmalluException amalluEx){
+		Log.i(TAG,"languageProceedUI() Entering.");
+		
+		if(CustomProgressDialog.IsShowing()){
+			Log.v(TAG, "languageProceedUI progress dialog dismissing..");
+			CustomProgressDialog.Dismiss();
+		}
+		if(result.equalsIgnoreCase("Exception")){
+			Log.e(TAG, "languageProceedUI Exception Case");
+			//page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
+			//page_level_error_txt_view.setVisibility(View.VISIBLE);
+		}else{
+			List<HashMap<String,Object>> languagesHMList=LanguageListParser.getLanguagesListParsedResponse(result);
+			if(languagesHMList!=null&& !languagesHMList.isEmpty()){
+				Log.v(TAG,"Languages Available.");
+				LanguagesScreen.languagesList.clear();
+				LanguagesScreen.languagesList=languagesHMList;
+				startActivity(new Intent(PlayerScreen.this,LanguagesScreen.class));
+			}else{
+				Log.e(TAG,"Languages not Available.");
+				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
+				//page_level_error_txt_view.setVisibility(View.VISIBLE);
+			}
+		}
+		
+		Log.i(TAG,"languageProceedUI() Exiting.");
+	}
 
 }

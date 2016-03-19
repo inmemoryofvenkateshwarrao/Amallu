@@ -122,6 +122,14 @@ public class CategoriesScreen extends Activity implements OnClickListener{
 	        
 	}
 	
+	//Method to handle Device back button.
+	@Override
+	public void onBackPressed(){
+	   Log.i(TAG,"onBackPressed Entering.");
+	   super.onBackPressed();
+	   Log.i(TAG,"onBackPressed Exiting.");
+	}
+	
 	//Method to send Category request.
 	/*private void sendCategoriesReq(){
 		Log.i(TAG,"sendCategoriesReq() Entering.");
@@ -162,13 +170,5 @@ public class CategoriesScreen extends Activity implements OnClickListener{
 		
 		Log.i(TAG,"categoriesProceedUI() Exiting.");
 	}*/
-	
-	//Method to handle Device back button.
-	@Override
-	public void onBackPressed(){
-	   Log.i(TAG,"onBackPressed Entering.");
-	   super.onBackPressed();
-	   Log.i(TAG,"onBackPressed Exiting.");
-	}
 	
 }

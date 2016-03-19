@@ -85,6 +85,11 @@ public class ReqResNodes{
     //Response properties for Language
     public static final String LANGUAGE="language";
     
+    //Response properties for Change Password
+    public static final String OLDPASSWORD="oldPassword";
+    public static final String NEWPASSWORD="newPassword";
+    public static final String CONFIRMPASSWORD="confirmPassword";
+    
     //Common
     public static final String GET="get";
     public static final String POST="post";
