@@ -19,18 +19,18 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import com.amallu.ui.ChannelsByCategoryScreen.ChannelAdapter.ChannelRowHolder;
+import com.amallu.ui.ChannelsByLanguageScreen.ChannelAdapter.ChannelRowHolder;
 import com.amallu.utility.ReqResNodes;
 
-public class ChannelsByCategoryScreen extends Activity implements OnClickListener{
+public class ChannelsByLanguageScreen extends Activity implements OnClickListener{
 	
-	private static final String TAG="ChannelsByCategoryScreen";
+	private static final String TAG="ChannelsByLanguageScreen";
 	public static List<HashMap<String,Object>> channelsList=new ArrayList<HashMap<String,Object>>();
 	private ChannelRowHolder channelRowHolder;
 	private LayoutInflater mInflater;
 	private ListView channelList;
 	private ImageView icon_left_arrow;
-	private TextView categoryTitle;
+	private TextView languageTitle;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
@@ -46,7 +46,7 @@ public class ChannelsByCategoryScreen extends Activity implements OnClickListene
 	//Method to initialize the Views of XML file.
 	private void intializeViews(){
 	  Log.i(TAG,"intializeViews() Entering.");
-	  categoryTitle=(TextView)findViewById(R.id.title);
+	  languageTitle=(TextView)findViewById(R.id.title);
 	  channelList=(ListView)findViewById(R.id.channel_list);
 	  icon_left_arrow=(ImageView)findViewById(R.id.icon_left_arrow);
 	  Log.i(TAG,"intializeViews() Exiting.");
@@ -76,9 +76,9 @@ public class ChannelsByCategoryScreen extends Activity implements OnClickListene
 	  Log.i(TAG,"setData() Entering.");
 	  for(int c=0;c<channelsList.size();c++){
 		HashMap<String,Object> channelHM=(HashMap<String,Object>)channelsList.get(c);
-		String categoryName=channelHM.get(ReqResNodes.CATEGORY_NAME).toString();
-		Log.d(TAG,"categoryName : "+categoryName);
-		categoryTitle.setText(categoryName);
+		String languageName=channelHM.get(ReqResNodes.LANGUAGE).toString();
+		Log.d(TAG,"categoryName : "+languageName);
+		languageTitle.setText(languageName);
 		break;
 	  }
 	  ChannelAdapter channelListAdapter=new ChannelAdapter(this,channelsList,R.layout.channelrow,new String[]{},new int[]{});

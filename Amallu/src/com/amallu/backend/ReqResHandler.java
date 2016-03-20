@@ -495,6 +495,54 @@ public class ReqResHandler implements AsyncCallback{
 		Log.i(TAG, "changePasswordRequest() Exiting.");
 	}
 	
+	//ChannelsByCategory List API Call.
+	//GET Request
+	public void channelsByCategoryRequest(Context context, Response responseHandler,String categoryid){
+		Log.i(TAG, "channelsByCategoryRequest() Entering.");
+		handlerType = CommonHandlerType.CHANNELSBYCATEGORY;
+		
+		response = responseHandler;
+		uiContext = context;
+		
+		//http://www.app.amallu.com/api/category/channelsbycategory?categoryid=1&_format=json
+		
+		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
+							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.CHANNELSBYCATEGORY+"&"+"categoryid="+categoryid;
+		Log.d(TAG,"CHANNELSBYCATEGORY URL : "+url);
+		if(checkNetworkAvailability(context)){
+			Log.v(TAG,"Network is available. Initiating CHANNELSBYCATEGORY webservice call.");
+			asyncServiceRequest = new AsyncServiceRequest(this,null,uiContext,ReqResNodes.GET);
+			asyncServiceRequest.execute(url);
+		}else{
+			Log.e(TAG,"Network connection not available.");
+		}
+		Log.i(TAG, "channelsByCategoryRequest() Exiting.");
+	}
+	
+	//ChannelsByLangugage List API Call.
+	//GET Request
+	public void channelsByLanguageRequest(Context context, Response responseHandler,String languageid){
+		Log.i(TAG, "channelsByLanguageRequest() Entering.");
+		handlerType = CommonHandlerType.CHANNELSBYLANGUAGE;
+		
+		response = responseHandler;
+		uiContext = context;
+		
+		//http://www.app.amallu.com/api/language/channelsbylanguage?languageid=1&_format=json
+		
+		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
+							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.CHANNELSBYLANGUAGE+"&"+"languageid="+languageid;
+		Log.d(TAG,"CHANNELSBYLANGUAGE URL : "+url);
+		if(checkNetworkAvailability(context)){
+			Log.v(TAG,"Network is available. Initiating CHANNELSBYLANGUAGE webservice call.");
+			asyncServiceRequest = new AsyncServiceRequest(this,null,uiContext,ReqResNodes.GET);
+			asyncServiceRequest.execute(url);
+		}else{
+			Log.e(TAG,"Network connection not available.");
+		}
+		Log.i(TAG, "channelsByLanguageRequest() Exiting.");
+	}
+	
 	private boolean checkNetworkAvailability(Context ctx){
 		Log.i(TAG,"checkNetworkAvailability() Entering.");
 		boolean netWorkCheck=true;
@@ -668,6 +716,24 @@ public class ReqResHandler implements AsyncCallback{
 				Log.v(TAG, "Handler CHANGEPASSWORD");
 				if (result.equalsIgnoreCase("Exception")){
 					Log.e(TAG, "CHANGEPASSWORD Exception caught.");
+				}else{
+					//Do Nothing.
+				}
+				response.updateResponse(uiContext,result,handlerType,exception);
+			}
+			if(handlerType.equals(CommonHandlerType.CHANNELSBYCATEGORY)){
+				Log.v(TAG, "Handler CHANNELSBYCATEGORY");
+				if (result.equalsIgnoreCase("Exception")){
+					Log.e(TAG, "CHANNELSBYCATEGORY Exception caught.");
+				}else{
+					//Do Nothing.
+				}
+				response.updateResponse(uiContext,result,handlerType,exception);
+			}
+			if(handlerType.equals(CommonHandlerType.CHANNELSBYLANGUAGE)){
+				Log.v(TAG, "Handler CHANNELSBYLANGUAGE");
+				if (result.equalsIgnoreCase("Exception")){
+					Log.e(TAG, "CHANNELSBYLANGUAGE Exception caught.");
 				}else{
 					//Do Nothing.
 				}

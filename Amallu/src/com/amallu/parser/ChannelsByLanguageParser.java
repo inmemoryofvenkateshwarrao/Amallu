@@ -10,60 +10,54 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
-import com.amallu.model.ChannelsByCategory;
+import com.amallu.model.ChannelsByLanguage;
 import com.amallu.utility.ErrorCodes;
 import com.amallu.utility.ReqResNodes;
 
-public class ChannelsByCategoryParser{
+public class ChannelsByLanguageParser{
 	
-	private static final String TAG="ChannelsByCategoryParser";
+	private static final String TAG="ChannelsByLanguageParser";
 	
-	//Method Parses the JSON Response of ChannelsByCategory Web service.
-	public static List<HashMap<String,Object>> getChannelsByCategoryParsedResponse(String channelsByCategoryStr){
-		Log.i(TAG,"getChannelsByCategoryParsedResponse() Entering.");
+	//Method Parses the JSON Response of ChannelsByLanguage Web service.
+	public static List<HashMap<String,Object>> getChannelsByLanguageParsedResponse(String channelsByLanguageStr){
+		Log.i(TAG,"getChannelsByLanguageParsedResponse() Entering.");
 		
-		ChannelsByCategory channelsByCategory=new ChannelsByCategory();
+		ChannelsByLanguage channelsByLanguage=new ChannelsByLanguage();
 		List<HashMap<String,Object>> channelsRowsHMList=new ArrayList<HashMap<String,Object>>();
 		HashMap<String,Object> channelsRowHM;
 		
 		try{
-			JSONObject channelsByCategoryJSONObj=new JSONObject(channelsByCategoryStr);
+			JSONObject channelsByLanguageJSONObj=new JSONObject(channelsByLanguageStr);
 			
-			if(!channelsByCategoryJSONObj.isNull(ReqResNodes.ISSUCCESS)&&
-					channelsByCategoryJSONObj.get(ReqResNodes.ISSUCCESS).toString().equals(ErrorCodes.ISFAILURE)){
-				String isSuccessStr=(String)channelsByCategoryJSONObj.get(ReqResNodes.ISSUCCESS);
-				channelsByCategory.setIsSuccess(isSuccessStr);
-				String messageStr=(String)channelsByCategoryJSONObj.get(ReqResNodes.MESSAGE);
-				channelsByCategory.setMessage(messageStr);
+			if(!channelsByLanguageJSONObj.isNull(ReqResNodes.ISSUCCESS)&&
+					channelsByLanguageJSONObj.get(ReqResNodes.ISSUCCESS).toString().equals(ErrorCodes.ISFAILURE)){
+				String isSuccessStr=(String)channelsByLanguageJSONObj.get(ReqResNodes.ISSUCCESS);
+				channelsByLanguage.setIsSuccess(isSuccessStr);
+				String messageStr=(String)channelsByLanguageJSONObj.get(ReqResNodes.MESSAGE);
+				channelsByLanguage.setMessage(messageStr);
 			}else{
-				Log.v(TAG,"ChannelsByCategory success in parser");
-				JSONArray messageJSONArray=(JSONArray)channelsByCategoryJSONObj.getJSONArray(ReqResNodes.MESSAGE);
-				JSONObject catJSONObj=(JSONObject)messageJSONArray.get(0);
+				Log.v(TAG,"ChannelsByLanguge success in parser");
+				JSONArray messageJSONArray=(JSONArray)channelsByLanguageJSONObj.getJSONArray(ReqResNodes.MESSAGE);
+				JSONObject langJSONObj=(JSONObject)messageJSONArray.get(0);
 				
 				//Not using below setters any where.
-				channelsByCategory.setCategory_id(catJSONObj.get(ReqResNodes.CATEGORY_ID).toString());
-				channelsByCategory.setParent_id(catJSONObj.get(ReqResNodes.PARENT_ID).toString());
-				channelsByCategory.setCategory_name(catJSONObj.get(ReqResNodes.CATEGORY_NAME).toString());
-				channelsByCategory.setIs_active(catJSONObj.get(ReqResNodes.IS_ACTIVE).toString());
-				channelsByCategory.setDisplay_order(catJSONObj.get(ReqResNodes.DISPLAY_ORDER).toString());
+				channelsByLanguage.setLanguage_id(langJSONObj.get(ReqResNodes.LANGUAGE_ID).toString());
+				channelsByLanguage.setLanguage(langJSONObj.get(ReqResNodes.LANGUAGE).toString());
+				channelsByLanguage.setIs_active(langJSONObj.get(ReqResNodes.IS_ACTIVE).toString());
 				
-				JSONArray channelsJSONArray=catJSONObj.getJSONArray(ReqResNodes.CHANNELS);
+				JSONArray channelsJSONArray=langJSONObj.getJSONArray(ReqResNodes.CHANNELS);
 				
 				for(int c=0;c<channelsJSONArray.length();c++){
 					JSONObject channelJSONObj=(JSONObject)channelsJSONArray.get(c);
 					channelsRowHM=new HashMap<String,Object>();
 					
 					//Adding below common category info in every HashMap.
-					if(!catJSONObj.isNull(ReqResNodes.CATEGORY_ID))
-						channelsRowHM.put(ReqResNodes.CATEGORY_ID,catJSONObj.get(ReqResNodes.CATEGORY_ID).toString());
-					if(!catJSONObj.isNull(ReqResNodes.PARENT_ID))
-						channelsRowHM.put(ReqResNodes.PARENT_ID,catJSONObj.get(ReqResNodes.PARENT_ID).toString());
-					if(!catJSONObj.isNull(ReqResNodes.CATEGORY_NAME))
-						channelsRowHM.put(ReqResNodes.CATEGORY_NAME,catJSONObj.get(ReqResNodes.CATEGORY_NAME).toString());
-					if(!catJSONObj.isNull(ReqResNodes.IS_ACTIVE))
-						channelsRowHM.put(ReqResNodes.IS_ACTIVE,catJSONObj.get(ReqResNodes.IS_ACTIVE).toString());
-					if(!catJSONObj.isNull(ReqResNodes.DISPLAY_ORDER))
-						channelsRowHM.put(ReqResNodes.DISPLAY_ORDER,catJSONObj.get(ReqResNodes.DISPLAY_ORDER).toString());
+					if(!langJSONObj.isNull(ReqResNodes.LANGUAGE_ID))
+						channelsRowHM.put(ReqResNodes.LANGUAGE_ID,langJSONObj.get(ReqResNodes.LANGUAGE_ID).toString());
+					if(!langJSONObj.isNull(ReqResNodes.LANGUAGE))
+						channelsRowHM.put(ReqResNodes.LANGUAGE,langJSONObj.get(ReqResNodes.LANGUAGE).toString());
+					if(!langJSONObj.isNull(ReqResNodes.IS_ACTIVE))
+						channelsRowHM.put(ReqResNodes.IS_ACTIVE,langJSONObj.get(ReqResNodes.IS_ACTIVE).toString());
 					
 					if(!channelJSONObj.isNull(ReqResNodes.CHANNEL_ID))
 						channelsRowHM.put(ReqResNodes.CHANNEL_ID,channelJSONObj.get(ReqResNodes.CHANNEL_ID).toString());
@@ -94,7 +88,7 @@ public class ChannelsByCategoryParser{
 					
 					channelsRowsHMList.add(channelsRowHM);
 				}
-				channelsByCategory.setChannelsHMList(channelsRowsHMList);
+				channelsByLanguage.setChannelsHMList(channelsRowsHMList);
 			}
 			
 		}catch(JSONException e){
@@ -102,7 +96,7 @@ public class ChannelsByCategoryParser{
 			channelsRowsHMList=null;
 		}
 		
-		Log.i(TAG,"getChannelsByCategoryParsedResponse() Exiting.");
+		Log.i(TAG,"getChannelsByLanguageParsedResponse() Exiting.");
 		return channelsRowsHMList;
 	}
 

@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,7 +19,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.amallu.backend.CustomProgressDialog;
+import com.amallu.backend.ReqResHandler;
+import com.amallu.backend.ResponseHandler;
+import com.amallu.exception.AmalluException;
+import com.amallu.parser.ChannelsByLanguageParser;
 import com.amallu.ui.LanguagesScreen.LanguageAdapter.LanguageRowViewHolder;
 import com.amallu.utility.ReqResNodes;
 
@@ -77,7 +84,10 @@ public class LanguagesScreen extends Activity implements OnClickListener{
 	  languageList.setOnItemClickListener(new OnItemClickListener(){
 		 @Override
 		 public void onItemClick(AdapterView<?> parent, View view, int position,long id){
-		    //startActivity(new Intent(LanguagesScreen.this,ChannelsScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+			 HashMap<String,Object> languageRowHM=(HashMap<String, Object>)languageList.getItemAtPosition(position);
+			 String languageID=languageRowHM.get(ReqResNodes.LANGUAGE_ID).toString();
+			 Log.d(TAG,"Language ID : "+languageID);
+			 sendChannelsByLanguageReq(languageID);  
 		 } 
 	   });
 	  Log.i(TAG,"setData() Exiting.");
@@ -121,6 +131,50 @@ public class LanguagesScreen extends Activity implements OnClickListener{
 	        
 	}
 	
+	//Sends Channels API Request for Language.
+	private void sendChannelsByLanguageReq(String languageID){
+		Log.i(TAG,"sendChannelsByLanguageReq() Entering.");
+		
+		ReqResHandler req = new ReqResHandler();
+		CustomProgressDialog.show(LanguagesScreen.this);
+
+		req.channelsByLanguageRequest(LanguagesScreen.this,new ResponseHandler(),languageID);
+		
+		Log.i(TAG,"sendChannelsByLanguageReq() Exiting.");
+	}
+	
+	//Methods handles the response from Server.
+	public void channelsByLanguageProceedUI(String result,AmalluException amalluEx){
+		Log.i(TAG,"channelsByLanguageProceedUI() Entering.");
+		
+		if(CustomProgressDialog.IsShowing()) {
+			Log.v(TAG, "channelsByLanguageProceedUI progress dialog dismissing..");
+			CustomProgressDialog.Dismiss();
+		}
+		if(result.equalsIgnoreCase("Exception")){
+			Log.e(TAG, "channelsByLanguageProceedUI Exception Case");
+			//page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
+			//page_level_error_txt_view.setVisibility(View.VISIBLE);
+			Toast.makeText(this,"Exception",Toast.LENGTH_LONG).show();
+		}else{
+			List<HashMap<String,Object>> channelsHMList=ChannelsByLanguageParser.getChannelsByLanguageParsedResponse(result);
+			if(channelsHMList!=null&& !channelsHMList.isEmpty()){
+				Log.v(TAG,"Channels Available for selected Language.");
+				ChannelsByLanguageScreen.channelsList.clear();
+				ChannelsByLanguageScreen.channelsList=channelsHMList;
+				startActivity(new Intent(LanguagesScreen.this,ChannelsByLanguageScreen.class)
+								.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+			}else{
+				Log.e(TAG,"Channels not Available for selected Language.");
+				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
+				//page_level_error_txt_view.setVisibility(View.VISIBLE);
+				Toast.makeText(this,"Channels not available for selected Language",Toast.LENGTH_LONG).show();
+			}
+		}
+		
+		Log.i(TAG,"channelsByLanguageProceedUI() Exiting.");
+	}
+	
 	//Method to handle Device back button.
 	@Override
 	public void onBackPressed(){
@@ -128,46 +182,5 @@ public class LanguagesScreen extends Activity implements OnClickListener{
 	   super.onBackPressed();
 	   Log.i(TAG,"onBackPressed Exiting.");
 	}
-	
-	//Sends Languages API Request.
-	/*private void sendLanguagesReq(){
-		Log.i(TAG,"sendLanguagesReq() Entering.");
 		
-		ReqResHandler req = new ReqResHandler();
-		CustomProgressDialog.show(PlayerScreen.this);
-
-		req.languagesListRequest(PlayerScreen.this,new ResponseHandler());
-		
-		Log.i(TAG,"sendLanguagesReq() Exiting.");
-	}
-	
-	//Methods handles the response from Server.
-	public void languageProceedUI(String result,AmalluException amalluEx){
-		Log.i(TAG,"languageProceedUI() Entering.");
-		
-		if(CustomProgressDialog.IsShowing()){
-			Log.v(TAG, "languageProceedUI progress dialog dismissing..");
-			CustomProgressDialog.Dismiss();
-		}
-		if(result.equalsIgnoreCase("Exception")){
-			Log.e(TAG, "languageProceedUI Exception Case");
-			//page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
-			//page_level_error_txt_view.setVisibility(View.VISIBLE);
-		}else{
-			List<HashMap<String,Object>> languagesHMList=LanguageListParser.getLanguagesListParsedResponse(result);
-			if(languagesHMList!=null&& !languagesHMList.isEmpty()){
-				Log.v(TAG,"Languages Available.");
-				LanguagesScreen.languagesList.clear();
-				LanguagesScreen.languagesList=languagesHMList;
-				startActivity(new Intent(PlayerScreen.this,LanguagesScreen.class));
-			}else{
-				Log.e(TAG,"Languages not Available.");
-				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
-				//page_level_error_txt_view.setVisibility(View.VISIBLE);
-			}
-		}
-		
-		Log.i(TAG,"languageProceedUI() Exiting.");
-	}*/
-	
 }

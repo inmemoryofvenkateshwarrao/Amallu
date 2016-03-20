@@ -19,7 +19,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.amallu.backend.CustomProgressDialog;
+import com.amallu.backend.ReqResHandler;
+import com.amallu.backend.ResponseHandler;
+import com.amallu.exception.AmalluException;
+import com.amallu.parser.ChannelsByCategoryParser;
 import com.amallu.ui.CategoriesScreen.CategoryAdapter.CatRowViewHolder;
 import com.amallu.utility.ReqResNodes;
 
@@ -78,8 +84,11 @@ public class CategoriesScreen extends Activity implements OnClickListener{
 	  categoryList.setOnItemClickListener(new OnItemClickListener(){
 		 @Override
 		 public void onItemClick(AdapterView<?> parent, View view, int position,long id){
-		    //startActivity(new Intent(CategoriesScreen.this,ChannelsScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-		 } 
+			HashMap<String,Object> categoryRowHM=(HashMap<String, Object>)categoryList.getItemAtPosition(position);
+			String categoryID=categoryRowHM.get(ReqResNodes.CATEGORY_ID).toString();
+			Log.d(TAG,"Category ID : "+categoryID);
+			sendChannelsByCategoryReq(categoryID);  
+		 }
 	   });
 	  Log.i(TAG,"setData() Exiting.");
 	}
@@ -122,6 +131,51 @@ public class CategoriesScreen extends Activity implements OnClickListener{
 	        
 	}
 	
+	//Sends Channels API Request for Category.
+	private void sendChannelsByCategoryReq(String categoryID){
+		Log.i(TAG,"sendChannelsByCategoryReq() Entering.");
+		
+		ReqResHandler req = new ReqResHandler();
+		CustomProgressDialog.show(CategoriesScreen.this);
+
+		req.channelsByCategoryRequest(CategoriesScreen.this,new ResponseHandler(),categoryID);
+		
+		Log.i(TAG,"sendChannelsByCategoryReq() Exiting.");
+	}
+	
+	//Methods handles the response from Server.
+	public void channelsByCategoryProceedUI(String result,AmalluException amalluEx){
+		Log.i(TAG,"channelsByCategoryProceedUI() Entering.");
+		
+		if(CustomProgressDialog.IsShowing()) {
+			Log.v(TAG, "channelsByCategoryProceedUI progress dialog dismissing..");
+			CustomProgressDialog.Dismiss();
+		}
+		if(result.equalsIgnoreCase("Exception")){
+			Log.e(TAG, "channelsByCategoryProceedUI Exception Case");
+			//page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
+			//page_level_error_txt_view.setVisibility(View.VISIBLE);
+			Toast.makeText(this,"Exception",Toast.LENGTH_LONG).show();
+		}else{
+			List<HashMap<String,Object>> channelsHMList=ChannelsByCategoryParser.getChannelsByCategoryParsedResponse(result);
+			if(channelsHMList!=null&& !channelsHMList.isEmpty()){
+				Log.v(TAG,"Channels Available for selected Category.");
+				ChannelsByCategoryScreen.channelsList.clear();
+				ChannelsByCategoryScreen.channelsList=channelsHMList;
+				startActivity(new Intent(CategoriesScreen.this,ChannelsByCategoryScreen.class)
+								.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+			}else{
+				Log.e(TAG,"Channels not Available for selected Category.");
+				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
+				//page_level_error_txt_view.setVisibility(View.VISIBLE);
+				Toast.makeText(this,"Channels not available for selected Category",Toast.LENGTH_LONG).show();
+			}
+		}
+		
+		Log.i(TAG,"channelsByCategoryProceedUI() Exiting.");
+	}
+	
+
 	//Method to handle Device back button.
 	@Override
 	public void onBackPressed(){
@@ -129,46 +183,5 @@ public class CategoriesScreen extends Activity implements OnClickListener{
 	   super.onBackPressed();
 	   Log.i(TAG,"onBackPressed Exiting.");
 	}
-	
-	//Method to send Category request.
-	/*private void sendCategoriesReq(){
-		Log.i(TAG,"sendCategoriesReq() Entering.");
-		
-		ReqResHandler req = new ReqResHandler();
-		CustomProgressDialog.show(PlayerScreen.this);
-
-		req.categoriesListRequest(PlayerScreen.this,new ResponseHandler());
-		
-		Log.i(TAG,"sendCategoriesReq() Exiting.");
-	}
-	
-	//Methods handles the response from Server.
-	public void categoriesProceedUI(String result,AmalluException amalluEx){
-		Log.i(TAG,"categoriesProceedUI() Entering.");
-		
-		if(CustomProgressDialog.IsShowing()) {
-			Log.v(TAG, "categoriesProceedUI progress dialog dismissing..");
-			CustomProgressDialog.Dismiss();
-		}
-		if(result.equalsIgnoreCase("Exception")){
-			Log.e(TAG, "channelsProceedUI Exception Case");
-			//page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
-			//page_level_error_txt_view.setVisibility(View.VISIBLE);
-		}else{
-			List<HashMap<String,Object>> categoriesHMList=CategoryListParser.getCategoriesListParsedResponse(result);
-			if(categoriesHMList!=null&& !categoriesHMList.isEmpty()){
-				Log.v(TAG,"Categories Available.");
-				//CategoriesScreen.categoriesList.clear();
-				//CategoriesScreen.categoriesList=categoriesHMList;
-				//startActivity(new Intent(PlayerScreen.this,CategoriesScreen.class));
-			}else{
-				Log.e(TAG,"Categories not Available.");
-				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
-				//page_level_error_txt_view.setVisibility(View.VISIBLE);
-			}
-		}
-		
-		Log.i(TAG,"categoriesProceedUI() Exiting.");
-	}*/
 	
 }
