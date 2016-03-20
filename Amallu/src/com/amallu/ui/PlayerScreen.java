@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.app.ActionBar;
-import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -24,6 +23,7 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -97,13 +97,15 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		//Enabling Action Bar application icon and behaving it as toggle button
 		
 		getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-		//LayoutInflater inflater = getLayoutInflater();
-        //View actionBarLay=inflater.inflate(R.layout.action_bar_header,null);
-        //menuIcon=(ImageView)actionBarLay.findViewById(R.id.icon_three_liner);
-		//getActionBar().setCustomView(actionBarLay);
+		LayoutInflater inflater = getLayoutInflater();
+        View actionBarLay=inflater.inflate(R.layout.action_bar_header,null);
+        menuIcon=(ImageView)actionBarLay.findViewById(R.id.icon_three_liner);
+		getActionBar().setCustomView(actionBarLay);
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
+		
+		menuIcon.setOnClickListener(this);
 
 		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
 				R.drawable.ic_drawer, //nav menu toggle icon
@@ -261,7 +263,11 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 					sendNextChannelInfoReq(Integer.toString(currentChannelIDPrev));
 					break;
 				case R.id.icon_three_liner:
-					mDrawerLayout.openDrawer(mDrawerLayout);
+					boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+					if(drawerOpen)
+						mDrawerLayout.closeDrawer(mDrawerList);
+					else
+						mDrawerLayout.openDrawer(mDrawerList);
 					break;
 				default:
 					Log.e(TAG,"In Default option");
@@ -366,27 +372,33 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		switch(position){
 			case 0:
 				//fragment = new HomeFragment();
+				mDrawerLayout.closeDrawer(mDrawerList);
 				break;
 			case 1:
 				//fragment = new FindPeopleFragment();
 				//startActivity(new Intent(PlayerScreen.this,ChannelsScreen.class));
+				mDrawerLayout.closeDrawer(mDrawerList);
 				sendChannelsReq();
 				break;
 			case 2:
 				//fragment = new PhotosFragment();
 				//startActivity(new Intent(PlayerScreen.this,CategoriesScreen.class));
+				mDrawerLayout.closeDrawer(mDrawerList);
 				sendCategoriesReq();
 				break;
 			case 3:
 				//fragment = new CommunityFragment();
 				//startActivity(new Intent(PlayerScreen.this,LanguagesScreen.class));
+				mDrawerLayout.closeDrawer(mDrawerList);
 				sendLanguagesReq();
 				break;
 			case 4:
 				//fragment = new PagesFragment();
+				mDrawerLayout.closeDrawer(mDrawerList);
 				break;
 			case 5:
 				//fragment = new WhatsHotFragment();
+				mDrawerLayout.closeDrawer(mDrawerList);
 				break;
 	
 			default:
@@ -493,6 +505,12 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	    Log.i(TAG,"onError() Exiting.");
 	  	return false;
 	  }
+	  
+	//Removes Horizontal Scrollbars in HorizontalScrollView programmatically.
+	private void disableHorizontalScrollBars(){
+		//view.setVerticalScrollBarEnabled(false); 
+		//view.setHorizontalScrollBarEnabled(false);
+	}
 	  
 	//Method to send Next Channel API request.
 	private void sendNextChannelInfoReq(String channelNo){

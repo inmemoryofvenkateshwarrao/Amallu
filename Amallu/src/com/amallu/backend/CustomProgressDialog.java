@@ -5,8 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.ProgressBar;
+import android.view.View;
 
 import com.amallu.ui.R;
 
@@ -21,8 +20,11 @@ public class CustomProgressDialog extends Dialog {
 		if (dialog == null) {
 			Log.i(TAG, "show..");
 			dialog = new CustomProgressDialog(context);
-			dialog.addContentView(new ProgressBar(context), new LayoutParams(
-					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+			//dialog.addContentView(new ProgressBar(context), new LayoutParams(
+				//	LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+			dialog.setContentView(R.layout.progress_dialog);
+			int divierId = dialog.getContext().getResources().getIdentifier("android:id/titleDivider", null, null);
+			View divider = dialog.findViewById(divierId);
 			isCanceled = false;
 			client = null;
 			dialog.setCancelable(false);

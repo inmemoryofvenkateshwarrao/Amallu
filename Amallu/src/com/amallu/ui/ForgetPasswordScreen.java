@@ -17,7 +17,6 @@ import com.amallu.exception.AmalluException;
 import com.amallu.model.ForgetPassword;
 import com.amallu.parser.ForgetPasswordParser;
 import com.amallu.utility.ErrorCodes;
-import com.amallu.utility.ReqResNodes;
 
 public class ForgetPasswordScreen extends Activity implements OnClickListener{
 
@@ -160,7 +159,8 @@ public class ForgetPasswordScreen extends Activity implements OnClickListener{
 					Log.d(TAG,"isSuccess : "+forgetPassword.getIsSuccess());
 					Log.d(TAG,"password : "+forgetPassword.getPassword());
 					Log.d(TAG,"message : "+forgetPassword.getMessage());
-					startActivity(new Intent(ForgetPasswordScreen.this,LoginScreen.class));
+					startActivity(new Intent(ForgetPasswordScreen.this,LoginScreen.class)
+					.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 				}
 			}else{
 				Log.e(TAG,"forgetPassword response parsing failed.");
