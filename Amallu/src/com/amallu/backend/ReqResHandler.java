@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.amallu.backend.Response.CommonHandlerType;
 import com.amallu.exception.AmalluException;
+import com.amallu.parser.LoginParser;
 import com.amallu.utility.NetworkType;
 import com.amallu.utility.ReqResNodes;
 import com.amallu.utility.URLDetails;
@@ -166,10 +167,12 @@ public class ReqResHandler implements AsyncCallback{
 		response = responseHandler;
 		uiContext = context;
 		
-		//http://www.app.amallu.com/api/channel/nextchannel?_format=json&channelid=59
+		//http://www.app.amallu.com/api/channel/channelinfo?_format=json&channelid=2&userid=32 
 		
+		String userID=LoginParser.getUserID();
 		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
-							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.NEXTCHANNEL+"&"+"channelid="+channelNo;
+							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.NEXTCHANNEL+"&channelid="+channelNo
+							+"&userid="+userID;
 		Log.d(TAG,"NEXTCHANNEL URL : "+url);
 		if(checkNetworkAvailability(context)){
 			Log.v(TAG,"Network is available. Initiating NEXTCHANNEL webservice call.");
@@ -418,18 +421,18 @@ public class ReqResHandler implements AsyncCallback{
 	}
 	
 	//Channelinfo API Call.
-	//POST Request
-	public void defaultChannelInfoRequest(Context context, Response responseHandler){
+	//GET Request
+	public void defaultChannelInfoRequest(Context context, Response responseHandler,String userID){
 		Log.i(TAG, "defaultChannelInfoRequest() Entering.");
 		handlerType = CommonHandlerType.CHANNELINFO;
 		
 		response = responseHandler;
 		uiContext = context;
 		
-		//http://www.app.amallu.com/api/channel/channelinfo
+		//http://www.app.amallu.com/api/channel/channelinfo?_format=json&userid=
 		
 		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
-							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.CHANNELINFO;
+							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.CHANNELINFO+"&userid="+userID;
 		Log.d(TAG,"CHANNELINFO URL : "+url);
 		if(checkNetworkAvailability(context)){
 			Log.v(TAG,"Network is available. Initiating CHANNELINFO webservice call.");
@@ -541,6 +544,30 @@ public class ReqResHandler implements AsyncCallback{
 			Log.e(TAG,"Network connection not available.");
 		}
 		Log.i(TAG, "channelsByLanguageRequest() Exiting.");
+	}
+	
+	//TrendingChannels API Call.
+	//GET Request
+	public void trendingChannelsRequest(Context context, Response responseHandler,String languageid){
+		Log.i(TAG, "trendingChannelsRequest() Entering.");
+		handlerType = CommonHandlerType.TRENDINGCHANNELS;
+		
+		response = responseHandler;
+		uiContext = context;
+		
+		//http://www.app.amallu.com/api/channel/trendingchannels?_format=json
+		
+		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
+							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.TRENDINGCHANNELS;
+		Log.d(TAG,"TRENDINGCHANNELS URL : "+url);
+		if(checkNetworkAvailability(context)){
+			Log.v(TAG,"Network is available. Initiating TRENDINGCHANNELS webservice call.");
+			asyncServiceRequest = new AsyncServiceRequest(this,null,uiContext,ReqResNodes.GET);
+			asyncServiceRequest.execute(url);
+		}else{
+			Log.e(TAG,"Network connection not available.");
+		}
+		Log.i(TAG, "trendingChannelsRequest() Exiting.");
 	}
 	
 	private boolean checkNetworkAvailability(Context ctx){
@@ -734,6 +761,15 @@ public class ReqResHandler implements AsyncCallback{
 				Log.v(TAG, "Handler CHANNELSBYLANGUAGE");
 				if (result.equalsIgnoreCase("Exception")){
 					Log.e(TAG, "CHANNELSBYLANGUAGE Exception caught.");
+				}else{
+					//Do Nothing.
+				}
+				response.updateResponse(uiContext,result,handlerType,exception);
+			}
+			if(handlerType.equals(CommonHandlerType.TRENDINGCHANNELS)){
+				Log.v(TAG, "Handler TRENDINGCHANNELS");
+				if (result.equalsIgnoreCase("Exception")){
+					Log.e(TAG, "TRENDINGCHANNELS Exception caught.");
 				}else{
 					//Do Nothing.
 				}

@@ -518,7 +518,6 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		
 		ReqResHandler req = new ReqResHandler();
 		CustomProgressDialog.show(PlayerScreen.this);
-
 		req.nextChannelRequest(PlayerScreen.this,new ResponseHandler(),channelNo);
 		
 		Log.i(TAG,"sendNextChannelInfoReq() Exiting.");

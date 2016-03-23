@@ -11,14 +11,13 @@ import com.amallu.utility.ReqResNodes;
 public class LoginParser{
 	
 	private static final String TAG="LoginParser";
+	public static Login login=new Login();
 	
 	//Method Parses the JSON Response of Login Web service.
 	public static Login getLoginParsedResponse(String loginStr){
-		Log.i(TAG,"getLoginParsedResponse() Entering.");
+		Log.i(TAG,"getLoginParsedResponse() Entering.");		
 		
-		Login login=null;
 		try{
-			login=new Login();
 			JSONObject loginJSONObj=new JSONObject(loginStr);
 			if(!loginJSONObj.isNull(ReqResNodes.ISSUCCESS))
 				login.setIsSuccess(loginJSONObj.get(ReqResNodes.ISSUCCESS).toString());
@@ -35,6 +34,19 @@ public class LoginParser{
 		
 		Log.i(TAG,"getLoginParsedResponse() Exiting.");
 		return login;
+	}
+	
+	//Returns Loggedin userid
+	public static String getUserID(){
+	   Log.i(TAG,"getUserID() Entering.");
+	   String userID="";
+	   try{
+		   userID=login.getUserid();
+	   }catch(Exception e){
+		   userID="";
+	   }
+	   Log.i(TAG,"getUserID() Exiting.");
+	   return userID;
 	}
 
 }

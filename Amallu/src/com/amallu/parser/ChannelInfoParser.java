@@ -98,14 +98,16 @@ public class ChannelInfoParser{
 				
 				channelInfo.setCommentsList(commentsList);
 				
-				String noOfWatMems=(String)messageJSONObj.get(ReqResNodes.NOOFWATCHINGMEMBERS);
-				String likeCount=(String)messageJSONObj.get(ReqResNodes.LIKECOUNT);
-				String disLikeCount=(String)messageJSONObj.get(ReqResNodes.DISLIKECOUNT);
-				
-				channelInfo.setNoofwatchingmembers(noOfWatMems);
-				channelInfo.setLikecount(likeCount);
-				channelInfo.setDislikecount(disLikeCount);
-				//Log.v(TAG,"commentsJSONArr : "+commentsJSONArr);
+				if(!messageJSONObj.isNull(ReqResNodes.ALREADYLIKE)){
+					int alreadyLikeVal=(Integer)messageJSONObj.get(ReqResNodes.ALREADYLIKE);
+					channelInfo.setAlreadylike(Integer.toString(alreadyLikeVal));
+				}
+				if(!messageJSONObj.isNull(ReqResNodes.NOOFWATCHINGMEMBERS))
+					channelInfo.setNoofwatchingmembers((String)messageJSONObj.get(ReqResNodes.NOOFWATCHINGMEMBERS));
+				if(!messageJSONObj.isNull(ReqResNodes.LIKECOUNT))
+					channelInfo.setLikecount((String)messageJSONObj.get(ReqResNodes.LIKECOUNT));
+				if(!messageJSONObj.isNull(ReqResNodes.DISLIKECOUNT))
+					channelInfo.setDislikecount((String)messageJSONObj.get(ReqResNodes.DISLIKECOUNT));
 			}
 			
 		}catch(JSONException e){

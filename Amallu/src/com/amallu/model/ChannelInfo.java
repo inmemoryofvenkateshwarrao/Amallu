@@ -8,6 +8,7 @@ public class ChannelInfo {
 	private String message;
 	private ChannelDetail channelDetail;
 	private List<Comment> commentsList;
+	private String alreadylike;
 	private String noofwatchingmembers;
 	private String likecount;
 	private String dislikecount;
@@ -35,6 +36,12 @@ public class ChannelInfo {
 	}
 	public void setCommentsList(List<Comment> commentsList) {
 		this.commentsList = commentsList;
+	}
+	public String getAlreadylike() {
+		return alreadylike;
+	}
+	public void setAlreadylike(String alreadylike) {
+		this.alreadylike = alreadylike;
 	}
 	public String getNoofwatchingmembers() {
 		return noofwatchingmembers;

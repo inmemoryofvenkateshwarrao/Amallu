@@ -131,5 +131,11 @@ public class ResponseHandler implements Response{
 			}
 			((LanguagesScreen)context).channelsByLanguageProceedUI(result,ex);
 		}
+		if(uiHandler.equals(CommonHandlerType.TRENDINGCHANNELS)){
+			if(result.equalsIgnoreCase("Exception")){
+				Log.e(TAG, "TRENDINGCHANNELS Exception caught.");
+			}
+			//((LanguagesScreen)context).trendingChannelsProceedUI(result,ex);
+		}
 	}
 }

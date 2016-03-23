@@ -259,10 +259,7 @@ public class LoginScreen extends Activity implements OnClickListener{
 					Log.d(TAG,"userid : "+login.getUserid());
 					Log.d(TAG,"username : "+login.getUsername());
 					Log.d(TAG,"message : "+login.getMessage());
-					sendDefaultChannelInfoReq();
-					//startActivity(new Intent(LoginScreen.this,PlayerScreen.class)
-					//.putExtra(ReqResNodes.USERID,login.getUserid())
-					//.putExtra(ReqResNodes.USERNAME,login.getUsername()));
+					sendDefaultChannelInfoReq(login.getUserid());
 				}
 			}else{
 				Log.e(TAG,"login response parsing failed.");
@@ -275,13 +272,13 @@ public class LoginScreen extends Activity implements OnClickListener{
 	}
 	
 	//Method to send Login request.
-	private void sendDefaultChannelInfoReq(){
+	private void sendDefaultChannelInfoReq(String userID){
 		Log.i(TAG,"sendDefaultChannelInfoReq() Entering.");
 		
 		ReqResHandler req = new ReqResHandler();
 		CustomProgressDialog.show(LoginScreen.this);
 
-		req.defaultChannelInfoRequest(LoginScreen.this,new ResponseHandler());
+		req.defaultChannelInfoRequest(LoginScreen.this,new ResponseHandler(),userID);
 		
 		Log.i(TAG,"sendDefaultChannelInfoReq() Exiting.");
 	}

@@ -58,6 +58,7 @@ public class ReqResNodes{
     public static final String DEFAULT_CHANNEL="default_channel";
     public static final String TIME_WATCHED="time_watched";
     public static final String THUMBNAIL="thumbnail";
+    public static final String ALREADYLIKE="alreadylike";
     
     //Request properties for NextChannel
     public static final String CHANNELID="channelid";
