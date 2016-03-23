@@ -94,6 +94,18 @@ public class ReqResNodes{
     //Response properties for ChannelsByCategory
     public static final String CHANNELS="channels";
     
+    //Request properties for AddFriend API
+    public static final String FRIENDID="friendid ";
+    
+    //Request properties for ActivityLog API
+    public static final String TIME="time ";
+    
+    //Response properties for ActivityLog API
+    public static final String LOG_ID="log_id";
+    public static final String ACTIVITY_ID="activity_id";
+    public static final String LOG_MSG="log_msg";
+    public static final String TIME_DIFF="time_diff";
+    
     //Common
     public static final String GET="get";
     public static final String POST="post";

@@ -30,4 +30,7 @@ public class URLDetails{
 	public static final String CHANNELSBYCATEGORY="category/channelsbycategory?_format=json";
 	public static final String CHANNELSBYLANGUAGE="language/channelsbylanguage?_format=json";
 	public static final String TRENDINGCHANNELS="channel/trendingchannels?_format=json";
+	public static final String ADDFRIEND="friend/addfriend?_format=json";
+	public static final String ACTIVITYLOG="activity/friendsactivitylog?_format=json";
+	public static final String FAVORITECHANNELS="channel/favoritechannels?_format=json";
 }

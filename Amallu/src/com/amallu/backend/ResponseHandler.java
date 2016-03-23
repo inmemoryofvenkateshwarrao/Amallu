@@ -137,5 +137,23 @@ public class ResponseHandler implements Response{
 			}
 			//((LanguagesScreen)context).trendingChannelsProceedUI(result,ex);
 		}
+		if(uiHandler.equals(CommonHandlerType.ADDFRIEND)){
+			if(result.equalsIgnoreCase("Exception")){
+				Log.e(TAG, "ADDFRIEND Exception caught.");
+			}
+			//((LanguagesScreen)context).addFriendProceedUI(result,ex);
+		}
+		if(uiHandler.equals(CommonHandlerType.ACTIVITYLOG)){
+			if(result.equalsIgnoreCase("Exception")){
+				Log.e(TAG, "ACTIVITYLOG Exception caught.");
+			}
+			//((ActivityLogScreen)context).activityLogProceedUI(result,ex);
+		}
+		if(uiHandler.equals(CommonHandlerType.FAVORITECHANNELS)){
+			if(result.equalsIgnoreCase("Exception")){
+				Log.e(TAG, "FAVORITECHANNELS Exception caught.");
+			}
+			//((FavoriteChannelsScreen)context).favoriteChannelsProceedUI(result,ex);
+		}
 	}
 }

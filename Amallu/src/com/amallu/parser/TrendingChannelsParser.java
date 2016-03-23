@@ -32,26 +32,26 @@ public class TrendingChannelsParser{
 				trendingChannels.setMessage(trendChannelsJSONObj.get(ReqResNodes.MESSAGE).toString());
 			}else{
 				trendingChannels.setIsSuccess(trendChannelsJSONObj.get(ReqResNodes.ISSUCCESS).toString());
-			}
-			JSONArray messageJSONArray=(JSONArray)trendChannelsJSONObj.getJSONArray(ReqResNodes.MESSAGE);
-			for(int channelsArr=0;channelsArr<messageJSONArray.length();channelsArr++){
-				trendChannelRowHM=new HashMap<String,Object>();
-				JSONObject trendChannelItemJSONObj=(JSONObject)messageJSONArray.get(channelsArr);
-				if(!trendChannelItemJSONObj.isNull(ReqResNodes.CHANNEL_CODE))
-					trendChannelRowHM.put(ReqResNodes.CHANNEL_CODE,trendChannelItemJSONObj.get(ReqResNodes.CHANNEL_CODE));
-				if(!trendChannelItemJSONObj.isNull(ReqResNodes.CHANNEL_NAME))
-					trendChannelRowHM.put(ReqResNodes.CHANNEL_NAME,trendChannelItemJSONObj.get(ReqResNodes.CHANNEL_NAME));
-				if(!trendChannelItemJSONObj.isNull(ReqResNodes.CATEGORY_ID))
-					trendChannelRowHM.put(ReqResNodes.CATEGORY_ID,trendChannelItemJSONObj.get(ReqResNodes.CATEGORY_ID));
-				if(!trendChannelItemJSONObj.isNull(ReqResNodes.LANGUAGE_ID))
-					trendChannelRowHM.put(ReqResNodes.LANGUAGE_ID,trendChannelItemJSONObj.get(ReqResNodes.LANGUAGE_ID));
-				if(!trendChannelItemJSONObj.isNull(ReqResNodes.VIEWS))
-					trendChannelRowHM.put(ReqResNodes.VIEWS,trendChannelItemJSONObj.get(ReqResNodes.VIEWS));
-				if(!trendChannelItemJSONObj.isNull(ReqResNodes.TIME_WATCHED))
-					trendChannelRowHM.put(ReqResNodes.TIME_WATCHED,trendChannelItemJSONObj.get(ReqResNodes.TIME_WATCHED));
-				
-				trendChannlesRowsHMList.add(trendChannelRowHM);
-				trendingChannels.setTrendingChannelsHMList(trendChannlesRowsHMList);
+				JSONArray messageJSONArray=(JSONArray)trendChannelsJSONObj.getJSONArray(ReqResNodes.MESSAGE);
+				for(int channelsArr=0;channelsArr<messageJSONArray.length();channelsArr++){
+					trendChannelRowHM=new HashMap<String,Object>();
+					JSONObject trendChannelItemJSONObj=(JSONObject)messageJSONArray.get(channelsArr);
+					if(!trendChannelItemJSONObj.isNull(ReqResNodes.CHANNEL_CODE))
+						trendChannelRowHM.put(ReqResNodes.CHANNEL_CODE,trendChannelItemJSONObj.get(ReqResNodes.CHANNEL_CODE));
+					if(!trendChannelItemJSONObj.isNull(ReqResNodes.CHANNEL_NAME))
+						trendChannelRowHM.put(ReqResNodes.CHANNEL_NAME,trendChannelItemJSONObj.get(ReqResNodes.CHANNEL_NAME));
+					if(!trendChannelItemJSONObj.isNull(ReqResNodes.CATEGORY_ID))
+						trendChannelRowHM.put(ReqResNodes.CATEGORY_ID,trendChannelItemJSONObj.get(ReqResNodes.CATEGORY_ID));
+					if(!trendChannelItemJSONObj.isNull(ReqResNodes.LANGUAGE_ID))
+						trendChannelRowHM.put(ReqResNodes.LANGUAGE_ID,trendChannelItemJSONObj.get(ReqResNodes.LANGUAGE_ID));
+					if(!trendChannelItemJSONObj.isNull(ReqResNodes.VIEWS))
+						trendChannelRowHM.put(ReqResNodes.VIEWS,trendChannelItemJSONObj.get(ReqResNodes.VIEWS));
+					if(!trendChannelItemJSONObj.isNull(ReqResNodes.TIME_WATCHED))
+						trendChannelRowHM.put(ReqResNodes.TIME_WATCHED,trendChannelItemJSONObj.get(ReqResNodes.TIME_WATCHED));
+					
+					trendChannlesRowsHMList.add(trendChannelRowHM);
+					trendingChannels.setTrendingChannelsHMList(trendChannlesRowsHMList);
+				}
 			}
 		}catch(JSONException e){
 			e.printStackTrace();

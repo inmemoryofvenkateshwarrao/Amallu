@@ -548,7 +548,7 @@ public class ReqResHandler implements AsyncCallback{
 	
 	//TrendingChannels API Call.
 	//GET Request
-	public void trendingChannelsRequest(Context context, Response responseHandler,String languageid){
+	public void trendingChannelsRequest(Context context, Response responseHandler){
 		Log.i(TAG, "trendingChannelsRequest() Entering.");
 		handlerType = CommonHandlerType.TRENDINGCHANNELS;
 		
@@ -568,6 +568,94 @@ public class ReqResHandler implements AsyncCallback{
 			Log.e(TAG,"Network connection not available.");
 		}
 		Log.i(TAG, "trendingChannelsRequest() Exiting.");
+	}
+	
+	//AddFriend API Call.
+	//POST Request
+	public void addFriendRequest(Context context, Response responseHandler,String userID,String friendID){
+		Log.i(TAG, "addFriendRequest() Entering.");
+		handlerType = CommonHandlerType.ADDFRIEND;
+		
+		response = responseHandler;
+		uiContext = context;
+		
+		//http://www.app.amallu.com/api/friend/addfriend?_format=json
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put(ReqResNodes.USERID,userID);
+		paramsMap.put(ReqResNodes.FRIENDID,friendID);
+				
+		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
+							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.ADDFRIEND;
+		Log.d(TAG,"ADDFRIEND URL : "+url);
+		if(checkNetworkAvailability(context)){
+			Log.v(TAG,"Network is available. Initiating ADDFRIEND webservice call.");
+			asyncServiceRequest = new AsyncServiceRequest(this,paramsMap,uiContext,ReqResNodes.POST);
+			asyncServiceRequest.execute(url);
+		}else{
+			Log.e(TAG,"Network connection not available.");
+		}
+		Log.i(TAG, "addFriendRequest() Exiting.");
+	}
+	
+	//ActivityLog API Call.
+	//GET Request
+	public void activityLogRequest(Context context, Response responseHandler,String userID,String time){
+		Log.i(TAG, "activityLogRequest() Entering.");
+		handlerType = CommonHandlerType.ACTIVITYLOG;
+		
+		response = responseHandler;
+		uiContext = context;
+		
+		//http://www.app.amallu.com/api/activity/friendsactivitylog?_format=json&userid=xx
+		//http://www.app.amallu.com/api/activity/friendsactivitylog?_format=json&userid=xx&time=1458441600
+		
+		Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put(ReqResNodes.USERID,userID);
+		
+		String url="";
+		
+		if(time==null){
+			url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
+					+"/"+URLDetails.COMMON_URL+"/"+URLDetails.ACTIVITYLOG+"&userid="+userID;
+		}else{
+			paramsMap.put(ReqResNodes.TIME,time);
+			url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
+					+"/"+URLDetails.COMMON_URL+"/"+URLDetails.ACTIVITYLOG+"&userid="+userID+"&time="+time;
+		}
+		
+		Log.d(TAG,"ACTIVITYLOG URL : "+url);
+		if(checkNetworkAvailability(context)){
+			Log.v(TAG,"Network is available. Initiating ACTIVITYLOG webservice call.");
+			asyncServiceRequest = new AsyncServiceRequest(this,paramsMap,uiContext,ReqResNodes.GET);
+			asyncServiceRequest.execute(url);
+		}else{
+			Log.e(TAG,"Network connection not available.");
+		}
+		Log.i(TAG, "activityLogRequest() Exiting.");
+	}
+	
+	//FavoriteChannels API Call.
+	//GET Request
+	public void favoriteChannelsRequest(Context context, Response responseHandler,String userID){
+		Log.i(TAG, "favoriteChannelsRequest() Entering.");
+		handlerType = CommonHandlerType.FAVORITECHANNELS;
+		
+		response = responseHandler;
+		uiContext = context;
+		
+		//http://www.app.amallu.com/api/channel/favoritechannels?_format=json&userid=xx
+				
+		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
+							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.FAVORITECHANNELS+"&userid="+userID;
+		Log.d(TAG,"FAVORITECHANNELS URL : "+url);
+		if(checkNetworkAvailability(context)){
+			Log.v(TAG,"Network is available. Initiating FAVORITECHANNELS webservice call.");
+			asyncServiceRequest = new AsyncServiceRequest(this,null,uiContext,ReqResNodes.GET);
+			asyncServiceRequest.execute(url);
+		}else{
+			Log.e(TAG,"Network connection not available.");
+		}
+		Log.i(TAG, "favoriteChannelsRequest() Exiting.");
 	}
 	
 	private boolean checkNetworkAvailability(Context ctx){
@@ -770,6 +858,33 @@ public class ReqResHandler implements AsyncCallback{
 				Log.v(TAG, "Handler TRENDINGCHANNELS");
 				if (result.equalsIgnoreCase("Exception")){
 					Log.e(TAG, "TRENDINGCHANNELS Exception caught.");
+				}else{
+					//Do Nothing.
+				}
+				response.updateResponse(uiContext,result,handlerType,exception);
+			}
+			if(handlerType.equals(CommonHandlerType.ADDFRIEND)){
+				Log.v(TAG, "Handler ADDFRIEND");
+				if (result.equalsIgnoreCase("Exception")){
+					Log.e(TAG, "ADDFRIEND Exception caught.");
+				}else{
+					//Do Nothing.
+				}
+				response.updateResponse(uiContext,result,handlerType,exception);
+			}
+			if(handlerType.equals(CommonHandlerType.ACTIVITYLOG)){
+				Log.v(TAG, "Handler ACTIVITYLOG");
+				if (result.equalsIgnoreCase("Exception")){
+					Log.e(TAG, "ACTIVITYLOG Exception caught.");
+				}else{
+					//Do Nothing.
+				}
+				response.updateResponse(uiContext,result,handlerType,exception);
+			}
+			if(handlerType.equals(CommonHandlerType.FAVORITECHANNELS)){
+				Log.v(TAG, "Handler FAVORITECHANNELS");
+				if (result.equalsIgnoreCase("Exception")){
+					Log.e(TAG, "FAVORITECHANNELS Exception caught.");
 				}else{
 					//Do Nothing.
 				}
