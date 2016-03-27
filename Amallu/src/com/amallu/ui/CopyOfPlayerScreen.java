@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.app.ActionBar;
-import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -24,6 +23,7 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,26 +41,34 @@ import com.amallu.backend.ReqResHandler;
 import com.amallu.backend.ResponseHandler;
 import com.amallu.exception.AmalluException;
 import com.amallu.model.ChannelDetail;
+import com.amallu.model.ChannelInfo;
+import com.amallu.model.Comment;
+import com.amallu.model.DisLikeChannel;
+import com.amallu.model.LikeChannel;
 import com.amallu.model.NavDrawerItem;
 import com.amallu.parser.CategoryListParser;
-import com.amallu.parser.ChannelParser;
+import com.amallu.parser.ChannelInfoParser;
 import com.amallu.parser.ChannelsListParser;
+import com.amallu.parser.DisLikeChannelParser;
 import com.amallu.parser.LanguageListParser;
+import com.amallu.parser.LikeChannelParser;
+import com.amallu.parser.LoginParser;
 import com.amallu.utility.ErrorCodes;
+import com.amallu.utility.GlobalConsts;
 
 @SuppressWarnings("deprecation")
 public class CopyOfPlayerScreen extends FragmentActivity implements OnClickListener,OnInfoListener,
 					OnBufferingUpdateListener,OnPreparedListener,OnCompletionListener,OnErrorListener{
 	
 	private static final String TAG="PlayerScreen";
-	private String path1 = "rtmp://stream.smcloud.net/live2/vox/vox_360p";
-	private String path2 = "rtmp://cp49989.live.edgefcs.net:1935/live/streamRM1@2564";
-	private boolean p1=true;
 	private Uri uri;
 	private VideoView mVideoView;
 	private ProgressBar pb;
-	private TextView downloadRateView, loadRateView,dislikes_txt_view,likes_txt_view;
+	private TextView downloadRateView, loadRateView,dislikes_txt_view,likes_txt_view,channel_name_txt_view,channel_Type_txt_view;
 	private ImageView icon_play,icon_pause,icon_maximize,icon_volume,icon_like,icon_dislike,icon_next,icon_previous,menuIcon;
+	private View likedislike;
+	public static ChannelInfo channelInfo=null;
+	public static ChannelDetail channelDetail=null;
 	
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
@@ -86,7 +94,6 @@ public class CopyOfPlayerScreen extends FragmentActivity implements OnClickListe
 		Vitamio.isInitialized(getApplicationContext());
 	    intializeViews();
 		setListeners();
-		checkChannelPath();
 		setData();
 
 		//Setting the Navigation Drawer list adapter
@@ -96,13 +103,15 @@ public class CopyOfPlayerScreen extends FragmentActivity implements OnClickListe
 		//Enabling Action Bar application icon and behaving it as toggle button
 		
 		getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-		//LayoutInflater inflater = getLayoutInflater();
-        //View actionBarLay=inflater.inflate(R.layout.action_bar_header,null);
-        //menuIcon=(ImageView)actionBarLay.findViewById(R.id.icon_three_liner);
-		//getActionBar().setCustomView(actionBarLay);
+		LayoutInflater inflater = getLayoutInflater();
+        View actionBarLay=inflater.inflate(R.layout.action_bar_header,null);
+        menuIcon=(ImageView)actionBarLay.findViewById(R.id.icon_three_liner);
+		getActionBar().setCustomView(actionBarLay);
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
+		
+		menuIcon.setOnClickListener(this);
 
 		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
 				R.drawable.ic_drawer, //nav menu toggle icon
@@ -139,6 +148,8 @@ public class CopyOfPlayerScreen extends FragmentActivity implements OnClickListe
 	    loadRateView=(TextView)findViewById(R.id.load_rate);
 	    dislikes_txt_view=(TextView)findViewById(R.id.dislikes_txt_view);
 	    likes_txt_view=(TextView)findViewById(R.id.likes_txt_view);
+	    channel_name_txt_view=(TextView)findViewById(R.id.channel_name_txt_view);
+	    channel_Type_txt_view=(TextView)findViewById(R.id.channel_Type_txt_view);
 		icon_play=(ImageView)findViewById(R.id.icon_play);
 		icon_pause=(ImageView)findViewById(R.id.icon_pause);
 		icon_volume=(ImageView)findViewById(R.id.icon_volume);
@@ -149,6 +160,7 @@ public class CopyOfPlayerScreen extends FragmentActivity implements OnClickListe
 		icon_previous=(ImageView)findViewById(R.id.icon_previous);
 		mDrawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
 		mDrawerList=(ListView)findViewById(R.id.list_slidermenu);
+		likedislike=(View)findViewById(R.id.likedislike);
 		//menuIcon=(ImageView)findViewById(R.id.icon_three_liner);
 		Log.i(TAG,"intializeViews() Exiting.");
 	  }
@@ -174,23 +186,19 @@ public class CopyOfPlayerScreen extends FragmentActivity implements OnClickListe
 		Log.i(TAG,"setListeners() Exiting");
 	  }
 	  
-	  private void checkChannelPath(){
-	    if(p1){
-		   startLiveStreaming(path1);
-		   p1=false;
-		}else{
-		   startLiveStreaming(path2);
-		   p1=true;
-		}
-	  }
-	  
 	  //Starts Live Streaming.
 	  private void startLiveStreaming(String path){
 		 Log.i(TAG,"startLiveStreaming() Entering.");
-		 if(path==""){
-		      Log.v(TAG,"path is empty");
+		 if(path==null || path.equals("")){
+		      Log.e(TAG,"path is null or empty");
+		      //Toast.makeText(this,"Unable to fetch next Video URL",Toast.LENGTH_LONG).show();
+		      displayToast("Unable to fetch next Video URL");
 		      return;
-		    }else{
+		  }else{
+		      channel_name_txt_view.setText(channelDetail.getChannel_name());
+			  channel_Type_txt_view.setText(channelDetail.getDescription());
+			  likes_txt_view.setText(channelInfo.getLikecount());
+			  dislikes_txt_view.setText(channelInfo.getDislikecount());
 		      uri=Uri.parse(path);
 		      mVideoView.setVideoQuality(MediaPlayer.VIDEOQUALITY_HIGH);
 		      mVideoView.setVideoURI(uri);
@@ -230,36 +238,39 @@ public class CopyOfPlayerScreen extends FragmentActivity implements OnClickListe
 					break;
 				case R.id.icon_like:
 					Log.i(TAG,"Like Icon clicked");
-					int likeCount=Integer.parseInt(likes_txt_view.getText().toString());
-					//if(originalLikes==likeCount){
-					   likes_txt_view.setText(Integer.toString(likeCount+1));
-					//}
+					checkIfChannelAlreadyLikeOrDislike(true);
 					break;
 				case R.id.icon_dislike:
 					Log.i(TAG,"Dislike Icon clicked");
-					int disLikeCount=Integer.parseInt(dislikes_txt_view.getText().toString());
-					//if(originalDisLikes==disLikeCount){
-						dislikes_txt_view.setText(Integer.toString(disLikeCount-1));
-					//}
+					checkIfChannelAlreadyLikeOrDislike(false);
 					break;
 				case R.id.icon_next:
 					Log.i(TAG,"Next Icon clicked");
 					mVideoView.clearFocus();
-					int currentChannelID=1;
-					currentChannelID=currentChannelID+1;
-					sendChannelDetailReq(Integer.toString(currentChannelID));
-					//checkChannelPath();
+					int currentChannelIDNext=0;
+					currentChannelIDNext=Integer.parseInt(channelDetail.getChannel_id())+1;
+					//Toast.makeText(this,"Current Channel ID : "+channelDetail.getChannel_id(),Toast.LENGTH_LONG).show();
+					displayToast("Current Channel ID : "+channelDetail.getChannel_id());
+					sendNextChannelInfoReq(Integer.toString(currentChannelIDNext));
 					break;
 				case R.id.icon_previous:
 					Log.i(TAG,"Previous Icon clicked");
 					mVideoView.clearFocus();
-					currentChannelID=1;
-					currentChannelID=currentChannelID-1;
-					sendChannelDetailReq(Integer.toString(currentChannelID));
-					//checkChannelPath();
+					int currentChannelIDPrev=1;
+					currentChannelIDPrev=Integer.parseInt(channelDetail.getChannel_id())-1;
+					if(currentChannelIDPrev<=0){
+					   currentChannelIDPrev=Integer.parseInt(channelDetail.getChannel_id())+1;
+					}
+					//Toast.makeText(this,"Current Channel ID : "+channelDetail.getChannel_id(),Toast.LENGTH_LONG).show();
+					displayToast("Current Channel ID : "+channelDetail.getChannel_id());
+					sendNextChannelInfoReq(Integer.toString(currentChannelIDPrev));
 					break;
 				case R.id.icon_three_liner:
-					mDrawerLayout.openDrawer(mDrawerLayout);
+					boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+					if(drawerOpen)
+						mDrawerLayout.closeDrawer(mDrawerList);
+					else
+						mDrawerLayout.openDrawer(mDrawerList);
 					break;
 				default:
 					Log.e(TAG,"In Default option");
@@ -271,6 +282,9 @@ public class CopyOfPlayerScreen extends FragmentActivity implements OnClickListe
 	//Populates data.
 	 private void setData(){
 		Log.i(TAG,"setData() Entering.");
+		
+		setChannelInfoData();
+		
 		mTitle = mDrawerTitle = getTitle();
 
 		//Load slide menu items
@@ -297,7 +311,17 @@ public class CopyOfPlayerScreen extends FragmentActivity implements OnClickListe
 		navMenuIcons.recycle();
 		Log.i(TAG,"setData() Exiting.");
 	  }
-	
+	 
+	 private void setChannelInfoData(){
+		Log.i(TAG,"setChannelInfoData() Entering.");
+		String path=channelDetail.getRtmp_link();
+		startLiveStreaming(path);
+		/*channel_name_txt_view.setText(channelDetail.getChannel_name());
+		channel_Type_txt_view.setText(channelDetail.getDescription());
+		likes_txt_view.setText(channelInfo.getLikecount());
+		dislikes_txt_view.setText(channelInfo.getDislikecount());*/
+		Log.i(TAG,"setChannelInfoData() Exiting.");
+	 }
 	
 	/**
 	 * Slide menu item click listener
@@ -347,25 +371,37 @@ public class CopyOfPlayerScreen extends FragmentActivity implements OnClickListe
 	 * */
 	private void displayView(int position){
 		//update the main content by replacing fragments
-		Fragment fragment = null;
+		//Fragment fragment = null;
 		switch(position){
 			case 0:
 				//fragment = new HomeFragment();
+				mDrawerLayout.closeDrawer(mDrawerList);
 				break;
 			case 1:
 				//fragment = new FindPeopleFragment();
+				//startActivity(new Intent(PlayerScreen.this,ChannelsScreen.class));
+				mDrawerLayout.closeDrawer(mDrawerList);
+				sendChannelsReq();
 				break;
 			case 2:
 				//fragment = new PhotosFragment();
+				//startActivity(new Intent(PlayerScreen.this,CategoriesScreen.class));
+				mDrawerLayout.closeDrawer(mDrawerList);
+				sendCategoriesReq();
 				break;
 			case 3:
 				//fragment = new CommunityFragment();
+				//startActivity(new Intent(PlayerScreen.this,LanguagesScreen.class));
+				mDrawerLayout.closeDrawer(mDrawerList);
+				sendLanguagesReq();
 				break;
 			case 4:
 				//fragment = new PagesFragment();
+				mDrawerLayout.closeDrawer(mDrawerList);
 				break;
 			case 5:
 				//fragment = new WhatsHotFragment();
+				mDrawerLayout.closeDrawer(mDrawerList);
 				break;
 	
 			default:
@@ -468,47 +504,99 @@ public class CopyOfPlayerScreen extends FragmentActivity implements OnClickListe
 	  @Override
 	  public boolean onError(MediaPlayer mediaPlayer, int what, int extra){
 		Log.i(TAG,"onError() Entering.");
-		Toast.makeText(this,"Unable to stream video",Toast.LENGTH_LONG).show();
+		//Toast.makeText(this,"Unable to stream video",Toast.LENGTH_LONG).show();
+		displayToast("Unable to stream video");
 	    Log.i(TAG,"onError() Exiting.");
 	  	return false;
 	  }
 	  
-	//Method to send SignUp API request.
-	private void sendChannelDetailReq(String channelNo){
-		Log.i(TAG,"sendChannelDetailReq() Entering.");
+	//Removes Horizontal Scrollbars in HorizontalScrollView programmatically.
+	@SuppressWarnings("unused")
+	private void disableHorizontalScrollBars(){
+		//view.setVerticalScrollBarEnabled(false); 
+		//view.setHorizontalScrollBarEnabled(false);
+	}
+	
+	//Method to check whether the Current Channel is already liked.
+	private void checkIfChannelAlreadyLikeOrDislike(boolean isLikeReq){
+		Log.i(TAG,"checkIfChannelAlreadyLikeOrDislike() Entering.");
+		
+		
+		if(isLikeReq){
+			Log.v(TAG,"Sending Like Request");
+			sendLikeChannelReq(LoginParser.getUserID(),channelDetail.getChannel_id());
+		  }else{
+			Log.v(TAG,"sending DisLike Request");
+			sendDisLikeChannelReq(LoginParser.getUserID(),channelDetail.getChannel_id());
+		  }
+		
+		/*int alreadyLikeValue=Integer.parseInt(channelInfo.getAlreadylike());
+		Log.v(TAG,"Channle AlreadyLike value : "+alreadyLikeValue);
+		
+		if(alreadyLikeValue==GlobalConsts.NEUTRAL){
+		  Log.v(TAG,"User neither liked nor disliked previous");
+		  if(isLikeReq){
+			Log.v(TAG,"Sending Like Request");
+			sendLikeChannelReq(LoginParser.getUserID(),channelDetail.getChannel_id());
+		  }else{
+			Log.v(TAG,"sending DisLike Request");
+			sendDisLikeChannelReq(LoginParser.getUserID(),channelDetail.getChannel_id());
+		  }
+		}else if(alreadyLikeValue==GlobalConsts.ALREADYLIKE && isLikeReq){
+			Log.e(TAG,"User already liked and trying to send Like Request again");
+			displayToast("Already liked, cannot like it again");
+		}else if(alreadyLikeValue==GlobalConsts.ALREADYDISLIKE && !isLikeReq){
+			Log.e(TAG,"User already disliked and trying to send DisLike Request again");
+			displayToast("Already disliked, cannot dislike it again");
+		}else if(alreadyLikeValue==GlobalConsts.ALREADYLIKE && !isLikeReq){
+			Log.v(TAG,"User already liked and trying to send DisLike Request");
+			sendDisLikeChannelReq(LoginParser.getUserID(),channelDetail.getChannel_id());
+		}else if(alreadyLikeValue==GlobalConsts.ALREADYDISLIKE && isLikeReq){
+			Log.v(TAG,"User already disliked and trying to send Like Request");
+			sendLikeChannelReq(LoginParser.getUserID(),channelDetail.getChannel_id());
+		}*/
+		
+		Log.i(TAG,"checkIfChannelAlreadyLikeOrDislike() Exiting.");
+	}
+	  
+	//Method to send Next Channel API request.
+	private void sendNextChannelInfoReq(String channelNo){
+		Log.i(TAG,"sendNextChannelInfoReq() Entering.");
 		
 		ReqResHandler req = new ReqResHandler();
 		CustomProgressDialog.show(CopyOfPlayerScreen.this);
-
 		req.nextChannelRequest(CopyOfPlayerScreen.this,new ResponseHandler(),channelNo);
 		
-		Log.i(TAG,"sendChannelDetailReq() Exiting.");
+		Log.i(TAG,"sendNextChannelInfoReq() Exiting.");
 	}
 	
-	//Methods handles the response from Server.
-	public void channelDetailProceedUI(String result,AmalluException amalluEx){
-		Log.i(TAG,"channelDetailProceedUI() Entering.");
+	//Methods handles the Next ChannelInfo response from Server.
+	public void nextChannelProceedUI(String result,AmalluException amalluEx){
+		Log.i(TAG,"nextChannelProceedUI() Entering.");
 		
 		if(CustomProgressDialog.IsShowing()) {
-			Log.v(TAG, "proceedUI progress dialog dismissing..");
+			Log.v(TAG, "nextChannelProceedUI progress dialog dismissing..");
 			CustomProgressDialog.Dismiss();
 		}
 		if(result.equalsIgnoreCase("Exception")){
 			Log.e("proceedUI", "Exception Case");
 			//page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
 			//page_level_error_txt_view.setVisibility(View.VISIBLE);
+			displayToast("Exception occurred while fetching NextChannel");
 		}else{
-			ChannelDetail channelDetail=ChannelParser.getChannelParsedResponse(result);
-			if(channelDetail!=null){
-				Log.v(TAG,"ChannelDetail response parsing success.");
-				if(channelDetail.getIsSuccess().equals(ErrorCodes.ISFAILURE)){
-				   Log.e(TAG,"isSuccess Value : "+channelDetail.getIsSuccess());
-				   Log.e(TAG,"Error Message : "+channelDetail.getMessage());
+			ChannelInfo channelInfo=ChannelInfoParser.getChannelInfoParsedResponse(result);
+			if(channelInfo!=null){
+				Log.v(TAG,"ChannelInfo response parsing success.");
+				if(channelInfo.getIsSuccess().equals(ErrorCodes.ISFAILURE)){
+				   Log.e(TAG,"isSuccess Value : "+channelInfo.getIsSuccess());
+				   Log.e(TAG,"Error Message : "+channelInfo.getMessage());
 				   //page_level_error_txt_view.setText(channelInfo.getMessage());
 				   //page_level_error_txt_view.setVisibility(View.VISIBLE);
+				   displayToast("NextChannel details unavailable");
 				}else{
-					Log.v(TAG,"Channel Details fetched Successfully. Please find the below details.");
+					Log.v(TAG,"ChannelInfo fetched Successfully. Please find the below details.");
 					Log.v(TAG,"ChannelDetail Details.");
+					ChannelDetail channelDetail=channelInfo.getChannelDetail();
 					String channelID=channelDetail.getChannel_id();
 					String channelCode=channelDetail.getChannel_code();
 					String categoryID=channelDetail.getCategory_id();
@@ -536,17 +624,51 @@ public class CopyOfPlayerScreen extends FragmentActivity implements OnClickListe
 					Log.d(TAG,"defaultChannel : "+defaultChannel);
 					Log.d(TAG,"timeWatched : "+timeWatched);
 					Log.d(TAG,"thumbnail : "+thumbnail);
-				}		
+					
+					Log.v(TAG,"Comment Details.");
+					List<Comment> commentList=channelInfo.getCommentsList();
+					for(int c=0;c<commentList.size();c++){
+					   Log.v(TAG,"Iteration : "+c);
+					   Comment comment=commentList.get(c);
+					   String commentID=comment.getComment_id();
+					   String userID=comment.getUserid();
+					   String channelID1=comment.getChannel_id();
+					   String com=comment.getComment();
+					   String prefType=comment.getPreference_type();
+					   String hideComment=comment.getHide_comment();
+					   String dateCreated=comment.getDt_created();
+					   Log.d(TAG,"comment_id : "+commentID);
+					   Log.d(TAG,"userid : "+userID);
+					   Log.d(TAG,"channel_id : "+channelID1);
+					   Log.d(TAG,"comment : "+com);
+					   Log.d(TAG,"preference_type : "+prefType);
+					   Log.d(TAG,"hide_comment : "+hideComment);
+					   Log.d(TAG,"dt_created : "+dateCreated);	
+					}
+					if(rtmpLink==null || rtmpLink.equals("")){
+					   Log.e(TAG,"path is null or empty");
+					   //Toast.makeText(this,"Unable to fetch next Video URL",Toast.LENGTH_LONG).show();
+					   displayToast("Unable to fetch next Video URL");
+					   return;
+					 }else{
+						 PlayerScreen.channelInfo=null;
+						 PlayerScreen.channelInfo=channelInfo;
+						 PlayerScreen.channelDetail=null;
+						 PlayerScreen.channelDetail=channelDetail;
+						 setChannelInfoData();
+					 }
+				}
 			}else{
-				Log.e(TAG,"Channel response parsing failed.");
+				Log.e(TAG,"ChannelInfo response parsing failed.");
 				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
 				//page_level_error_txt_view.setVisibility(View.VISIBLE);
+				displayToast("Parsing error while fetching NextChannel");
 			}
 		}
 		
-		Log.i(TAG,"channelDetailProceedUI() Exiting.");
+		Log.i(TAG,"nextChannelProceedUI() Exiting.");
 	}
-	
+	  
 	//Sends Channels API Request.
 	private void sendChannelsReq(){
 		Log.i(TAG,"sendChannelsReq() Entering.");
@@ -571,6 +693,7 @@ public class CopyOfPlayerScreen extends FragmentActivity implements OnClickListe
 			Log.e(TAG, "channelsProceedUI Exception Case");
 			//page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
 			//page_level_error_txt_view.setVisibility(View.VISIBLE);
+			displayToast("Exception occurred while fetching Channels List");
 		}else{
 			List<HashMap<String,Object>> channelsHMList=ChannelsListParser.getChannelsListParsedResponse(result);
 			if(channelsHMList!=null&& !channelsHMList.isEmpty()){
@@ -582,6 +705,7 @@ public class CopyOfPlayerScreen extends FragmentActivity implements OnClickListe
 				Log.e(TAG,"Channels not Available.");
 				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
 				//page_level_error_txt_view.setVisibility(View.VISIBLE);
+				displayToast("Channels List unavailable");
 			}
 		}
 		
@@ -612,6 +736,7 @@ public class CopyOfPlayerScreen extends FragmentActivity implements OnClickListe
 			Log.e(TAG, "channelsProceedUI Exception Case");
 			//page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
 			//page_level_error_txt_view.setVisibility(View.VISIBLE);
+			displayToast("Exception occurred while fetching Categories");
 		}else{
 			List<HashMap<String,Object>> categoriesHMList=CategoryListParser.getCategoriesListParsedResponse(result);
 			if(categoriesHMList!=null&& !categoriesHMList.isEmpty()){
@@ -623,6 +748,7 @@ public class CopyOfPlayerScreen extends FragmentActivity implements OnClickListe
 				Log.e(TAG,"Categories not Available.");
 				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
 				//page_level_error_txt_view.setVisibility(View.VISIBLE);
+				displayToast("Categories unavailable");
 			}
 		}
 		
@@ -653,6 +779,7 @@ public class CopyOfPlayerScreen extends FragmentActivity implements OnClickListe
 			Log.e(TAG, "languageProceedUI Exception Case");
 			//page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
 			//page_level_error_txt_view.setVisibility(View.VISIBLE);
+			displayToast("Exception occurred while fetching Languages");
 		}else{
 			List<HashMap<String,Object>> languagesHMList=LanguageListParser.getLanguagesListParsedResponse(result);
 			if(languagesHMList!=null&& !languagesHMList.isEmpty()){
@@ -664,10 +791,114 @@ public class CopyOfPlayerScreen extends FragmentActivity implements OnClickListe
 				Log.e(TAG,"Languages not Available.");
 				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
 				//page_level_error_txt_view.setVisibility(View.VISIBLE);
+				displayToast("Languages unavailable");
 			}
 		}
 		
 		Log.i(TAG,"languageProceedUI() Exiting.");
 	}
 
+	//Sends Like Channel API Request.
+	private void sendLikeChannelReq(String userID,String channelID){
+		Log.i(TAG,"sendLikeChannelReq() Entering.");
+		
+		ReqResHandler req = new ReqResHandler();
+		CustomProgressDialog.show(CopyOfPlayerScreen.this);
+
+		req.likeChannelRequest(CopyOfPlayerScreen.this,new ResponseHandler(),userID,channelID);
+		
+		Log.i(TAG,"sendLikeChannelReq() Exiting.");
+	}
+	
+	//Methods handles the response from Server.
+	public void likeChannelProceedUI(String result,AmalluException amalluEx){
+		Log.i(TAG,"likeChannelProceedUI() Entering.");
+		
+		if(CustomProgressDialog.IsShowing()){
+			Log.v(TAG, "likeChannelProceedUI progress dialog dismissing..");
+			CustomProgressDialog.Dismiss();
+		}
+		if(result.equalsIgnoreCase("Exception")){
+			Log.e(TAG, "likeChannelProceedUI Exception Case");
+			//page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
+			//page_level_error_txt_view.setVisibility(View.VISIBLE);
+			displayToast("Exception occurred while Liking Channel");
+		}else{
+			LikeChannel likeChannel=LikeChannelParser.getLikeChannelParsedResponse(result);
+			if(likeChannel!=null){
+				Log.v(TAG,"Like Channel Successfull.");
+				likes_txt_view.setText(likeChannel.getLikecount());
+				dislikes_txt_view.setText(likeChannel.getDislikecount());
+				//Update AlreadyLike in ChannelInfo Model object.
+				//channelInfo.setAlreadylike(Integer.toString(GlobalConsts.ALREADYLIKE));
+			}else{
+				Log.e(TAG,"Unable to Like Channel.");
+				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
+				//page_level_error_txt_view.setVisibility(View.VISIBLE);
+				displayToast("Channel Already Liked");
+			}
+		}
+		
+		Log.i(TAG,"likeChannelProceedUI() Exiting.");
+	}
+
+	//Sends DisLike Channel API Request.
+	private void sendDisLikeChannelReq(String userID,String channelID){
+		Log.i(TAG,"sendDisLikeChannelReq() Entering.");
+		
+		ReqResHandler req = new ReqResHandler();
+		CustomProgressDialog.show(CopyOfPlayerScreen.this);
+
+		req.dislikeChannelRequest(CopyOfPlayerScreen.this,new ResponseHandler(),userID,channelID);
+		
+		Log.i(TAG,"sendDisLikeChannelReq() Exiting.");
+	}
+	
+	//Methods handles the response from Server.
+	public void disLikeChannelProceedUI(String result,AmalluException amalluEx){
+		Log.i(TAG,"disLikeChannelProceedUI() Entering.");
+		
+		if(CustomProgressDialog.IsShowing()){
+			Log.v(TAG, "disLikeChannelProceedUI progress dialog dismissing..");
+			CustomProgressDialog.Dismiss();
+		}
+		if(result.equalsIgnoreCase("Exception")){
+			Log.e(TAG, "disLikeChannelProceedUI Exception Case");
+			//page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
+			//page_level_error_txt_view.setVisibility(View.VISIBLE);
+			displayToast("Exception occurred while Disliking Channel");
+		}else{
+			DisLikeChannel disLikeChannel=DisLikeChannelParser.getDisLikeChannelParsedResponse(result);
+			if(disLikeChannel!=null){
+				Log.v(TAG,"DisLike Channel Successfull.");
+				likes_txt_view.setText(disLikeChannel.getLikecount());
+				dislikes_txt_view.setText(disLikeChannel.getDislikecount());
+				//Update AlreadyLike in ChannelInfo Model object.
+				//channelInfo.setAlreadylike(Integer.toString(GlobalConsts.ALREADYDISLIKE));
+			}else{
+				Log.e(TAG,"Unable to DisLike Channel.");
+				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
+				//page_level_error_txt_view.setVisibility(View.VISIBLE);
+				displayToast("Channel Already Disliked");
+			}
+		}
+		
+		Log.i(TAG,"disLikeChannelProceedUI() Exiting.");
+	}
+
+	private void displayToast(String toastText){
+	  Log.i(TAG,"displayToast() Entering.");
+	  Toast.makeText(this,toastText,Toast.LENGTH_LONG).show();
+	  Log.i(TAG,"displayToast() Exiting");
+		
+	}
+	
+	//Method to handle Device back button.
+	@Override
+	public void onBackPressed(){
+	   Log.i(TAG,"onBackPressed Entering.");
+	   super.onBackPressed();
+	   Log.i(TAG,"onBackPressed Exiting.");
+	}
+	
 }

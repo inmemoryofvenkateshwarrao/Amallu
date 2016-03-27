@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" 
+	android:layout_height="wrap_content"
+	android:background="@color/menu_item_bg_color"
+	style="@style/list_row_style">
+	
+    <ImageView
+        android:id="@+id/menu_item_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow_lt"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/image_content_desc"/>
+        
+     <TextView 
+         android:id="@+id/menu_item_name"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:textColor="@color/white"
+         android:layout_toRightOf="@id/menu_item_icon"
+         android:layout_centerVertical="true"
+         style="@style/list_row_item_left_style"/>
+     
+     <Button
+        android:id="@+id/logout_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow_rt"
+        android:text="@string/logout"
+        android:contentDescription="@string/image_content_desc"
+        android:layout_toRightOf="@id/menu_item_name"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:visibility="gone"
+        style="@style/menu_item_style"/>
+    
+</RelativeLayout>

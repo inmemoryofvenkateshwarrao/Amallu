@@ -23,8 +23,8 @@ public class URLDetails{
 	//public static final String NEXTCHANNEL="channel/nextchannel?_format=json";
 	public static final String NEXTCHANNEL="channel/channelinfo?_format=json";
 	//public static final String PREVIOUSCHANNEL="previouschannel?_format=json";
-	public static final String LIKECHANNEL="likechannel?_format=json";
-	public static final String DISLIKECHANNEL="dislikechannel?_format=json";
+	public static final String LIKECHANNEL="channel/likechannel?_format=json";
+	public static final String DISLIKECHANNEL="channel/dislikechannel?_format=json";
 	public static final String COMMENT="comment?_format=json";
 	public static final String CHANNELINFO="channel/channelinfo?_format=json";
 	public static final String CHANNELSBYCATEGORY="category/channelsbycategory?_format=json";

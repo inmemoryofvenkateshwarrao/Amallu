@@ -14,9 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -28,14 +28,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.amallu.adapter.NavDrawerListAdapter;
 import com.amallu.backend.CustomProgressDialog;
 import com.amallu.backend.ReqResHandler;
 import com.amallu.backend.ResponseHandler;
@@ -45,7 +48,6 @@ import com.amallu.model.ChannelInfo;
 import com.amallu.model.Comment;
 import com.amallu.model.DisLikeChannel;
 import com.amallu.model.LikeChannel;
-import com.amallu.model.NavDrawerItem;
 import com.amallu.parser.CategoryListParser;
 import com.amallu.parser.ChannelInfoParser;
 import com.amallu.parser.ChannelsListParser;
@@ -53,8 +55,9 @@ import com.amallu.parser.DisLikeChannelParser;
 import com.amallu.parser.LanguageListParser;
 import com.amallu.parser.LikeChannelParser;
 import com.amallu.parser.LoginParser;
+import com.amallu.ui.PlayerScreen.MenuItemAdapter.MenuItemRowViewHolder;
 import com.amallu.utility.ErrorCodes;
-import com.amallu.utility.GlobalConsts;
+import com.amallu.utility.ReqResNodes;
 
 @SuppressWarnings("deprecation")
 public class PlayerScreen extends FragmentActivity implements OnClickListener,OnInfoListener,
@@ -81,11 +84,14 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	private CharSequence mTitle;
 
 	//Slide Menu Items
-	private String[] navMenuTitles;
-	private TypedArray navMenuIcons;
+	//private String[] navMenuTitles;
+	//private TypedArray navMenuIcons;
 
-	private ArrayList<NavDrawerItem> navDrawerItems;
-	private NavDrawerListAdapter adapter;
+	//private ArrayList<NavDrawerItem> navDrawerItems;
+	//private NavDrawerListAdapter adapter;
+	
+	private MenuItemRowViewHolder menuItemRowHolder;
+	private LayoutInflater mInflater;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
@@ -95,10 +101,6 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	    intializeViews();
 		setListeners();
 		setData();
-
-		//Setting the Navigation Drawer list adapter
-		adapter = new NavDrawerListAdapter(getApplicationContext(),navDrawerItems);
-		mDrawerList.setAdapter(adapter);
 
 		//Enabling Action Bar application icon and behaving it as toggle button
 		
@@ -135,7 +137,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 
 		if(savedInstanceState==null){
 			//On first time display view for first Navigation Item
-			displayView(0);
+			//displayView(0);
 		}
 	}
 	
@@ -278,39 +280,168 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 			}
 			Log.i(TAG,"onClick() Exiting");
 		}
-
-	//Populates data.
-	 private void setData(){
-		Log.i(TAG,"setData() Entering.");
+	  
+	//Populates Menu Items ListView Data.
+	private void setData(){
+	  Log.i(TAG,"setMenuItemData() Entering.");
+	  
+	  setChannelInfoData();
 		
-		setChannelInfoData();
+	  mTitle = mDrawerTitle = getTitle();
+	  
+	  ArrayList<HashMap<String,Object>> menuItemsList=new ArrayList<HashMap<String,Object>>();
+	  HashMap<String,Object> menuItemHM=null;
+	  
+	  menuItemHM=new HashMap<String,Object>();
+	  menuItemHM.put(ReqResNodes.MENUITEMNAME,ReqResNodes.USERNAME);
+	  menuItemsList.add(menuItemHM);
+	  
+	  menuItemHM=new HashMap<String,Object>();
+	  menuItemHM.put(ReqResNodes.MENUITEMNAME,ReqResNodes.MENUITEM_CHANNELS);
+	  menuItemsList.add(menuItemHM);
+	  
+	  menuItemHM=new HashMap<String,Object>();
+	  menuItemHM.put(ReqResNodes.MENUITEMNAME,ReqResNodes.MENUITEM_CATEGORIES);
+	  menuItemsList.add(menuItemHM);
+	  
+	  menuItemHM=new HashMap<String,Object>();
+	  menuItemHM.put(ReqResNodes.MENUITEMNAME,ReqResNodes.MENUITEM_LANGUAGE);
+	  menuItemsList.add(menuItemHM);
+	  
+	  menuItemHM=new HashMap<String,Object>();
+	  menuItemHM.put(ReqResNodes.MENUITEMNAME,ReqResNodes.MENUITEM_FRIENDS);
+	  menuItemsList.add(menuItemHM);
+	  
+	  menuItemHM=new HashMap<String,Object>();
+	  menuItemHM.put(ReqResNodes.MENUITEMNAME,ReqResNodes.MENUITEM_ACTIVITIES);
+	  menuItemsList.add(menuItemHM);
+	  
+	  menuItemHM=new HashMap<String,Object>();
+	  menuItemHM.put(ReqResNodes.MENUITEMNAME,ReqResNodes.MENUITEM_ABOUT);
+	  menuItemsList.add(menuItemHM);
+	  
+	  menuItemHM=new HashMap<String,Object>();
+	  menuItemHM.put(ReqResNodes.MENUITEMNAME,ReqResNodes.MENUITEM_ADVERTISE);
+	  menuItemsList.add(menuItemHM);
+	  
+	  menuItemHM=new HashMap<String,Object>();
+	  menuItemHM.put(ReqResNodes.MENUITEMNAME,ReqResNodes.MENUITEM_TERMS);
+	  menuItemsList.add(menuItemHM);
+	  
+	  menuItemHM=new HashMap<String,Object>();
+	  menuItemHM.put(ReqResNodes.MENUITEMNAME,ReqResNodes.MENUITEM_PRIVACYPOLICY);
+	  menuItemsList.add(menuItemHM);
+	  
+	  MenuItemAdapter categoryListAdapter=new MenuItemAdapter(this,menuItemsList,R.layout.categoryrow,new String[]{},new int[]{});
+	  mDrawerList.setAdapter(categoryListAdapter);
+	  mDrawerList.setOnItemClickListener(new OnItemClickListener(){
+		 @Override
+		 public void onItemClick(AdapterView<?> parent,View view,int position,long id){
+			HashMap<String,Object> menuItemRowHM=(HashMap<String, Object>)mDrawerList.getItemAtPosition(position);
+			String menuItemName=menuItemRowHM.get(ReqResNodes.MENUITEMNAME).toString();
+			Log.d(TAG,"menuItemName : "+menuItemName);
+			if(menuItemName.equals(ReqResNodes.MENUITEM_CHANNELS)){
+				mDrawerLayout.closeDrawer(mDrawerList);
+				sendChannelsReq();
+            }else if(menuItemName.equals(ReqResNodes.MENUITEM_CATEGORIES)){
+            	mDrawerLayout.closeDrawer(mDrawerList);
+				sendCategoriesReq();
+            }else if(menuItemName.equals(ReqResNodes.MENUITEM_LANGUAGE)){
+            	mDrawerLayout.closeDrawer(mDrawerList);
+				sendLanguagesReq();
+            }else if(menuItemName.equals(ReqResNodes.MENUITEM_FRIENDS)){
+            	mDrawerLayout.closeDrawer(mDrawerList);
+            }else if(menuItemName.equals(ReqResNodes.MENUITEM_ACTIVITIES)){
+            	mDrawerLayout.closeDrawer(mDrawerList);           	
+            }else if(menuItemName.equals(ReqResNodes.MENUITEM_ABOUT)){
+            	mDrawerLayout.closeDrawer(mDrawerList);          	
+            }else if(menuItemName.equals(ReqResNodes.MENUITEM_ADVERTISE)){            	
+            	mDrawerLayout.closeDrawer(mDrawerList);
+            }else if(menuItemName.equals(ReqResNodes.MENUITEM_TERMS)){
+            	mDrawerLayout.closeDrawer(mDrawerList);
+            }else if(menuItemName.equals(ReqResNodes.MENUITEM_PRIVACYPOLICY)){
+            	mDrawerLayout.closeDrawer(mDrawerList);
+            }		 
+		 }
+	   });
+	  Log.i(TAG,"setMenuItemData() Exiting.");
+	}
+
+	//Inner Class to make smooth swiping of list view.
+	public class MenuItemAdapter extends SimpleAdapter{
 		
-		mTitle = mDrawerTitle = getTitle();
+	   ArrayList<HashMap<String,Object>> menuItemRowArrList;
 
-		//Load slide menu items
-		navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
-
-		//Navigation Drawer icons from resources
-		navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
-
-		navDrawerItems = new ArrayList<NavDrawerItem>();
-
-		//Adding Navigation Drawer items to array
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons.getResourceId(6, -1)));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[7], navMenuIcons.getResourceId(7, -1)));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[8], navMenuIcons.getResourceId(8, -1)));
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[9], navMenuIcons.getResourceId(9, -1)));
-		
-		// Recycle the typed array
-		navMenuIcons.recycle();
-		Log.i(TAG,"setData() Exiting.");
-	  }
+	   public MenuItemAdapter(Context context, List<HashMap<String,Object>> items,int resource,String[] from,int[] to){
+		   super(context, items, resource, from, to);
+		   menuItemRowArrList=(ArrayList<HashMap<String,Object>>)items;
+		   mInflater=(LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	    }
+		    
+        public View getView(int position,View convertView, ViewGroup parent){
+           if(convertView==null){
+        	  convertView = mInflater.inflate(R.layout.menuitemrow,null);
+        	  menuItemRowHolder=new MenuItemRowViewHolder();
+        	  menuItemRowHolder.menu_item_icon=(ImageView)convertView.findViewById(R.id.menu_item_icon);
+        	  menuItemRowHolder.menu_item_name=(TextView)convertView.findViewById(R.id.menu_item_name);
+        	  menuItemRowHolder.logout_btn=(Button)convertView.findViewById(R.id.logout_btn);
+        	  convertView.setTag(menuItemRowHolder);
+            }else{
+            	menuItemRowHolder=(MenuItemRowViewHolder)convertView.getTag();
+            }
+            HashMap<String,Object> mItemRowHM=(HashMap<String,Object>)menuItemRowArrList.get(position);
+            String menuItemName=mItemRowHM.get(ReqResNodes.MENUITEMNAME).toString();
+            if(menuItemName.equals(ReqResNodes.MENUITEM_CHANNELS)){
+            	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_channels));
+                menuItemRowHolder.menu_item_name.setText(menuItemName);
+            }else if(menuItemName.equals(ReqResNodes.MENUITEM_CATEGORIES)){
+            	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_categories));
+                menuItemRowHolder.menu_item_name.setText(menuItemName);
+            }else if(menuItemName.equals(ReqResNodes.MENUITEM_LANGUAGE)){
+            	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_language));
+                menuItemRowHolder.menu_item_name.setText(menuItemName);
+            }else if(menuItemName.equals(ReqResNodes.MENUITEM_FRIENDS)){
+            	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_friends));
+                menuItemRowHolder.menu_item_name.setText(menuItemName);
+            }else if(menuItemName.equals(ReqResNodes.MENUITEM_ACTIVITIES)){
+            	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_activities));
+                menuItemRowHolder.menu_item_name.setText(menuItemName);            	
+            }else if(menuItemName.equals(ReqResNodes.MENUITEM_ABOUT)){
+            	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_about));
+                menuItemRowHolder.menu_item_name.setText(menuItemName);            	
+            }else if(menuItemName.equals(ReqResNodes.MENUITEM_ADVERTISE)){            	
+            	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_advertise));
+                menuItemRowHolder.menu_item_name.setText(menuItemName);
+            }else if(menuItemName.equals(ReqResNodes.MENUITEM_TERMS)){
+            	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_terms));
+                menuItemRowHolder.menu_item_name.setText(menuItemName);
+            }else if(menuItemName.equals(ReqResNodes.MENUITEM_PRIVACYPOLICY)){
+            	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_privacy));
+                menuItemRowHolder.menu_item_name.setText(menuItemName);
+            }else{
+            	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_profile));
+                menuItemRowHolder.menu_item_name.setText("tempName");
+                menuItemRowHolder.logout_btn.setVisibility(View.VISIBLE);
+                menuItemRowHolder.logout_btn.setOnClickListener(new OnClickListener(){
+					@Override
+					public void onClick(View v){
+						mDrawerLayout.closeDrawer(mDrawerList);
+						startActivity(new Intent(PlayerScreen.this,LoginScreen.class)
+						.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+					}
+				});
+            }
+            return convertView;
+        }
+	    
+        //Inner Class to hold views of list item.
+        class MenuItemRowViewHolder{
+    	    ImageView menu_item_icon;
+    	    TextView menu_item_name;
+    	    Button logout_btn;
+        }
+	        
+	}
 	 
 	 private void setChannelInfoData(){
 		Log.i(TAG,"setChannelInfoData() Entering.");
@@ -330,7 +461,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,long id){
 			//display view for selected nav drawer item
-			displayView(position);
+			//displayView(position);
 		}
 	}
 
@@ -364,64 +495,6 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
 		menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
 		return super.onPrepareOptionsMenu(menu);
-	}
-
-	/**
-	 * Diplaying fragment view for selected nav drawer list item
-	 * */
-	private void displayView(int position){
-		//update the main content by replacing fragments
-		//Fragment fragment = null;
-		switch(position){
-			case 0:
-				//fragment = new HomeFragment();
-				mDrawerLayout.closeDrawer(mDrawerList);
-				break;
-			case 1:
-				//fragment = new FindPeopleFragment();
-				//startActivity(new Intent(PlayerScreen.this,ChannelsScreen.class));
-				mDrawerLayout.closeDrawer(mDrawerList);
-				sendChannelsReq();
-				break;
-			case 2:
-				//fragment = new PhotosFragment();
-				//startActivity(new Intent(PlayerScreen.this,CategoriesScreen.class));
-				mDrawerLayout.closeDrawer(mDrawerList);
-				sendCategoriesReq();
-				break;
-			case 3:
-				//fragment = new CommunityFragment();
-				//startActivity(new Intent(PlayerScreen.this,LanguagesScreen.class));
-				mDrawerLayout.closeDrawer(mDrawerList);
-				sendLanguagesReq();
-				break;
-			case 4:
-				//fragment = new PagesFragment();
-				mDrawerLayout.closeDrawer(mDrawerList);
-				break;
-			case 5:
-				//fragment = new WhatsHotFragment();
-				mDrawerLayout.closeDrawer(mDrawerList);
-				break;
-	
-			default:
-				break;
-		}
-
-		/*if (fragment != null) {
-			FragmentManager fragmentManager = getFragmentManager();
-			fragmentManager.beginTransaction()
-					.replace(R.id.frame_container, fragment).commit();
-
-			// update selected item and title, then close the drawer
-			mDrawerList.setItemChecked(position, true);
-			mDrawerList.setSelection(position);
-			setTitle(navMenuTitles[position]);
-			mDrawerLayout.closeDrawer(mDrawerList);
-		} else {
-			// error in creating fragment
-			Log.e("MainActivity", "Error in creating fragment");
-		}*/
 	}
 
 	@Override
@@ -511,6 +584,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	  }
 	  
 	//Removes Horizontal Scrollbars in HorizontalScrollView programmatically.
+	@SuppressWarnings("unused")
 	private void disableHorizontalScrollBars(){
 		//view.setVerticalScrollBarEnabled(false); 
 		//view.setHorizontalScrollBarEnabled(false);
@@ -520,10 +594,16 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	private void checkIfChannelAlreadyLikeOrDislike(boolean isLikeReq){
 		Log.i(TAG,"checkIfChannelAlreadyLikeOrDislike() Entering.");
 		
-		displayToast("You have already liked this Channel");
-		displayToast("You have already disliked this Channel");
 		
-		int alreadyLikeValue=Integer.parseInt(channelInfo.getAlreadylike());
+		if(isLikeReq){
+			Log.v(TAG,"Sending Like Request");
+			sendLikeChannelReq(LoginParser.getUserID(),channelDetail.getChannel_id());
+		  }else{
+			Log.v(TAG,"sending DisLike Request");
+			sendDisLikeChannelReq(LoginParser.getUserID(),channelDetail.getChannel_id());
+		  }
+		
+		/*int alreadyLikeValue=Integer.parseInt(channelInfo.getAlreadylike());
 		Log.v(TAG,"Channle AlreadyLike value : "+alreadyLikeValue);
 		
 		if(alreadyLikeValue==GlobalConsts.NEUTRAL){
@@ -547,7 +627,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		}else if(alreadyLikeValue==GlobalConsts.ALREADYDISLIKE && isLikeReq){
 			Log.v(TAG,"User already disliked and trying to send Like Request");
 			sendLikeChannelReq(LoginParser.getUserID(),channelDetail.getChannel_id());
-		}
+		}*/
 		
 		Log.i(TAG,"checkIfChannelAlreadyLikeOrDislike() Exiting.");
 	}
@@ -822,11 +902,13 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 				Log.v(TAG,"Like Channel Successfull.");
 				likes_txt_view.setText(likeChannel.getLikecount());
 				dislikes_txt_view.setText(likeChannel.getDislikecount());
+				//Update AlreadyLike in ChannelInfo Model object.
+				//channelInfo.setAlreadylike(Integer.toString(GlobalConsts.ALREADYLIKE));
 			}else{
 				Log.e(TAG,"Unable to Like Channel.");
 				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
 				//page_level_error_txt_view.setVisibility(View.VISIBLE);
-				displayToast("LikeChannel details unavailable");
+				displayToast("Channel Already Liked");
 			}
 		}
 		
@@ -864,11 +946,13 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 				Log.v(TAG,"DisLike Channel Successfull.");
 				likes_txt_view.setText(disLikeChannel.getLikecount());
 				dislikes_txt_view.setText(disLikeChannel.getDislikecount());
+				//Update AlreadyLike in ChannelInfo Model object.
+				//channelInfo.setAlreadylike(Integer.toString(GlobalConsts.ALREADYDISLIKE));
 			}else{
 				Log.e(TAG,"Unable to DisLike Channel.");
 				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
 				//page_level_error_txt_view.setVisibility(View.VISIBLE);
-				displayToast("DisLIke Channel details unavailable");
+				displayToast("Channel Already Disliked");
 			}
 		}
 		

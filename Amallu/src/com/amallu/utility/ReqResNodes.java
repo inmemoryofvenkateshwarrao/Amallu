@@ -109,6 +109,20 @@ public class ReqResNodes{
     //Response properties for LikeChannel API
     public static final String ACTION="action";
     
+    public static final String MENUITEMICON="menuitemicon";
+    public static final String MENUITEMNAME="menuitemname";
+    
+    //Menu Items
+    public static final String MENUITEM_CHANNELS="Channels";
+    public static final String MENUITEM_CATEGORIES="Categories";
+    public static final String MENUITEM_LANGUAGE="Language";
+    public static final String MENUITEM_FRIENDS="Friends";
+    public static final String MENUITEM_ACTIVITIES="Activities";
+    public static final String MENUITEM_ABOUT="About";
+    public static final String MENUITEM_ADVERTISE="Advertise";
+    public static final String MENUITEM_TERMS="Terms";
+    public static final String MENUITEM_PRIVACYPOLICY="Privacy Policy";
+    
     //Common
     public static final String GET="get";
     public static final String POST="post";

@@ -74,6 +74,7 @@
     <string name="pwd_conf_pwd_error_msg">Password and Re enter Password should be same</string>
     <string name="title_activity_categories_screen">CategoriesScreen</string>
     <string name="hello_world">Hello world!</string>
+    <string name="logout">Logout</string>
     
     
     <!-- Nav Drawer Menu Items -->
