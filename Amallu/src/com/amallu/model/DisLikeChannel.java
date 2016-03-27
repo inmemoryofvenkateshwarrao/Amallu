@@ -1,6 +1,6 @@
 package com.amallu.model;
 
-public class LikeChannel {
+public class DisLikeChannel {
 	
 	private String isSuccess;
 	private String message;

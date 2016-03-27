@@ -3,11 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    
+        
+    <include 
+        android:id="@+id/likedislike"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        layout="@layout/likedislike"/> 
+        
+    <include 
+        android:id="@+id/vitemeo_controls"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/likedislike"
+        layout="@layout/vitameocontrols"/> 
+        
     <RelativeLayout
         android:id="@+id/video_rel"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
+	    android:layout_above="@id/vitemeo_controls"
 	    android:orientation="vertical">
     
 	    <io.vov.vitamio.widget.VideoView
@@ -15,6 +30,7 @@
 	        android:layout_alignParentTop="true"
 	        android:layout_alignParentLeft="true"
 	        android:layout_alignParentRight="true"
+	        android:layout_alignParentBottom="true"
 	        android:layout_width="fill_parent"
 	        style="@style/video_height_style"/>
 	    
@@ -24,12 +40,6 @@
 		        android:layout_centerInParent="true"
 		        android:orientation="horizontal">
 	
-		        <!--<ProgressBar
-		            android:id="@+id/probar"
-		            style="?android:attr/progressBarStyleLarge"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content" /> -->
-		            
 		        <ProgressBar
 		            android:id="@+id/probar"
 		            style="@android:style/Widget.ProgressBar.Small"
@@ -52,35 +62,5 @@
 	      </LinearLayout>
     
     </RelativeLayout>
-    
-    <include 
-        android:id="@+id/vitemeo_controls"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/video_rel"
-        layout="@layout/vitameocontrols"/> 
-        
-    <include 
-        android:id="@+id/likedislike"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/vitemeo_controls"
-        layout="@layout/likedislike"/>
-    
-    <include 
-        android:id="@+id/tabbar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/likedislike"
-        layout="@layout/tabbar"/>
-    
-    <ListView
-        android:id="@+id/list_options"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:divider="@color/list_divider"
-        android:dividerHeight="1dp"
-        android:layout_below="@id/tabbar"
-        android:background="@color/white"/>
   
 </RelativeLayout>

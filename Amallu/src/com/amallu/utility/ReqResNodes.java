@@ -106,6 +106,9 @@ public class ReqResNodes{
     public static final String LOG_MSG="log_msg";
     public static final String TIME_DIFF="time_diff";
     
+    //Response properties for LikeChannel API
+    public static final String ACTION="action";
+    
     //Common
     public static final String GET="get";
     public static final String POST="post";

@@ -63,13 +63,13 @@ public class ResponseHandler implements Response{
 			if(result.equalsIgnoreCase("Exception")){
 				Log.e(TAG, "LIKECHANNEL Exception caught.");
 			}
-			//((UsersScreen)context).proceedUI(result,ex);
+			((PlayerScreen)context).likeChannelProceedUI(result,ex);
 		}
 		if(uiHandler.equals(CommonHandlerType.DISLIKECHANNEL)){
 			if(result.equalsIgnoreCase("Exception")){
 				Log.e(TAG, "DISLIKECHANNEL Exception caught.");
 			}
-			//((UsersScreen)context).proceedUI(result,ex);
+			((PlayerScreen)context).disLikeChannelProceedUI(result,ex);
 		}
 		if(uiHandler.equals(CommonHandlerType.CREATECOMMENT)){
 			if(result.equalsIgnoreCase("Exception")){

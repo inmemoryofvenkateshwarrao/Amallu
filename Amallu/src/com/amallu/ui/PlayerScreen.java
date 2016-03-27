@@ -43,12 +43,18 @@ import com.amallu.exception.AmalluException;
 import com.amallu.model.ChannelDetail;
 import com.amallu.model.ChannelInfo;
 import com.amallu.model.Comment;
+import com.amallu.model.DisLikeChannel;
+import com.amallu.model.LikeChannel;
 import com.amallu.model.NavDrawerItem;
 import com.amallu.parser.CategoryListParser;
 import com.amallu.parser.ChannelInfoParser;
 import com.amallu.parser.ChannelsListParser;
+import com.amallu.parser.DisLikeChannelParser;
 import com.amallu.parser.LanguageListParser;
+import com.amallu.parser.LikeChannelParser;
+import com.amallu.parser.LoginParser;
 import com.amallu.utility.ErrorCodes;
+import com.amallu.utility.GlobalConsts;
 
 @SuppressWarnings("deprecation")
 public class PlayerScreen extends FragmentActivity implements OnClickListener,OnInfoListener,
@@ -185,7 +191,8 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		 Log.i(TAG,"startLiveStreaming() Entering.");
 		 if(path==null || path.equals("")){
 		      Log.e(TAG,"path is null or empty");
-		      Toast.makeText(this,"Unable to fetch next Video URL",Toast.LENGTH_LONG).show();
+		      //Toast.makeText(this,"Unable to fetch next Video URL",Toast.LENGTH_LONG).show();
+		      displayToast("Unable to fetch next Video URL");
 		      return;
 		  }else{
 		      channel_name_txt_view.setText(channelDetail.getChannel_name());
@@ -231,24 +238,19 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 					break;
 				case R.id.icon_like:
 					Log.i(TAG,"Like Icon clicked");
-					int likeCount=Integer.parseInt(likes_txt_view.getText().toString());
-					//if(originalLikes==likeCount){
-					   likes_txt_view.setText(Integer.toString(likeCount+1));
-					//}
+					checkIfChannelAlreadyLikeOrDislike(true);
 					break;
 				case R.id.icon_dislike:
 					Log.i(TAG,"Dislike Icon clicked");
-					int disLikeCount=Integer.parseInt(dislikes_txt_view.getText().toString());
-					//if(originalDisLikes==disLikeCount){
-						dislikes_txt_view.setText(Integer.toString(disLikeCount-1));
-					//}
+					checkIfChannelAlreadyLikeOrDislike(false);
 					break;
 				case R.id.icon_next:
 					Log.i(TAG,"Next Icon clicked");
 					mVideoView.clearFocus();
 					int currentChannelIDNext=0;
 					currentChannelIDNext=Integer.parseInt(channelDetail.getChannel_id())+1;
-					Toast.makeText(this,"Current Channel ID : "+channelDetail.getChannel_id(),Toast.LENGTH_LONG).show();
+					//Toast.makeText(this,"Current Channel ID : "+channelDetail.getChannel_id(),Toast.LENGTH_LONG).show();
+					displayToast("Current Channel ID : "+channelDetail.getChannel_id());
 					sendNextChannelInfoReq(Integer.toString(currentChannelIDNext));
 					break;
 				case R.id.icon_previous:
@@ -259,7 +261,8 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 					if(currentChannelIDPrev<=0){
 					   currentChannelIDPrev=Integer.parseInt(channelDetail.getChannel_id())+1;
 					}
-					Toast.makeText(this,"Current Channel ID : "+channelDetail.getChannel_id(),Toast.LENGTH_LONG).show();
+					//Toast.makeText(this,"Current Channel ID : "+channelDetail.getChannel_id(),Toast.LENGTH_LONG).show();
+					displayToast("Current Channel ID : "+channelDetail.getChannel_id());
 					sendNextChannelInfoReq(Integer.toString(currentChannelIDPrev));
 					break;
 				case R.id.icon_three_liner:
@@ -501,7 +504,8 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	  @Override
 	  public boolean onError(MediaPlayer mediaPlayer, int what, int extra){
 		Log.i(TAG,"onError() Entering.");
-		Toast.makeText(this,"Unable to stream video",Toast.LENGTH_LONG).show();
+		//Toast.makeText(this,"Unable to stream video",Toast.LENGTH_LONG).show();
+		displayToast("Unable to stream video");
 	    Log.i(TAG,"onError() Exiting.");
 	  	return false;
 	  }
@@ -510,6 +514,42 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	private void disableHorizontalScrollBars(){
 		//view.setVerticalScrollBarEnabled(false); 
 		//view.setHorizontalScrollBarEnabled(false);
+	}
+	
+	//Method to check whether the Current Channel is already liked.
+	private void checkIfChannelAlreadyLikeOrDislike(boolean isLikeReq){
+		Log.i(TAG,"checkIfChannelAlreadyLikeOrDislike() Entering.");
+		
+		displayToast("You have already liked this Channel");
+		displayToast("You have already disliked this Channel");
+		
+		int alreadyLikeValue=Integer.parseInt(channelInfo.getAlreadylike());
+		Log.v(TAG,"Channle AlreadyLike value : "+alreadyLikeValue);
+		
+		if(alreadyLikeValue==GlobalConsts.NEUTRAL){
+		  Log.v(TAG,"User neither liked nor disliked previous");
+		  if(isLikeReq){
+			Log.v(TAG,"Sending Like Request");
+			sendLikeChannelReq(LoginParser.getUserID(),channelDetail.getChannel_id());
+		  }else{
+			Log.v(TAG,"sending DisLike Request");
+			sendDisLikeChannelReq(LoginParser.getUserID(),channelDetail.getChannel_id());
+		  }
+		}else if(alreadyLikeValue==GlobalConsts.ALREADYLIKE && isLikeReq){
+			Log.e(TAG,"User already liked and trying to send Like Request again");
+			displayToast("Already liked, cannot like it again");
+		}else if(alreadyLikeValue==GlobalConsts.ALREADYDISLIKE && !isLikeReq){
+			Log.e(TAG,"User already disliked and trying to send DisLike Request again");
+			displayToast("Already disliked, cannot dislike it again");
+		}else if(alreadyLikeValue==GlobalConsts.ALREADYLIKE && !isLikeReq){
+			Log.v(TAG,"User already liked and trying to send DisLike Request");
+			sendDisLikeChannelReq(LoginParser.getUserID(),channelDetail.getChannel_id());
+		}else if(alreadyLikeValue==GlobalConsts.ALREADYDISLIKE && isLikeReq){
+			Log.v(TAG,"User already disliked and trying to send Like Request");
+			sendLikeChannelReq(LoginParser.getUserID(),channelDetail.getChannel_id());
+		}
+		
+		Log.i(TAG,"checkIfChannelAlreadyLikeOrDislike() Exiting.");
 	}
 	  
 	//Method to send Next Channel API request.
@@ -535,6 +575,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 			Log.e("proceedUI", "Exception Case");
 			//page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
 			//page_level_error_txt_view.setVisibility(View.VISIBLE);
+			displayToast("Exception occurred while fetching NextChannel");
 		}else{
 			ChannelInfo channelInfo=ChannelInfoParser.getChannelInfoParsedResponse(result);
 			if(channelInfo!=null){
@@ -544,6 +585,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 				   Log.e(TAG,"Error Message : "+channelInfo.getMessage());
 				   //page_level_error_txt_view.setText(channelInfo.getMessage());
 				   //page_level_error_txt_view.setVisibility(View.VISIBLE);
+				   displayToast("NextChannel details unavailable");
 				}else{
 					Log.v(TAG,"ChannelInfo fetched Successfully. Please find the below details.");
 					Log.v(TAG,"ChannelDetail Details.");
@@ -598,7 +640,8 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 					}
 					if(rtmpLink==null || rtmpLink.equals("")){
 					   Log.e(TAG,"path is null or empty");
-					   Toast.makeText(this,"Unable to fetch next Video URL",Toast.LENGTH_LONG).show();
+					   //Toast.makeText(this,"Unable to fetch next Video URL",Toast.LENGTH_LONG).show();
+					   displayToast("Unable to fetch next Video URL");
 					   return;
 					 }else{
 						 PlayerScreen.channelInfo=null;
@@ -607,110 +650,18 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 						 PlayerScreen.channelDetail=channelDetail;
 						 setChannelInfoData();
 					 }
-					//startActivity(new Intent(LoginScreen.this,PlayerScreen.class));
-								/*.putExtra(ReqResNodes.CHANNEL_ID,channelID)
-								.putExtra(ReqResNodes.CHANNEL_CODE,channelCode)
-								.putExtra(ReqResNodes.CATEGORY_ID,categoryID)
-								.putExtra(ReqResNodes.CHANNEL_NAME,channelName)
-								.putExtra(ReqResNodes.LANGUAGE_ID,languageID)
-								.putExtra(ReqResNodes.DESCRIPTION,description)
-								.putExtra(ReqResNodes.RTMP_LINK,rtmpLink)
-								.putExtra(ReqResNodes.FOLLOWERS,followers)
-								.putExtra(ReqResNodes.VIEWS,views)
-								.putExtra(ReqResNodes.DISPLAY_CHANNEL,displayChannel)
-								.putExtra(ReqResNodes.DEFAULT_CHANNEL,defaultChannel)
-								.putExtra(ReqResNodes.TIME_WATCHED,timeWatched)
-								.putExtra(ReqResNodes.THUMBNAIL,thumbnail));*/
 				}
 			}else{
 				Log.e(TAG,"ChannelInfo response parsing failed.");
 				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
 				//page_level_error_txt_view.setVisibility(View.VISIBLE);
+				displayToast("Parsing error while fetching NextChannel");
 			}
 		}
 		
 		Log.i(TAG,"nextChannelProceedUI() Exiting.");
 	}
 	  
-	//Method to send NextChannel API request.
-	/*private void sendNextChannelReq(String channelNo){
-		Log.i(TAG,"sendNextChannelReq() Entering.");
-		
-		ReqResHandler req = new ReqResHandler();
-		//CustomProgressDialog.show(PlayerScreen.this);
-		likedislike.setEnabled(false);
-		pb.setVisibility(View.VISIBLE);
-
-		req.nextChannelRequest(PlayerScreen.this,new ResponseHandler(),channelNo);
-		
-		Log.i(TAG,"sendNextChannelReq() Exiting.");
-	}
-	
-	//Methods handles the response from Server.
-	public void nextChannelProceedUI(String result,AmalluException amalluEx){
-		Log.i(TAG,"nextChannelProceedUI() Entering.");
-		
-		if(CustomProgressDialog.IsShowing()) {
-			Log.v(TAG, "nextChannelProceedUI progress dialog dismissing..");
-			CustomProgressDialog.Dismiss();
-		}
-		pb.setVisibility(View.GONE);
-		likedislike.setEnabled(true);
-		
-		if(result.equalsIgnoreCase("Exception")){
-			Log.e(TAG, "nextChannelProceedUI Exception Case");
-			//page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
-			//page_level_error_txt_view.setVisibility(View.VISIBLE);
-		}else{
-			ChannelDetail channelDetail=ChannelParser.getChannelParsedResponse(result);
-			if(channelDetail!=null){
-				Log.v(TAG,"ChannelDetail response parsing success.");
-				if(channelDetail.getIsSuccess().equals(ErrorCodes.ISFAILURE)){
-				   Log.e(TAG,"isSuccess Value : "+channelDetail.getIsSuccess());
-				   Log.e(TAG,"Error Message : "+channelDetail.getMessage());
-				   //page_level_error_txt_view.setText(channelInfo.getMessage());
-				   //page_level_error_txt_view.setVisibility(View.VISIBLE);
-				}else{
-					Log.v(TAG,"Channel Details fetched Successfully. Please find the below details.");
-					Log.v(TAG,"ChannelDetail Details.");
-					String channelID=channelDetail.getChannel_id();
-					String channelCode=channelDetail.getChannel_code();
-					String categoryID=channelDetail.getCategory_id();
-					String channelName=channelDetail.getChannel_name();
-					String languageID=channelDetail.getLanguage_id();
-					String description=channelDetail.getDescription();
-					String rtmpLink=channelDetail.getRtmp_link();
-					String followers=channelDetail.getFollowers();
-					String views=channelDetail.getViews();
-					String displayChannel=channelDetail.getDisplay_channel();
-					String defaultChannel=channelDetail.getDefault_channel();
-					String timeWatched=channelDetail.getTime_watched();
-					String thumbnail=channelDetail.getThumbnail();
-					
-					Log.d(TAG,"channelID : "+channelID);
-					Log.d(TAG,"channelCode : "+channelCode);
-					Log.d(TAG,"categoryID : "+categoryID);
-					Log.d(TAG,"channelName : "+channelName);
-					Log.d(TAG,"languageID : "+languageID);
-					Log.d(TAG,"description : "+description);
-					Log.d(TAG,"rtmpLink : "+rtmpLink);
-					Log.d(TAG,"followers : "+followers);
-					Log.d(TAG,"views : "+views);
-					Log.d(TAG,"displayChannel : "+displayChannel);
-					Log.d(TAG,"defaultChannel : "+defaultChannel);
-					Log.d(TAG,"timeWatched : "+timeWatched);
-					Log.d(TAG,"thumbnail : "+thumbnail);
-				}		
-			}else{
-				Log.e(TAG,"Channel response parsing failed.");
-				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
-				//page_level_error_txt_view.setVisibility(View.VISIBLE);
-			}
-		}
-		
-		Log.i(TAG,"nextChannelProceedUI() Exiting.");
-	}
-*/	
 	//Sends Channels API Request.
 	private void sendChannelsReq(){
 		Log.i(TAG,"sendChannelsReq() Entering.");
@@ -735,6 +686,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 			Log.e(TAG, "channelsProceedUI Exception Case");
 			//page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
 			//page_level_error_txt_view.setVisibility(View.VISIBLE);
+			displayToast("Exception occurred while fetching Channels List");
 		}else{
 			List<HashMap<String,Object>> channelsHMList=ChannelsListParser.getChannelsListParsedResponse(result);
 			if(channelsHMList!=null&& !channelsHMList.isEmpty()){
@@ -746,6 +698,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 				Log.e(TAG,"Channels not Available.");
 				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
 				//page_level_error_txt_view.setVisibility(View.VISIBLE);
+				displayToast("Channels List unavailable");
 			}
 		}
 		
@@ -776,6 +729,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 			Log.e(TAG, "channelsProceedUI Exception Case");
 			//page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
 			//page_level_error_txt_view.setVisibility(View.VISIBLE);
+			displayToast("Exception occurred while fetching Categories");
 		}else{
 			List<HashMap<String,Object>> categoriesHMList=CategoryListParser.getCategoriesListParsedResponse(result);
 			if(categoriesHMList!=null&& !categoriesHMList.isEmpty()){
@@ -787,6 +741,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 				Log.e(TAG,"Categories not Available.");
 				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
 				//page_level_error_txt_view.setVisibility(View.VISIBLE);
+				displayToast("Categories unavailable");
 			}
 		}
 		
@@ -817,6 +772,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 			Log.e(TAG, "languageProceedUI Exception Case");
 			//page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
 			//page_level_error_txt_view.setVisibility(View.VISIBLE);
+			displayToast("Exception occurred while fetching Languages");
 		}else{
 			List<HashMap<String,Object>> languagesHMList=LanguageListParser.getLanguagesListParsedResponse(result);
 			if(languagesHMList!=null&& !languagesHMList.isEmpty()){
@@ -828,10 +784,110 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 				Log.e(TAG,"Languages not Available.");
 				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
 				//page_level_error_txt_view.setVisibility(View.VISIBLE);
+				displayToast("Languages unavailable");
 			}
 		}
 		
 		Log.i(TAG,"languageProceedUI() Exiting.");
 	}
 
+	//Sends Like Channel API Request.
+	private void sendLikeChannelReq(String userID,String channelID){
+		Log.i(TAG,"sendLikeChannelReq() Entering.");
+		
+		ReqResHandler req = new ReqResHandler();
+		CustomProgressDialog.show(PlayerScreen.this);
+
+		req.likeChannelRequest(PlayerScreen.this,new ResponseHandler(),userID,channelID);
+		
+		Log.i(TAG,"sendLikeChannelReq() Exiting.");
+	}
+	
+	//Methods handles the response from Server.
+	public void likeChannelProceedUI(String result,AmalluException amalluEx){
+		Log.i(TAG,"likeChannelProceedUI() Entering.");
+		
+		if(CustomProgressDialog.IsShowing()){
+			Log.v(TAG, "likeChannelProceedUI progress dialog dismissing..");
+			CustomProgressDialog.Dismiss();
+		}
+		if(result.equalsIgnoreCase("Exception")){
+			Log.e(TAG, "likeChannelProceedUI Exception Case");
+			//page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
+			//page_level_error_txt_view.setVisibility(View.VISIBLE);
+			displayToast("Exception occurred while Liking Channel");
+		}else{
+			LikeChannel likeChannel=LikeChannelParser.getLikeChannelParsedResponse(result);
+			if(likeChannel!=null){
+				Log.v(TAG,"Like Channel Successfull.");
+				likes_txt_view.setText(likeChannel.getLikecount());
+				dislikes_txt_view.setText(likeChannel.getDislikecount());
+			}else{
+				Log.e(TAG,"Unable to Like Channel.");
+				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
+				//page_level_error_txt_view.setVisibility(View.VISIBLE);
+				displayToast("LikeChannel details unavailable");
+			}
+		}
+		
+		Log.i(TAG,"likeChannelProceedUI() Exiting.");
+	}
+
+	//Sends DisLike Channel API Request.
+	private void sendDisLikeChannelReq(String userID,String channelID){
+		Log.i(TAG,"sendDisLikeChannelReq() Entering.");
+		
+		ReqResHandler req = new ReqResHandler();
+		CustomProgressDialog.show(PlayerScreen.this);
+
+		req.dislikeChannelRequest(PlayerScreen.this,new ResponseHandler(),userID,channelID);
+		
+		Log.i(TAG,"sendDisLikeChannelReq() Exiting.");
+	}
+	
+	//Methods handles the response from Server.
+	public void disLikeChannelProceedUI(String result,AmalluException amalluEx){
+		Log.i(TAG,"disLikeChannelProceedUI() Entering.");
+		
+		if(CustomProgressDialog.IsShowing()){
+			Log.v(TAG, "disLikeChannelProceedUI progress dialog dismissing..");
+			CustomProgressDialog.Dismiss();
+		}
+		if(result.equalsIgnoreCase("Exception")){
+			Log.e(TAG, "disLikeChannelProceedUI Exception Case");
+			//page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
+			//page_level_error_txt_view.setVisibility(View.VISIBLE);
+			displayToast("Exception occurred while Disliking Channel");
+		}else{
+			DisLikeChannel disLikeChannel=DisLikeChannelParser.getDisLikeChannelParsedResponse(result);
+			if(disLikeChannel!=null){
+				Log.v(TAG,"DisLike Channel Successfull.");
+				likes_txt_view.setText(disLikeChannel.getLikecount());
+				dislikes_txt_view.setText(disLikeChannel.getDislikecount());
+			}else{
+				Log.e(TAG,"Unable to DisLike Channel.");
+				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
+				//page_level_error_txt_view.setVisibility(View.VISIBLE);
+				displayToast("DisLIke Channel details unavailable");
+			}
+		}
+		
+		Log.i(TAG,"disLikeChannelProceedUI() Exiting.");
+	}
+
+	private void displayToast(String toastText){
+	  Log.i(TAG,"displayToast() Entering.");
+	  Toast.makeText(this,toastText,Toast.LENGTH_LONG).show();
+	  Log.i(TAG,"displayToast() Exiting");
+		
+	}
+	
+	//Method to handle Device back button.
+	@Override
+	public void onBackPressed(){
+	   Log.i(TAG,"onBackPressed Entering.");
+	   super.onBackPressed();
+	   Log.i(TAG,"onBackPressed Exiting.");
+	}
+	
 }

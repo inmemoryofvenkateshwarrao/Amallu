@@ -293,9 +293,8 @@ public class ReqResHandler implements AsyncCallback{
 	}
 	
 	//LikeChannel API Call.
-	//POST Request.With parameter
-	public void likeChannelRequest(Context context, Response responseHandler,String userid,
-			String channel_id,String preference_id,String comment){
+	//POST Request
+	public void likeChannelRequest(Context context, Response responseHandler,String userid,String channelid){
 		Log.i(TAG, "likeChannelRequest() Entering.");
 		handlerType = CommonHandlerType.LIKECHANNEL;
 		
@@ -305,7 +304,7 @@ public class ReqResHandler implements AsyncCallback{
 		//http://www.app.amallu.com/api/channel/likechannel?_format=json
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put(ReqResNodes.USERID,userid);
-		paramsMap.put(ReqResNodes.CHANNEL_ID,channel_id);
+		paramsMap.put(ReqResNodes.CHANNELID,channelid);
 
 		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
 							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.LIKECHANNEL;
@@ -321,8 +320,8 @@ public class ReqResHandler implements AsyncCallback{
 	}
 	
 	//DislikeChannel API Call.
-	//POST Request.With parameter
-	public void dislikeChannelRequest(Context context, Response responseHandler,String channel_id,String userid){
+	//POST Request
+	public void dislikeChannelRequest(Context context, Response responseHandler,String channelid,String userid){
 		Log.i(TAG, "dislikeChannelRequest() Entering.");
 		handlerType = CommonHandlerType.DISLIKECHANNEL;
 		
@@ -332,7 +331,7 @@ public class ReqResHandler implements AsyncCallback{
 		//http://www.app.amallu.com/api/channel/dislikechannel?_format=json
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put(ReqResNodes.USERID,userid);
-		paramsMap.put(ReqResNodes.CHANNEL_ID,channel_id);
+		paramsMap.put(ReqResNodes.CHANNELID,channelid);
 
 		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
 							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.DISLIKECHANNEL;
