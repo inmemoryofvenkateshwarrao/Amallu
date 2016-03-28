@@ -287,7 +287,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	  HashMap<String,Object> menuItemHM=null;
 	  
 	  menuItemHM=new HashMap<String,Object>();
-	  menuItemHM.put(ReqResNodes.MENUITEMNAME,ReqResNodes.USERNAME);
+	  menuItemHM.put(ReqResNodes.MENUITEMNAME,LoginParser.getUserName());
 	  menuItemsList.add(menuItemHM);
 	  
 	  menuItemHM=new HashMap<String,Object>();
@@ -388,31 +388,40 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
             if(menuItemName.equals(ReqResNodes.MENUITEM_CHANNELS)){
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_channels));
                 menuItemRowHolder.menu_item_name.setText(menuItemName);
+                menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
             }else if(menuItemName.equals(ReqResNodes.MENUITEM_CATEGORIES)){
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_categories));
                 menuItemRowHolder.menu_item_name.setText(menuItemName);
+                menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
             }else if(menuItemName.equals(ReqResNodes.MENUITEM_LANGUAGE)){
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_language));
                 menuItemRowHolder.menu_item_name.setText(menuItemName);
+                menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
             }else if(menuItemName.equals(ReqResNodes.MENUITEM_FRIENDS)){
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_friends));
                 menuItemRowHolder.menu_item_name.setText(menuItemName);
+                menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
             }else if(menuItemName.equals(ReqResNodes.MENUITEM_ACTIVITIES)){
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_activities));
-                menuItemRowHolder.menu_item_name.setText(menuItemName);            	
+                menuItemRowHolder.menu_item_name.setText(menuItemName);
+                menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
             }else if(menuItemName.equals(ReqResNodes.MENUITEM_ABOUT)){
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_about));
-                menuItemRowHolder.menu_item_name.setText(menuItemName);            	
+                menuItemRowHolder.menu_item_name.setText(menuItemName);   
+                menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
             }else if(menuItemName.equals(ReqResNodes.MENUITEM_ADVERTISE)){            	
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_advertise));
                 menuItemRowHolder.menu_item_name.setText(menuItemName);
+                menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
             }else if(menuItemName.equals(ReqResNodes.MENUITEM_TERMS)){
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_terms));
                 menuItemRowHolder.menu_item_name.setText(menuItemName);
+                menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
             }else if(menuItemName.equals(ReqResNodes.MENUITEM_PRIVACYPOLICY)){
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_privacy));
                 menuItemRowHolder.menu_item_name.setText(menuItemName);
-            }else{
+                menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
+            }else if(menuItemName.equals(LoginParser.getUserName())){
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_profile));
                 menuItemRowHolder.menu_item_name.setText(LoginParser.getUserName());
                 menuItemRowHolder.logout_btn.setVisibility(View.VISIBLE);
