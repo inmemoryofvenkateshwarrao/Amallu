@@ -15,7 +15,7 @@
         
      <TextView 
          android:id="@+id/menu_item_name"
-         android:layout_width="wrap_content"
+         android:layout_width="110dp"
          android:layout_height="wrap_content"
          android:textColor="@color/white"
          android:layout_toRightOf="@id/menu_item_icon"
@@ -32,7 +32,7 @@
         android:layout_toRightOf="@id/menu_item_name"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
-        android:visibility="gone"
-        style="@style/menu_item_style"/>
+        android:visibility="invisible"
+        style="@style/text_size_style"/>
     
 </RelativeLayout>

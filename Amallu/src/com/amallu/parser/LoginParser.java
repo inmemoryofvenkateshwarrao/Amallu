@@ -36,7 +36,7 @@ public class LoginParser{
 		return login;
 	}
 	
-	//Returns Loggedin userid
+	//Returns Logged in user id
 	public static String getUserID(){
 	   Log.i(TAG,"getUserID() Entering.");
 	   String userID="";
@@ -47,6 +47,19 @@ public class LoginParser{
 	   }
 	   Log.i(TAG,"getUserID() Exiting.");
 	   return userID;
+	}
+	
+	//Returns Logged in user name
+	public static String getUserName(){
+	   Log.i(TAG,"getUserName() Entering.");
+	   String userName="";
+	   try{
+		   userName=login.getUsername();
+	   }catch(Exception e){
+		   userName="";
+	   }
+	   Log.i(TAG,"getUserName() Exiting.");
+	   return userName;
 	}
 
 }

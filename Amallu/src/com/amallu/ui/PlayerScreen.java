@@ -83,12 +83,6 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	//Used to store Application title
 	private CharSequence mTitle;
 
-	//Slide Menu Items
-	//private String[] navMenuTitles;
-	//private TypedArray navMenuIcons;
-
-	//private ArrayList<NavDrawerItem> navDrawerItems;
-	//private NavDrawerListAdapter adapter;
 	
 	private MenuItemRowViewHolder menuItemRowHolder;
 	private LayoutInflater mInflater;
@@ -420,7 +414,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
                 menuItemRowHolder.menu_item_name.setText(menuItemName);
             }else{
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_profile));
-                menuItemRowHolder.menu_item_name.setText("tempName");
+                menuItemRowHolder.menu_item_name.setText(LoginParser.getUserName());
                 menuItemRowHolder.logout_btn.setVisibility(View.VISIBLE);
                 menuItemRowHolder.logout_btn.setOnClickListener(new OnClickListener(){
 					@Override
@@ -604,7 +598,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		  }
 		
 		/*int alreadyLikeValue=Integer.parseInt(channelInfo.getAlreadylike());
-		Log.v(TAG,"Channle AlreadyLike value : "+alreadyLikeValue);
+		Log.v(TAG,"Channel AlreadyLike value : "+alreadyLikeValue);
 		
 		if(alreadyLikeValue==GlobalConsts.NEUTRAL){
 		  Log.v(TAG,"User neither liked nor disliked previous");
@@ -900,8 +894,12 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 			LikeChannel likeChannel=LikeChannelParser.getLikeChannelParsedResponse(result);
 			if(likeChannel!=null){
 				Log.v(TAG,"Like Channel Successfull.");
-				likes_txt_view.setText(likeChannel.getLikecount());
-				dislikes_txt_view.setText(likeChannel.getDislikecount());
+				if(likeChannel.getLikecount()!=null && likeChannel.getDislikecount()!=null){
+					likes_txt_view.setText(likeChannel.getLikecount());
+					dislikes_txt_view.setText(likeChannel.getDislikecount());
+				}else{
+					Log.e(TAG,"Like and DisLike count is Null");
+				}
 				//Update AlreadyLike in ChannelInfo Model object.
 				//channelInfo.setAlreadylike(Integer.toString(GlobalConsts.ALREADYLIKE));
 			}else{
@@ -944,8 +942,12 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 			DisLikeChannel disLikeChannel=DisLikeChannelParser.getDisLikeChannelParsedResponse(result);
 			if(disLikeChannel!=null){
 				Log.v(TAG,"DisLike Channel Successfull.");
-				likes_txt_view.setText(disLikeChannel.getLikecount());
-				dislikes_txt_view.setText(disLikeChannel.getDislikecount());
+				if(disLikeChannel.getLikecount()!=null && disLikeChannel.getDislikecount()!=null){
+					likes_txt_view.setText(disLikeChannel.getLikecount());
+					dislikes_txt_view.setText(disLikeChannel.getDislikecount());
+				}else{
+					Log.e(TAG,"Like and DisLike count is Null");
+				}
 				//Update AlreadyLike in ChannelInfo Model object.
 				//channelInfo.setAlreadylike(Integer.toString(GlobalConsts.ALREADYDISLIKE));
 			}else{
