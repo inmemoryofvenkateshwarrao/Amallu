@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/confirmalert"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/logout_bg"
+    android:orientation="vertical" 
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" 
+        android:visibility="gone"
+        style="@style/confirm_dialog_title_layout">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            style="@style/confirm_dialog_title"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" 
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:id="@+id/confirmalertTxt"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            style="@style/confirm_dialog_msg"
+            android:textStyle="bold"
+            android:text="@string/app_logout" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" 
+        style="@style/logout_button_layout">
+
+        <Button
+            android:id="@+id/yes_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/button_left"
+            android:textStyle="bold"
+            android:text="@string/yes" />
+
+        <Button
+            android:id="@+id/no_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/button_right"
+            android:textStyle="bold"
+            android:text="@string/no"/>
+    </LinearLayout>
+
+</LinearLayout>

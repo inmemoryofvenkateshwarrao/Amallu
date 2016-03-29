@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -86,6 +88,11 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	
 	private MenuItemRowViewHolder menuItemRowHolder;
 	private LayoutInflater mInflater;
+	
+	private AlertDialog.Builder builder;
+	private AlertDialog alertDialog;
+	private LayoutInflater logoutLayoutInflater;
+	private View layout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
@@ -974,14 +981,52 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	  Log.i(TAG,"displayToast() Entering.");
 	  Toast.makeText(this,toastText,Toast.LENGTH_LONG).show();
 	  Log.i(TAG,"displayToast() Exiting");
-		
 	}
+	
+	public void displayDialog(Context callerContext,int dialogConstant){
+		showDialog(dialogConstant);
+	}
+	
+	@Override
+	protected Dialog onCreateDialog(int id){
+		Log.v(TAG, "onCreateDialog start");
+		Log.v(TAG, "id " + id);
+		Button yesBtn,noBtn;
+		logoutLayoutInflater=(LayoutInflater)this.getSystemService(LAYOUT_INFLATER_SERVICE);
+		layout=logoutLayoutInflater.inflate(R.layout.logout_alert,(ViewGroup)findViewById(R.id.confirmalert));
+		builder=new AlertDialog.Builder(this);
+		yesBtn=(Button)layout.findViewById(R.id.yes_btn);
+		noBtn=(Button)layout.findViewById(R.id.no_btn);
+		yesBtn.setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View v){
+				alertDialog.dismiss();
+				Intent intent=new Intent(PlayerScreen.this,LoginScreen.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
+				finish();
+			}
+		});
+		noBtn.setOnClickListener(new View.OnClickListener(){
+			@Override
+			public void onClick(View v){
+				alertDialog.dismiss();
+			}
+		});
+		alertDialog=builder.create();
+		alertDialog.setCancelable(false);
+		alertDialog.setView(layout, 0, 0, 0, 0);
+		alertDialog.show();
+		return alertDialog;		
+	}
+
 	
 	//Method to handle Device back button.
 	@Override
 	public void onBackPressed(){
 	   Log.i(TAG,"onBackPressed Entering.");
-	   super.onBackPressed();
+	   displayDialog(PlayerScreen.this,1);
+	   //super.onBackPressed();
 	   Log.i(TAG,"onBackPressed Exiting.");
 	}
 	

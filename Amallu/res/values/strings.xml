@@ -112,5 +112,9 @@
     
     <string name="share">Share</string>
     <string name="calender">Calender</string>
+    
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="app_logout">Do you want to Logout?</string>
 
 </resources>
