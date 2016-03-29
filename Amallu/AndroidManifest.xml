@@ -31,11 +31,6 @@
             android:name=".PlayerScreen"
             android:theme="@android:style/Theme.Holo"
             android:configChanges="screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" >
-            <!-- <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter> -->
         </activity>
         <activity
             android:name=".SplashScreen"
@@ -44,6 +39,10 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".CommentScreen"
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" >
         </activity>
         <activity
             android:name=".LoginScreen"

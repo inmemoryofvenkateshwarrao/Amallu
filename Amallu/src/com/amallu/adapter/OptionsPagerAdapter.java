@@ -23,13 +23,13 @@ public class OptionsPagerAdapter extends FragmentPagerAdapter {
         switch (index) {
         case 0:
             // Comment Rated fragment activity
-            return new CommentScreen();
+            //return new CommentScreen();
         case 1:
             // Trending fragment activity
             return new TrendingScreen();
         case 2:
             // Favorites fragment activity
-            return new FavoritesScreen();
+            //return new FavoritesScreen();
         /*case 3:
             // Watching fragment activity
             return new WatchingScreen();

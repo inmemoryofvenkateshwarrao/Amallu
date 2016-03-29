@@ -89,14 +89,25 @@
      
      <!-- Categories Screen Styles -->
      <style name="list_row_style">
- 		<item name="android:paddingLeft">13dp</item>
-        <item name="android:paddingRight">13dp</item>  
-        <item name="android:paddingTop">13dp</item>
-        <item name="android:paddingBottom">13dp</item>
+ 		<item name="android:paddingLeft">11dp</item>
+        <item name="android:paddingRight">11dp</item>  
+        <item name="android:paddingTop">11dp</item>
+        <item name="android:paddingBottom">11dp</item>
      </style>
      
      <style name="list_row_item_left_style" parent="@style/normal_text_size_style">
  		<item name="android:paddingLeft">13dp</item>
+     </style>
+     
+     <style name="list_row_item_text_style" parent="@style/list_row_item_left_style">
+ 		<item name="android:maxWidth">230dp</item>
+     </style>
+     
+     <style name="list_item_style" parent="@style/normal_text_size_style">
+         <!-- <item name="android:layout_marginLeft">9dp</item> -->
+         <item name="android:layout_marginRight">9dp</item>
+ 		<!-- <item name="android:layout_marginTop">5dp</item> -->
+ 		<item name="android:layout_marginBottom">5dp</item>
      </style>
      
      <!-- Header Style -->

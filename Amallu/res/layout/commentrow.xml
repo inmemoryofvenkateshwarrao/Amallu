@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" 
+	android:layout_height="wrap_content"
+	android:background="@color/white"
+	style="@style/list_row_style">
+	
+    <TextView
+        android:id="@+id/comment_uname_txt_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        style="@style/list_item_style"/>
+        
+     <TextView 
+         android:id="@+id/time_txt_view"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:textColor="@color/black"
+         android:layout_toRightOf="@id/comment_uname_txt_view"
+         style="@style/list_item_style"/>
+     
+     <TextView 
+         android:id="@+id/comment_txt_view"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:textColor="@color/black"
+         android:layout_below="@id/time_txt_view"
+         style="@style/list_item_style"/>
+        
+    <RelativeLayout 
+        android:id="@+id/icon_group_rel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/comment_txt_view">
+        
+        <ImageView android:id="@+id/icon_comment_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_like"
+            android:contentDescription="@string/image_content_desc"/>
+        
+        <ImageView android:id="@+id/icon_comment_dislike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/icon_comment_like"
+            android:src="@drawable/ic_dislike"
+            android:contentDescription="@string/image_content_desc"/>
+        
+        <ImageView android:id="@+id/icon_comment_reply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_advertise"
+            android:layout_toRightOf="@id/icon_comment_dislike"
+            android:contentDescription="@string/image_content_desc"/>
+        
+        <ImageView android:id="@+id/icon_comment_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_edit"
+            android:layout_toRightOf="@id/icon_comment_reply"
+            android:contentDescription="@string/image_content_desc"/>
+        
+        <ImageView android:id="@+id/icon_comment_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_delete"
+            android:layout_toRightOf="@id/icon_comment_edit"
+            android:contentDescription="@string/image_content_desc"/>
+        
+    </RelativeLayout>
+     
+     
+</RelativeLayout>

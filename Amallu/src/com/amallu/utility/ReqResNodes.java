@@ -123,6 +123,10 @@ public class ReqResNodes{
     public static final String MENUITEM_TERMS="Terms";
     public static final String MENUITEM_PRIVACYPOLICY="Privacy Policy";
     
+    //Menu Items
+    public static final String COMMENT_USERNAME="comment_username";
+    public static final String COMMENT_TIME="comment_time";
+    
     //Common
     public static final String GET="get";
     public static final String POST="post";

@@ -20,22 +20,20 @@
          android:textColor="@color/white"
          android:layout_toRightOf="@id/menu_item_icon"
          android:layout_centerVertical="true"
-         android:maxWidth="130dp"
-         style="@style/list_row_item_left_style"/>
+         style="@style/list_row_item_text_style"/>
      
      <Button
         android:id="@+id/logout_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="0dp"
-        android:minHeight="0dp"
-        android:src="@drawable/ic_arrow_rt"
         android:text="@string/logout"
         android:contentDescription="@string/image_content_desc"
-        android:layout_toRightOf="@id/menu_item_name"
         android:layout_centerVertical="true"
+        android:visibility="visible"
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp"
         android:layout_alignParentRight="true"
-        android:visibility="invisible"
         style="@style/text_size_style"/>
+        
     
 </RelativeLayout>
