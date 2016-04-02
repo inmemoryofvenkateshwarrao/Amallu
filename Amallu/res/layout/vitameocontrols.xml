@@ -13,6 +13,7 @@
         android:src="@android:drawable/ic_media_play"
         android:visibility="invisible"
         android:layout_below="@id/video_rel"
+        android:layout_centerVertical="true"
         android:contentDescription="@string/image_content_desc"/>
     
     <ImageView 
@@ -21,6 +22,7 @@
         android:layout_height="wrap_content"
         android:src="@android:drawable/ic_media_pause"
         android:visibility="invisible"
+        android:layout_centerVertical="true"
         android:contentDescription="@string/image_content_desc"/>
      
     <TextView android:layout_width="wrap_content"

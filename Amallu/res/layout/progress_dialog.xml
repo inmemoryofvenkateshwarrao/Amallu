@@ -3,12 +3,29 @@
    android:layout_width="wrap_content"
    android:layout_height="wrap_content"
    android:layout_gravity="center"
-   android:background="@android:color/transparent" >
-
-   <ProgressBar
-	   android:id="@+id/progBar"
+   android:background="@android:color/transparent">
+   
+    <RelativeLayout
 	   android:layout_width="wrap_content"
 	   android:layout_height="wrap_content"
-	   android:layout_centerInParent="true" />
+	   android:background="@drawable/progress_dialog_rounded_corners"
+	   android:layout_centerInParent="true">
+	
+	   <ProgressBar
+		   android:id="@+id/progBar"
+		   android:layout_width="wrap_content"
+		   android:layout_height="wrap_content"
+		   android:layout_centerInParent="true"/>
+	   
+	   <!-- <TextView 
+	       android:id="@+id/loading_txt_view"
+	       android:layout_width="wrap_content"
+	       android:layout_height="wrap_content"
+	       android:text="@string/loading"
+	       android:textColor="@color/white"
+	       android:layout_below="@id/progBar"
+	       android:textStyle="bold"/> -->
+	   
+	 </RelativeLayout>
 
    </RelativeLayout>

@@ -436,8 +436,8 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 					@Override
 					public void onClick(View v){
 						mDrawerLayout.closeDrawer(mDrawerList);
-						startActivity(new Intent(PlayerScreen.this,LoginScreen.class)
-						.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+						//startActivity(new Intent(PlayerScreen.this,LoginScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+						displayDialog(PlayerScreen.this,1);
 					}
 				});
             }
