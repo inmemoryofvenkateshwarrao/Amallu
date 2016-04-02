@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" 
+	android:layout_width="wrap_content" 
 	android:layout_height="wrap_content"
 	android:background="@color/menu_item_bg_color"
 	style="@style/list_row_style">
@@ -20,6 +20,7 @@
          android:textColor="@color/white"
          android:layout_toRightOf="@id/menu_item_icon"
          android:layout_centerVertical="true"
+         android:layout_marginRight="5dp"
          style="@style/list_row_item_text_style"/>
      
      <Button
@@ -29,10 +30,10 @@
         android:text="@string/logout"
         android:contentDescription="@string/image_content_desc"
         android:layout_centerVertical="true"
-        android:visibility="visible"
+        android:visibility="invisible"
         android:paddingTop="0dp"
         android:paddingBottom="0dp"
-        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/menu_item_name"
         style="@style/text_size_style"/>
         
     
