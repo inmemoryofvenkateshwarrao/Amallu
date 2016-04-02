@@ -93,7 +93,12 @@ public class ResponseHandler implements Response{
 			if(result.equalsIgnoreCase("Exception")){
 				Log.e(TAG, "CHANNELINFO Exception caught.");
 			}
-			((LoginScreen)context).channelInfoProceedUI(result,ex);
+			if(context instanceof LoginScreen){
+			   Log.v(TAG,"context instanceof LoginScreen");
+			   ((LoginScreen)context).channelInfoProceedUI(result, ex);
+			}else if(context instanceof SignUpScreen){
+			   ((SignUpScreen)context).channelInfoProceedUI(result,ex);	
+			}
 		}
 		if(uiHandler.equals(CommonHandlerType.CATEGORY)){
 			if(result.equalsIgnoreCase("Exception")){

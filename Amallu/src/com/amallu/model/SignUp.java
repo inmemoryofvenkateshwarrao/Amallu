@@ -1,6 +1,7 @@
 package com.amallu.model;
 
-public class SignUp{
+
+  public class SignUp{
 	
 	private String isSuccess;
 	private String message;

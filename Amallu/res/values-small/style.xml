@@ -7,7 +7,7 @@
     </style>
     
     <style name="scroll_view_style">
-        <item name="android:paddingBottom">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
     </style>
     
     <style name="text_size_style">

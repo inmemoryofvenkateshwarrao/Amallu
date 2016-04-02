@@ -57,6 +57,7 @@ import com.amallu.parser.DisLikeChannelParser;
 import com.amallu.parser.LanguageListParser;
 import com.amallu.parser.LikeChannelParser;
 import com.amallu.parser.LoginParser;
+import com.amallu.parser.SignUpParser;
 import com.amallu.ui.PlayerScreen.MenuItemAdapter.MenuItemRowViewHolder;
 import com.amallu.utility.ErrorCodes;
 import com.amallu.utility.ReqResNodes;
@@ -93,6 +94,8 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	private AlertDialog alertDialog;
 	private LayoutInflater logoutLayoutInflater;
 	private View layout;
+	//Either from Login or Signup to inject user name.
+	public static Context fromContext;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
@@ -294,7 +297,13 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	  HashMap<String,Object> menuItemHM=null;
 	  
 	  menuItemHM=new HashMap<String,Object>();
-	  menuItemHM.put(ReqResNodes.MENUITEMNAME,LoginParser.getUserName());
+	  
+	  if(fromContext instanceof LoginScreen){
+		 menuItemHM.put(ReqResNodes.MENUITEMNAME,LoginParser.getUserName());
+	  }else{
+		 menuItemHM.put(ReqResNodes.MENUITEMNAME,SignUpParser.getUserName()); 
+	  }
+	  
 	  menuItemsList.add(menuItemHM);
 	  
 	  menuItemHM=new HashMap<String,Object>();
@@ -333,8 +342,8 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	  menuItemHM.put(ReqResNodes.MENUITEMNAME,ReqResNodes.MENUITEM_PRIVACYPOLICY);
 	  menuItemsList.add(menuItemHM);
 	  
-	  MenuItemAdapter categoryListAdapter=new MenuItemAdapter(this,menuItemsList,R.layout.categoryrow,new String[]{},new int[]{});
-	  mDrawerList.setAdapter(categoryListAdapter);
+	  MenuItemAdapter menuItemListAdapter=new MenuItemAdapter(this,menuItemsList,R.layout.categoryrow,new String[]{},new int[]{});
+	  mDrawerList.setAdapter(menuItemListAdapter);
 	  mDrawerList.setOnItemClickListener(new OnItemClickListener(){
 		 @Override
 		 public void onItemClick(AdapterView<?> parent,View view,int position,long id){
@@ -428,7 +437,44 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_privacy));
                 menuItemRowHolder.menu_item_name.setText(menuItemName);
                 menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
-            }else if(menuItemName.equals(LoginParser.getUserName())){
+            //}else if(LoginParser.getUserName()!=null && !LoginParser.getUserName().equals("")){
+            }else if(fromContext instanceof LoginScreen){
+            	Log.v(TAG,"fromContext LoginParser");
+            	if(menuItemName.equals(LoginParser.getUserName())){
+            		menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_profile));
+                    menuItemRowHolder.menu_item_name.setText(LoginParser.getUserName());
+                    menuItemRowHolder.logout_btn.setVisibility(View.VISIBLE);
+                    menuItemRowHolder.logout_btn.setOnClickListener(new OnClickListener(){
+    					@Override
+    					public void onClick(View v){
+    						mDrawerLayout.closeDrawer(mDrawerList);
+    						//startActivity(new Intent(PlayerScreen.this,LoginScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+    						displayDialog(PlayerScreen.this,1);
+    						LoginParser.login.setUsername("");
+    						SignUpParser.signUp.setUsername("");
+    					}
+    				});
+            	}
+            //}else if(SignUpParser.getUserName()!=null || !SignUpParser.getUserName().equals("")){
+            }else if(fromContext instanceof SignUpScreen){
+            	Log.v(TAG,"fromContext SignUpParser");
+            	if(menuItemName.equals(SignUpParser.getUserName())){
+            		menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_profile));
+                    menuItemRowHolder.menu_item_name.setText(SignUpParser.getUserName());
+                    menuItemRowHolder.logout_btn.setVisibility(View.VISIBLE);
+                    menuItemRowHolder.logout_btn.setOnClickListener(new OnClickListener(){
+    					@Override
+    					public void onClick(View v){
+    						mDrawerLayout.closeDrawer(mDrawerList);
+    						//startActivity(new Intent(PlayerScreen.this,LoginScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+    						displayDialog(PlayerScreen.this,1);
+    						LoginParser.login.setUsername("");
+    						SignUpParser.signUp.setUsername("");
+    					}
+    				});
+             	}
+            }
+            else if(menuItemName.equals(LoginParser.getUserName())){
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_profile));
                 menuItemRowHolder.menu_item_name.setText(LoginParser.getUserName());
                 menuItemRowHolder.logout_btn.setVisibility(View.VISIBLE);
@@ -438,6 +484,8 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 						mDrawerLayout.closeDrawer(mDrawerList);
 						//startActivity(new Intent(PlayerScreen.this,LoginScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 						displayDialog(PlayerScreen.this,1);
+						LoginParser.login.setUsername("");
+						SignUpParser.signUp.setUsername("");
 					}
 				});
             }
@@ -1020,12 +1068,28 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		return alertDialog;		
 	}
 
+	/*@Override
+	public boolean onKeyDown(int keyCode,KeyEvent event){
+	    switch(keyCode){
+		  case KeyEvent.KEYCODE_BACK:
+			 Toast.makeText(this,"KeyEvent : "+KeyEvent.KEYCODE_BACK,Toast.LENGTH_LONG).show();
+		     displayDialog(PlayerScreen.this,1);
+		     return false;
+		   default:
+			   Toast.makeText(this,"KeyEvent : not known",Toast.LENGTH_LONG).show();
+			 return false; 	
+		  }
+	}*/
 	
 	//Method to handle Device back button.
 	@Override
 	public void onBackPressed(){
 	   Log.i(TAG,"onBackPressed Entering.");
-	   displayDialog(PlayerScreen.this,1);
+	   Intent intent=new Intent(PlayerScreen.this,LoginScreen.class);
+	   intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	   startActivity(intent);
+	   finish();
+	   //displayDialog(PlayerScreen.this,1);
 	   //super.onBackPressed();
 	   Log.i(TAG,"onBackPressed Exiting.");
 	}

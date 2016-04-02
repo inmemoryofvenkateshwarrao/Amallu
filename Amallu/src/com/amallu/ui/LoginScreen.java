@@ -360,6 +360,7 @@ public class LoginScreen extends Activity implements OnClickListener{
 					PlayerScreen.channelInfo=channelInfo;
 					PlayerScreen.channelDetail=null;
 					PlayerScreen.channelDetail=channelDetail;
+					PlayerScreen.fromContext=LoginScreen.this;
 					startActivity(new Intent(LoginScreen.this,PlayerScreen.class));
 								/*.putExtra(ReqResNodes.CHANNEL_ID,channelID)
 								.putExtra(ReqResNodes.CHANNEL_CODE,channelCode)

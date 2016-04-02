@@ -13,14 +13,15 @@ import com.amallu.utility.ReqResNodes;
 public class SignUpParser{
 	
 	private static final String TAG="SignUpParser";
+	public static SignUp signUp=new SignUp();
 	
 	//Method Parses the JSON Response of SignUp Web service.
 	public static SignUp getSignUpParsedResponse(String signUpStr){
 		Log.i(TAG,"getSignUpParsedResponse() Entering.");
 		
-		SignUp signUp=null;
+		//SignUp signUp=null;
 		try{
-			signUp=new SignUp();
+			//signUp=new SignUp();
 			JSONObject signUpJSONObj=new JSONObject(signUpStr);
 			if(!signUpJSONObj.isNull(ReqResNodes.ISSUCCESS))
 				signUp.setIsSuccess(signUpJSONObj.get(ReqResNodes.ISSUCCESS).toString());
@@ -87,6 +88,32 @@ public class SignUpParser{
 		
 		Log.i(TAG,"getSignUpParsedResponse() Exiting.");
 		return signUp;
+	}
+	
+	//Returns Logged in user id
+	public static String getUserID(){
+	   Log.i(TAG,"getUserID() Entering.");
+	   String userID="";
+	   try{
+		   userID=signUp.getUserid();
+	   }catch(Exception e){
+		   userID="";
+	   }
+	   Log.i(TAG,"getUserID() Exiting.");
+	   return userID;
+	}
+	
+	//Returns Logged in user name
+	public static String getUserName(){
+	   Log.i(TAG,"getUserName() Entering.");
+	   String userName="";
+	   try{
+		   userName=signUp.getUsername();
+	   }catch(Exception e){
+		   userName="";
+	   }
+	   Log.i(TAG,"getUserName() Exiting.");
+	   return userName;
 	}
 
 }
