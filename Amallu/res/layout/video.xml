@@ -68,6 +68,13 @@
         layout="@layout/likedislike"/>
     
     <include 
+        android:id="@+id/swiping_tabs"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/likedislike"
+        layout="@layout/swiping_tabs"/>
+    
+    <!-- <include 
         android:id="@+id/tabbar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -81,6 +88,6 @@
         android:divider="@color/list_divider"
         android:dividerHeight="1dp"
         android:layout_below="@id/tabbar"
-        android:background="@color/white"/>
+        android:background="@color/white"/> -->
   
 </RelativeLayout>

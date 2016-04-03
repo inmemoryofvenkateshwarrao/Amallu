@@ -23,6 +23,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,6 +43,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amallu.adapter.OptionsFragmentPagerAdapter;
 import com.amallu.backend.CustomProgressDialog;
 import com.amallu.backend.ReqResHandler;
 import com.amallu.backend.ResponseHandler;
@@ -94,7 +97,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	private AlertDialog alertDialog;
 	private LayoutInflater logoutLayoutInflater;
 	private View layout;
-	//Either from Login or Signup to inject user name.
+	//Either from Login or Sign Up to inject user name.
 	public static Context fromContext;
 
 	@Override
@@ -105,9 +108,9 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	    intializeViews();
 		setListeners();
 		setData();
-
-		//Enabling Action Bar application icon and behaving it as toggle button
+		initializeOptionsViews();
 		
+		//Enabling Action Bar application icon and behaving it as toggle button
 		getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 		LayoutInflater inflater = getLayoutInflater();
         View actionBarLay=inflater.inflate(R.layout.action_bar_header,null);
@@ -168,7 +171,22 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		mDrawerList=(ListView)findViewById(R.id.list_slidermenu);
 		likedislike=(View)findViewById(R.id.likedislike);
 		//menuIcon=(ImageView)findViewById(R.id.icon_three_liner);
+		/** Getting a reference to the ViewPager defined the layout file */
 		Log.i(TAG,"intializeViews() Exiting.");
+	  }
+	  
+	  //Initializes Options
+	  private void initializeOptionsViews(){
+		 Log.i(TAG,"initializeOptionsViews() Entering.");
+		 /** Getting a reference to the ViewPager defined the layout file */        
+        ViewPager pager=(ViewPager)findViewById(R.id.pager);
+        /** Getting fragment manager */
+        FragmentManager fm = getSupportFragmentManager();
+        /** Instantiating FragmentPagerAdapter */
+        OptionsFragmentPagerAdapter optionsFragmentPagerAdapter = new OptionsFragmentPagerAdapter(fm);
+        /** Setting the pagerAdapter to the pager object */
+        pager.setAdapter(optionsFragmentPagerAdapter);
+		 Log.i(TAG,"initializeOptionsViews() Exiting.");
 	  }
 
 	  //Method to set the Listeners to the Views of XML file.
