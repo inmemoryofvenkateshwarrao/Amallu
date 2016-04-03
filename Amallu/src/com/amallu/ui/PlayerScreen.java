@@ -19,11 +19,13 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -177,8 +179,10 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	  
 	  //Initializes Options
 	  private void initializeOptionsViews(){
-		 Log.i(TAG,"initializeOptionsViews() Entering.");
-		 /** Getting a reference to the ViewPager defined the layout file */        
+		Log.i(TAG,"initializeOptionsViews() Entering.");
+		/** Getting a reference to the ViewPager defined the layout file */     
+		PagerTabStrip pagerTabStrip=(PagerTabStrip)findViewById(R.id.pager_tab_strip);
+		pagerTabStrip.setTabIndicatorColor(getResources().getColor(R.color.green));
         ViewPager pager=(ViewPager)findViewById(R.id.pager);
         /** Getting fragment manager */
         FragmentManager fm = getSupportFragmentManager();
