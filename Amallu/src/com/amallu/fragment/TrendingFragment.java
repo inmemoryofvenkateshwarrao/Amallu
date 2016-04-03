@@ -28,7 +28,7 @@ public class TrendingFragment extends Fragment{
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.comments, container,false);				
+		View v = inflater.inflate(R.layout.trending, container,false);				
 		TextView tv = (TextView ) v.findViewById(R.id.tv);
 		tv.setText("Trending Screen");	
 		return v;		

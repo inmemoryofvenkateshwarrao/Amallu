@@ -4,11 +4,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-    <TextView
+    <!-- <TextView
 	    android:id="@+id/tv"    
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent" 
 	    android:text="Comments Screen"
-	    android:gravity="center"/>    
+	    android:gravity="center"/>   --> 
+	    
+	    <ListView
+	        android:id="@+id/listview_comments"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:divider="@color/list_divider"
+	        android:dividerHeight="1dp"
+	        android:background="@color/white"/> 
 
 </LinearLayout>
