@@ -19,7 +19,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -41,6 +40,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -98,7 +98,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	private AlertDialog.Builder builder;
 	private AlertDialog alertDialog;
 	private LayoutInflater logoutLayoutInflater;
-	private View layout;
+	private View layout,swiping_tabs;
 	//Either from Login or Sign Up to inject user name.
 	public static Context fromContext;
 
@@ -172,6 +172,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		mDrawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
 		mDrawerList=(ListView)findViewById(R.id.list_slidermenu);
 		likedislike=(View)findViewById(R.id.likedislike);
+		swiping_tabs=(View)findViewById(R.id.swiping_tabs);
 		//menuIcon=(ImageView)findViewById(R.id.icon_three_liner);
 		/** Getting a reference to the ViewPager defined the layout file */
 		Log.i(TAG,"intializeViews() Exiting.");
@@ -595,12 +596,43 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		mDrawerToggle.syncState();
 	}
 
-	@Override
+	/*@Override
 	public void onConfigurationChanged(Configuration newConfig){
 		super.onConfigurationChanged(newConfig);
-		// Pass any configuration change to the drawer toggls
+		// Pass any configuration change to the drawer toggles
 		mDrawerToggle.onConfigurationChanged(newConfig);
-	}	
+	}*/
+	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig){
+	    super.onConfigurationChanged(newConfig);
+	    //Checks the orientation of the screen
+	    if(newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE){
+	        Toast.makeText(this, "Landscape", Toast.LENGTH_SHORT).show();
+	        swiping_tabs.setVisibility(View.GONE);
+	        RelativeLayout.LayoutParams params=(RelativeLayout.LayoutParams)likedislike.getLayoutParams();
+	        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+	        likedislike.setLayoutParams(params); //causes layout update
+	    }else if(newConfig.orientation==Configuration.ORIENTATION_PORTRAIT){
+	        Toast.makeText(this, "Portrait", Toast.LENGTH_SHORT).show();
+	        swiping_tabs.setVisibility(View.VISIBLE);
+	        
+	        RelativeLayout.LayoutParams params1=(RelativeLayout.LayoutParams)swiping_tabs.getLayoutParams();
+	        //params1.width=200;
+	        //params1.height=200;
+	        params1.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+	        swiping_tabs.setLayoutParams(params1);
+	        swiping_tabs.invalidate();
+	        swiping_tabs.requestLayout();
+	        
+	        RelativeLayout.LayoutParams params2=(RelativeLayout.LayoutParams)likedislike.getLayoutParams();
+	        params2.addRule(RelativeLayout.ABOVE, R.id.swiping_tabs);
+	        likedislike.setLayoutParams(params2); //causes layout update
+	        likedislike.requestLayout();
+	        
+	    }
+	}
+
 
 	  @Override
 	  public boolean onInfo(MediaPlayer mp, int what, int extra){
@@ -669,6 +701,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		//view.setVerticalScrollBarEnabled(false); 
 		//view.setHorizontalScrollBarEnabled(false);
 	}
+	
 	
 	//Method to check whether the Current Channel is already liked.
 	private void checkIfChannelAlreadyLikeOrDislike(boolean isLikeReq){

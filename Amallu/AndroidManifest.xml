@@ -30,7 +30,7 @@
         <activity
             android:name=".PlayerScreen"
             android:theme="@android:style/Theme.Holo"
-            android:configChanges="screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" >
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" >
         </activity>
         <activity
             android:name=".SplashScreen"
