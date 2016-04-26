@@ -6,12 +6,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 import com.amallu.backend.CustomProgressDialog;
 import com.amallu.backend.ReqResHandler;
@@ -26,7 +29,7 @@ import com.amallu.parser.SignUpParser;
 import com.amallu.utility.ErrorCodes;
 import com.amallu.utility.ReqResNodes;
 
-public class SignUpScreen extends Activity implements OnClickListener{
+public class SignUpScreen extends Activity implements OnClickListener,OnEditorActionListener{
 
 	private static final String TAG="SignUpScreen";
 	private EditText first_name_edit_txt_view,last_name_edit_txt_view,email_edit_txt_view,pwd_edit_txt_view,
@@ -76,6 +79,7 @@ public class SignUpScreen extends Activity implements OnClickListener{
 		Log.i(TAG,"setListeners() Entering.");
 		signup_btn.setOnClickListener(this);
 		login_btn.setOnClickListener(this);
+		//emailid_edit_txt_view.setOnEditorActionListener(this);
 		Log.i(TAG,"setListeners() Exiting");
 	}
 
@@ -85,25 +89,7 @@ public class SignUpScreen extends Activity implements OnClickListener{
 		switch(view.getId()){
 		case R.id.signup_btn:
 			Log.i(TAG,"Signup button clicked");
-			setErrorTxtViewsGone();
-			String emailid=email_edit_txt_view.getText().toString();
-			String firstname=first_name_edit_txt_view.getText().toString();
-			String lastname=last_name_edit_txt_view.getText().toString();
-			String password=pwd_edit_txt_view.getText().toString();
-			String confPassword=re_enter_pwd_edit_txt_view.getText().toString();
-			String dob=dob_edit_txt_view.getText().toString();
-			//String dobArr[]=dob.split("/");
-			//String day=dobArr[0];
-			//String month=dobArr[1];
-			//String year=dobArr[2];
-			boolean isValidated=validate(emailid,firstname,lastname,password,confPassword,dob);
-			if(isValidated){
-				Log.v(TAG,"SignUp details validated successfully.");
-				String selGender=female_radio_btn.isChecked()?"F":"M";
-				sendSignUpReq(emailid,firstname,lastname,password,confPassword,selGender,dob);
-			}else{
-				Log.v(TAG,"SignUp validation failure.");
-			}
+			handleSubmitAndDoneBtn();
 			break;
 		case R.id.login_btn:
 			startActivity(new Intent(SignUpScreen.this,LoginScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
@@ -113,6 +99,41 @@ public class SignUpScreen extends Activity implements OnClickListener{
 			break;
 		}
 		Log.i(TAG,"onClick() Exiting");
+	}
+	
+	//Handles Keyboard Done and Enter button and initiates SignUp API Call.
+	@Override
+	public boolean onEditorAction(TextView v, int actionId, KeyEvent event){
+		if((event!=null&&(event.getKeyCode()==KeyEvent.KEYCODE_ENTER))||(actionId==EditorInfo.IME_ACTION_DONE)){
+		   Log.v(TAG, "Enter or Done button pressed");
+		   handleSubmitAndDoneBtn();
+		}
+		return false;
+	}
+	
+	//Handles Submit,Keyboard Done and Enter button.
+	private void handleSubmitAndDoneBtn(){
+	   Log.i(TAG,"handleLoginAndDoneBtn() Entering");
+	   setErrorTxtViewsGone();
+		String emailid=email_edit_txt_view.getText().toString();
+		String firstname=first_name_edit_txt_view.getText().toString();
+		String lastname=last_name_edit_txt_view.getText().toString();
+		String password=pwd_edit_txt_view.getText().toString();
+		String confPassword=re_enter_pwd_edit_txt_view.getText().toString();
+		String dob=dob_edit_txt_view.getText().toString();
+		//String dobArr[]=dob.split("/");
+		//String day=dobArr[0];
+		//String month=dobArr[1];
+		//String year=dobArr[2];
+		boolean isValidated=validate(emailid,firstname,lastname,password,confPassword,dob);
+		if(isValidated){
+			Log.v(TAG,"SignUp details validated successfully.");
+			String selGender=female_radio_btn.isChecked()?"F":"M";
+			sendSignUpReq(emailid,firstname,lastname,password,confPassword,selGender,dob);
+		}else{
+			Log.v(TAG,"SignUp validation failure.");
+		}
+	   Log.i(TAG,"handleLoginAndDoneBtn() Exiting");
 	}
 	
 	//Method to make Error TextViews Gone.

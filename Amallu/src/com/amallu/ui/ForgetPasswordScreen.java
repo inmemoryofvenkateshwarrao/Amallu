@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 
 import com.amallu.backend.CustomProgressDialog;
 import com.amallu.backend.ReqResHandler;
@@ -18,7 +21,7 @@ import com.amallu.model.ForgetPassword;
 import com.amallu.parser.ForgetPasswordParser;
 import com.amallu.utility.ErrorCodes;
 
-public class ForgetPasswordScreen extends Activity implements OnClickListener{
+public class ForgetPasswordScreen extends Activity implements OnClickListener,OnEditorActionListener{
 
 	private static final String TAG="ForgetPasswordScreen";
 	private EditText emailid_edit_txt_view;
@@ -52,6 +55,7 @@ public class ForgetPasswordScreen extends Activity implements OnClickListener{
 		Log.i(TAG,"setListeners() Entering.");
 		submit_btn.setOnClickListener(this);
 		cancel_btn.setOnClickListener(this);
+		emailid_edit_txt_view.setOnEditorActionListener(this);
 		Log.i(TAG,"setListeners() Exiting");
 	}
 
@@ -61,15 +65,7 @@ public class ForgetPasswordScreen extends Activity implements OnClickListener{
 		switch(view.getId()){
 		case R.id.submit_btn:
 			Log.i(TAG,"Submit button clicked");
-			setErrorTxtViewsGone();
-			String emailid=emailid_edit_txt_view.getText().toString();
-			boolean isValidated=validate(emailid);
-			if(isValidated){
-				Log.v(TAG,"ForgetPassword details validated successfully.");
-				sendForgetPasswordReq(emailid);
-			}else{
-				Log.v(TAG,"forgetPassword validation failure.");
-			}
+			handleSubmitAndDoneBtn();
 			break;
 		case R.id.cancel_btn:
 			finish();
@@ -79,6 +75,31 @@ public class ForgetPasswordScreen extends Activity implements OnClickListener{
 			break;
 		}
 		Log.i(TAG,"onClick() Exiting");
+	}
+	
+	//Handles Keyboard Done and Enter button and initiates ForgotPassword API Call.
+	@Override
+	public boolean onEditorAction(TextView v, int actionId, KeyEvent event){
+		if((event!=null&&(event.getKeyCode()==KeyEvent.KEYCODE_ENTER))||(actionId==EditorInfo.IME_ACTION_DONE)){
+		   Log.v(TAG, "Enter or Done button pressed");
+		   handleSubmitAndDoneBtn();
+		}
+		return false;
+	}
+	
+	//Handles Submit,Keyboard Done and Enter button.
+	private void handleSubmitAndDoneBtn(){
+	   Log.i(TAG,"handleLoginAndDoneBtn() Entering");
+	   setErrorTxtViewsGone();
+		String emailid=emailid_edit_txt_view.getText().toString();
+		boolean isValidated=validate(emailid);
+		if(isValidated){
+			Log.v(TAG,"ForgetPassword details validated successfully.");
+			sendForgetPasswordReq(emailid);
+		}else{
+			Log.v(TAG,"forgetPassword validation failure.");
+		}
+	   Log.i(TAG,"handleLoginAndDoneBtn() Exiting");
 	}
 
 	//Method to make Error TextViews Gone.

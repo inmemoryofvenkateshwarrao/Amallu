@@ -98,7 +98,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	private AlertDialog.Builder builder;
 	private AlertDialog alertDialog;
 	private LayoutInflater logoutLayoutInflater;
-	private View layout,swiping_tabs;
+	private View layout,swiping_tabs,vitemeo_controls;
 	//Either from Login or Sign Up to inject user name.
 	public static Context fromContext;
 
@@ -173,6 +173,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		mDrawerList=(ListView)findViewById(R.id.list_slidermenu);
 		likedislike=(View)findViewById(R.id.likedislike);
 		swiping_tabs=(View)findViewById(R.id.swiping_tabs);
+		vitemeo_controls=(View)findViewById(R.id.vitemeo_controls);
 		//menuIcon=(ImageView)findViewById(R.id.icon_three_liner);
 		/** Getting a reference to the ViewPager defined the layout file */
 		Log.i(TAG,"intializeViews() Exiting.");
@@ -617,18 +618,31 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	        Toast.makeText(this, "Portrait", Toast.LENGTH_SHORT).show();
 	        swiping_tabs.setVisibility(View.VISIBLE);
 	        
-	        RelativeLayout.LayoutParams params1=(RelativeLayout.LayoutParams)swiping_tabs.getLayoutParams();
+	        //RelativeLayout.LayoutParams params1=(RelativeLayout.LayoutParams)swiping_tabs.getLayoutParams();
 	        //params1.width=200;
 	        //params1.height=200;
-	        params1.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-	        swiping_tabs.setLayoutParams(params1);
-	        swiping_tabs.invalidate();
-	        swiping_tabs.requestLayout();
+	        //params1.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+	        //swiping_tabs.setLayoutParams(params1);
+	        //swiping_tabs.invalidate();
+	        //swiping_tabs.requestLayout();
 	        
+	        /*RelativeLayout.LayoutParams params2=(RelativeLayout.LayoutParams)likedislike.getLayoutParams();
+	        params2.addRule(RelativeLayout.ABOVE, R.id.swiping_tabs);
+	        likedislike.setLayoutParams(params2); //causes layout update
+	        //likedislike.requestLayout();
+	        
+	        RelativeLayout.LayoutParams params3=(RelativeLayout.LayoutParams)vitemeo_controls.getLayoutParams();
+	        params3.addRule(RelativeLayout.ABOVE, R.id.likedislike);
+	        vitemeo_controls.setLayoutParams(params3); //causes layout update
+	        
+	        RelativeLayout.LayoutParams params4=(RelativeLayout.LayoutParams)mVideoView.getLayoutParams();
+	        params4.addRule(RelativeLayout.ABOVE, R.id.vitemeo_controls);
+	        mVideoView.setLayoutParams(params4); //causes layout update*/
+	        
+	        swiping_tabs.setVisibility(View.VISIBLE);
 	        RelativeLayout.LayoutParams params2=(RelativeLayout.LayoutParams)likedislike.getLayoutParams();
 	        params2.addRule(RelativeLayout.ABOVE, R.id.swiping_tabs);
 	        likedislike.setLayoutParams(params2); //causes layout update
-	        likedislike.requestLayout();
 	        
 	    }
 	}

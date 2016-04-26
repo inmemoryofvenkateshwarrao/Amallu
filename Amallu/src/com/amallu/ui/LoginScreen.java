@@ -7,15 +7,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.TextView.OnEditorActionListener;
 
 import com.amallu.backend.CustomProgressDialog;
 import com.amallu.backend.ReqResHandler;
@@ -29,7 +32,7 @@ import com.amallu.parser.ChannelInfoParser;
 import com.amallu.parser.LoginParser;
 import com.amallu.utility.ErrorCodes;
 
-public class LoginScreen extends Activity implements OnClickListener{
+public class LoginScreen extends Activity implements OnClickListener,OnEditorActionListener{
 
 	private static final String TAG="LoginScreen";
 	private EditText user_name_edit_txt_view,password_edit_txt_view;
@@ -84,6 +87,7 @@ public class LoginScreen extends Activity implements OnClickListener{
 		twitter_icon.setOnClickListener(this);
 		gmail_icon.setOnClickListener(this);
 		forgot_your_pwd_txt_view.setOnClickListener(this);
+		password_edit_txt_view.setOnEditorActionListener(this);
 		Log.i(TAG,"setListeners() Exiting");
 	}
 
@@ -93,16 +97,7 @@ public class LoginScreen extends Activity implements OnClickListener{
 		switch(view.getId()){
 			case R.id.login_btn:
 				Log.i(TAG,"Login button clicked");
-				setErrorTxtViewsGone();
-				String username=user_name_edit_txt_view.getText().toString();
-			    String password=password_edit_txt_view.getText().toString();
-				boolean isValidated=validate(username,password);
-				if(isValidated){
-					Log.v(TAG,"Login details validated successfully.");
-					sendLoginReq(username,password);
-				}else{
-					Log.v(TAG,"Login validation failure.");
-				}
+				handleLoginAndDoneBtn();
 				break;
 			case R.id.signup_btn:
 				Log.i(TAG,"Signup button clicked");
@@ -132,6 +127,32 @@ public class LoginScreen extends Activity implements OnClickListener{
 				break;
 		}
 		Log.i(TAG,"onClick() Exiting");
+	}
+	
+	//Handles Keyboard Done and Enter button and initiates Login API Call.
+	@Override
+	public boolean onEditorAction(TextView v, int actionId, KeyEvent event){
+		if((event!=null&&(event.getKeyCode()==KeyEvent.KEYCODE_ENTER))||(actionId==EditorInfo.IME_ACTION_DONE)){
+		   Log.v(TAG, "Enter or Done button pressed");
+		   handleLoginAndDoneBtn();
+		}
+		return false;
+	}
+	
+	//Handles Login and Keyboard Done and Enter button.
+	private void handleLoginAndDoneBtn(){
+	   Log.i(TAG,"handleLoginAndDoneBtn() Entering");
+	   setErrorTxtViewsGone();
+	   String username=user_name_edit_txt_view.getText().toString();
+	   String password=password_edit_txt_view.getText().toString();
+	   boolean isValidated=validate(username,password);
+	   if(isValidated){
+		 Log.v(TAG,"Login details validated successfully.");
+		  sendLoginReq(username,password);
+	    }else{
+		  Log.v(TAG,"Login validation failure.");
+		}
+	   Log.i(TAG,"handleLoginAndDoneBtn() Exiting");
 	}
 	
 	//Method to make Error TextViews Gone.

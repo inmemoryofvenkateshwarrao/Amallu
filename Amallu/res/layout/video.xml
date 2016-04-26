@@ -5,17 +5,11 @@
     android:orientation="vertical">
     
     <RelativeLayout
-        android:id="@+id/video_rel"
+        android:id="@+id/portrait_video_rel"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:orientation="vertical">
-	    
-        <!-- <View 
-	        android:id="@+id/invisible_horizontal_line"
-	        android:layout_width="fill_parent"
-	        android:layout_height="1dp"
-	        android:background="@color/white"
-	        android:layout_alignParentBottom="true"/>-->	    
+	        
         <include 
 	        android:id="@+id/swiping_tabs"
 	        android:layout_width="fill_parent"
@@ -81,6 +75,7 @@
 	      </LinearLayout>
     
     </RelativeLayout>
+    
     
     <!-- <include 
         android:id="@+id/vitemeo_controls"
