@@ -66,6 +66,7 @@ import com.amallu.parser.SignUpParser;
 import com.amallu.ui.PlayerScreen.MenuItemAdapter.MenuItemRowViewHolder;
 import com.amallu.utility.ErrorCodes;
 import com.amallu.utility.GlobalConsts;
+import com.amallu.utility.GlobalUtil;
 import com.amallu.utility.ReqResNodes;
 
 @SuppressWarnings("deprecation")
@@ -175,7 +176,6 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		likedislike=(View)findViewById(R.id.likedislike);
 		swiping_tabs=(View)findViewById(R.id.swiping_tabs);
 		vitemeo_controls=(View)findViewById(R.id.vitemeo_controls);
-		//menuIcon=(ImageView)findViewById(R.id.icon_three_liner);
 		/** Getting a reference to the ViewPager defined the layout file */
 		Log.i(TAG,"intializeViews() Exiting.");
 	  }
@@ -212,7 +212,6 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		icon_dislike.setOnClickListener(this);
 		icon_next.setOnClickListener(this);
 		icon_previous.setOnClickListener(this);
-		//menuBtn.setOnClickListener(this);
 		mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
 		Log.i(TAG,"setListeners() Exiting");
 	  }
@@ -497,8 +496,6 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
     						mDrawerLayout.closeDrawer(mDrawerList);
     						//startActivity(new Intent(PlayerScreen.this,LoginScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     						displayDialog(PlayerScreen.this,1);
-    						//LoginParser.login.setUsername("");
-    						//SignUpParser.signUp.setUsername("");
     					}
     				});
             	}
@@ -517,8 +514,6 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
     						mDrawerLayout.closeDrawer(mDrawerList);
     						//startActivity(new Intent(PlayerScreen.this,LoginScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     						displayDialog(PlayerScreen.this,1);
-    						//LoginParser.login.setUsername("");
-    						//SignUpParser.signUp.setUsername("");
     					}
     				});
              	}
@@ -535,8 +530,6 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 						mDrawerLayout.closeDrawer(mDrawerList);
 						//startActivity(new Intent(PlayerScreen.this,LoginScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 						displayDialog(PlayerScreen.this,1);
-						//LoginParser.login.setUsername("");
-						//SignUpParser.signUp.setUsername("");
 					}
 				});
             }
@@ -563,6 +556,39 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		dislikes_txt_view.setText(channelInfo.getDislikecount());*/
 		Log.i(TAG,"setChannelInfoData() Exiting.");
 	 }
+	 
+	 //Method to prepare Comments in the form of HashMaps in ArrayList.
+	 private void prepareCommentsHMArrayList(){
+		Log.i(TAG,"prepareCommentsHMArrayList() Entering.");
+		ArrayList<HashMap<String,Object>> commentsHMArrList=new ArrayList<HashMap<String,Object>>();
+		HashMap<String,Object> commentHM=null;
+		List<Comment> commentsList=channelInfo.getCommentsList();
+		if(commentsList!=null && commentsList.size()>0){
+		  Log.v(TAG,"Comments Available for this Channel");
+		  for(int c=0;c<commentsList.size();c++){
+			 Comment comment=commentsList.get(c);
+			 commentHM=new HashMap<String,Object>();
+			 commentHM.put(ReqResNodes.COMMENT_ID,comment.getComment_id());
+			 commentHM.put(ReqResNodes.USERID,comment.getUserid());
+			 commentHM.put(ReqResNodes.CHANNEL_ID,comment.getChannel_id());
+			 commentHM.put(ReqResNodes.COMMENT,comment.getComment());
+			 commentHM.put(ReqResNodes.PREFERENCE_ID,comment.getPreference_type());
+			 commentHM.put(ReqResNodes.HIDE_COMMENT,comment.getHide_comment());
+			 long days=GlobalUtil.getDaysFromMillis(Long.parseLong(comment.getDt_created()));
+			 Log.v(TAG,"milliseconds : "+comment.getDt_created());
+			 Log.v(TAG,"milliseconds in days : "+days);
+			 commentHM.put(ReqResNodes.DT_CREATED,days);
+			 
+			 //Check if hide_comment is 1 then show else hide.
+			 if(comment.getHide_comment().equals("1")){
+				commentsHMArrList.add(commentHM); 
+			 }
+		  }
+		}else{
+		  Log.v(TAG,"Comments not Available for this Channel");
+		}
+		Log.i(TAG,"prepareCommentsHMArrayList() Exiting.");
+	 }
 	
 	/**
 	 * Slide menu item click listener
@@ -585,7 +611,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	public boolean onOptionsItemSelected(MenuItem item){
 		//toggle nav drawer on selecting action bar app icon/title
 		if(mDrawerToggle.onOptionsItemSelected(item)){
-			return true;
+		  return true;
 		}
 		// Handle action bar actions click
 		switch(item.getItemId()){
@@ -624,13 +650,6 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		// Sync the toggle state after onRestoreInstanceState has occurred.
 		mDrawerToggle.syncState();
 	}
-
-	/*@Override
-	public void onConfigurationChanged(Configuration newConfig){
-		super.onConfigurationChanged(newConfig);
-		// Pass any configuration change to the drawer toggles
-		mDrawerToggle.onConfigurationChanged(newConfig);
-	}*/
 	
 	@Override
 	public void onConfigurationChanged(Configuration newConfig){

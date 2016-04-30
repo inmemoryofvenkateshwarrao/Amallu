@@ -35,38 +35,33 @@
         android:layout_below="@id/comment_txt_view">
         
         <ImageView android:id="@+id/icon_comment_like"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:src="@drawable/ic_like"
-            android:contentDescription="@string/image_content_desc"/>
+            android:contentDescription="@string/image_content_desc"
+            style="@style/icon_layout"/>
         
         <ImageView android:id="@+id/icon_comment_dislike"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_toRightOf="@id/icon_comment_like"
             android:src="@drawable/ic_dislike"
-            android:contentDescription="@string/image_content_desc"/>
+            android:contentDescription="@string/image_content_desc"
+            style="@style/icon_layout"/>
         
         <ImageView android:id="@+id/icon_comment_reply"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:src="@drawable/ic_advertise"
             android:layout_toRightOf="@id/icon_comment_dislike"
-            android:contentDescription="@string/image_content_desc"/>
+            android:contentDescription="@string/image_content_desc"
+            style="@style/icon_layout"/>
         
         <ImageView android:id="@+id/icon_comment_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:src="@drawable/ic_edit"
             android:layout_toRightOf="@id/icon_comment_reply"
-            android:contentDescription="@string/image_content_desc"/>
+            android:contentDescription="@string/image_content_desc"
+            style="@style/icon_layout"/>
         
         <ImageView android:id="@+id/icon_comment_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:src="@drawable/ic_delete"
             android:layout_toRightOf="@id/icon_comment_edit"
-            android:contentDescription="@string/image_content_desc"/>
+            android:contentDescription="@string/image_content_desc"
+            style="@style/icon_layout"/>
         
     </RelativeLayout>
      
