@@ -65,6 +65,7 @@ import com.amallu.parser.LoginParser;
 import com.amallu.parser.SignUpParser;
 import com.amallu.ui.PlayerScreen.MenuItemAdapter.MenuItemRowViewHolder;
 import com.amallu.utility.ErrorCodes;
+import com.amallu.utility.GlobalConsts;
 import com.amallu.utility.ReqResNodes;
 
 @SuppressWarnings("deprecation")
@@ -1137,6 +1138,23 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		return alertDialog;		
 	}
 
+	//Method to handle Device back button.
+	@Override
+	public void onBackPressed(){
+	   Log.i(TAG,"onBackPressed Entering.");
+	   boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+		if(drawerOpen){
+		   mDrawerLayout.closeDrawer(mDrawerList);
+		}else{
+		   displayDialog(PlayerScreen.this,GlobalConsts.LOGOUTFLAG);
+		   /*Intent intent=new Intent(PlayerScreen.this,LoginScreen.class);
+		   intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		   startActivity(intent);
+		   finish();*/
+		}
+	   Log.i(TAG,"onBackPressed Exiting.");
+	}
+	
 	/*@Override
 	public boolean onKeyDown(int keyCode,KeyEvent event){
 	    switch(keyCode){
@@ -1150,17 +1168,5 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		  }
 	}*/
 	
-	//Method to handle Device back button.
-	@Override
-	public void onBackPressed(){
-	   Log.i(TAG,"onBackPressed Entering.");
-	   Intent intent=new Intent(PlayerScreen.this,LoginScreen.class);
-	   intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	   startActivity(intent);
-	   finish();
-	   //displayDialog(PlayerScreen.this,1);
-	   //super.onBackPressed();
-	   Log.i(TAG,"onBackPressed Exiting.");
-	}
 	
 }
