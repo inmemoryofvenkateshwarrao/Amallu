@@ -92,6 +92,20 @@
          <item name="android:layout_height">140dip</item>  
      </style>
      
+     <style name="menu_item_list_row_style">
+        <item name="android:layout_height">50dip</item>
+ 		<item name="android:paddingLeft">11dp</item>
+        <item name="android:paddingRight">11dp</item>  
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+     </style>
+     
+     <style name="menu_item_list_row_vertical_line_style">
+        <item name="android:layout_height">50dip</item>
+ 		<item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginLeft">5dp</item>  
+     </style>
+     
      <!-- Categories Screen Styles -->
      <style name="list_row_style">
  		<item name="android:paddingLeft">11dp</item>

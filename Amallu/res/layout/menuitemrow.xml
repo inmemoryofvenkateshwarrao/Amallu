@@ -1,39 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="wrap_content" 
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content" 
 	android:layout_height="wrap_content"
-	android:background="@color/menu_item_bg_color"
-	style="@style/list_row_style">
+	android:orientation="vertical">
+
+	<RelativeLayout 
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:background="@color/menu_item_bg_color"
+		style="@style/menu_item_list_row_style">
+		
+	    <ImageView
+	        android:id="@+id/menu_item_icon"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:contentDescription="@string/image_content_desc"/>
+	        
+	     <TextView 
+	         android:id="@+id/menu_item_name"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:textColor="@color/white"
+	         android:layout_toRightOf="@id/menu_item_icon"
+	         android:layout_centerVertical="true"
+	         android:layout_marginRight="5dp"
+	         style="@style/list_row_item_text_style"/>
+	     
+	     <Button
+	        android:id="@+id/logout_btn"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/logout"
+	        android:contentDescription="@string/image_content_desc"
+	        android:layout_centerVertical="true"
+	        android:visibility="visible"
+	        android:paddingTop="0dp"
+	        android:paddingBottom="0dp"
+	        android:layout_alignParentRight="true"
+	        android:background="@null"
+	        android:textColor="@color/white"
+	        style="@style/text_size_style"/>
+	     
+	     <View
+			android:id="@+id/vertical_line"
+	        android:layout_width="1dp"
+	        android:layout_toLeftOf="@id/logout_btn"
+	        android:background="@color/white"
+	        android:layout_centerVertical="true"
+	        style="@style/menu_item_list_row_vertical_line_style"/>
+	    
+	</RelativeLayout>
 	
-    <ImageView
-        android:id="@+id/menu_item_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:contentDescription="@string/image_content_desc"/>
-        
-     <TextView 
-         android:id="@+id/menu_item_name"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:textColor="@color/white"
-         android:layout_toRightOf="@id/menu_item_icon"
-         android:layout_centerVertical="true"
-         android:layout_marginRight="5dp"
-         style="@style/list_row_item_text_style"/>
-     
-     <Button
-        android:id="@+id/logout_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/logout"
-        android:contentDescription="@string/image_content_desc"
-        android:layout_centerVertical="true"
-        android:visibility="invisible"
-        android:paddingTop="0dp"
-        android:paddingBottom="0dp"
-        android:layout_alignParentRight="true"
-        style="@style/text_size_style"/>
-        
-    
-</RelativeLayout>
+	<include 
+	    android:id="@+id/menu_items_divider"
+	    layout="@layout/horizontal_line"
+	    android:visibility="gone"/>
+	
+</LinearLayout>

@@ -115,7 +115,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		
 		//Enabling Action Bar application icon and behaving it as toggle button
 		getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-		LayoutInflater inflater = getLayoutInflater();
+		LayoutInflater inflater=getLayoutInflater();
         View actionBarLay=inflater.inflate(R.layout.action_bar_header,null);
         menuIcon=(ImageView)actionBarLay.findViewById(R.id.icon_three_liner);
 		getActionBar().setCustomView(actionBarLay);
@@ -420,6 +420,8 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
         	  menuItemRowHolder.menu_item_icon=(ImageView)convertView.findViewById(R.id.menu_item_icon);
         	  menuItemRowHolder.menu_item_name=(TextView)convertView.findViewById(R.id.menu_item_name);
         	  menuItemRowHolder.logout_btn=(Button)convertView.findViewById(R.id.logout_btn);
+        	  menuItemRowHolder.menu_items_divider=(View)convertView.findViewById(R.id.menu_items_divider);
+        	  menuItemRowHolder.vertical_line=(View)convertView.findViewById(R.id.vertical_line);
         	  convertView.setTag(menuItemRowHolder);
             }else{
             	menuItemRowHolder=(MenuItemRowViewHolder)convertView.getTag();
@@ -430,38 +432,56 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_channels));
                 menuItemRowHolder.menu_item_name.setText(menuItemName);
                 menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
+                menuItemRowHolder.vertical_line.setVisibility(View.GONE);
+                menuItemRowHolder.menu_items_divider.setVisibility(View.GONE);
             }else if(menuItemName.equals(ReqResNodes.MENUITEM_CATEGORIES)){
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_categories));
                 menuItemRowHolder.menu_item_name.setText(menuItemName);
                 menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
+                menuItemRowHolder.vertical_line.setVisibility(View.GONE);
+                menuItemRowHolder.menu_items_divider.setVisibility(View.GONE);
             }else if(menuItemName.equals(ReqResNodes.MENUITEM_LANGUAGE)){
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_language));
                 menuItemRowHolder.menu_item_name.setText(menuItemName);
                 menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
+                menuItemRowHolder.vertical_line.setVisibility(View.GONE);
+                menuItemRowHolder.menu_items_divider.setVisibility(View.GONE);
             }else if(menuItemName.equals(ReqResNodes.MENUITEM_FRIENDS)){
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_friends));
                 menuItemRowHolder.menu_item_name.setText(menuItemName);
                 menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
+                menuItemRowHolder.vertical_line.setVisibility(View.GONE);
+                menuItemRowHolder.menu_items_divider.setVisibility(View.GONE);
             }else if(menuItemName.equals(ReqResNodes.MENUITEM_ACTIVITIES)){
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_activities));
                 menuItemRowHolder.menu_item_name.setText(menuItemName);
                 menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
+                menuItemRowHolder.vertical_line.setVisibility(View.GONE);
+                menuItemRowHolder.menu_items_divider.setVisibility(View.VISIBLE);
             }else if(menuItemName.equals(ReqResNodes.MENUITEM_ABOUT)){
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_about));
                 menuItemRowHolder.menu_item_name.setText(menuItemName);   
                 menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
+                menuItemRowHolder.vertical_line.setVisibility(View.GONE);
+                menuItemRowHolder.menu_items_divider.setVisibility(View.GONE);
             }else if(menuItemName.equals(ReqResNodes.MENUITEM_ADVERTISE)){            	
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_advertise));
                 menuItemRowHolder.menu_item_name.setText(menuItemName);
                 menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
+                menuItemRowHolder.vertical_line.setVisibility(View.GONE);
+                menuItemRowHolder.menu_items_divider.setVisibility(View.VISIBLE);
             }else if(menuItemName.equals(ReqResNodes.MENUITEM_TERMS)){
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_terms));
                 menuItemRowHolder.menu_item_name.setText(menuItemName);
                 menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
+                menuItemRowHolder.vertical_line.setVisibility(View.GONE);
+                menuItemRowHolder.menu_items_divider.setVisibility(View.VISIBLE);
             }else if(menuItemName.equals(ReqResNodes.MENUITEM_PRIVACYPOLICY)){
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_privacy));
                 menuItemRowHolder.menu_item_name.setText(menuItemName);
                 menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
+                menuItemRowHolder.vertical_line.setVisibility(View.GONE);
+                menuItemRowHolder.menu_items_divider.setVisibility(View.GONE);
             //}else if(LoginParser.getUserName()!=null && !LoginParser.getUserName().equals("")){
             }else if(fromContext instanceof LoginScreen){
             	Log.v(TAG,"fromContext LoginParser");
@@ -469,14 +489,16 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
             		menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_profile));
                     menuItemRowHolder.menu_item_name.setText(LoginParser.getUserName());
                     menuItemRowHolder.logout_btn.setVisibility(View.VISIBLE);
+                    menuItemRowHolder.vertical_line.setVisibility(View.VISIBLE);
+                    menuItemRowHolder.menu_items_divider.setVisibility(View.VISIBLE);
                     menuItemRowHolder.logout_btn.setOnClickListener(new OnClickListener(){
     					@Override
     					public void onClick(View v){
     						mDrawerLayout.closeDrawer(mDrawerList);
     						//startActivity(new Intent(PlayerScreen.this,LoginScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     						displayDialog(PlayerScreen.this,1);
-    						LoginParser.login.setUsername("");
-    						SignUpParser.signUp.setUsername("");
+    						//LoginParser.login.setUsername("");
+    						//SignUpParser.signUp.setUsername("");
     					}
     				});
             	}
@@ -487,14 +509,16 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
             		menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_profile));
                     menuItemRowHolder.menu_item_name.setText(SignUpParser.getUserName());
                     menuItemRowHolder.logout_btn.setVisibility(View.VISIBLE);
+                    menuItemRowHolder.vertical_line.setVisibility(View.VISIBLE);
+                    menuItemRowHolder.menu_items_divider.setVisibility(View.VISIBLE);
                     menuItemRowHolder.logout_btn.setOnClickListener(new OnClickListener(){
     					@Override
     					public void onClick(View v){
     						mDrawerLayout.closeDrawer(mDrawerList);
     						//startActivity(new Intent(PlayerScreen.this,LoginScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     						displayDialog(PlayerScreen.this,1);
-    						LoginParser.login.setUsername("");
-    						SignUpParser.signUp.setUsername("");
+    						//LoginParser.login.setUsername("");
+    						//SignUpParser.signUp.setUsername("");
     					}
     				});
              	}
@@ -503,14 +527,16 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_profile));
                 menuItemRowHolder.menu_item_name.setText(LoginParser.getUserName());
                 menuItemRowHolder.logout_btn.setVisibility(View.VISIBLE);
+                menuItemRowHolder.vertical_line.setVisibility(View.VISIBLE);
+                menuItemRowHolder.menu_items_divider.setVisibility(View.VISIBLE);
                 menuItemRowHolder.logout_btn.setOnClickListener(new OnClickListener(){
 					@Override
 					public void onClick(View v){
 						mDrawerLayout.closeDrawer(mDrawerList);
 						//startActivity(new Intent(PlayerScreen.this,LoginScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 						displayDialog(PlayerScreen.this,1);
-						LoginParser.login.setUsername("");
-						SignUpParser.signUp.setUsername("");
+						//LoginParser.login.setUsername("");
+						//SignUpParser.signUp.setUsername("");
 					}
 				});
             }
@@ -522,6 +548,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
     	    ImageView menu_item_icon;
     	    TextView menu_item_name;
     	    Button logout_btn;
+    	    View menu_items_divider,vertical_line;
         }
 	        
 	}
@@ -1119,6 +1146,8 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 			@Override
 			public void onClick(View v){
 				alertDialog.dismiss();
+				LoginParser.login.setUsername("");
+				SignUpParser.signUp.setUsername("");
 				Intent intent=new Intent(PlayerScreen.this,LoginScreen.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
