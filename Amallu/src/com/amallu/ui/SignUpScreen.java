@@ -3,33 +3,39 @@ package com.amallu.ui;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 import com.amallu.backend.CustomProgressDialog;
 import com.amallu.backend.ReqResHandler;
 import com.amallu.backend.ResponseHandler;
 import com.amallu.exception.AmalluException;
+import com.amallu.fragment.DatePickerFragment;
 import com.amallu.model.ChannelDetail;
 import com.amallu.model.ChannelInfo;
 import com.amallu.model.Comment;
 import com.amallu.model.SignUp;
 import com.amallu.parser.ChannelInfoParser;
 import com.amallu.parser.SignUpParser;
+import com.amallu.utility.DateInterface;
 import com.amallu.utility.ErrorCodes;
 import com.amallu.utility.ReqResNodes;
 
-public class SignUpScreen extends Activity implements OnClickListener,OnEditorActionListener{
+public class SignUpScreen extends Activity implements OnClickListener,OnEditorActionListener,DateInterface{
 
 	private static final String TAG="SignUpScreen";
 	private EditText first_name_edit_txt_view,last_name_edit_txt_view,email_edit_txt_view,pwd_edit_txt_view,
@@ -80,6 +86,28 @@ public class SignUpScreen extends Activity implements OnClickListener,OnEditorAc
 		signup_btn.setOnClickListener(this);
 		login_btn.setOnClickListener(this);
 		//emailid_edit_txt_view.setOnEditorActionListener(this);
+		dob_edit_txt_view.setOnTouchListener(new View.OnTouchListener(){
+		  public boolean onTouch(View view,MotionEvent motionEvent){                                                       
+		     //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+			  dob_error_txt_view.setVisibility(View.GONE);
+			  DatePickerFragment.signUpInstance=SignUpScreen.this;
+			  showDatePickerDialog();
+		     return false;
+		  }
+		});
+		dob_edit_txt_view.setOnFocusChangeListener(new OnFocusChangeListener(){
+			@Override
+			public void onFocusChange(View view,boolean hasFocus){
+			    if(hasFocus){
+			        //Toast.makeText(getApplicationContext(), "got the focus", Toast.LENGTH_LONG).show();
+			    	dob_error_txt_view.setVisibility(View.GONE);
+					DatePickerFragment.signUpInstance=SignUpScreen.this;
+					showDatePickerDialog();
+			    }else {
+			        //Toast.makeText(getApplicationContext(), "lost the focus", Toast.LENGTH_LONG).show();
+			    }
+			   }
+			});
 		Log.i(TAG,"setListeners() Exiting");
 	}
 
@@ -121,10 +149,6 @@ public class SignUpScreen extends Activity implements OnClickListener,OnEditorAc
 		String password=pwd_edit_txt_view.getText().toString();
 		String confPassword=re_enter_pwd_edit_txt_view.getText().toString();
 		String dob=dob_edit_txt_view.getText().toString();
-		//String dobArr[]=dob.split("/");
-		//String day=dobArr[0];
-		//String month=dobArr[1];
-		//String year=dobArr[2];
 		boolean isValidated=validate(emailid,firstname,lastname,password,confPassword,dob);
 		if(isValidated){
 			Log.v(TAG,"SignUp details validated successfully.");
@@ -134,6 +158,29 @@ public class SignUpScreen extends Activity implements OnClickListener,OnEditorAc
 			Log.v(TAG,"SignUp validation failure.");
 		}
 	   Log.i(TAG,"handleLoginAndDoneBtn() Exiting");
+	}
+	
+	//Method to open Date Picker.
+	public void showDatePickerDialog(){
+		Log.i(TAG,"showDatePickerDialog() Entering.");
+	    DialogFragment dateFragment = new DatePickerFragment();
+	    dateFragment.show(getFragmentManager(),"datePicker");
+	    Log.i(TAG,"showDatePickerDialog() Exiting.");
+	}
+	
+	//Populates selected Date from DatePicker
+	public void showSelectedDate(int year,int month,int day){
+		Log.i(TAG,"showSelectedDate() Entering.");
+	    dob_edit_txt_view.setText(new StringBuilder().append(year).append("-").append(month).append("-").append(day));
+	    Log.i(TAG,"showSelectedDate() Exiting.");
+	 }
+	
+	//Populates date error message
+	public void selectedDateErrorMsg(){
+		Log.i(TAG,"selectedDateErrorMsg() Entering.");
+		dob_error_txt_view.setText(getResources().getString(R.string.date_selection_error));
+		dob_error_txt_view.setVisibility(View.VISIBLE);
+		Log.i(TAG,"selectedDateErrorMsg() Exiting.");
 	}
 	
 	//Method to make Error TextViews Gone.
@@ -213,6 +260,7 @@ public class SignUpScreen extends Activity implements OnClickListener,OnEditorAc
 			Log.e(TAG,"Please select DOB");
 			//Attach Error text to View.
 			dob_error_txt_view.setVisibility(View.VISIBLE);
+			dob_error_txt_view.setText(getResources().getString(R.string.dob_error_msg));
 			isValidated=false;
 		}
 		Log.i(TAG,"validate() Exiting.");
@@ -409,5 +457,6 @@ public class SignUpScreen extends Activity implements OnClickListener,OnEditorAc
 	   super.onBackPressed();
 	   Log.i(TAG,"onBackPressed Exiting.");
 	}
+
 
 }

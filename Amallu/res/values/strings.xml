@@ -67,12 +67,13 @@
     <string name="firstname_error_msg">Please enter Firstname</string>
     <string name="lastname_error_msg">Please enter Lastname</string>
     <string name="re_enter_pwd_error_msg">Please re enter Password</string>
-    <string name="dob_error_msg">Please enter Date of birth</string>
+    <string name="dob_error_msg">Please select Date of birth</string>
     <string name="gender_error_msg">Please select Gender</string>
     <string name="emailid_error_msg">Please enter Emailid</string>
     <string name="emailid_prop_fmt_error_msg">Please enter Emailid in proper format</string>
     <string name="pwd_conf_pwd_error_msg">Password and Re enter Password should be same</string>
     <string name="title_activity_categories_screen">CategoriesScreen</string>
+    <string name="date_selection_error">Selected Date should not be less than 18 years</string>
     <string name="hello_world">Hello world!</string>
     <string name="logout">Logout</string>
     
