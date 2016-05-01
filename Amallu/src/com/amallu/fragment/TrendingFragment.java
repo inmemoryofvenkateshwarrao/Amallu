@@ -27,7 +27,6 @@ import com.amallu.model.TrendingChannels;
 import com.amallu.parser.TrendingChannelsParser;
 import com.amallu.ui.R;
 import com.amallu.utility.ErrorCodes;
-import com.amallu.utility.GlobalUtil;
 import com.amallu.utility.ReqResNodes;
 
 
@@ -39,6 +38,8 @@ public class TrendingFragment extends Fragment{
 	private TrendingRowViewHolder trendingRowViewHolder;
 	private LayoutInflater trendingInflater;
 	private ListView trending_list;
+	ArrayList<HashMap<String,Object>> trendingChannelsArrHMList;
+	HashMap<String,Object> tFragHM=null;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -51,9 +52,30 @@ public class TrendingFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		Log.i(TAG,"onCreateView() Entering.");
 		View trendingView=inflater.inflate(R.layout.trending,container,false);
+		trending_list=(ListView)trendingView.findViewById(R.id.trending_channels_list);
 		trending_channels_unavail_txt_view=(TextView)trendingView.findViewById(R.id.trending_channels_unavail_txt_view);
-		sendTrendingChannelsReq();	
+		//sendTrendingChannelsReq();	
 		Log.i(TAG,"onCreateView() Exiting.");
+		
+		trendingChannelsArrHMList=new ArrayList<HashMap<String,Object>>();
+		tFragHM=new HashMap<String,Object>();
+		tFragHM.put(ReqResNodes.CHANNEL_NAME,"Rytas TV");
+		tFragHM.put(ReqResNodes.CATEGORY_ID,"German, Entertainment");
+		tFragHM.put(ReqResNodes.DESCRIPTION,"Printing and Type setting Industry");
+		tFragHM.put(ReqResNodes.DURATION,"Duration : 2:50");
+		tFragHM.put(ReqResNodes.VIEWS,"55k views- 2 weeks ago");
+		trendingChannelsArrHMList.add(tFragHM);
+		
+		tFragHM=new HashMap<String,Object>();
+		tFragHM.put(ReqResNodes.CHANNEL_NAME,"Rytas TV");
+		tFragHM.put(ReqResNodes.CATEGORY_ID,"German, Entertainment");
+		tFragHM.put(ReqResNodes.DESCRIPTION,"Printing and Type setting Industry");
+		tFragHM.put(ReqResNodes.DURATION,"Duration : 2:50");
+		tFragHM.put(ReqResNodes.VIEWS,"22k views- 5 weeks ago");
+		trendingChannelsArrHMList.add(tFragHM);
+		
+		populateTrendingChannelsList(trendingChannelsArrHMList);
+		
 		return trendingView;		
 	}
 	
@@ -110,8 +132,8 @@ public class TrendingFragment extends Fragment{
 	//Populates ListView Data.
 	private void populateTrendingChannelsList(ArrayList<HashMap<String,Object>> trendingChannelsArrHMList){
 	  Log.i(TAG,"setData() Entering.");
-	  TrendingChannelsAdapter commentListAdapter=new TrendingChannelsAdapter(getContext(),trendingChannelsArrHMList,R.layout.trending_channels_row,new String[]{},new int[]{});
-	  trending_list.setAdapter(commentListAdapter);
+	  TrendingChannelsAdapter trendingChannelsListAdapter=new TrendingChannelsAdapter(getContext(),trendingChannelsArrHMList,R.layout.trending_channels_row,new String[]{},new int[]{});
+	  trending_list.setAdapter(trendingChannelsListAdapter);
 	  trending_list.setOnItemClickListener(new OnItemClickListener(){
 		 @Override
 		 public void onItemClick(AdapterView<?> parent,View view,int position,long id){
@@ -155,14 +177,18 @@ public class TrendingFragment extends Fragment{
              
             trendingRowViewHolder.channel_name_txt_view.setText(trendingRowHM.get(ReqResNodes.CHANNEL_NAME).toString());
             trendingRowViewHolder.category_name_txt_view.setText(trendingRowHM.get(ReqResNodes.CATEGORY_ID).toString());
-            trendingRowViewHolder.channel_desc_txt_view.setText("Entertainment");
+            trendingRowViewHolder.channel_desc_txt_view.setText(trendingRowHM.get(ReqResNodes.DESCRIPTION).toString());
             
-            String channelViews=trendingRowHM.get(ReqResNodes.VIEWS).toString();
+            /*String channelViews=trendingRowHM.get(ReqResNodes.VIEWS).toString();
             String timeWatched=trendingRowHM.get(ReqResNodes.TIME_WATCHED).toString();
             long days=GlobalUtil.getDaysFromMillis(Long.parseLong(timeWatched));
             
             trendingRowViewHolder.duration_txt_view.setText("Duration : 2:50");
-            trendingRowViewHolder.views_dt_created_txt_view.setText(channelViews+" views-"+days+" ago");
+            
+            trendingRowViewHolder.views_dt_created_txt_view.setText(channelViews+" views-"+days+" ago");*/
+            
+            trendingRowViewHolder.duration_txt_view.setText(trendingRowHM.get(ReqResNodes.DURATION).toString());
+            trendingRowViewHolder.views_dt_created_txt_view.setText(trendingRowHM.get(ReqResNodes.VIEWS).toString());
             
             return convertView;
         }

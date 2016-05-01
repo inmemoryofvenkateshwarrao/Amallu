@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" 
+	android:layout_height="wrap_content"
+	android:background="@color/white"
+	style="@style/list_row_style">
+	
+   <ImageView android:id="@+id/icon_trending_channel"
+       android:layout_width="50dp"
+       android:layout_height="50dp"
+       android:src="@drawable/ic_friend_profile"
+       android:contentDescription="@string/image_content_desc"
+       style="@style/icon_layout"/>
+   
+   <RelativeLayout 
+       android:id="@+id/watching_middle_col"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_toRightOf="@id/icon_trending_channel"
+       android:layout_centerVertical="true">
+   
+	   <TextView 
+	       android:id="@+id/name_txt_view"
+	       android:layout_width="wrap_content"
+	       android:layout_height="wrap_content"
+	       style="@style/normal_text_size_style"
+	       android:textColor="@color/black"
+	       android:textStyle="bold"
+	       android:text="Ashish Mera"/>
+	   
+	   <TextView 
+	       android:id="@+id/friends_mutual_txt_view"
+	       android:layout_width="wrap_content"
+	       android:layout_height="wrap_content"
+	       style="@style/normal_text_size_style"
+	       android:textColor="@color/grey"
+	       android:textStyle="normal"
+	       android:text="Friends (6) Mutual (3)"
+	       android:layout_marginTop="2dp"
+	       android:layout_toRightOf="@id/name_txt_view"
+	       android:layout_below="@id/name_txt_view"
+	       android:layout_alignLeft="@id/name_txt_view"/>
+   
+   </RelativeLayout>
+   
+   <RelativeLayout 
+       android:id="@+id/watching_right_col"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_centerVertical="true"
+       android:layout_alignParentRight="true">
+   
+	   <TextView 
+	       android:id="@+id/time_txt_view"
+	       android:layout_width="wrap_content"
+	       android:layout_height="wrap_content"
+	       style="@style/normal_text_size_style"
+	       android:textColor="@color/blue"
+	       android:textStyle="normal"
+	       android:text="6:01 pm"/>
+   
+   </RelativeLayout>
+   
+</RelativeLayout>

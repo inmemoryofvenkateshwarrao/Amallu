@@ -112,6 +112,13 @@ public class ReqResNodes{
     public static final String MENUITEMICON="menuitemicon";
     public static final String MENUITEMNAME="menuitemname";
     
+    //Response properties for TrendingChannel API
+    public static final String DURATION="duration ";
+    
+    public static final String FRIEND_NAME="friend_name ";
+    public static final String FRIEND_MUTUAL="friend_mutual ";
+    public static final String FRIEND_VIEWED_TIME="viewed_time ";
+    
     //Menu Items
     public static final String MENUITEM_CHANNELS="Channels";
     public static final String MENUITEM_CATEGORIES="Categories";

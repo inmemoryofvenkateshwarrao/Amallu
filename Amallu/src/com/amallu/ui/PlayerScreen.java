@@ -700,7 +700,6 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	    }
 	}
 
-
 	  @Override
 	  public boolean onInfo(MediaPlayer mp, int what, int extra){
 	    switch(what){

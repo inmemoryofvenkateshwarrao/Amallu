@@ -1,12 +1,10 @@
 package com.amallu.backend;
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.util.Log;
 
 import com.amallu.exception.AmalluException;
-import com.amallu.fragment.TrendingFragment;
 import com.amallu.ui.CategoriesScreen;
 import com.amallu.ui.ForgetPasswordScreen;
 import com.amallu.ui.LanguagesScreen;
@@ -144,6 +142,9 @@ public class ResponseHandler implements Response{
 			if(result.equalsIgnoreCase("Exception")){
 				Log.e(TAG, "TRENDINGCHANNELS Exception caught.");
 			}
+			Activity act=(Activity)context;
+			FragmentManager fragMan=act.getFragmentManager();
+			//fragMan.findFragmentById(R.id.t)
 			//((TrendingFragment)).trendingChannelsProceedUI(result,ex);
 		}
 		if(uiHandler.equals(CommonHandlerType.ADDFRIEND)){
@@ -166,7 +167,7 @@ public class ResponseHandler implements Response{
 		}
 	}
 
-	@Override
+	/*@Override
 	public void updateTrendingFragmentResponse(TrendingFragment fragmentCtx,String result,CommonHandlerType uiHandler, 
 				AmalluException ex){
 		if(uiHandler.equals(CommonHandlerType.TRENDINGCHANNELS)){
@@ -176,6 +177,6 @@ public class ResponseHandler implements Response{
 			fragmentCtx.trendingChannelsProceedUI(result,ex);
 		}
 	}
-	
+	*/
 	
 }

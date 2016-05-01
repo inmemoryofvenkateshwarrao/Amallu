@@ -32,13 +32,17 @@ public class OptionsFragmentPagerAdapter extends FragmentPagerAdapter{
 				TrendingFragment trendingFragment=new TrendingFragment();
 				return trendingFragment;
 			case 2:
-				FavoritesFragment favoritesFragment=new FavoritesFragment();
+				TrendingFragment favoritesFragment=new TrendingFragment();
 				return favoritesFragment;
+				/*FavoritesFragment favoritesFragment=new FavoritesFragment();
+				return favoritesFragment;*/
 			case 3:
 				WatchingFragment watchingFragment=new WatchingFragment();
 				return watchingFragment;
 			case 4:
-				FriendsFragment friendsFragment=new FriendsFragment();
+				/*FriendsFragment friendsFragment=new FriendsFragment();
+				return friendsFragment;*/
+				WatchingFragment friendsFragment=new WatchingFragment();
 				return friendsFragment;
 			case 5:
 				ActivitiesFragment activitiesFragment=new ActivitiesFragment();
