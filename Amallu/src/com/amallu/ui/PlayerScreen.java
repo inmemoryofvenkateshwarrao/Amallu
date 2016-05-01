@@ -581,8 +581,8 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 			 commentHM.put(ReqResNodes.HIDE_COMMENT,comment.getHide_comment());
 			 long days=GlobalUtil.getDaysFromMillis(Long.parseLong(comment.getDt_created()));
 			 Log.v(TAG,"milliseconds : "+comment.getDt_created());
-			 Log.v(TAG,"milliseconds in days : "+days +"days ago");
-			 commentHM.put(ReqResNodes.DT_CREATED,days +"days ago");
+			 Log.v(TAG,"milliseconds in days : "+days+" days ago");
+			 commentHM.put(ReqResNodes.DT_CREATED,days +" days ago");
 			 
 			 //Check if hide_comment is 1 then show else hide.
 			 if(comment.getHide_comment().equals("1")){
