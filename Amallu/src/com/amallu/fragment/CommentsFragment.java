@@ -41,25 +41,6 @@ public class CommentsFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
 		View commentsView = inflater.inflate(R.layout.comments,container,false);
 		comment_list=(ListView)commentsView.findViewById(R.id.listview_comments);
-		/*commentsArrList=new ArrayList<HashMap<String,Object>>();
-		HashMap<String,Object> commentHM;
-		commentHM=new HashMap<String,Object>();
-		commentHM.put(ReqResNodes.COMMENT_USERNAME,"abc");
-		commentHM.put(ReqResNodes.COMMENT_TIME,"123456");
-		commentHM.put(ReqResNodes.COMMENT,"good channel");
-		commentsArrList.add(commentHM);
-		
-		commentHM=new HashMap<String,Object>();
-		commentHM.put(ReqResNodes.COMMENT_USERNAME,"def");
-		commentHM.put(ReqResNodes.COMMENT_TIME,"234567");
-		commentHM.put(ReqResNodes.COMMENT,"nice channel");
-		commentsArrList.add(commentHM);
-		
-		commentHM=new HashMap<String,Object>();
-		commentHM.put(ReqResNodes.COMMENT_USERNAME,"ghi");
-		commentHM.put(ReqResNodes.COMMENT_TIME,"345678");
-		commentHM.put(ReqResNodes.COMMENT,"good to watch channel");
-		commentsArrList.add(commentHM);*/
 		setCommentsData();	
 		return commentsView;		
 	}

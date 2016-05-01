@@ -21,10 +21,9 @@ public class TrendingChannelsParser{
 	public static TrendingChannels getTrendingChannelsListParsedResponse(String trendChannelStr){
 		Log.i(TAG,"getTrendingChannelsListParsedResponse() Entering.");
 		TrendingChannels trendingChannels=new TrendingChannels();
-		List<HashMap<String,Object>> trendChannlesRowsHMList=new ArrayList<HashMap<String,Object>>();
+		ArrayList<HashMap<String,Object>> trendChannlesRowsHMList=new ArrayList<HashMap<String,Object>>();
 		HashMap<String,Object> trendChannelRowHM;
 		try{
-			
 			JSONObject trendChannelsJSONObj=new JSONObject(trendChannelStr);
 			if(!trendChannelsJSONObj.isNull(ReqResNodes.ISSUCCESS)&&
 					trendChannelsJSONObj.get(ReqResNodes.ISSUCCESS).toString().equals(ErrorCodes.ISFAILURE)){

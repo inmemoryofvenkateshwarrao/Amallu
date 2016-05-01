@@ -3,6 +3,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.amallu.exception.AmalluException;
+import com.amallu.fragment.TrendingFragment;
 import com.amallu.ui.CategoriesScreen;
 import com.amallu.ui.ForgetPasswordScreen;
 import com.amallu.ui.LanguagesScreen;
@@ -140,7 +141,7 @@ public class ResponseHandler implements Response{
 			if(result.equalsIgnoreCase("Exception")){
 				Log.e(TAG, "TRENDINGCHANNELS Exception caught.");
 			}
-			//((LanguagesScreen)context).trendingChannelsProceedUI(result,ex);
+			//((TrendingFragment)).trendingChannelsProceedUI(result,ex);
 		}
 		if(uiHandler.equals(CommonHandlerType.ADDFRIEND)){
 			if(result.equalsIgnoreCase("Exception")){
