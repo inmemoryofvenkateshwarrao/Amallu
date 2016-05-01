@@ -1,4 +1,7 @@
 package com.amallu.backend;
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.util.Log;
 
@@ -162,4 +165,17 @@ public class ResponseHandler implements Response{
 			//((FavoriteChannelsScreen)context).favoriteChannelsProceedUI(result,ex);
 		}
 	}
+
+	@Override
+	public void updateTrendingFragmentResponse(TrendingFragment fragmentCtx,String result,CommonHandlerType uiHandler, 
+				AmalluException ex){
+		if(uiHandler.equals(CommonHandlerType.TRENDINGCHANNELS)){
+			if(result.equalsIgnoreCase("Exception")){
+			   Log.e(TAG, "TRENDINGCHANNELS Exception caught.");
+			}
+			fragmentCtx.trendingChannelsProceedUI(result,ex);
+		}
+	}
+	
+	
 }

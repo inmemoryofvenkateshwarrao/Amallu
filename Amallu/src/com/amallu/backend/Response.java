@@ -3,6 +3,7 @@ package com.amallu.backend;
 import android.content.Context;
 
 import com.amallu.exception.AmalluException;
+import com.amallu.fragment.TrendingFragment;
 
 public interface Response{
 	enum CommonHandlerType {
@@ -13,4 +14,6 @@ public interface Response{
 
 	public void updateResponse(Context context, String result,CommonHandlerType handlerType, 
 								AmalluException exception);
+	public void updateTrendingFragmentResponse(TrendingFragment fragment, String result,CommonHandlerType handlerType, 
+			AmalluException exception);
 }

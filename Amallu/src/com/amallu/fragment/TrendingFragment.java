@@ -43,6 +43,8 @@ public class TrendingFragment extends Fragment{
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
+		Log.i(TAG,"onCreate() Entering.");
+		Log.i(TAG,"onCreate() Exiting.");
 	}
 	
 	@Override
@@ -68,7 +70,7 @@ public class TrendingFragment extends Fragment{
 		Log.i(TAG,"sendTrendingChannelsReq() Exiting.");
 	}
 	
-	//Methods handles the response from Server.
+	//Method handles the response from Server.
 	public void trendingChannelsProceedUI(String result,AmalluException amalluEx){
 		Log.i(TAG,"trendingChannelsProceedUI() Entering.");
 		
