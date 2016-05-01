@@ -30,7 +30,7 @@ public class CommentsFragment extends Fragment{
 	private CommentRowViewHolder commentRowViewHolder;
 	private LayoutInflater commentInflater;
 	private ListView comment_list;
-	private ArrayList<HashMap<String,Object>> commentsArrList;
+	public static ArrayList<HashMap<String,Object>> commentsArrList;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -41,7 +41,7 @@ public class CommentsFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
 		View commentsView = inflater.inflate(R.layout.comments,container,false);
 		comment_list=(ListView)commentsView.findViewById(R.id.listview_comments);
-		commentsArrList=new ArrayList<HashMap<String,Object>>();
+		/*commentsArrList=new ArrayList<HashMap<String,Object>>();
 		HashMap<String,Object> commentHM;
 		commentHM=new HashMap<String,Object>();
 		commentHM.put(ReqResNodes.COMMENT_USERNAME,"abc");
@@ -59,7 +59,7 @@ public class CommentsFragment extends Fragment{
 		commentHM.put(ReqResNodes.COMMENT_USERNAME,"ghi");
 		commentHM.put(ReqResNodes.COMMENT_TIME,"345678");
 		commentHM.put(ReqResNodes.COMMENT,"good to watch channel");
-		commentsArrList.add(commentHM);
+		commentsArrList.add(commentHM);*/
 		setCommentsData();	
 		return commentsView;		
 	}
@@ -112,8 +112,8 @@ public class CommentsFragment extends Fragment{
             }
             HashMap<String,Object> commentRowHM=(HashMap<String,Object>)commentRowArrList.get(position);
              
-            commentRowViewHolder.comment_uname_txt_view.setText(commentRowHM.get(ReqResNodes.COMMENT_USERNAME).toString());
-            commentRowViewHolder.time_txt_view.setText(commentRowHM.get(ReqResNodes.COMMENT_TIME).toString());
+            commentRowViewHolder.comment_uname_txt_view.setText(commentRowHM.get(ReqResNodes.USERID).toString());
+            commentRowViewHolder.time_txt_view.setText(commentRowHM.get(ReqResNodes.DT_CREATED).toString());
             commentRowViewHolder.comment_txt_view.setText(commentRowHM.get(ReqResNodes.COMMENT).toString());
             
             commentRowViewHolder.icon_comment_like.setOnClickListener(new OnClickListener(){

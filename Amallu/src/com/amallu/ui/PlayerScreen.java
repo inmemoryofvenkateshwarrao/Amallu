@@ -50,6 +50,7 @@ import com.amallu.backend.CustomProgressDialog;
 import com.amallu.backend.ReqResHandler;
 import com.amallu.backend.ResponseHandler;
 import com.amallu.exception.AmalluException;
+import com.amallu.fragment.CommentsFragment;
 import com.amallu.model.ChannelDetail;
 import com.amallu.model.ChannelInfo;
 import com.amallu.model.Comment;
@@ -82,6 +83,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	private View likedislike;
 	public static ChannelInfo channelInfo=null;
 	public static ChannelDetail channelDetail=null;
+	public static ArrayList<HashMap<String,Object>> commentsHMArrList=null;
 	
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
@@ -183,7 +185,10 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	  //Initializes Options
 	  private void initializeOptionsViews(){
 		Log.i(TAG,"initializeOptionsViews() Entering.");
-		/** Getting a reference to the ViewPager defined the layout file */     
+		/** Getting a reference to the ViewPager defined the layout file */
+		prepareCommentsHMArrayList();
+		CommentsFragment.commentsArrList=null;
+		CommentsFragment.commentsArrList=commentsHMArrList;
 		PagerTabStrip pagerTabStrip=(PagerTabStrip)findViewById(R.id.pager_tab_strip);
 		pagerTabStrip.setTabIndicatorColor(getResources().getColor(R.color.green));
         ViewPager pager=(ViewPager)findViewById(R.id.pager);
@@ -560,7 +565,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	 //Method to prepare Comments in the form of HashMaps in ArrayList.
 	 private void prepareCommentsHMArrayList(){
 		Log.i(TAG,"prepareCommentsHMArrayList() Entering.");
-		ArrayList<HashMap<String,Object>> commentsHMArrList=new ArrayList<HashMap<String,Object>>();
+		commentsHMArrList=new ArrayList<HashMap<String,Object>>();
 		HashMap<String,Object> commentHM=null;
 		List<Comment> commentsList=channelInfo.getCommentsList();
 		if(commentsList!=null && commentsList.size()>0){
@@ -576,8 +581,8 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 			 commentHM.put(ReqResNodes.HIDE_COMMENT,comment.getHide_comment());
 			 long days=GlobalUtil.getDaysFromMillis(Long.parseLong(comment.getDt_created()));
 			 Log.v(TAG,"milliseconds : "+comment.getDt_created());
-			 Log.v(TAG,"milliseconds in days : "+days);
-			 commentHM.put(ReqResNodes.DT_CREATED,days);
+			 Log.v(TAG,"milliseconds in days : "+days +"days ago");
+			 commentHM.put(ReqResNodes.DT_CREATED,days +"days ago");
 			 
 			 //Check if hide_comment is 1 then show else hide.
 			 if(comment.getHide_comment().equals("1")){
@@ -588,6 +593,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		  Log.v(TAG,"Comments not Available for this Channel");
 		}
 		Log.i(TAG,"prepareCommentsHMArrayList() Exiting.");
+		//return commentsHMArrList;
 	 }
 	
 	/**

@@ -243,8 +243,8 @@
     </style>
     
     <style name="icon_layout">
-        <item name="android:layout_width">25dp</item>
-        <item name="android:layout_height">25dp</item>
+        <item name="android:layout_width">23dp</item>
+        <item name="android:layout_height">23dp</item>
         <item name="android:layout_marginLeft">3dip</item>
         <item name="android:layout_marginRight">3dip</item>
     </style>
