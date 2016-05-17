@@ -13,7 +13,7 @@
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_gravity="top"
-	        android:background="@color/tab_bar_background_color"
+	        android:background="@color/swipe_tabbar"
 	        android:textColor="@color/black"
 	        android:paddingTop="4dp"
 	        android:paddingBottom="4dp"/>

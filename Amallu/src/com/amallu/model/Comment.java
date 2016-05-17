@@ -9,6 +9,9 @@ public class Comment{
 	private String preference_type;
 	private String hide_comment;
 	private String dt_created;
+	private String username;
+	private String likecount;
+	private String dislikecount;
 	
 	public String getComment_id() {
 		return comment_id;
@@ -51,6 +54,24 @@ public class Comment{
 	}
 	public void setDt_created(String dt_created) {
 		this.dt_created = dt_created;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getLikecount() {
+		return likecount;
+	}
+	public void setLikecount(String likecount) {
+		this.likecount = likecount;
+	}
+	public String getDislikecount() {
+		return dislikecount;
+	}
+	public void setDislikecount(String dislikecount) {
+		this.dislikecount = dislikecount;
 	}
 	
 }

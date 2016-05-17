@@ -39,9 +39,11 @@ public class CommentsFragment extends Fragment{
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
+		Log.i(TAG,"onCreateView() Entering.");
 		View commentsView = inflater.inflate(R.layout.comments,container,false);
 		comment_list=(ListView)commentsView.findViewById(R.id.listview_comments);
 		setCommentsData();	
+		Log.i(TAG,"onCreateView() Exiting.");
 		return commentsView;		
 	}
 	
@@ -81,21 +83,26 @@ public class CommentsFragment extends Fragment{
         	  commentRowViewHolder.comment_uname_txt_view=(TextView)convertView.findViewById(R.id.comment_uname_txt_view);
         	  commentRowViewHolder.time_txt_view=(TextView)convertView.findViewById(R.id.time_txt_view);
         	  commentRowViewHolder.comment_txt_view=(TextView)convertView.findViewById(R.id.comment_txt_view);
+        	  commentRowViewHolder.like_count_txt_view=(TextView)convertView.findViewById(R.id.like_count_txt_view);
+        	  commentRowViewHolder.dislike_count_txt_view=(TextView)convertView.findViewById(R.id.dislike_count_txt_view);
         	  
         	  commentRowViewHolder.icon_comment_like=(ImageView)convertView.findViewById(R.id.icon_comment_like);
         	  commentRowViewHolder.icon_comment_dislike=(ImageView)convertView.findViewById(R.id.icon_comment_dislike);
-        	  commentRowViewHolder.icon_comment_reply=(ImageView)convertView.findViewById(R.id.icon_comment_reply);
+        	  /*commentRowViewHolder.icon_comment_reply=(ImageView)convertView.findViewById(R.id.icon_comment_reply);
         	  commentRowViewHolder.icon_comment_edit=(ImageView)convertView.findViewById(R.id.icon_comment_edit);
-        	  commentRowViewHolder.icon_comment_delete=(ImageView)convertView.findViewById(R.id.icon_comment_delete);
+        	  commentRowViewHolder.icon_comment_delete=(ImageView)convertView.findViewById(R.id.icon_comment_delete);*/
         	  convertView.setTag(commentRowViewHolder);
             }else{
             	commentRowViewHolder=(CommentRowViewHolder)convertView.getTag();
             }
             HashMap<String,Object> commentRowHM=(HashMap<String,Object>)commentRowArrList.get(position);
              
-            commentRowViewHolder.comment_uname_txt_view.setText(commentRowHM.get(ReqResNodes.USERID).toString());
+            commentRowViewHolder.comment_uname_txt_view.setText(commentRowHM.get(ReqResNodes.USERNAME).toString());
             commentRowViewHolder.time_txt_view.setText(commentRowHM.get(ReqResNodes.DT_CREATED).toString());
             commentRowViewHolder.comment_txt_view.setText(commentRowHM.get(ReqResNodes.COMMENT).toString());
+            
+            //commentRowViewHolder.like_count_txt_view.setText(commentRowHM.get(ReqResNodes.LIKECOUNT).toString());
+            //commentRowViewHolder.dislike_count_txt_view.setText(commentRowHM.get(ReqResNodes.DISLIKECOUNT).toString());
             
             commentRowViewHolder.icon_comment_like.setOnClickListener(new OnClickListener(){
 				@Override
@@ -109,7 +116,7 @@ public class CommentsFragment extends Fragment{
 					
 				}
 			});
-            commentRowViewHolder.icon_comment_reply.setOnClickListener(new OnClickListener(){
+            /*commentRowViewHolder.icon_comment_reply.setOnClickListener(new OnClickListener(){
 				@Override
 				public void onClick(View v){
 					
@@ -126,15 +133,16 @@ public class CommentsFragment extends Fragment{
 				public void onClick(View v){
 					
 				}
-			});
+			});*/
             
             return convertView;
         }
 	    
         //Inner Class to hold views of list item.
         class CommentRowViewHolder{
-    	    ImageView icon_comment_like,icon_comment_dislike,icon_comment_reply,icon_comment_edit,icon_comment_delete;
-    	    TextView comment_uname_txt_view,time_txt_view,comment_txt_view;
+    	    //ImageView icon_comment_like,icon_comment_dislike,icon_comment_reply,icon_comment_edit,icon_comment_delete;
+        	ImageView icon_comment_like,icon_comment_dislike;
+    	    TextView comment_uname_txt_view,time_txt_view,comment_txt_view,like_count_txt_view,dislike_count_txt_view;
         }
 	        
 	}

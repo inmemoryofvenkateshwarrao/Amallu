@@ -92,7 +92,12 @@ public class ChannelInfoParser{
 						comment.setHide_comment(commentJSONObj.get(ReqResNodes.HIDE_COMMENT).toString());
 					if(!commentJSONObj.isNull(ReqResNodes.DT_CREATED))
 						comment.setDt_created(commentJSONObj.get(ReqResNodes.DT_CREATED).toString());
-					
+					if(!commentJSONObj.isNull(ReqResNodes.USERNAME))
+						comment.setUsername(commentJSONObj.get(ReqResNodes.USERNAME).toString());
+					/*if(!commentJSONObj.isNull(ReqResNodes.LIKECOUNT))
+						comment.setUsername(commentJSONObj.get(ReqResNodes.LIKECOUNT).toString());
+					if(!commentJSONObj.isNull(ReqResNodes.DISLIKECOUNT))
+						comment.setUsername(commentJSONObj.get(ReqResNodes.DISLIKECOUNT).toString());*/
 					commentsList.add(comment);
 				}
 				

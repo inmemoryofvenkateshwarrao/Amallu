@@ -120,15 +120,17 @@ public class ReqResNodes{
     public static final String FRIEND_VIEWED_TIME="viewed_time ";
     
     //Menu Items
-    public static final String MENUITEM_CHANNELS="Channels";
+    //public static final String MENUITEM_CHANNELS="Channels";
     public static final String MENUITEM_CATEGORIES="Categories";
     public static final String MENUITEM_LANGUAGE="Language";
-    public static final String MENUITEM_FRIENDS="Friends";
-    public static final String MENUITEM_ACTIVITIES="Activities";
+    //public static final String MENUITEM_FRIENDS="Friends";
+    //public static final String MENUITEM_ACTIVITIES="Activities";
+    public static final String MENUITEM_SHARE="Share";
+    public static final String MENUITEM_REMINDER="Reminder";
     public static final String MENUITEM_ABOUT="About";
-    public static final String MENUITEM_ADVERTISE="Advertise";
-    public static final String MENUITEM_TERMS="Terms";
-    public static final String MENUITEM_PRIVACYPOLICY="Privacy Policy";
+    //public static final String MENUITEM_ADVERTISE="Advertise";
+    //public static final String MENUITEM_TERMS="Terms";
+    public static final String MENUITEM_PRIVACYPOLICY="Terms & Privacy Policy";
     
     //Menu Items
     public static final String COMMENT_USERNAME="comment_username";
@@ -139,6 +141,6 @@ public class ReqResNodes{
     public static final String POST="post";
     public static final String SUCCESS="1";
     public static final String FAILURE="0";
-	
+    
 }
 

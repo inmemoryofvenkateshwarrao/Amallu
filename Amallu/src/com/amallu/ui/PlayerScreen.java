@@ -190,7 +190,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		CommentsFragment.commentsArrList=null;
 		CommentsFragment.commentsArrList=commentsHMArrList;
 		PagerTabStrip pagerTabStrip=(PagerTabStrip)findViewById(R.id.pager_tab_strip);
-		pagerTabStrip.setTabIndicatorColor(getResources().getColor(R.color.green));
+		pagerTabStrip.setTabIndicatorColor(getResources().getColor(R.color.swipe_tabbar_indicator));
         ViewPager pager=(ViewPager)findViewById(R.id.pager);
         /** Getting fragment manager */
         FragmentManager fm = getSupportFragmentManager();
@@ -335,9 +335,9 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	  
 	  menuItemsList.add(menuItemHM);
 	  
-	  menuItemHM=new HashMap<String,Object>();
+	  /*menuItemHM=new HashMap<String,Object>();
 	  menuItemHM.put(ReqResNodes.MENUITEMNAME,ReqResNodes.MENUITEM_CHANNELS);
-	  menuItemsList.add(menuItemHM);
+	  menuItemsList.add(menuItemHM);*/
 	  
 	  menuItemHM=new HashMap<String,Object>();
 	  menuItemHM.put(ReqResNodes.MENUITEMNAME,ReqResNodes.MENUITEM_CATEGORIES);
@@ -347,25 +347,33 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	  menuItemHM.put(ReqResNodes.MENUITEMNAME,ReqResNodes.MENUITEM_LANGUAGE);
 	  menuItemsList.add(menuItemHM);
 	  
-	  menuItemHM=new HashMap<String,Object>();
+	  /*menuItemHM=new HashMap<String,Object>();
 	  menuItemHM.put(ReqResNodes.MENUITEMNAME,ReqResNodes.MENUITEM_FRIENDS);
 	  menuItemsList.add(menuItemHM);
 	  
 	  menuItemHM=new HashMap<String,Object>();
 	  menuItemHM.put(ReqResNodes.MENUITEMNAME,ReqResNodes.MENUITEM_ACTIVITIES);
+	  menuItemsList.add(menuItemHM);*/
+	  
+	  menuItemHM=new HashMap<String,Object>();
+	  menuItemHM.put(ReqResNodes.MENUITEMNAME,ReqResNodes.MENUITEM_SHARE);
+	  menuItemsList.add(menuItemHM);
+	  
+	  menuItemHM=new HashMap<String,Object>();
+	  menuItemHM.put(ReqResNodes.MENUITEMNAME,ReqResNodes.MENUITEM_REMINDER);
 	  menuItemsList.add(menuItemHM);
 	  
 	  menuItemHM=new HashMap<String,Object>();
 	  menuItemHM.put(ReqResNodes.MENUITEMNAME,ReqResNodes.MENUITEM_ABOUT);
 	  menuItemsList.add(menuItemHM);
 	  
-	  menuItemHM=new HashMap<String,Object>();
+	  /*menuItemHM=new HashMap<String,Object>();
 	  menuItemHM.put(ReqResNodes.MENUITEMNAME,ReqResNodes.MENUITEM_ADVERTISE);
 	  menuItemsList.add(menuItemHM);
 	  
 	  menuItemHM=new HashMap<String,Object>();
 	  menuItemHM.put(ReqResNodes.MENUITEMNAME,ReqResNodes.MENUITEM_TERMS);
-	  menuItemsList.add(menuItemHM);
+	  menuItemsList.add(menuItemHM);*/
 	  
 	  menuItemHM=new HashMap<String,Object>();
 	  menuItemHM.put(ReqResNodes.MENUITEMNAME,ReqResNodes.MENUITEM_PRIVACYPOLICY);
@@ -379,26 +387,30 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 			HashMap<String,Object> menuItemRowHM=(HashMap<String, Object>)mDrawerList.getItemAtPosition(position);
 			String menuItemName=menuItemRowHM.get(ReqResNodes.MENUITEMNAME).toString();
 			Log.d(TAG,"menuItemName : "+menuItemName);
-			if(menuItemName.equals(ReqResNodes.MENUITEM_CHANNELS)){
+			/*if(menuItemName.equals(ReqResNodes.MENUITEM_CHANNELS)){
 				mDrawerLayout.closeDrawer(mDrawerList);
 				sendChannelsReq();
-            }else if(menuItemName.equals(ReqResNodes.MENUITEM_CATEGORIES)){
+            }else */if(menuItemName.equals(ReqResNodes.MENUITEM_CATEGORIES)){
             	mDrawerLayout.closeDrawer(mDrawerList);
 				sendCategoriesReq();
             }else if(menuItemName.equals(ReqResNodes.MENUITEM_LANGUAGE)){
             	mDrawerLayout.closeDrawer(mDrawerList);
 				sendLanguagesReq();
-            }else if(menuItemName.equals(ReqResNodes.MENUITEM_FRIENDS)){
+            }else if(menuItemName.equals(ReqResNodes.MENUITEM_SHARE)){
+            	mDrawerLayout.closeDrawer(mDrawerList);
+            }else if(menuItemName.equals(ReqResNodes.MENUITEM_REMINDER)){
+            	mDrawerLayout.closeDrawer(mDrawerList);
+            }/*else if(menuItemName.equals(ReqResNodes.MENUITEM_FRIENDS)){
             	mDrawerLayout.closeDrawer(mDrawerList);
             }else if(menuItemName.equals(ReqResNodes.MENUITEM_ACTIVITIES)){
             	mDrawerLayout.closeDrawer(mDrawerList);           	
-            }else if(menuItemName.equals(ReqResNodes.MENUITEM_ABOUT)){
+            }*/else if(menuItemName.equals(ReqResNodes.MENUITEM_ABOUT)){
             	mDrawerLayout.closeDrawer(mDrawerList);          	
-            }else if(menuItemName.equals(ReqResNodes.MENUITEM_ADVERTISE)){            	
+            }/*else if(menuItemName.equals(ReqResNodes.MENUITEM_ADVERTISE)){            	
             	mDrawerLayout.closeDrawer(mDrawerList);
             }else if(menuItemName.equals(ReqResNodes.MENUITEM_TERMS)){
             	mDrawerLayout.closeDrawer(mDrawerList);
-            }else if(menuItemName.equals(ReqResNodes.MENUITEM_PRIVACYPOLICY)){
+            }*/else if(menuItemName.equals(ReqResNodes.MENUITEM_PRIVACYPOLICY)){
             	mDrawerLayout.closeDrawer(mDrawerList);
             }		 
 		 }
@@ -432,25 +444,25 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
             }
             HashMap<String,Object> mItemRowHM=(HashMap<String,Object>)menuItemRowArrList.get(position);
             String menuItemName=mItemRowHM.get(ReqResNodes.MENUITEMNAME).toString();
-            if(menuItemName.equals(ReqResNodes.MENUITEM_CHANNELS)){
+            /*if(menuItemName.equals(ReqResNodes.MENUITEM_CHANNELS)){
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_channels));
                 menuItemRowHolder.menu_item_name.setText(menuItemName);
                 menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
                 menuItemRowHolder.vertical_line.setVisibility(View.GONE);
                 menuItemRowHolder.menu_items_divider.setVisibility(View.GONE);
-            }else if(menuItemName.equals(ReqResNodes.MENUITEM_CATEGORIES)){
+            }else */if(menuItemName.equals(ReqResNodes.MENUITEM_CATEGORIES)){
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_categories));
                 menuItemRowHolder.menu_item_name.setText(menuItemName);
                 menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
                 menuItemRowHolder.vertical_line.setVisibility(View.GONE);
-                menuItemRowHolder.menu_items_divider.setVisibility(View.GONE);
+                menuItemRowHolder.menu_items_divider.setVisibility(View.VISIBLE);
             }else if(menuItemName.equals(ReqResNodes.MENUITEM_LANGUAGE)){
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_language));
                 menuItemRowHolder.menu_item_name.setText(menuItemName);
                 menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
                 menuItemRowHolder.vertical_line.setVisibility(View.GONE);
-                menuItemRowHolder.menu_items_divider.setVisibility(View.GONE);
-            }else if(menuItemName.equals(ReqResNodes.MENUITEM_FRIENDS)){
+                menuItemRowHolder.menu_items_divider.setVisibility(View.VISIBLE);
+            }/*else if(menuItemName.equals(ReqResNodes.MENUITEM_FRIENDS)){
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_friends));
                 menuItemRowHolder.menu_item_name.setText(menuItemName);
                 menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
@@ -462,13 +474,25 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
                 menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
                 menuItemRowHolder.vertical_line.setVisibility(View.GONE);
                 menuItemRowHolder.menu_items_divider.setVisibility(View.VISIBLE);
+            }*/else if(menuItemName.equals(ReqResNodes.MENUITEM_SHARE)){
+            	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_share));
+                menuItemRowHolder.menu_item_name.setText(menuItemName);
+                menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
+                menuItemRowHolder.vertical_line.setVisibility(View.GONE);
+                menuItemRowHolder.menu_items_divider.setVisibility(View.VISIBLE);
+            }else if(menuItemName.equals(ReqResNodes.MENUITEM_REMINDER)){
+            	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_calender));
+                menuItemRowHolder.menu_item_name.setText(menuItemName);
+                menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
+                menuItemRowHolder.vertical_line.setVisibility(View.GONE);
+                menuItemRowHolder.menu_items_divider.setVisibility(View.VISIBLE);
             }else if(menuItemName.equals(ReqResNodes.MENUITEM_ABOUT)){
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_about));
                 menuItemRowHolder.menu_item_name.setText(menuItemName);   
                 menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
                 menuItemRowHolder.vertical_line.setVisibility(View.GONE);
-                menuItemRowHolder.menu_items_divider.setVisibility(View.GONE);
-            }else if(menuItemName.equals(ReqResNodes.MENUITEM_ADVERTISE)){            	
+                menuItemRowHolder.menu_items_divider.setVisibility(View.VISIBLE);
+            }/*else if(menuItemName.equals(ReqResNodes.MENUITEM_ADVERTISE)){            	
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_advertise));
                 menuItemRowHolder.menu_item_name.setText(menuItemName);
                 menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
@@ -480,12 +504,12 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
                 menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
                 menuItemRowHolder.vertical_line.setVisibility(View.GONE);
                 menuItemRowHolder.menu_items_divider.setVisibility(View.VISIBLE);
-            }else if(menuItemName.equals(ReqResNodes.MENUITEM_PRIVACYPOLICY)){
+            }*/else if(menuItemName.equals(ReqResNodes.MENUITEM_PRIVACYPOLICY)){
             	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_privacy));
                 menuItemRowHolder.menu_item_name.setText(menuItemName);
                 menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
                 menuItemRowHolder.vertical_line.setVisibility(View.GONE);
-                menuItemRowHolder.menu_items_divider.setVisibility(View.GONE);
+                menuItemRowHolder.menu_items_divider.setVisibility(View.VISIBLE);
             //}else if(LoginParser.getUserName()!=null && !LoginParser.getUserName().equals("")){
             }else if(fromContext instanceof LoginScreen){
             	Log.v(TAG,"fromContext LoginParser");
@@ -579,6 +603,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 			 commentHM.put(ReqResNodes.COMMENT,comment.getComment());
 			 commentHM.put(ReqResNodes.PREFERENCE_ID,comment.getPreference_type());
 			 commentHM.put(ReqResNodes.HIDE_COMMENT,comment.getHide_comment());
+			 commentHM.put(ReqResNodes.USERNAME,comment.getUsername());
 			 long days=GlobalUtil.getDaysFromMillis(Long.parseLong(comment.getDt_created()));
 			 Log.v(TAG,"milliseconds : "+comment.getDt_created());
 			 Log.v(TAG,"milliseconds in days : "+days+" days ago");

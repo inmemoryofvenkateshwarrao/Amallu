@@ -30,6 +30,8 @@
     <color name="counter_text_color">#c5c4c4</color>
     <color name="menu_item_bg_color">#0E2A4C</color>
     
-    <color name="tab_bar_background_color">#33b5e5</color>
+    <color name="comment_uname">#F6F6F6</color>
+    <color name="swipe_tabbar">#ECECEC</color>
+    <color name="swipe_tabbar_indicator">#1280CF</color>
     
 </resources>

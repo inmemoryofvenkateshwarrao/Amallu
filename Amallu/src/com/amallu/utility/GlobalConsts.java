@@ -10,5 +10,12 @@ public class GlobalConsts{
 	public static final int LOGOUTFLAG=1;
 	
 	public static final String DAYS_SUFFIX="ago";
+	
+	public static final String COMMENTS="COMMENTS";
+	public static final String TRENDING="TRENDING";
+	public static final String FAVORITES="FAVORITES";
+	public static final String WATCHING="WATCHING";
+	public static final String FRIENDS="FRIENDS";
+	public static final String ACTIVITIES="ACTIVITIES";
 
 }
