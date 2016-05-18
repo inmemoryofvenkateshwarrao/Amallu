@@ -35,6 +35,8 @@ public class CommentsFragment extends Fragment{
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
+		Log.i(TAG,"onCreate() Entering.");
+		Log.i(TAG,"onCreate() Exiting.");
 	}
 	
 	@Override
@@ -45,6 +47,20 @@ public class CommentsFragment extends Fragment{
 		setCommentsData();	
 		Log.i(TAG,"onCreateView() Exiting.");
 		return commentsView;		
+	}
+	
+	@Override
+	public void onResume(){
+		Log.i(TAG,"onResume() Entering.");
+		Log.i(TAG,"onResume() Exiting.");
+		super.onResume();
+	}
+	
+	@Override
+	public void onPause(){
+		Log.i(TAG,"onPause() Entering.");
+		Log.i(TAG,"onPause() Exiting.");
+		super.onPause();
 	}
 	
 	//Populates ListView Data.
