@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.amallu.fragment.ActivitiesFragment;
 import com.amallu.fragment.CommentsFragment;
+import com.amallu.fragment.FriendsFragment;
 import com.amallu.fragment.TrendingFragment;
 import com.amallu.fragment.WatchingFragment;
 import com.amallu.utility.GlobalConsts;
@@ -46,10 +47,10 @@ public class OptionsFragmentPagerAdapter extends FragmentPagerAdapter{
 				return watchingFragment;
 			case 4:
 				Log.v(TAG,"Clicked on Friends Tab");
-				/*FriendsFragment friendsFragment=new FriendsFragment();
-				return friendsFragment;*/
-				WatchingFragment friendsFragment=new WatchingFragment();
+				FriendsFragment friendsFragment=new FriendsFragment();
 				return friendsFragment;
+				/*WatchingFragment friendsFragment=new WatchingFragment();
+				return friendsFragment;*/
 			case 5:
 				Log.v(TAG,"Clicked on Activities Tab");
 				ActivitiesFragment activitiesFragment=new ActivitiesFragment();

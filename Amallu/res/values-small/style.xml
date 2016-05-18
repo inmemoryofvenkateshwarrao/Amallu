@@ -252,5 +252,22 @@
         <item name="android:layout_marginLeft">2dip</item>
         <item name="android:layout_marginRight">2dip</item>
     </style>
-     
+    
+    <style name="list_row_rel_layout">
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:layout_marginBottom">6dp</item>
+    </style>
+    
+    <style name="icon_small_layout">
+        <item name="android:layout_width">18dp</item>
+        <item name="android:layout_height">18dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+    </style>
+    
+    <style name="list_row_options">
+        <item name="android:layout_height">40dp</item>
+    </style>
+    
 </resources>

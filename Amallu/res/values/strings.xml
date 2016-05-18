@@ -128,5 +128,12 @@
     <string name="app_logout">Do you want to Logout?</string>
     
     <string name="loading">Loading..</string>
+    
+    <string name="like">Like</string>
+    <string name="dislike">Dislike</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="profile">Profile</string>
+    
 
 </resources>

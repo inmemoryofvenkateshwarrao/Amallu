@@ -1,4 +1,32 @@
-<android.support.v4.widget.DrawerLayout
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/red">
+    
+    <Button android:id="@+id/show_view_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show"/>
+    
+    <Button android:id="@+id/hide_view_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/show_view_btn"
+        android:text="Hide"/>
+     
+    <include 
+        android:id="@+id/list_row_options"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        layout="@layout/list_row_options"/>
+    
+</RelativeLayout>
+
+
+<!-- <android.support.v4.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
@@ -15,7 +43,7 @@
 	        layout="@layout/videobuffer"/>
     </FrameLayout>
     
-    <!-- Listview to display slider menu -->
+    Listview to display slider menu
     <ListView
         android:id="@+id/list_slidermenu"
         android:layout_width="240dp"
@@ -27,4 +55,4 @@
         android:listSelector="@drawable/list_selector"
         android:background="@color/list_background"/>
     
-</android.support.v4.widget.DrawerLayout>
+</android.support.v4.widget.DrawerLayout> -->

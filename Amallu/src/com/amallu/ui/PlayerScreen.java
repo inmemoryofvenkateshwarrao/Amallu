@@ -22,10 +22,12 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -72,7 +74,7 @@ import com.amallu.utility.ReqResNodes;
 
 @SuppressWarnings("deprecation")
 public class PlayerScreen extends FragmentActivity implements OnClickListener,OnInfoListener,
-					OnBufferingUpdateListener,OnPreparedListener,OnCompletionListener,OnErrorListener{
+					OnBufferingUpdateListener,OnPreparedListener,OnCompletionListener,OnErrorListener,OnPageChangeListener{
 	
 	private static final String TAG="PlayerScreen";
 	private Uri uri;
@@ -105,6 +107,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	private View layout,swiping_tabs,vitemeo_controls;
 	//Either from Login or Sign Up to inject user name.
 	public static Context fromContext;
+	private OptionsFragmentPagerAdapter optionsFragmentPagerAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
@@ -193,11 +196,16 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		pagerTabStrip.setTabIndicatorColor(getResources().getColor(R.color.swipe_tabbar_indicator));
         ViewPager pager=(ViewPager)findViewById(R.id.pager);
         /** Getting fragment manager */
-        FragmentManager fm = getSupportFragmentManager();
+        FragmentManager fm=getSupportFragmentManager();
         /** Instantiating FragmentPagerAdapter */
-        OptionsFragmentPagerAdapter optionsFragmentPagerAdapter = new OptionsFragmentPagerAdapter(fm);
+        //OptionsFragmentPagerAdapter optionsFragmentPagerAdapter=new OptionsFragmentPagerAdapter(fm);
+        optionsFragmentPagerAdapter=new OptionsFragmentPagerAdapter(fm);
         /** Setting the pagerAdapter to the pager object */
         pager.setAdapter(optionsFragmentPagerAdapter);
+        
+        //Used to detect the Fragment when user swipes or switches between the tabs.
+        pager.addOnPageChangeListener(this);
+        
 		 Log.i(TAG,"initializeOptionsViews() Exiting.");
 	  }
 
@@ -1215,7 +1223,35 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		alertDialog.show();
 		return alertDialog;		
 	}
+	
+	//Start: Used for View Page tabs.
+	@Override
+	public void onPageScrollStateChanged(int arg0){
+	  Log.i(TAG,"onPageScrollStateChanged() Entering.");
+	  Log.d(TAG,"onPageScrollStateChanged arg0 : "+arg0);
+	  Log.i(TAG,"onPageScrollStateChanged() Exiting.");	
+	}
 
+	@Override
+	public void onPageScrolled(int arg0, float arg1, int arg2){
+	  Log.i(TAG,"onPageScrolled() Entering.");
+	  Log.i(TAG,"onPageScrolled() Exiting.");
+	}
+
+	@Override
+	public void onPageSelected(int position){
+	  Log.i(TAG,"onPageSelected() Entering.");
+	  Log.d(TAG,"onPageSelected Position : "+position);
+	  //FragmentManager fm = getSupportFragmentManager();
+      //Fragment fmt = optionsFragmentPagerAdapter.getItem(position);
+
+      //if(fr instanceof FriendsFragment){
+    	  
+      //}
+	  Log.i(TAG,"onPageSelected onPageSelected() Exiting.");
+	}
+	//End: Used for View Page tabs.
+	
 	//Method to handle Device back button.
 	@Override
 	public void onBackPressed(){

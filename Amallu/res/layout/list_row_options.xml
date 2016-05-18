@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white">
+    
+    <RelativeLayout
+        android:id="@+id/rel_like"
+	    android:layout_width="wrap_content"
+	    style="@style/list_row_rel_layout">
+    
+        <ImageView android:id="@+id/list_row_like_icon"
+	       android:src="@drawable/ic_like"
+	       android:contentDescription="@string/image_content_desc"
+	       android:layout_centerVertical="true"
+	       style="@style/icon_small_layout"/>
+    
+		<TextView
+	        android:id="@+id/list_row_like_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="@color/black"
+	        android:textStyle="normal"
+	        android:text="@string/like"
+	        android:layout_toRightOf="@id/list_row_like_icon"
+	        android:layout_centerVertical="true"
+	        android:layout_marginBottom="0dp"
+	        style="@style/list_item_style"/>
+		
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/rel_dislike"
+	    android:layout_width="wrap_content"
+	    style="@style/list_row_rel_layout">
+    
+        <ImageView android:id="@+id/list_row_dislike_icon"
+	       android:src="@drawable/ic_dislike"
+	       android:contentDescription="@string/image_content_desc"
+	       android:layout_centerVertical="true"
+	       style="@style/icon_small_layout"/>
+    
+		<TextView
+	        android:id="@+id/list_row_dislike_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="@color/black"
+	        android:textStyle="normal"
+	        android:text="@string/dislike"
+	        android:layout_toRightOf="@id/list_row_dislike_icon"
+	        android:layout_centerVertical="true"
+	        android:layout_marginBottom="0dp"
+	        style="@style/list_item_style"/>
+		
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/rel_edit"
+	    android:layout_width="wrap_content"
+	    style="@style/list_row_rel_layout">
+    
+        <ImageView android:id="@+id/list_row_edit_icon"
+	       android:src="@drawable/ic_edit"
+	       android:contentDescription="@string/image_content_desc"
+	       android:layout_centerVertical="true"
+	       style="@style/icon_small_layout"/>
+    
+		<TextView
+	        android:id="@+id/list_row_edit_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="@color/black"
+	        android:textStyle="normal"
+	        android:text="@string/edit"
+	        android:layout_toRightOf="@id/list_row_edit_icon"
+	        android:layout_centerVertical="true"
+	        android:layout_marginBottom="0dp"
+	        style="@style/list_item_style"/>
+		
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/rel_delete"
+	    android:layout_width="wrap_content"
+	    style="@style/list_row_rel_layout">
+    
+        <ImageView android:id="@+id/list_row_delete_icon"
+	       android:src="@drawable/ic_delete"
+	       android:contentDescription="@string/image_content_desc"
+	       android:layout_centerVertical="true"
+	       style="@style/icon_small_layout"/>
+    
+		<TextView
+	        android:id="@+id/list_row_delete_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="@color/black"
+	        android:textStyle="normal"
+	        android:text="@string/delete"
+	        android:layout_toRightOf="@id/list_row_delete_icon"
+	        android:layout_centerVertical="true"
+	        android:layout_marginBottom="0dp"
+	        style="@style/list_item_style"/>
+		
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/rel_profile"
+	    android:layout_width="wrap_content"
+	    style="@style/list_row_rel_layout">
+    
+        <ImageView android:id="@+id/list_row_profile_icon"
+	       android:src="@drawable/ic_profile"
+	       android:contentDescription="@string/image_content_desc"
+	       android:layout_centerVertical="true"
+	       style="@style/icon_small_layout"/>
+    
+		<TextView
+	        android:id="@+id/list_row_profile_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="@color/black"
+	        android:textStyle="normal"
+	        android:text="@string/profile"
+	        android:layout_toRightOf="@id/list_row_profile_icon"
+	        android:layout_centerVertical="true"
+	        android:layout_marginBottom="0dp"
+	        style="@style/list_item_style"/>
+		
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/rel_cancel"
+	    android:layout_width="wrap_content"
+	    style="@style/list_row_rel_layout">
+    
+        <ImageView android:id="@+id/list_row_cancel_icon"
+	       android:src="@android:drawable/checkbox_off_background"
+	       android:contentDescription="@string/image_content_desc"
+	       android:layout_centerVertical="true"
+	       style="@style/icon_small_layout"/>
+    
+		<TextView
+	        android:id="@+id/list_row_cancel_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="@color/black"
+	        android:textStyle="normal"
+	        android:text="@string/cancel"
+	        android:layout_toRightOf="@id/list_row_cancel_icon"
+	        android:layout_centerVertical="true"
+	        android:layout_marginBottom="0dp"
+	        style="@style/list_item_style"/>
+		
+    </RelativeLayout>
+
+
+</LinearLayout>

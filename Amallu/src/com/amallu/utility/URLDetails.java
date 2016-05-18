@@ -33,4 +33,5 @@ public class URLDetails{
 	public static final String ADDFRIEND="friend/addfriend?_format=json";
 	public static final String ACTIVITYLOG="activity/friendsactivitylog?_format=json";
 	public static final String FAVORITECHANNELS="channel/favoritechannels?_format=json";
+	public static final String FRIENDSLIST="friend/friendslist?_format=json";
 }

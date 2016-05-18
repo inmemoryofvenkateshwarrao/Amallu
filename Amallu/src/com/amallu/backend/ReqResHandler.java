@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.amallu.backend.Response.CommonHandlerType;
 import com.amallu.exception.AmalluException;
+import com.amallu.fragment.FriendsFragment;
 import com.amallu.parser.LoginParser;
 import com.amallu.utility.NetworkType;
 import com.amallu.utility.ReqResNodes;
@@ -657,6 +658,30 @@ public class ReqResHandler implements AsyncCallback{
 		Log.i(TAG, "favoriteChannelsRequest() Exiting.");
 	}
 	
+	//FriendsList API Call.
+	//GET Request
+	public void friendsListRequest(Context context, Response responseHandler,String userID){
+		Log.i(TAG, "friendsListRequest() Entering.");
+		handlerType = CommonHandlerType.FRIENDSLIST;
+		
+		response = responseHandler;
+		uiContext = context;
+		
+		//http://www.app.amallu.com/api/friend/friendslist?userid=40&_format=json
+				
+		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
+							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.FRIENDSLIST+"&userid="+userID;
+		Log.d(TAG,"FRIENDSLIST URL : "+url);
+		if(checkNetworkAvailability(context)){
+			Log.v(TAG,"Network is available. Initiating FRIENDSLIST webservice call.");
+			asyncServiceRequest = new AsyncServiceRequest(this,null,uiContext,ReqResNodes.GET);
+			asyncServiceRequest.execute(url);
+		}else{
+			Log.e(TAG,"Network connection not available.");
+		}
+		Log.i(TAG, "friendsListRequest() Exiting.");
+	}
+	
 	private boolean checkNetworkAvailability(Context ctx){
 		Log.i(TAG,"checkNetworkAvailability() Entering.");
 		boolean netWorkCheck=true;
@@ -888,6 +913,16 @@ public class ReqResHandler implements AsyncCallback{
 					//Do Nothing.
 				}
 				response.updateResponse(uiContext,result,handlerType,exception);
+			}
+			if(handlerType.equals(CommonHandlerType.FRIENDSLIST)){
+				Log.v(TAG, "Handler FRIENDSLIST");
+				if (result.equalsIgnoreCase("Exception")){
+					Log.e(TAG, "FRIENDSLIST Exception caught.");
+				}else{
+					//Do Nothing.
+				}
+				//response.updateResponse(uiContext,result,handlerType,exception);
+				
 			}
 		}catch(Exception e){
 			Log.e("Exception", e.getMessage());
