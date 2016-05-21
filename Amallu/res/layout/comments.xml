@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
     
     <!-- <TextView
 	    android:id="@+id/tv"    
@@ -17,6 +17,14 @@
 	        android:layout_height="wrap_content"
 	        android:divider="@color/list_divider"
 	        android:dividerHeight="1dp"
-	        android:background="@color/white"/> 
+	        android:background="@color/white"/>
+	    
+	    <!-- <include 
+	        android:id="@+id/list_row_options"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        android:visibility="visible"
+	        layout="@layout/list_row_options"/> -->
 
-</LinearLayout>
+</RelativeLayout>

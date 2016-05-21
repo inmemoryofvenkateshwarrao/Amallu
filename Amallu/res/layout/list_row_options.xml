@@ -7,7 +7,7 @@
     
     <RelativeLayout
         android:id="@+id/rel_like"
-	    android:layout_width="wrap_content"
+	    android:layout_width="fill_parent"
 	    style="@style/list_row_rel_layout">
     
         <ImageView android:id="@+id/list_row_like_icon"
@@ -32,7 +32,7 @@
     
     <RelativeLayout
         android:id="@+id/rel_dislike"
-	    android:layout_width="wrap_content"
+	    android:layout_width="fill_parent"
 	    style="@style/list_row_rel_layout">
     
         <ImageView android:id="@+id/list_row_dislike_icon"
@@ -57,7 +57,7 @@
     
     <RelativeLayout
         android:id="@+id/rel_edit"
-	    android:layout_width="wrap_content"
+	    android:layout_width="fill_parent"
 	    style="@style/list_row_rel_layout">
     
         <ImageView android:id="@+id/list_row_edit_icon"
@@ -82,7 +82,7 @@
     
     <RelativeLayout
         android:id="@+id/rel_delete"
-	    android:layout_width="wrap_content"
+	    android:layout_width="fill_parent"
 	    style="@style/list_row_rel_layout">
     
         <ImageView android:id="@+id/list_row_delete_icon"
@@ -107,7 +107,7 @@
     
     <RelativeLayout
         android:id="@+id/rel_profile"
-	    android:layout_width="wrap_content"
+	    android:layout_width="fill_parent"
 	    style="@style/list_row_rel_layout">
     
         <ImageView android:id="@+id/list_row_profile_icon"
@@ -132,7 +132,7 @@
     
     <RelativeLayout
         android:id="@+id/rel_cancel"
-	    android:layout_width="wrap_content"
+	    android:layout_width="fill_parent"
 	    style="@style/list_row_rel_layout">
     
         <ImageView android:id="@+id/list_row_cancel_icon"

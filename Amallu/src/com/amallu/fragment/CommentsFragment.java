@@ -30,7 +30,9 @@ public class CommentsFragment extends Fragment{
 	private CommentRowViewHolder commentRowViewHolder;
 	private LayoutInflater commentInflater;
 	private ListView comment_list;
+	//private View bottomOptionsView;
 	public static ArrayList<HashMap<String,Object>> commentsArrList;
+	private OnItemSelectedListener listener;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -44,6 +46,7 @@ public class CommentsFragment extends Fragment{
 		Log.i(TAG,"onCreateView() Entering.");
 		View commentsView = inflater.inflate(R.layout.comments,container,false);
 		comment_list=(ListView)commentsView.findViewById(R.id.listview_comments);
+		//bottomOptionsView=(View)commentsView.findViewById(R.id.list_row_options);
 		setCommentsData();	
 		Log.i(TAG,"onCreateView() Exiting.");
 		return commentsView;		
@@ -63,15 +66,43 @@ public class CommentsFragment extends Fragment{
 		super.onPause();
 	}
 	
+	//Internal Interface type to communicate with hosted Activity.
+	public interface OnItemSelectedListener{
+	   public void onCommentsItemSelected(HashMap<String,Object> commentRowHM);
+	}
+	
+	//Execute when Fragment is attached.
+	@Override
+	public void onAttach(Context context){
+	   super.onAttach(context);
+	   Log.i(TAG,"onAttach() Entering.");
+	   if(context instanceof OnItemSelectedListener){
+	     listener=(OnItemSelectedListener)context;
+	   }else{
+	     //throw new ClassCastException(context.toString()+ " must implemenet MyListFragment.OnItemSelectedListener");
+	   }
+	   Log.i(TAG,"onAttach() Exiting.");
+	 }
+
+	  @Override
+	  public void onDetach(){
+	    super.onDetach();
+	    Log.i(TAG,"onDetach() Entering.");
+	    listener=null;
+	    Log.i(TAG,"onDetach() Exiting.");
+	  }
+	
 	//Populates ListView Data.
 	private void setCommentsData(){
 	  Log.i(TAG,"setData() Entering.");
-	  CommentsAdapter commentListAdapter=new CommentsAdapter(getContext(),commentsArrList,R.layout.commentrow, new String[]{},new int[]{});
+	  CommentsAdapter commentListAdapter=new CommentsAdapter(getContext(),commentsArrList,R.layout.commentrow,new String[]{},new int[]{});
 	  comment_list.setAdapter(commentListAdapter);
 	  comment_list.setOnItemClickListener(new OnItemClickListener(){
 		 @Override
 		 public void onItemClick(AdapterView<?> parent, View view, int position,long id){
 			HashMap<String,Object> commentRowHM=(HashMap<String, Object>)comment_list.getItemAtPosition(position);
+			listener.onCommentsItemSelected(commentRowHM);
+			//slideInOptionsView(bottomOptionsView);
 			//String categoryID=commentRowHM.get(ReqResNodes.CATEGORY_ID).toString();
 			//Log.d(TAG,"Category ID : "+categoryID);
 			//sendChannelsByCategoryReq(categoryID);  
@@ -120,7 +151,10 @@ public class CommentsFragment extends Fragment{
             //commentRowViewHolder.like_count_txt_view.setText(commentRowHM.get(ReqResNodes.LIKECOUNT).toString());
             //commentRowViewHolder.dislike_count_txt_view.setText(commentRowHM.get(ReqResNodes.DISLIKECOUNT).toString());
             
-            commentRowViewHolder.icon_comment_like.setOnClickListener(new OnClickListener(){
+            commentRowViewHolder.like_count_txt_view.setText("10");
+            commentRowViewHolder.dislike_count_txt_view.setText("6");
+            
+            /*commentRowViewHolder.icon_comment_like.setOnClickListener(new OnClickListener(){
 				@Override
 				public void onClick(View v){
 					
@@ -132,7 +166,7 @@ public class CommentsFragment extends Fragment{
 					
 				}
 			});
-            /*commentRowViewHolder.icon_comment_reply.setOnClickListener(new OnClickListener(){
+            commentRowViewHolder.icon_comment_reply.setOnClickListener(new OnClickListener(){
 				@Override
 				public void onClick(View v){
 					
@@ -162,4 +196,5 @@ public class CommentsFragment extends Fragment{
         }
 	        
 	}
+	
 }

@@ -22,7 +22,6 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerTabStrip;
@@ -36,6 +35,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -53,6 +55,7 @@ import com.amallu.backend.ReqResHandler;
 import com.amallu.backend.ResponseHandler;
 import com.amallu.exception.AmalluException;
 import com.amallu.fragment.CommentsFragment;
+import com.amallu.fragment.CommentsFragment.OnItemSelectedListener;
 import com.amallu.model.ChannelDetail;
 import com.amallu.model.ChannelInfo;
 import com.amallu.model.Comment;
@@ -74,7 +77,8 @@ import com.amallu.utility.ReqResNodes;
 
 @SuppressWarnings("deprecation")
 public class PlayerScreen extends FragmentActivity implements OnClickListener,OnInfoListener,
-					OnBufferingUpdateListener,OnPreparedListener,OnCompletionListener,OnErrorListener,OnPageChangeListener{
+					OnBufferingUpdateListener,OnPreparedListener,OnCompletionListener,OnErrorListener,OnPageChangeListener,
+					OnItemSelectedListener{
 	
 	private static final String TAG="PlayerScreen";
 	private Uri uri;
@@ -82,6 +86,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	private ProgressBar pb;
 	private TextView downloadRateView, loadRateView,dislikes_txt_view,likes_txt_view,channel_name_txt_view,channel_Type_txt_view;
 	private ImageView icon_play,icon_pause,icon_maximize,icon_volume,icon_like,icon_dislike,icon_next,icon_previous,menuIcon;
+	private RelativeLayout rel_like,rel_dislike,rel_edit,rel_delete,rel_profile,rel_cancel;
 	private View likedislike;
 	public static ChannelInfo channelInfo=null;
 	public static ChannelDetail channelDetail=null;
@@ -108,6 +113,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	//Either from Login or Sign Up to inject user name.
 	public static Context fromContext;
 	private OptionsFragmentPagerAdapter optionsFragmentPagerAdapter;
+	private View bottomOptionsView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
@@ -181,6 +187,13 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		likedislike=(View)findViewById(R.id.likedislike);
 		swiping_tabs=(View)findViewById(R.id.swiping_tabs);
 		vitemeo_controls=(View)findViewById(R.id.vitemeo_controls);
+		bottomOptionsView=(View)findViewById(R.id.list_row_options);
+		rel_like=(RelativeLayout)bottomOptionsView.findViewById(R.id.rel_like);
+		rel_dislike=(RelativeLayout)bottomOptionsView.findViewById(R.id.rel_dislike);
+		rel_edit=(RelativeLayout)bottomOptionsView.findViewById(R.id.rel_edit);
+		rel_delete=(RelativeLayout)bottomOptionsView.findViewById(R.id.rel_delete);
+		rel_profile=(RelativeLayout)bottomOptionsView.findViewById(R.id.rel_profile);
+		rel_cancel=(RelativeLayout)bottomOptionsView.findViewById(R.id.rel_cancel);
 		/** Getting a reference to the ViewPager defined the layout file */
 		Log.i(TAG,"intializeViews() Exiting.");
 	  }
@@ -225,6 +238,12 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		icon_dislike.setOnClickListener(this);
 		icon_next.setOnClickListener(this);
 		icon_previous.setOnClickListener(this);
+		rel_like.setOnClickListener(this);
+		rel_dislike.setOnClickListener(this);
+		rel_edit.setOnClickListener(this);
+		rel_delete.setOnClickListener(this);
+		rel_profile.setOnClickListener(this);
+		rel_cancel.setOnClickListener(this);
 		mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
 		Log.i(TAG,"setListeners() Exiting");
 	  }
@@ -314,6 +333,30 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 						mDrawerLayout.closeDrawer(mDrawerList);
 					else
 						mDrawerLayout.openDrawer(mDrawerList);
+					break;
+				case R.id.rel_like:
+					Log.v(TAG,"Rel Like clicked");
+					slideOutOptionsView();
+					break;
+				case R.id.rel_dislike:
+					Log.v(TAG,"Rel Dislike clicked");
+					slideOutOptionsView();
+					break;
+				case R.id.rel_edit:
+					Log.v(TAG,"Rel Edit clicked");
+					slideOutOptionsView();
+					break;
+				case R.id.rel_delete:
+					Log.v(TAG,"Rel Delete clicked");
+					slideOutOptionsView();
+					break;
+				case R.id.rel_profile:
+					Log.v(TAG,"Rel Profile clicked");
+					slideOutOptionsView();
+					break;
+				case R.id.rel_cancel:
+					Log.v(TAG,"Rel Cancel clicked");
+					slideOutOptionsView();
 					break;
 				default:
 					Log.e(TAG,"In Default option");
@@ -1252,6 +1295,70 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	}
 	//End: Used for View Page tabs.
 	
+	//Abstract method implementation to communicate from CommentsFragment to Hosted Activity.
+	public void onCommentsItemSelected(HashMap<String,Object> commentRowHM){
+		Log.i(TAG,"onCommentsItemSelected() Entering.");
+		slideInOptionsView();
+		Log.i(TAG,"onCommentsItemSelected() Entering..");
+	}
+	
+	//Animates view from bottom to top and make it visible.
+	private void slideInOptionsView(){
+		Log.i(TAG,"slideOutOptionsView() Entering.");
+		
+		if(bottomOptionsView.getVisibility()==View.GONE){
+		    Animation animation = AnimationUtils.loadAnimation(this,R.anim.slide_in_from_bottom);
+		    //use this to make it longer:  animation.setDuration(1000);
+		    animation.setDuration(1000);
+		    animation.setAnimationListener(new AnimationListener(){
+		    	
+		        @Override
+		        public void onAnimationStart(Animation animation){
+		        	bottomOptionsView.setVisibility(View.VISIBLE);
+		        }
+	
+		        @Override
+		        public void onAnimationRepeat(Animation animation){}
+	
+		        @Override
+		        public void onAnimationEnd(Animation animation){}
+		    });
+	
+		    bottomOptionsView.startAnimation(animation);
+		}else{
+			//Do Nothing.
+		}
+	}
+	
+	//Animates popup from top to bottom and makes it Gone.
+	private void slideOutOptionsView(){
+		Log.i(TAG,"slideOutOptionsView() Entering.");
+		
+		if(bottomOptionsView.getVisibility()==View.VISIBLE){
+		    Animation animation = AnimationUtils.loadAnimation(this,R.anim.slide_out_to_bottom);
+		    //use this to make it longer:  animation.setDuration(1000);
+		    animation.setDuration(1000);
+		    animation.setAnimationListener(new AnimationListener(){
+		    	
+		        @Override
+		        public void onAnimationStart(Animation animation){}
+	
+		        @Override
+		        public void onAnimationRepeat(Animation animation){}
+	
+		        @Override
+		        public void onAnimationEnd(Animation animation){
+		        	bottomOptionsView.setVisibility(View.GONE);
+		        }
+		    });
+	
+		    bottomOptionsView.startAnimation(animation);
+		}else{
+			//Do Nothing.
+		}
+	    Log.i(TAG,"slideOutOptionsView() Exiting.");
+	}
+	
 	//Method to handle Device back button.
 	@Override
 	public void onBackPressed(){
@@ -1259,6 +1366,8 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	   boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
 		if(drawerOpen){
 		   mDrawerLayout.closeDrawer(mDrawerList);
+		}else if(bottomOptionsView.getVisibility()==View.VISIBLE){
+			slideOutOptionsView();
 		}else{
 		   displayDialog(PlayerScreen.this,GlobalConsts.LOGOUTFLAG);
 		   /*Intent intent=new Intent(PlayerScreen.this,LoginScreen.class);
