@@ -2,7 +2,6 @@ package com.amallu.ui;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,7 +33,7 @@ import com.amallu.utility.DateInterface;
 import com.amallu.utility.ErrorCodes;
 import com.amallu.utility.ReqResNodes;
 
-public class SignUpScreen extends Activity implements OnClickListener,OnEditorActionListener,DateInterface{
+public class SignUpScreen extends SuperActivity implements OnClickListener,OnEditorActionListener,DateInterface{
 
 	private static final String TAG="SignUpScreen";
 	private EditText first_name_edit_txt_view,last_name_edit_txt_view,email_edit_txt_view,pwd_edit_txt_view,
@@ -119,7 +118,9 @@ public class SignUpScreen extends Activity implements OnClickListener,OnEditorAc
 			handleSubmitAndDoneBtn();
 			break;
 		case R.id.login_btn:
-			startActivity(new Intent(SignUpScreen.this,LoginScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+			Intent intent=new Intent(SignUpScreen.this,LoginScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			//startActivity(new Intent(SignUpScreen.this,LoginScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+			launchNextScreen(intent);
 			break;
 		default:
 			Log.e(TAG,"In Default option");
@@ -435,9 +436,12 @@ public class SignUpScreen extends Activity implements OnClickListener,OnEditorAc
 					PlayerScreen.channelDetail=null;
 					PlayerScreen.channelDetail=channelDetail;
 					PlayerScreen.fromContext=SignUpScreen.this;
-					startActivity(new Intent(SignUpScreen.this,PlayerScreen.class)
+					Intent intent=new Intent(SignUpScreen.this,PlayerScreen.class)
+				      .putExtra(ReqResNodes.USERID,SignUpParser.getUserID()).putExtra(ReqResNodes.USERNAME,SignUpParser.getUserName());
+					launchNextScreen(intent);
+					/*startActivity(new Intent(SignUpScreen.this,PlayerScreen.class)
 				      .putExtra(ReqResNodes.USERID,SignUpParser.getUserID())
-					  .putExtra(ReqResNodes.USERNAME,SignUpParser.getUserName()));
+					  .putExtra(ReqResNodes.USERNAME,SignUpParser.getUserName()));*/
 				}
 			}else{
 				Log.e(TAG,"ChannelInfo response parsing failed.");
@@ -454,6 +458,7 @@ public class SignUpScreen extends Activity implements OnClickListener,OnEditorAc
 	public void onBackPressed(){
 	   Log.i(TAG,"onBackPressed Entering.");
 	   super.onBackPressed();
+	   launchPreviousScreen();
 	   Log.i(TAG,"onBackPressed Exiting.");
 	}
 

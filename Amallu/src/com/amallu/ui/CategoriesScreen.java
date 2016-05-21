@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,7 +28,7 @@ import com.amallu.parser.ChannelsByCategoryParser;
 import com.amallu.ui.CategoriesScreen.CategoryAdapter.CatRowViewHolder;
 import com.amallu.utility.ReqResNodes;
 
-public class CategoriesScreen extends Activity implements OnClickListener{
+public class CategoriesScreen extends SuperActivity implements OnClickListener{
 	
 	private static final String TAG="CategoriesScreen";
 	public static List<HashMap<String,Object>> categoriesList=new ArrayList<HashMap<String,Object>>();
@@ -70,6 +69,7 @@ public class CategoriesScreen extends Activity implements OnClickListener{
 	  	case R.id.icon_left_arrow:
 			Log.d(TAG,"Left arrow in header clicked.");
 			finish();
+			launchPreviousScreen();
 			break;
 		default:
 			break;
@@ -181,6 +181,7 @@ public class CategoriesScreen extends Activity implements OnClickListener{
 	public void onBackPressed(){
 	   Log.i(TAG,"onBackPressed Entering.");
 	   super.onBackPressed();
+	   launchPreviousScreen();
 	   Log.i(TAG,"onBackPressed Exiting.");
 	}
 	

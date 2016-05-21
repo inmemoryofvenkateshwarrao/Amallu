@@ -32,7 +32,7 @@ import com.amallu.parser.ChannelInfoParser;
 import com.amallu.parser.LoginParser;
 import com.amallu.utility.ErrorCodes;
 
-public class LoginScreen extends Activity implements OnClickListener,OnEditorActionListener{
+public class LoginScreen extends SuperActivity implements OnClickListener,OnEditorActionListener{
 
 	private static final String TAG="LoginScreen";
 	private EditText user_name_edit_txt_view,password_edit_txt_view;
@@ -101,13 +101,15 @@ public class LoginScreen extends Activity implements OnClickListener,OnEditorAct
 				break;
 			case R.id.signup_btn:
 				Log.i(TAG,"Signup button clicked");
-				startActivity(new Intent(LoginScreen.this,SignUpScreen.class)
-					.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+				Intent signUpIntent=new Intent(LoginScreen.this,SignUpScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				launchNextScreen(signUpIntent);
+				//startActivity(new Intent(LoginScreen.this,SignUpScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 				break;
 			case R.id.forgot_your_pwd_txt_view:
 				Log.i(TAG,"Forgot Password Link clicked");
-				startActivity(new Intent(LoginScreen.this,ForgotPWDEmailIDScreen.class)
-					.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+				Intent forgotPWDIntent=new Intent(LoginScreen.this,ForgotPWDEmailIDScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				launchNextScreen(forgotPWDIntent);
+				//startActivity(new Intent(LoginScreen.this,ForgotPWDEmailIDScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 				break;
 			case R.id.facebook_icon:
 				Log.i(TAG,"Facebook Icon clicked");
@@ -386,7 +388,9 @@ public class LoginScreen extends Activity implements OnClickListener,OnEditorAct
 					PlayerScreen.channelDetail=null;
 					PlayerScreen.channelDetail=channelDetail;
 					PlayerScreen.fromContext=LoginScreen.this;
-					startActivity(new Intent(LoginScreen.this,PlayerScreen.class));
+					Intent playerIntent=new Intent(LoginScreen.this,PlayerScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					launchNextScreen(playerIntent);
+					//startActivity(new Intent(LoginScreen.this,PlayerScreen.class));
 				}
 			}else{
 				Log.e(TAG,"ChannelInfo response parsing failed.");

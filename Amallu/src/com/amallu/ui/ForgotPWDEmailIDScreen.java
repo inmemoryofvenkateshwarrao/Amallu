@@ -1,8 +1,5 @@
 package com.amallu.ui;
 
-import com.amallu.utility.ReqResNodes;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,7 +12,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-public class ForgotPWDEmailIDScreen extends Activity implements OnClickListener,OnEditorActionListener{
+import com.amallu.utility.ReqResNodes;
+
+public class ForgotPWDEmailIDScreen extends SuperActivity implements OnClickListener,OnEditorActionListener{
 
 	private static final String TAG="ForgotPWDEmailIDScreen";
 	private EditText emailid_edit_txt_view;
@@ -82,9 +81,12 @@ public class ForgotPWDEmailIDScreen extends Activity implements OnClickListener,
 		boolean isValidated=validate(emailid);
 		if(isValidated){
 			Log.v(TAG,"ForgotPassword Email ID details validated successfully.");
-			startActivity(new Intent(ForgotPWDEmailIDScreen.this,ForgotPWDSecurityQuestionScreen.class)
+			Intent forgotPWDSecQuesIntent=new Intent(ForgotPWDEmailIDScreen.this,ForgotPWDSecurityQuestionScreen.class)
+						.putExtra(ReqResNodes.EMAILID,emailid).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			launchNextScreen(forgotPWDSecQuesIntent);
+			/*startActivity(new Intent(ForgotPWDEmailIDScreen.this,ForgotPWDSecurityQuestionScreen.class)
 				.putExtra(ReqResNodes.EMAILID,emailid)
-				.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+				.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));*/
 		}else{
 			Log.v(TAG,"forgotPassword validation failure.");
 		}
@@ -120,6 +122,7 @@ public class ForgotPWDEmailIDScreen extends Activity implements OnClickListener,
 	public void onBackPressed(){
 	   Log.i(TAG,"onBackPressed Entering.");
 	   super.onBackPressed();
+	   launchPreviousScreen();
 	   Log.i(TAG,"onBackPressed Exiting.");
 	}
 

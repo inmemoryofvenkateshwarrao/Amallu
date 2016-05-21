@@ -3,6 +3,7 @@ package com.amallu.ui;
 import com.amallu.utility.ReqResNodes;
 
 import android.app.Activity;
+import android.app.LauncherActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,7 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
-public class ForgotPWDSecurityQuestionScreen extends Activity implements OnClickListener,OnEditorActionListener{
+public class ForgotPWDSecurityQuestionScreen extends SuperActivity implements OnClickListener,OnEditorActionListener{
 
 	private static final String TAG="ForgotPWDSecurityQuestionScreen";
 	private EditText answer_edit_txt_view;
@@ -82,10 +83,15 @@ public class ForgotPWDSecurityQuestionScreen extends Activity implements OnClick
 		boolean isValidated=validate(answer);
 		if(isValidated){
 			Log.v(TAG,"ForgotPassword Security Question details validated successfully.");
-			startActivity(new Intent(ForgotPWDSecurityQuestionScreen.this,ChangePasswordScreen.class)
+			Intent forgotPWChPWDIntent=new Intent(ForgotPWDSecurityQuestionScreen.this,ChangePasswordScreen.class)
+					.putExtra(ReqResNodes.EMAILID,getIntent().getStringExtra(ReqResNodes.EMAILID))
+					.putExtra(ReqResNodes.SECURITY_QUESTION,answer_edit_txt_view.getText().toString())
+					.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			launchNextScreen(forgotPWChPWDIntent);
+			/*startActivity(new Intent(ForgotPWDSecurityQuestionScreen.this,ChangePasswordScreen.class)
 				.putExtra(ReqResNodes.EMAILID,getIntent().getStringExtra(ReqResNodes.EMAILID))
 				.putExtra(ReqResNodes.SECURITY_QUESTION,answer_edit_txt_view.getText().toString())
-				.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+				.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));*/
 		}else{
 			Log.v(TAG,"ForgotPassword validation failure.");
 		}
@@ -114,6 +120,7 @@ public class ForgotPWDSecurityQuestionScreen extends Activity implements OnClick
 	public void onBackPressed(){
 	   Log.i(TAG,"onBackPressed Entering.");
 	   super.onBackPressed();
+	   launchPreviousScreen();
 	   Log.i(TAG,"onBackPressed Exiting.");
 	}
 

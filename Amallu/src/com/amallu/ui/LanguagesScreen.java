@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,7 +28,7 @@ import com.amallu.parser.ChannelsByLanguageParser;
 import com.amallu.ui.LanguagesScreen.LanguageAdapter.LanguageRowViewHolder;
 import com.amallu.utility.ReqResNodes;
 
-public class LanguagesScreen extends Activity implements OnClickListener{
+public class LanguagesScreen extends SuperActivity implements OnClickListener{
 	
 	private static final String TAG="LanguagesScreen";
 	public static List<HashMap<String,Object>> languagesList=new ArrayList<HashMap<String,Object>>();
@@ -70,6 +69,7 @@ public class LanguagesScreen extends Activity implements OnClickListener{
 	  	case R.id.icon_left_arrow:
 			Log.d(TAG,"Left arrow in header clicked.");
 			finish();
+			launchPreviousScreen();
 			break;
 		default:
 			break;
@@ -180,6 +180,7 @@ public class LanguagesScreen extends Activity implements OnClickListener{
 	public void onBackPressed(){
 	   Log.i(TAG,"onBackPressed Entering.");
 	   super.onBackPressed();
+	   launchPreviousScreen();
 	   Log.i(TAG,"onBackPressed Exiting.");
 	}
 		

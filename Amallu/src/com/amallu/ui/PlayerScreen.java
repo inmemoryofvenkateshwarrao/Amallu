@@ -1045,6 +1045,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 				ChannelsScreen.channelsList.clear();
 				ChannelsScreen.channelsList=channelsHMList;
 				startActivity(new Intent(PlayerScreen.this,ChannelsScreen.class));
+				overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
 			}else{
 				Log.e(TAG,"Channels not Available.");
 				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
@@ -1088,6 +1089,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 				CategoriesScreen.categoriesList.clear();
 				CategoriesScreen.categoriesList=categoriesHMList;
 				startActivity(new Intent(PlayerScreen.this,CategoriesScreen.class));
+				overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
 			}else{
 				Log.e(TAG,"Categories not Available.");
 				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
@@ -1131,6 +1133,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 				LanguagesScreen.languagesList.clear();
 				LanguagesScreen.languagesList=languagesHMList;
 				startActivity(new Intent(PlayerScreen.this,LanguagesScreen.class));
+				overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
 			}else{
 				Log.e(TAG,"Languages not Available.");
 				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
@@ -1268,6 +1271,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
 				finish();
+				overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
 			}
 		});
 		noBtn.setOnClickListener(new View.OnClickListener(){

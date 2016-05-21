@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,7 +21,7 @@ import android.widget.TextView;
 import com.amallu.ui.ChannelsScreen.ChannelAdapter.ChannelRowHolder;
 import com.amallu.utility.ReqResNodes;
 
-public class ChannelsScreen extends Activity implements OnClickListener{
+public class ChannelsScreen extends SuperActivity implements OnClickListener{
 	
 	private static final String TAG="ChannelsScreen";
 	public static List<HashMap<String,Object>> channelsList=new ArrayList<HashMap<String,Object>>();
@@ -63,6 +62,7 @@ public class ChannelsScreen extends Activity implements OnClickListener{
 	  	case R.id.icon_left_arrow:
 			Log.d(TAG,"Left arrow in header clicked.");
 			finish();
+			launchPreviousScreen();
 			break;
 		default:
 			break;
@@ -133,6 +133,7 @@ public class ChannelsScreen extends Activity implements OnClickListener{
 	public void onBackPressed(){
 	   Log.i(TAG,"onBackPressed Entering.");
 	   super.onBackPressed();
+	   launchPreviousScreen();
 	   Log.i(TAG,"onBackPressed Exiting.");
 	}
 	

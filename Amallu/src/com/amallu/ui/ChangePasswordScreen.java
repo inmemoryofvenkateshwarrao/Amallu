@@ -2,7 +2,6 @@ package com.amallu.ui;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,7 +27,7 @@ import com.amallu.parser.ChannelInfoParser;
 import com.amallu.utility.ErrorCodes;
 import com.amallu.utility.ReqResNodes;
 
-public class ChangePasswordScreen extends Activity implements OnClickListener,OnEditorActionListener{
+public class ChangePasswordScreen extends SuperActivity implements OnClickListener,OnEditorActionListener{
 	
 	private static final String TAG="ChangePasswordScreen";
 	private EditText change_pwd_edit_txt_view,conf_pwd_edit_txt_view;
@@ -146,14 +145,6 @@ public class ChangePasswordScreen extends Activity implements OnClickListener,On
 		return isValidated;
 	}
 	
-	//Method to handle Device back button.
-	@Override
-	public void onBackPressed(){
-	   Log.i(TAG,"onBackPressed Entering.");
-	   super.onBackPressed();
-	   Log.i(TAG,"onBackPressed Exiting.");
-	}
-	
 	//Method to send ChangePassword request.
 	private void sendChangePWDReq(String email,String newPassword,String confirmNewPassword){
 		Log.i(TAG,"sendChangePWDReq() Entering.");
@@ -192,8 +183,10 @@ public class ChangePasswordScreen extends Activity implements OnClickListener,On
 				   Log.d(TAG,"isSuccess : "+changePWD.getIsSuccess());
 				   Log.d(TAG,"message : "+changePWD.getMessage());
 				   //sendDefaultChannelInfoReq(userid);
-				   startActivity(new Intent(ChangePasswordScreen.this,LoginScreen.class)
-								.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+				   Intent intent=new Intent(ChangePasswordScreen.this,LoginScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				   launchNextScreen(intent);
+				   /*startActivity(new Intent(ChangePasswordScreen.this,LoginScreen.class)
+								.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));*/
 				}
 			}else{
 				Log.e(TAG,"Change Password response parsing failed.");
@@ -307,6 +300,15 @@ public class ChangePasswordScreen extends Activity implements OnClickListener,On
 		}
 		
 		Log.i(TAG,"channelInfoProceedUI() Exiting.");
+	}
+	
+	//Method to handle Device back button.
+	@Override
+	public void onBackPressed(){
+	   Log.i(TAG,"onBackPressed Entering.");
+	   super.onBackPressed();
+	   launchPreviousScreen();
+	   Log.i(TAG,"onBackPressed Exiting.");
 	}
 	
 }

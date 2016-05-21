@@ -1,14 +1,13 @@
 package com.amallu.ui;
 
-import com.amallu.utility.GlobalConsts;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 
-public class SplashScreen extends Activity{
+import com.amallu.utility.GlobalConsts;
+
+public class SplashScreen extends SuperActivity{
 
 	private static final String TAG="SplashScreen";
 	
@@ -21,8 +20,8 @@ public class SplashScreen extends Activity{
 		new Handler().postDelayed(new Runnable(){
 	        @Override
 	        public void run(){
-	          Intent loginIntent = new Intent(SplashScreen.this,LoginScreen.class);
-	          startActivity(loginIntent);
+	          Intent loginIntent=new Intent(SplashScreen.this,LoginScreen.class);
+	          launchNextScreen(loginIntent);
 	          finish();
 	        }
 	       },GlobalConsts.SPLASHTIME);
