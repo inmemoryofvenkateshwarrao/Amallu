@@ -470,8 +470,7 @@ public class ReqResHandler implements AsyncCallback{
 	
 	//Change Password API Call.
 	//POST Request
-	public void changePasswordRequest(Context context, Response responseHandler,String emailid,String oldPwd,
-									String newPwd,String confirmPwd){
+	public void changePasswordRequest(Context context, Response responseHandler,String emailid,String newPwd,String confirmPwd){
 		Log.i(TAG, "changePasswordRequest() Entering.");
 		handlerType = CommonHandlerType.CHANGEPASSWORD;
 		
@@ -481,7 +480,6 @@ public class ReqResHandler implements AsyncCallback{
 		//http://www.app.amallu.com/api/user/changepassword?_format=json
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put(ReqResNodes.EMAILID,emailid);
-		paramsMap.put(ReqResNodes.OLDPASSWORD,oldPwd);
 		paramsMap.put(ReqResNodes.NEWPASSWORD,newPwd);
 		paramsMap.put(ReqResNodes.CONFIRMPASSWORD,confirmPwd);
 		

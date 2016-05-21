@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.amallu.exception.AmalluException;
 import com.amallu.ui.CategoriesScreen;
+import com.amallu.ui.ChangePasswordScreen;
 import com.amallu.ui.ForgetPasswordScreen;
 import com.amallu.ui.LanguagesScreen;
 import com.amallu.ui.LoginScreen;
@@ -124,7 +125,7 @@ public class ResponseHandler implements Response{
 			if(result.equalsIgnoreCase("Exception")){
 				Log.e(TAG, "CHANGEPASSWORD Exception caught.");
 			}
-			//((ChangePasswordScreen)context).changePWDProceedUI(result,ex);
+			((ChangePasswordScreen)context).changePWDProceedUI(result,ex);
 		}
 		if(uiHandler.equals(CommonHandlerType.CHANNELSBYCATEGORY)){
 			if(result.equalsIgnoreCase("Exception")){

@@ -136,6 +136,8 @@ public class ReqResNodes{
     public static final String COMMENT_USERNAME="comment_username";
     public static final String COMMENT_TIME="comment_time";
     
+    public static final String SECURITY_QUESTION="security_question";
+    
     //Common
     public static final String GET="get";
     public static final String POST="post";

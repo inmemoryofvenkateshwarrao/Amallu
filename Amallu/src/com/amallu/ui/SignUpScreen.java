@@ -18,7 +18,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-import android.widget.Toast;
 
 import com.amallu.backend.CustomProgressDialog;
 import com.amallu.backend.ReqResHandler;

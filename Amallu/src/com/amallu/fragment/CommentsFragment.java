@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -23,47 +22,44 @@ import com.amallu.fragment.CommentsFragment.CommentsAdapter.CommentRowViewHolder
 import com.amallu.ui.R;
 import com.amallu.utility.ReqResNodes;
 
-
 public class CommentsFragment extends Fragment{
 	
 	private static final String TAG="CommentsFragment";
 	private CommentRowViewHolder commentRowViewHolder;
 	private LayoutInflater commentInflater;
 	private ListView comment_list;
-	//private View bottomOptionsView;
 	public static ArrayList<HashMap<String,Object>> commentsArrList;
 	private OnItemSelectedListener listener;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
-		super.onCreate(savedInstanceState);
-		Log.i(TAG,"onCreate() Entering.");
-		Log.i(TAG,"onCreate() Exiting.");
+	  super.onCreate(savedInstanceState);
+	  Log.i(TAG,"onCreate() Entering.");
+	  Log.i(TAG,"onCreate() Exiting.");
 	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
-		Log.i(TAG,"onCreateView() Entering.");
-		View commentsView = inflater.inflate(R.layout.comments,container,false);
-		comment_list=(ListView)commentsView.findViewById(R.id.listview_comments);
-		//bottomOptionsView=(View)commentsView.findViewById(R.id.list_row_options);
-		setCommentsData();	
-		Log.i(TAG,"onCreateView() Exiting.");
-		return commentsView;		
+	  Log.i(TAG,"onCreateView() Entering.");
+	  View commentsView = inflater.inflate(R.layout.comments,container,false);
+	  comment_list=(ListView)commentsView.findViewById(R.id.listview_comments);
+	  setCommentsData();	
+	  Log.i(TAG,"onCreateView() Exiting.");
+	  return commentsView;		
 	}
 	
 	@Override
 	public void onResume(){
-		Log.i(TAG,"onResume() Entering.");
-		Log.i(TAG,"onResume() Exiting.");
-		super.onResume();
+	  Log.i(TAG,"onResume() Entering.");
+	  Log.i(TAG,"onResume() Exiting.");
+	  super.onResume();
 	}
 	
 	@Override
 	public void onPause(){
-		Log.i(TAG,"onPause() Entering.");
-		Log.i(TAG,"onPause() Exiting.");
-		super.onPause();
+	  Log.i(TAG,"onPause() Entering.");
+	  Log.i(TAG,"onPause() Exiting.");
+	  super.onPause();
 	}
 	
 	//Internal Interface type to communicate with hosted Activity.
@@ -84,13 +80,41 @@ public class CommentsFragment extends Fragment{
 	   Log.i(TAG,"onAttach() Exiting.");
 	 }
 
-	  @Override
-	  public void onDetach(){
-	    super.onDetach();
-	    Log.i(TAG,"onDetach() Entering.");
-	    listener=null;
-	    Log.i(TAG,"onDetach() Exiting.");
+	@Override
+	public void onDetach(){
+	  super.onDetach();
+	  Log.i(TAG,"onDetach() Entering.");
+	  listener=null;
+	  Log.i(TAG,"onDetach() Exiting.");
+	}
+	
+	//Method used to Update the UI of Comments if user navigates to Next or Previous Channel.
+	public void updateCommentsFragmentUI(ArrayList<HashMap<String,Object>> commentsArrList){
+	  Log.i(TAG,"updateCommentsFragmentUI() Entering.");
+	  
+	  if(commentsArrList!=null&&commentsArrList.size()>0){
+		 Log.v(TAG,"Comments exists");
+		 Log.d(TAG,"commentsArrList : "+commentsArrList);
+		 CommentsAdapter commentListAdapter=new CommentsAdapter(getContext(),commentsArrList,R.layout.commentrow,new String[]{},new int[]{});
+		  comment_list.setAdapter(commentListAdapter);
+		  commentListAdapter.notifyDataSetChanged();
+		  comment_list.setOnItemClickListener(new OnItemClickListener(){
+			 @Override
+			 public void onItemClick(AdapterView<?> parent, View view, int position,long id){
+				HashMap<String,Object> commentRowHM=(HashMap<String,Object>)comment_list.getItemAtPosition(position);
+				if(listener!=null){
+				  listener.onCommentsItemSelected(commentRowHM);	
+				}else{
+				  Log.e(TAG,"Error in attaching CommentsFragment to PlayerScreen : listener=null");
+				}
+			 }
+		   });
+	  }else{
+		 Log.e(TAG,"Comments does not exists for this Channel");
 	  }
+	  
+	  Log.i(TAG,"updateCommentsFragmentUI() Exiting.");
+	}
 	
 	//Populates ListView Data.
 	private void setCommentsData(){
@@ -100,12 +124,12 @@ public class CommentsFragment extends Fragment{
 	  comment_list.setOnItemClickListener(new OnItemClickListener(){
 		 @Override
 		 public void onItemClick(AdapterView<?> parent, View view, int position,long id){
-			HashMap<String,Object> commentRowHM=(HashMap<String, Object>)comment_list.getItemAtPosition(position);
-			listener.onCommentsItemSelected(commentRowHM);
-			//slideInOptionsView(bottomOptionsView);
-			//String categoryID=commentRowHM.get(ReqResNodes.CATEGORY_ID).toString();
-			//Log.d(TAG,"Category ID : "+categoryID);
-			//sendChannelsByCategoryReq(categoryID);  
+			HashMap<String,Object> commentRowHM=(HashMap<String,Object>)comment_list.getItemAtPosition(position);
+			if(listener!=null){
+			  listener.onCommentsItemSelected(commentRowHM);	
+			}else{
+			  Log.e(TAG,"Error in attaching CommentsFragment to PlayerScreen : listener=null");
+			}
 		 }
 	   });
 	  Log.i(TAG,"setData() Exiting.");
@@ -135,9 +159,6 @@ public class CommentsFragment extends Fragment{
         	  
         	  commentRowViewHolder.icon_comment_like=(ImageView)convertView.findViewById(R.id.icon_comment_like);
         	  commentRowViewHolder.icon_comment_dislike=(ImageView)convertView.findViewById(R.id.icon_comment_dislike);
-        	  /*commentRowViewHolder.icon_comment_reply=(ImageView)convertView.findViewById(R.id.icon_comment_reply);
-        	  commentRowViewHolder.icon_comment_edit=(ImageView)convertView.findViewById(R.id.icon_comment_edit);
-        	  commentRowViewHolder.icon_comment_delete=(ImageView)convertView.findViewById(R.id.icon_comment_delete);*/
         	  convertView.setTag(commentRowViewHolder);
             }else{
             	commentRowViewHolder=(CommentRowViewHolder)convertView.getTag();

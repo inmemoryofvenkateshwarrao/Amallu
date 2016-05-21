@@ -48,26 +48,35 @@
 		    
 		</RelativeLayout>
 		
-	    <TextView
-	        android:id="@+id/page_level_error_txt_view"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="@string/connectionException"
-	        android:visibility="gone"
-	        android:layout_marginLeft="10dp"
-	        android:layout_marginTop="10dp"
-	        style="@style/error_text_style"/>
-		
 	    <LinearLayout
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
 		    android:orientation="vertical"
 		    style="@style/content_style">
+		    
+	        <TextView
+		        android:id="@+id/security_question_label_txt_view"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/security_question"
+		        android:layout_marginTop="10dp"
+		        android:textColor="@color/forgot_pwd_header"
+		        style="@style/text_size_style"/>
+	        
+	        <TextView
+		        android:id="@+id/security_question_txt_view"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="What is your pet's name ?"
+		        android:layout_marginTop="10dp"
+		        android:layout_marginBottom="5dp"
+		        android:textColor="@color/white"
+		        style="@style/text_size_style"/>
 	    
 		    <EditText 
-		        android:id="@+id/emailid_edit_txt_view"
+		        android:id="@+id/answer_edit_txt_view"
 		        android:layout_width="fill_parent"
-		        android:hint="@string/enter_emailid"
+		        android:hint="@string/enter_answer"
 		        android:textColorHint="@color/hint_text_color"
 		        android:maxLength="40"
 		        android:singleLine="true"
@@ -75,10 +84,10 @@
 		        style="@style/edit_text_style"/>
 		    
 		    <TextView
-		        android:id="@+id/emailid_error_txt_view"
+		        android:id="@+id/answer_error_txt_view"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="@string/emailid_error_msg"
+		        android:text="@string/answer_error_msg"
 		        android:visibility="gone"
 		        style="@style/error_text_style"/>
 		    
@@ -89,28 +98,14 @@
 		        style="@style/cancel_submit_lin">
 		        
 		        <Button 
-			        android:id="@+id/cancel_btn"
-			        android:layout_width="wrap_content"
-			        android:text="@string/cancel"
-			        style="@style/button_style"
-			        android:layout_weight="1"
-			        android:layout_marginRight="3dp"/>
-		        
-		        <Button 
-			        android:id="@+id/submit_btn"
-			        android:layout_width="wrap_content"
-			        android:text="@string/submit"
+			        android:id="@+id/next_btn"
+			        android:layout_width="0dp"
+			        android:text="@string/next"
 			        style="@style/button_style"
 			        android:layout_weight="1"
 			        android:layout_marginLeft="3dp"/>
 		        
 		    </LinearLayout>
-		    
-		    <!-- <Button 
-		        android:id="@+id/submit_btn"
-		        android:layout_width="fill_parent"
-		        android:text="@string/submit"
-		        style="@style/button_style"/> -->
 	    
 	    </LinearLayout>
 	    

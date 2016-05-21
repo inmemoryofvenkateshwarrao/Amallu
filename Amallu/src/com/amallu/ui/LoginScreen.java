@@ -101,11 +101,13 @@ public class LoginScreen extends Activity implements OnClickListener,OnEditorAct
 				break;
 			case R.id.signup_btn:
 				Log.i(TAG,"Signup button clicked");
-				startActivity(new Intent(LoginScreen.this,SignUpScreen.class));
+				startActivity(new Intent(LoginScreen.this,SignUpScreen.class)
+					.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 				break;
 			case R.id.forgot_your_pwd_txt_view:
 				Log.i(TAG,"Forgot Password Link clicked");
-				startActivity(new Intent(LoginScreen.this,ForgetPasswordScreen.class));
+				startActivity(new Intent(LoginScreen.this,ForgotPWDEmailIDScreen.class)
+					.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 				break;
 			case R.id.facebook_icon:
 				Log.i(TAG,"Facebook Icon clicked");
@@ -131,7 +133,7 @@ public class LoginScreen extends Activity implements OnClickListener,OnEditorAct
 	
 	//Handles Keyboard Done and Enter button and initiates Login API Call.
 	@Override
-	public boolean onEditorAction(TextView v, int actionId, KeyEvent event){
+	public boolean onEditorAction(TextView v,int actionId,KeyEvent event){
 		if((event!=null&&(event.getKeyCode()==KeyEvent.KEYCODE_ENTER))||(actionId==EditorInfo.IME_ACTION_DONE)){
 		   Log.v(TAG, "Enter or Done button pressed");
 		   handleLoginAndDoneBtn();
@@ -188,36 +190,36 @@ public class LoginScreen extends Activity implements OnClickListener,OnEditorAct
 	
 	//Method to clear User Credentials
 	private void clearUserCredentials(){
-		Log.i(TAG,"clearUserCredentials() Entering.");
-		user_name_edit_txt_view.setText("");
-		password_edit_txt_view.setText("");
-		user_name_edit_txt_view.requestFocus();
-		Log.i(TAG,"clearUserCredentials() Exiting");
+	  Log.i(TAG,"clearUserCredentials() Entering.");
+	  user_name_edit_txt_view.setText("");
+	  password_edit_txt_view.setText("");
+	  user_name_edit_txt_view.requestFocus();
+	  Log.i(TAG,"clearUserCredentials() Exiting");
 	}
 	
 	//Method to display Toast message for unimplemented features for 2 Seconds.
- 	protected void displayToast() {	
- 		Log.d(TAG,"In displayToast Method");
- 		 LayoutInflater inflater = getLayoutInflater();
-         View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.toast_layout));
-         toastText = (TextView)layout.findViewById(R.id.toast_text_1);
-         toastText.setText("Coming Soon !");
-         toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL,0,0);
-         toast.setDuration(Toast.LENGTH_SHORT);
-         toast.setView(layout);
-         toast.show();
+ 	protected void displayToast(){	
+ 	   Log.d(TAG,"In displayToast Method");
+ 	   LayoutInflater inflater = getLayoutInflater();
+       View layout = inflater.inflate(R.layout.custom_toast, (ViewGroup) findViewById(R.id.toast_layout));
+       toastText = (TextView)layout.findViewById(R.id.toast_text_1);
+       toastText.setText("Coming Soon !");
+       toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL,0,0);
+       toast.setDuration(Toast.LENGTH_SHORT);
+       toast.setView(layout);
+       toast.show();
  	}
  	
  	//Method to Cancel Toast it is showing. This will be used when we navigate to other screens.
  	protected void cancelToast(){
- 		Log.d(TAG,"cancelToast");
- 		Log.d(TAG,"Toast Object is : "+toast);
- 		if(toast!=null && toast.getView().isShown()){
- 			Log.d(TAG,"Toast not equal to null : Cancelling Toast");
- 			toast.cancel();
- 			Log.e(TAG,"toast object after cancelling"+toast);
- 		}else{
- 			Log.d(TAG,"Toast is equal to null");
+ 	   Log.d(TAG,"cancelToast");
+ 	   Log.d(TAG,"Toast Object is : "+toast);
+ 	   if(toast!=null && toast.getView().isShown()){
+ 		  Log.d(TAG,"Toast not equal to null : Cancelling Toast");
+ 		  toast.cancel();
+ 		  Log.e(TAG,"toast object after cancelling"+toast);
+ 	    }else{
+ 		  Log.d(TAG,"Toast is equal to null");
  		}
  	}
  	
@@ -257,11 +259,11 @@ public class LoginScreen extends Activity implements OnClickListener,OnEditorAct
 		Log.i(TAG,"loginProceedUI() Entering.");
 		
 		if(CustomProgressDialog.IsShowing()) {
-			Log.v(TAG, "proceedUI progress dialog dismissing..");
-			CustomProgressDialog.Dismiss();
+		   Log.v(TAG, "loginProceedUI progress dialog dismissing..");
+		   CustomProgressDialog.Dismiss();
 		}
 		if(result.equalsIgnoreCase("Exception")){
-			Log.e("proceedUI", "Exception Case");
+			Log.e("loginProceedUI", "Exception Case");
 			page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
 			page_level_error_txt_view.setVisibility(View.VISIBLE);
 		}else{
@@ -292,7 +294,7 @@ public class LoginScreen extends Activity implements OnClickListener,OnEditorAct
 		Log.i(TAG,"loginProceedUI() Exiting.");
 	}
 	
-	//Method to send Login request.
+	//Method to send ChannelInfo API request.
 	private void sendDefaultChannelInfoReq(String userID){
 		Log.i(TAG,"sendDefaultChannelInfoReq() Entering.");
 		
@@ -369,13 +371,15 @@ public class LoginScreen extends Activity implements OnClickListener,OnEditorAct
 					   String prefType=comment.getPreference_type();
 					   String hideComment=comment.getHide_comment();
 					   String dateCreated=comment.getDt_created();
+					   String username=comment.getUsername();
 					   Log.d(TAG,"comment_id : "+commentID);
 					   Log.d(TAG,"userid : "+userID);
 					   Log.d(TAG,"channel_id : "+channelID1);
 					   Log.d(TAG,"comment : "+com);
 					   Log.d(TAG,"preference_type : "+prefType);
 					   Log.d(TAG,"hide_comment : "+hideComment);
-					   Log.d(TAG,"dt_created : "+dateCreated);	
+					   Log.d(TAG,"dt_created : "+dateCreated);
+					   Log.d(TAG,"username : "+username);	
 					}
 					PlayerScreen.channelInfo=null;
 					PlayerScreen.channelInfo=channelInfo;
@@ -383,19 +387,6 @@ public class LoginScreen extends Activity implements OnClickListener,OnEditorAct
 					PlayerScreen.channelDetail=channelDetail;
 					PlayerScreen.fromContext=LoginScreen.this;
 					startActivity(new Intent(LoginScreen.this,PlayerScreen.class));
-								/*.putExtra(ReqResNodes.CHANNEL_ID,channelID)
-								.putExtra(ReqResNodes.CHANNEL_CODE,channelCode)
-								.putExtra(ReqResNodes.CATEGORY_ID,categoryID)
-								.putExtra(ReqResNodes.CHANNEL_NAME,channelName)
-								.putExtra(ReqResNodes.LANGUAGE_ID,languageID)
-								.putExtra(ReqResNodes.DESCRIPTION,description)
-								.putExtra(ReqResNodes.RTMP_LINK,rtmpLink)
-								.putExtra(ReqResNodes.FOLLOWERS,followers)
-								.putExtra(ReqResNodes.VIEWS,views)
-								.putExtra(ReqResNodes.DISPLAY_CHANNEL,displayChannel)
-								.putExtra(ReqResNodes.DEFAULT_CHANNEL,defaultChannel)
-								.putExtra(ReqResNodes.TIME_WATCHED,timeWatched)
-								.putExtra(ReqResNodes.THUMBNAIL,thumbnail));*/
 				}
 			}else{
 				Log.e(TAG,"ChannelInfo response parsing failed.");

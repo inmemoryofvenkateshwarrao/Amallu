@@ -22,6 +22,7 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.PagerTabStrip;
@@ -54,8 +55,13 @@ import com.amallu.backend.CustomProgressDialog;
 import com.amallu.backend.ReqResHandler;
 import com.amallu.backend.ResponseHandler;
 import com.amallu.exception.AmalluException;
+import com.amallu.fragment.ActivitiesFragment;
 import com.amallu.fragment.CommentsFragment;
 import com.amallu.fragment.CommentsFragment.OnItemSelectedListener;
+import com.amallu.fragment.FavoritesFragment;
+import com.amallu.fragment.FriendsFragment;
+import com.amallu.fragment.TrendingFragment;
+import com.amallu.fragment.WatchingFragment;
 import com.amallu.model.ChannelDetail;
 import com.amallu.model.ChannelInfo;
 import com.amallu.model.Comment;
@@ -261,6 +267,8 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 			  channel_Type_txt_view.setText(channelDetail.getDescription());
 			  likes_txt_view.setText(channelInfo.getLikecount());
 			  dislikes_txt_view.setText(channelInfo.getDislikecount());
+			  //Update Comments as they are specific to Channel.
+			  //updateFragmentsUI(0);
 		      uri=Uri.parse(path);
 		      mVideoView.setVideoQuality(MediaPlayer.VIDEOQUALITY_HIGH);
 		      mVideoView.setVideoURI(uri);
@@ -969,13 +977,15 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 					   String prefType=comment.getPreference_type();
 					   String hideComment=comment.getHide_comment();
 					   String dateCreated=comment.getDt_created();
+					   String username=comment.getUsername();
 					   Log.d(TAG,"comment_id : "+commentID);
 					   Log.d(TAG,"userid : "+userID);
 					   Log.d(TAG,"channel_id : "+channelID1);
 					   Log.d(TAG,"comment : "+com);
 					   Log.d(TAG,"preference_type : "+prefType);
 					   Log.d(TAG,"hide_comment : "+hideComment);
-					   Log.d(TAG,"dt_created : "+dateCreated);	
+					   Log.d(TAG,"dt_created : "+dateCreated);
+					   Log.d(TAG,"username : "+username);
 					}
 					if(rtmpLink==null || rtmpLink.equals("")){
 					   Log.e(TAG,"path is null or empty");
@@ -983,11 +993,13 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 					   displayToast("Unable to fetch next Video URL");
 					   return;
 					 }else{
-						 PlayerScreen.channelInfo=null;
-						 PlayerScreen.channelInfo=channelInfo;
-						 PlayerScreen.channelDetail=null;
-						 PlayerScreen.channelDetail=channelDetail;
-						 setChannelInfoData();
+					   PlayerScreen.channelInfo=null;
+					   PlayerScreen.channelInfo=channelInfo;
+					   PlayerScreen.channelDetail=null;
+					   PlayerScreen.channelDetail=channelDetail;
+					   //Loads new Channel from API call
+					   setChannelInfoData();
+					   updateFragmentsUI(0);
 					 }
 				}
 			}else{
@@ -1289,15 +1301,35 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	public void onPageSelected(int position){
 	  Log.i(TAG,"onPageSelected() Entering.");
 	  Log.d(TAG,"onPageSelected Position : "+position);
-	  //FragmentManager fm = getSupportFragmentManager();
-      //Fragment fmt = optionsFragmentPagerAdapter.getItem(position);
-
-      //if(fr instanceof FriendsFragment){
-    	  
-      //}
+	  //updateFragmentsUI(position);
 	  Log.i(TAG,"onPageSelected onPageSelected() Exiting.");
 	}
 	//End: Used for View Page tabs.
+	
+	//Generic method to Control all the Fragments UI.
+	private void updateFragmentsUI(int position){
+	  Log.i(TAG,"updateFragmentsUI() Entering.");
+	  
+	  //FragmentManager fragmentManager = getSupportFragmentManager();
+      Fragment fmt = optionsFragmentPagerAdapter.getItem(position);
+
+      if(fmt instanceof CommentsFragment){
+    	 prepareCommentsHMArrayList();
+    	 ((CommentsFragment)fmt).updateCommentsFragmentUI(commentsHMArrList);
+      }else if(fmt instanceof TrendingFragment){
+    	  
+      }else if(fmt instanceof FavoritesFragment){
+    	  
+      }else if(fmt instanceof WatchingFragment){
+    	  
+      }else if(fmt instanceof FriendsFragment){
+    	  
+      }else if(fmt instanceof ActivitiesFragment){
+    	  
+      }
+	  
+	  Log.i(TAG,"updateFragmentsUI() Exiting.");
+	}
 	
 	//Abstract method implementation to communicate from CommentsFragment to Hosted Activity.
 	public void onCommentsItemSelected(HashMap<String,Object> commentRowHM){
@@ -1374,26 +1406,8 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 			slideOutOptionsView();
 		}else{
 		   displayDialog(PlayerScreen.this,GlobalConsts.LOGOUTFLAG);
-		   /*Intent intent=new Intent(PlayerScreen.this,LoginScreen.class);
-		   intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		   startActivity(intent);
-		   finish();*/
 		}
 	   Log.i(TAG,"onBackPressed Exiting.");
 	}
-	
-	/*@Override
-	public boolean onKeyDown(int keyCode,KeyEvent event){
-	    switch(keyCode){
-		  case KeyEvent.KEYCODE_BACK:
-			 Toast.makeText(this,"KeyEvent : "+KeyEvent.KEYCODE_BACK,Toast.LENGTH_LONG).show();
-		     displayDialog(PlayerScreen.this,1);
-		     return false;
-		   default:
-			   Toast.makeText(this,"KeyEvent : not known",Toast.LENGTH_LONG).show();
-			 return false; 	
-		  }
-	}*/
-	
 	
 }

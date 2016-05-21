@@ -54,6 +54,15 @@
             android:name=".ForgetPasswordScreen"
             android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" />
         <activity
+            android:name=".ForgotPWDSecurityQuestionScreen"
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" />
+        <activity
+            android:name=".ForgotPWDEmailIDScreen"
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" />
+        <activity
+            android:name=".ChangePasswordScreen"
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" />
+        <activity
             android:name=".ProfileScreen"
             android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" />
         <activity
@@ -85,7 +94,7 @@
             android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" >
         </activity>
         <activity
-            android:name=".ChangePasswordScreen"
+            android:name=".ChangePasswordScreen1"
             android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" >
         </activity>
     </application>

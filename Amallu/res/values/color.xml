@@ -34,4 +34,8 @@
     <color name="swipe_tabbar">#ECECEC</color>
     <color name="swipe_tabbar_indicator">#1280CF</color>
     
+    <color name="forgot_pwd_header">#02202B</color>
+    <color name="hint_text_color">#276A88</color>
+    <color name="security_question_color">#075A7D</color>
+    
 </resources>

@@ -24,14 +24,6 @@
 	        android:layout_gravity="center_horizontal"
 	        style="@style/app_icon_style"/>
 	    
-	    <!-- <TextView
-	        android:id="@+id/page_level_error_txt_view"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="@string/connectionException"
-	        android:visibility="visible"
-	        style="@style/error_text_style"/> -->
-	    
 	    <RelativeLayout 
 	        android:id="@+id/forgot_pwd_rel"
 		    android:layout_width="match_parent"
@@ -48,22 +40,12 @@
 		    
 		</RelativeLayout>
 		
-	    <TextView
-	        android:id="@+id/page_level_error_txt_view"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="@string/connectionException"
-	        android:visibility="gone"
-	        android:layout_marginLeft="10dp"
-	        android:layout_marginTop="10dp"
-	        style="@style/error_text_style"/>
-		
 	    <LinearLayout
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
 		    android:orientation="vertical"
 		    style="@style/content_style">
-	    
+		    
 		    <EditText 
 		        android:id="@+id/emailid_edit_txt_view"
 		        android:layout_width="fill_parent"
@@ -83,34 +65,20 @@
 		        style="@style/error_text_style"/>
 		    
 		    <LinearLayout 
-		        android:id="@+id/cancel_submit_lin"
+		        android:id="@+id/next_lin"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        style="@style/cancel_submit_lin">
 		        
 		        <Button 
-			        android:id="@+id/cancel_btn"
-			        android:layout_width="wrap_content"
-			        android:text="@string/cancel"
-			        style="@style/button_style"
-			        android:layout_weight="1"
-			        android:layout_marginRight="3dp"/>
-		        
-		        <Button 
-			        android:id="@+id/submit_btn"
-			        android:layout_width="wrap_content"
-			        android:text="@string/submit"
+			        android:id="@+id/next_btn"
+			        android:layout_width="0dp"
+			        android:text="@string/next"
 			        style="@style/button_style"
 			        android:layout_weight="1"
 			        android:layout_marginLeft="3dp"/>
 		        
 		    </LinearLayout>
-		    
-		    <!-- <Button 
-		        android:id="@+id/submit_btn"
-		        android:layout_width="fill_parent"
-		        android:text="@string/submit"
-		        style="@style/button_style"/> -->
 	    
 	    </LinearLayout>
 	    
