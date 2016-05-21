@@ -75,6 +75,7 @@ public class ChangePasswordScreen extends SuperActivity implements OnClickListen
 			break;
 	  	case R.id.cancel_btn:
 	  		finish();
+	  		launchPreviousScreen();
 	  		break;
 		default:
 			break;
