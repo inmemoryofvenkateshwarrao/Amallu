@@ -41,7 +41,7 @@
         
     <RelativeLayout 
         android:id="@+id/icon_group_rel"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/comment_txt_view"
         android:layout_toRightOf="@id/icon_comment_user">
@@ -56,12 +56,15 @@
 	         android:layout_width="wrap_content"
 	         android:layout_height="wrap_content"
 	         android:textColor="@color/black"
+	         android:layout_toRightOf="@id/icon_comment_like"
+	         android:layout_centerVertical="true"
+	         android:text="10"
 	         style="@style/list_item_style"/>
         
         <ImageView android:id="@+id/icon_comment_dislike"
-            android:layout_toRightOf="@id/icon_comment_like"
             android:src="@drawable/ic_dislike"
             android:contentDescription="@string/image_content_desc"
+            android:layout_toRightOf="@id/like_count_txt_view"
             style="@style/icon_layout"/>
         
         <TextView 
@@ -69,9 +72,12 @@
 	         android:layout_width="wrap_content"
 	         android:layout_height="wrap_content"
 	         android:textColor="@color/black"
+	         android:layout_toRightOf="@id/icon_comment_dislike"
+	         android:layout_centerVertical="true"
+	         android:text="4"
 	         style="@style/list_item_style"/>
         
-        <ImageView android:id="@+id/icon_comment_reply"
+        <!-- <ImageView android:id="@+id/icon_comment_reply"
             android:src="@drawable/ic_advertise"
             android:layout_toRightOf="@id/icon_comment_dislike"
             android:contentDescription="@string/image_content_desc"
@@ -90,7 +96,7 @@
             android:layout_toRightOf="@id/icon_comment_edit"
             android:contentDescription="@string/image_content_desc"
             android:visibility="gone"
-            style="@style/icon_layout"/>
+            style="@style/icon_layout"/> -->
         
     </RelativeLayout>
      

@@ -329,10 +329,14 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 					break;
 				case R.id.icon_three_liner:
 					boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-					if(drawerOpen)
+					if(drawerOpen){
 						mDrawerLayout.closeDrawer(mDrawerList);
-					else
+					}else{
+						if(bottomOptionsView.getVisibility()==View.VISIBLE){
+						   slideOutOptionsView();
+						}
 						mDrawerLayout.openDrawer(mDrawerList);
+					}
 					break;
 				case R.id.rel_like:
 					Log.v(TAG,"Rel Like clicked");
