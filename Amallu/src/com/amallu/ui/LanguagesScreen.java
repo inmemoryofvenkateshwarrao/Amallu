@@ -162,8 +162,10 @@ public class LanguagesScreen extends SuperActivity implements OnClickListener{
 				Log.v(TAG,"Channels Available for selected Language.");
 				ChannelsByLanguageScreen.channelsList.clear();
 				ChannelsByLanguageScreen.channelsList=channelsHMList;
-				startActivity(new Intent(LanguagesScreen.this,ChannelsByLanguageScreen.class)
-								.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+				Intent intent=new Intent(LanguagesScreen.this,ChannelsByLanguageScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				launchNextScreen(intent);
+				/*startActivity(new Intent(LanguagesScreen.this,ChannelsByLanguageScreen.class)
+								.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));*/
 			}else{
 				Log.e(TAG,"Channels not Available for selected Language.");
 				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
