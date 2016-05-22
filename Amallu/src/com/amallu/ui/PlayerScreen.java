@@ -92,7 +92,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	private ProgressBar pb;
 	private TextView downloadRateView, loadRateView,dislikes_txt_view,likes_txt_view,channel_name_txt_view,channel_Type_txt_view,
 						facebook_count_txt_view,google_count_txt_view,twitter_count_txt_view;
-	private ImageView icon_play,icon_pause,icon_maximize,icon_volume,icon_like,icon_dislike,icon_next,icon_previous,menuIcon,
+	private ImageView icon_play,icon_pause,icon_maximize,icon_minimize,icon_volume,icon_like,icon_dislike,icon_next,icon_previous,menuIcon,
 						icon_facebook,icon_google,icon_twitter;
 	private RelativeLayout rel_like,rel_dislike,rel_edit,rel_delete,rel_profile,rel_cancel,rel_controls,rel_videoview;
 	private View likedislike;
@@ -186,6 +186,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		icon_pause=(ImageView)findViewById(R.id.icon_pause);
 		icon_volume=(ImageView)findViewById(R.id.icon_volume);
 		icon_maximize=(ImageView)findViewById(R.id.icon_maximize);
+		icon_minimize=(ImageView)findViewById(R.id.icon_minimize);
 		icon_like=(ImageView)findViewById(R.id.icon_like);
 		icon_dislike=(ImageView)findViewById(R.id.icon_dislike);
 		icon_next=(ImageView)findViewById(R.id.icon_next);
@@ -250,6 +251,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		icon_pause.setOnClickListener(this);
 		icon_volume.setOnClickListener(this);
 		icon_maximize.setOnClickListener(this);
+		icon_minimize.setOnClickListener(this);
 		icon_like.setOnClickListener(this);
 		icon_dislike.setOnClickListener(this);
 		icon_next.setOnClickListener(this);
@@ -315,6 +317,13 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 				break;
 			case R.id.icon_maximize:
 				Log.i(TAG,"Maximize Icon clicked");
+				likedislike.setVisibility(View.GONE);
+		        swiping_tabs.setVisibility(View.GONE);
+				break;
+			case R.id.icon_minimize:
+				Log.i(TAG,"Minimize Icon clicked");
+				likedislike.setVisibility(View.VISIBLE);
+		        swiping_tabs.setVisibility(View.VISIBLE);
 				break;
 			case R.id.icon_like:
 				Log.i(TAG,"Like Icon clicked");
@@ -763,6 +772,8 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	        Toast.makeText(this,"Landscape",Toast.LENGTH_SHORT).show();
 	        likedislike.setVisibility(View.GONE);
 	        swiping_tabs.setVisibility(View.GONE);
+	        icon_maximize.setVisibility(View.GONE);
+	        icon_minimize.setVisibility(View.GONE);
 	        /*swiping_tabs.setVisibility(View.GONE);
 	        RelativeLayout.LayoutParams params=(RelativeLayout.LayoutParams)likedislike.getLayoutParams();
 	        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
@@ -771,6 +782,8 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	        Toast.makeText(this,"Portrait",Toast.LENGTH_SHORT).show();
 	        likedislike.setVisibility(View.VISIBLE);
 	        swiping_tabs.setVisibility(View.VISIBLE);
+	        icon_maximize.setVisibility(View.VISIBLE);
+	        icon_minimize.setVisibility(View.VISIBLE);
 	    }
 	  }
 
@@ -985,7 +998,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 					   PlayerScreen.channelDetail=channelDetail;
 					   //Loads new Channel from API call
 					   setChannelInfoData();
-					   updateFragmentsUI(0);
+					   //updateFragmentsUI(0);
 					 }
 				}
 			}else{

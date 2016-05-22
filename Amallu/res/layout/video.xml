@@ -35,9 +35,9 @@
 	        android:visibility="visible"/> 
         
 	    
-	    </RelativeLayout>
+	 </RelativeLayout>
 	     
-	     <RelativeLayout
+	 <RelativeLayout
 	        android:id="@+id/rel_videoview"
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
@@ -85,8 +85,6 @@
 			            android:text=""/>
 		      </LinearLayout>
 		      
-	    </RelativeLayout>
-    
-    
+	  </RelativeLayout>
   
 </RelativeLayout>

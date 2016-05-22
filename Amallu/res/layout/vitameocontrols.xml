@@ -37,12 +37,25 @@
         android:id="@+id/icon_maximize"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_menu_add"
+        android:src="@drawable/icon_maximize"
+        android:visibility="visible"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/image_content_desc"
+        android:padding="5dp"
+        style="@style/icon_small_layout"/>
+    
+    <ImageView 
+        android:id="@+id/icon_minimize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_minimize"
         android:visibility="gone"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:contentDescription="@string/image_content_desc"
-        style="@style/right_margin_style"/>
+        android:padding="5dp"
+        style="@style/icon_small_layout"/>
     
     <ImageView 
         android:id="@+id/icon_volume"
