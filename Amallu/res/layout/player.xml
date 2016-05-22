@@ -52,5 +52,15 @@
         android:layout_alignParentBottom="true"
         android:visibility="gone"
         layout="@layout/list_row_options"/>
+	
+	<include 
+        android:id="@+id/landscape_views"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:visibility="gone"
+        android:layout_margin="8dp"
+        layout="@layout/landscape_views"/>
 
 </RelativeLayout>

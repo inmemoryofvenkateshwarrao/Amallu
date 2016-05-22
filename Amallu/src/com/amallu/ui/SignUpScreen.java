@@ -169,9 +169,10 @@ public class SignUpScreen extends SuperActivity implements OnClickListener,OnEdi
 			handleSubmitAndDoneBtn();
 			break;
 		case R.id.login_btn:
-			Intent intent=new Intent(SignUpScreen.this,LoginScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			//Intent intent=new Intent(SignUpScreen.this,LoginScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			//startActivity(new Intent(SignUpScreen.this,LoginScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-			launchNextScreen(intent);
+			finish();
+			launchPreviousScreen();
 			break;
 		case R.id.female_color_btn:
 			break;

@@ -66,11 +66,13 @@ import com.amallu.model.ChannelDetail;
 import com.amallu.model.ChannelInfo;
 import com.amallu.model.Comment;
 import com.amallu.model.DisLikeChannel;
+import com.amallu.model.Friend;
 import com.amallu.model.LikeChannel;
 import com.amallu.parser.CategoryListParser;
 import com.amallu.parser.ChannelInfoParser;
 import com.amallu.parser.ChannelsListParser;
 import com.amallu.parser.DisLikeChannelParser;
+import com.amallu.parser.FriendsListParser;
 import com.amallu.parser.LanguageListParser;
 import com.amallu.parser.LikeChannelParser;
 import com.amallu.parser.LoginParser;
@@ -117,7 +119,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	private AlertDialog.Builder builder;
 	private AlertDialog alertDialog;
 	private LayoutInflater logoutLayoutInflater;
-	private View layout,swiping_tabs,vitemeo_controls;
+	private View layout,swiping_tabs,vitemeo_controls,landscape_views;
 	//Either from Login or Sign Up to inject user name.
 	public static Context fromContext;
 	private OptionsFragmentPagerAdapter optionsFragmentPagerAdapter;
@@ -134,8 +136,10 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		initializeOptionsViews();
 		
 		//Enabling Action Bar application icon and behaving it as toggle button
-		getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-		LayoutInflater inflater=getLayoutInflater();
+		//getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+		ActionBar actionBar=getActionBar();
+		actionBar.hide();
+		/*LayoutInflater inflater=getLayoutInflater();
         View actionBarLay=inflater.inflate(R.layout.action_bar_header,null);
         menuIcon=(ImageView)actionBarLay.findViewById(R.id.icon_three_liner);
 		getActionBar().setCustomView(actionBarLay);
@@ -143,7 +147,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
 		
-		menuIcon.setOnClickListener(this);
+		menuIcon.setOnClickListener(this);*/
 
 		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
 				R.drawable.ic_drawer, //nav menu toggle icon
@@ -174,6 +178,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	  //Method to initialize the Views of XML file.
 	  private void intializeViews(){
 		Log.i(TAG,"intializeViews() Entering.");
+		menuIcon=(ImageView)findViewById(R.id.icon_three_liner);
 		mVideoView=(VideoView)findViewById(R.id.buffer);
 	    pb=(ProgressBar)findViewById(R.id.probar);
 	    downloadRateView=(TextView)findViewById(R.id.download_rate);
@@ -203,6 +208,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		swiping_tabs=(View)findViewById(R.id.swiping_tabs);
 		vitemeo_controls=(View)findViewById(R.id.vitemeo_controls);
 		bottomOptionsView=(View)findViewById(R.id.list_row_options);
+		landscape_views=(View)findViewById(R.id.landscape_views);
 		rel_controls=(RelativeLayout)findViewById(R.id.rel_controls);
 		rel_videoview=(RelativeLayout)findViewById(R.id.rel_videoview);
 		rel_like=(RelativeLayout)bottomOptionsView.findViewById(R.id.rel_like);
@@ -243,6 +249,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	  private void setListeners(){
 		Log.i(TAG,"setListeners() Entering.");
 		mVideoView.setOnInfoListener(this);
+		menuIcon.setOnClickListener(this);
 	    mVideoView.setOnBufferingUpdateListener(this);
 	    mVideoView.setOnPreparedListener(this);
 	    mVideoView.setOnCompletionListener(this);
@@ -769,9 +776,10 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	    super.onConfigurationChanged(newConfig);
 	    //Checks the orientation of the screen
 	    if(newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE){
-	        Toast.makeText(this,"Landscape",Toast.LENGTH_SHORT).show();
+	        //Toast.makeText(this,"Landscape",Toast.LENGTH_SHORT).show();
 	        likedislike.setVisibility(View.GONE);
 	        swiping_tabs.setVisibility(View.GONE);
+	        landscape_views.setVisibility(View.VISIBLE);
 	        //icon_maximize.setVisibility(View.GONE);
 	        //icon_minimize.setVisibility(View.GONE);
 	        /*swiping_tabs.setVisibility(View.GONE);
@@ -779,9 +787,10 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 	        likedislike.setLayoutParams(params);*/ //causes layout update
 	    }else if(newConfig.orientation==Configuration.ORIENTATION_PORTRAIT){
-	        Toast.makeText(this,"Portrait",Toast.LENGTH_SHORT).show();
+	        //Toast.makeText(this,"Portrait",Toast.LENGTH_SHORT).show();
 	        likedislike.setVisibility(View.VISIBLE);
 	        swiping_tabs.setVisibility(View.VISIBLE);
+	        landscape_views.setVisibility(View.GONE);
 	        //icon_maximize.setVisibility(View.VISIBLE);
 	        //icon_minimize.setVisibility(View.VISIBLE);
 	    }
@@ -1239,6 +1248,48 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		
 		Log.i(TAG,"disLikeChannelProceedUI() Exiting.");
 	}
+	
+	//Sends FriendsList API Request.
+	private void sendFriendsListReq(){
+		Log.i(TAG,"sendFriendsListReq() Entering.");
+		
+		ReqResHandler req = new ReqResHandler();
+		CustomProgressDialog.show(PlayerScreen.this);
+
+		req.friendsListRequest(PlayerScreen.this,new ResponseHandler(),LoginParser.getUserID());
+		
+		Log.i(TAG,"sendFriendsListReq() Exiting.");
+	}
+	
+	//Methods handles the response from Server.
+	public void friendsListProceedUI(String result,AmalluException amalluEx){
+		Log.i(TAG,"friendsListProceedUI() Entering.");
+		
+		if(CustomProgressDialog.IsShowing()){
+			Log.v(TAG, "friendsListProceedUI progress dialog dismissing..");
+			CustomProgressDialog.Dismiss();
+		}
+		if(result.equalsIgnoreCase("Exception")){
+			Log.e(TAG, "friendsListProceedUI Exception Case");
+			//page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
+			//page_level_error_txt_view.setVisibility(View.VISIBLE);
+			displayToast("Exception occurred while fetching Languages");
+		}else{
+			Friend friend=FriendsListParser.getFriendsListParsedResponse(result);
+			if(friend!=null&& !friend.getFriendsHMList().isEmpty()){
+				Log.v(TAG,"Friends List Available.");
+				//startActivity(new Intent(PlayerScreen.this,LanguagesScreen.class));
+				//overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+			}else{
+				Log.e(TAG,"Friends List not Available.");
+				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
+				//page_level_error_txt_view.setVisibility(View.VISIBLE);
+				displayToast("Friends List unavailable");
+			}
+		}
+		
+		Log.i(TAG,"friendsListProceedUI() Exiting.");
+	}
 
 	private void displayToast(String toastText){
 	  Log.i(TAG,"displayToast() Entering.");
@@ -1317,8 +1368,8 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
       Fragment fmt = optionsFragmentPagerAdapter.getItem(position);
 
       if(fmt instanceof CommentsFragment){
-    	 prepareCommentsHMArrayList();
-    	 ((CommentsFragment)fmt).updateCommentsFragmentUI(commentsHMArrList);
+    	 //prepareCommentsHMArrayList();
+    	 //((CommentsFragment)fmt).updateCommentsFragmentUI(commentsHMArrList);
       }else if(fmt instanceof TrendingFragment){
     	  
       }else if(fmt instanceof FavoritesFragment){

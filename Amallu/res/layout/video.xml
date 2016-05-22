@@ -43,14 +43,37 @@
 		    android:layout_height="wrap_content"
 		    android:layout_above="@id/rel_controls"
 		    android:visibility="visible">
-    
-		     <io.vov.vitamio.widget.VideoView
-		        android:id="@+id/buffer"
-		        android:layout_alignParentTop="true"
+	     
+	       <!--  <FrameLayout 
+	            android:layout_width="match_parent"
+		    	android:layout_height="wrap_content"
+		    	android:layout_alignParentTop="true"
 		        android:layout_alignParentLeft="true"
-		        android:layout_alignParentRight="true"
-		        android:layout_width="fill_parent"
-		        android:layout_height="fill_parent"/>
+		        android:layout_alignParentRight="true"> -->
+    
+			     <io.vov.vitamio.widget.VideoView
+			        android:id="@+id/buffer"
+			        android:layout_width="fill_parent"
+			        android:layout_height="fill_parent"
+			        android:layout_alignParentTop="true"
+		        	android:layout_alignParentLeft="true"
+		        	android:layout_alignParentRight="true"/>
+			     
+			      <ImageView 
+			        android:id="@+id/icon_three_liner"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:src="@drawable/ic_drawer"
+			        android:contentDescription="@string/image_content_desc"
+			        android:background="@color/white"
+			        android:paddingTop="5dp"
+			        android:paddingBottom="5dp"
+			        android:paddingLeft="5dp"
+			        android:layout_marginTop="5dp"
+			        android:visibility="visible"
+			        style="@style/icon_small_layout"/>
+		     
+		     <!-- </FrameLayout> -->
 		    
 			    <LinearLayout
 			        android:layout_width="wrap_content"
