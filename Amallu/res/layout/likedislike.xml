@@ -9,90 +9,158 @@
     <RelativeLayout
         android:id="@+id/tv_rel"
 	    android:layout_height="wrap_content"
+	    android:layout_width="fill_parent"
 	    android:orientation="horizontal"
 	    android:padding="2dp"
-	    android:background="@color/white"
-	    style="@style/channel_text_rel_height_style">
+	    android:background="@color/white">
     
-    <TextView 
-        android:id="@+id/channel_name_txt_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Rytas TV"
-        android:textStyle="bold"
-        style="@style/normal_text_size_style"/>
-    
-    <TextView 
-        android:id="@+id/channel_Type_txt_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="German, Entertainment"
-        android:textStyle="bold"
-        android:layout_below="@id/channel_name_txt_view"
-        style="@style/normal_text_size_style"/>
+	    <TextView 
+	        android:id="@+id/channel_name_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="Rytas TV"
+	        android:textStyle="bold"
+	        style="@style/normal_text_size_style"/>
+	    
+	    <TextView 
+	        android:id="@+id/channel_Type_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="German, Entertainment"
+	        android:textStyle="bold"
+	        android:layout_below="@id/channel_name_txt_view"
+	        style="@style/normal_text_size_style"/>
+	    
+	    <ImageView 
+	        android:id="@+id/icon_next"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:src="@drawable/ic_arrow_rt"
+	        android:visibility="visible"
+	        android:layout_alignParentRight="true"
+	        android:contentDescription="@string/image_content_desc"
+	        android:layout_marginLeft="0dp"
+	        style="@style/icon_small_layout"/>
+	    
+	    <ImageView 
+	        android:id="@+id/icon_previous"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:src="@drawable/ic_arrow_lt"
+	        android:visibility="visible"
+	        android:layout_toLeftOf="@id/icon_next"
+	        android:contentDescription="@string/image_content_desc"
+	        style="@style/icon_small_layout"/>
+	    
+	    <RelativeLayout 
+	        android:id="@+id/rel_like_dislike"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@id/channel_Type_txt_view"
+	        style="@style/like_dislike_social_media_layout">
+	        
+	        <ImageView 
+		        android:id="@+id/icon_like"
+		        android:src="@drawable/ic_like"
+		        android:contentDescription="@string/image_content_desc"
+		        android:layout_centerVertical="true"
+		        style="@style/icon_small_layout"/>
+		    
+		    <TextView 
+		        android:id="@+id/likes_txt_view"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="500"
+		        android:textStyle="bold"
+		        android:layout_centerVertical="true"
+		        android:layout_toRightOf="@id/icon_like"
+		        style="@style/text_left_margin_style"/>
+		    
+		    <ImageView 
+		        android:id="@+id/icon_dislike"
+		        android:src="@drawable/ic_dislike"
+		        android:layout_toRightOf="@id/likes_txt_view"
+		        android:contentDescription="@string/image_content_desc"
+		        android:layout_centerVertical="true"
+		        style="@style/icon_small_layout"/>
+		    
+		    <TextView 
+		        android:id="@+id/dislikes_txt_view"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="12"
+		        android:textStyle="bold"
+		        android:layout_centerVertical="true"
+		        android:layout_toRightOf="@id/icon_dislike"
+		        style="@style/text_left_margin_style"/>
+	        
+	    </RelativeLayout>
+	    
+	    <RelativeLayout 
+	        android:id="@+id/rel_social_media"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@id/rel_like_dislike"
+	        android:layout_toRightOf="@id/rel_like_dislike"
+	        android:layout_alignTop="@id/rel_like_dislike"
+	        android:layout_alignParentRight="true"
+	        android:visibility="gone">
+		    
+	        <ImageView 
+		        android:id="@+id/icon_facebook"
+		        android:src="@drawable/ic_facebook"
+		        android:contentDescription="@string/image_content_desc"
+		        android:layout_centerVertical="true"
+		        style="@style/icon_small_layout"/>
+	        
+	        <TextView 
+		        android:id="@+id/facebook_count_txt_view"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="12"
+		        android:textStyle="bold"
+		        android:layout_centerVertical="true"
+		        android:layout_toRightOf="@id/icon_facebook"
+		        style="@style/text_left_margin_style"/>
+	        
+	        <ImageView 
+		        android:id="@+id/icon_google"
+		        android:src="@drawable/ic_google"
+		        android:contentDescription="@string/image_content_desc"
+		        android:layout_centerVertical="true"
+		        android:layout_toRightOf="@id/facebook_count_txt_view"
+		        style="@style/icon_small_layout"/>
+	        
+	        <TextView 
+		        android:id="@+id/google_count_txt_view"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="12"
+		        android:textStyle="bold"
+		        android:layout_centerVertical="true"
+		        android:layout_toRightOf="@id/icon_google"
+		        style="@style/text_left_margin_style"/>
+	        
+	        <ImageView 
+		        android:id="@+id/icon_twitter"
+		        android:src="@drawable/ic_twitter"
+		        android:contentDescription="@string/image_content_desc"
+		        android:layout_centerVertical="true"
+		        android:layout_toRightOf="@id/google_count_txt_view"
+		        style="@style/icon_small_layout"/>
+	        
+	        <TextView 
+		        android:id="@+id/twitter_count_txt_view"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="12"
+		        android:textStyle="bold"
+		        android:layout_centerVertical="true"
+		        android:layout_toRightOf="@id/icon_twitter"
+		        style="@style/text_left_margin_style"/>
+	        
+		</RelativeLayout>
     
     </RelativeLayout>
-    
-    <ImageView 
-        android:id="@+id/icon_like"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_like"
-        android:contentDescription="@string/image_content_desc"
-        android:layout_toRightOf="@id/tv_rel"
-        android:layout_centerVertical="true"
-        style="@style/text_left_margin_style"/>
-    
-    <TextView 
-        android:id="@+id/likes_txt_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="500"
-        android:textStyle="bold"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/icon_like"
-        style="@style/text_left_margin_style"/>
-    
-    <ImageView 
-        android:id="@+id/icon_dislike"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_dislike"
-        android:layout_toRightOf="@id/likes_txt_view"
-        android:contentDescription="@string/image_content_desc"
-        android:layout_centerVertical="true"
-        style="@style/text_left_margin_style"/>
-    
-    <TextView 
-        android:id="@+id/dislikes_txt_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="12"
-        android:textStyle="bold"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/icon_dislike"
-        style="@style/text_left_margin_style"/>
-    
-    <ImageView 
-        android:id="@+id/icon_next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_arrow_rt"
-        android:visibility="visible"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:contentDescription="@string/image_content_desc"
-        style="@style/right_margin_style"/>
-    
-    <ImageView 
-        android:id="@+id/icon_previous"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_arrow_lt"
-        android:visibility="visible"
-        android:layout_toLeftOf="@id/icon_next"
-        android:layout_centerVertical="true"
-        android:contentDescription="@string/image_content_desc"
-        style="@style/right_margin_style"/>
     
 </RelativeLayout>

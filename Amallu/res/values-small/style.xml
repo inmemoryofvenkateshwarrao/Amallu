@@ -281,6 +281,10 @@
         <item name="android:layout_marginRight">8dp</item>
     </style>
     
+    <style name="like_dislike_social_media_layout">
+        <item name="android:layout_marginTop">5dp</item>
+    </style>
+    
     <style name="list_row_options">
         <item name="android:layout_height">40dp</item>
     </style>

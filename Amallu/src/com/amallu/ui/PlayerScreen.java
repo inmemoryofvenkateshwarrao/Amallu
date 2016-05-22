@@ -90,8 +90,10 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	private Uri uri;
 	private VideoView mVideoView;
 	private ProgressBar pb;
-	private TextView downloadRateView, loadRateView,dislikes_txt_view,likes_txt_view,channel_name_txt_view,channel_Type_txt_view;
-	private ImageView icon_play,icon_pause,icon_maximize,icon_volume,icon_like,icon_dislike,icon_next,icon_previous,menuIcon;
+	private TextView downloadRateView, loadRateView,dislikes_txt_view,likes_txt_view,channel_name_txt_view,channel_Type_txt_view,
+						facebook_count_txt_view,google_count_txt_view,twitter_count_txt_view;
+	private ImageView icon_play,icon_pause,icon_maximize,icon_volume,icon_like,icon_dislike,icon_next,icon_previous,menuIcon,
+						icon_facebook,icon_google,icon_twitter;
 	private RelativeLayout rel_like,rel_dislike,rel_edit,rel_delete,rel_profile,rel_cancel;
 	private View likedislike;
 	public static ChannelInfo channelInfo=null;
@@ -167,9 +169,9 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 			//On first time display view for first Navigation Item
 			//displayView(0);
 		}
-	}
+	  }
 	
-	//Method to initialize the Views of XML file.
+	  //Method to initialize the Views of XML file.
 	  private void intializeViews(){
 		Log.i(TAG,"intializeViews() Entering.");
 		mVideoView=(VideoView)findViewById(R.id.buffer);
@@ -191,6 +193,12 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		mDrawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
 		mDrawerList=(ListView)findViewById(R.id.list_slidermenu);
 		likedislike=(View)findViewById(R.id.likedislike);
+        icon_facebook=(ImageView)likedislike.findViewById(R.id.icon_facebook);
+        icon_google=(ImageView)likedislike.findViewById(R.id.icon_google);
+        icon_twitter=(ImageView)likedislike.findViewById(R.id.icon_twitter);
+        facebook_count_txt_view=(TextView)likedislike.findViewById(R.id.facebook_count_txt_view);
+        google_count_txt_view=(TextView)likedislike.findViewById(R.id.google_count_txt_view);
+        twitter_count_txt_view=(TextView)likedislike.findViewById(R.id.twitter_count_txt_view);
 		swiping_tabs=(View)findViewById(R.id.swiping_tabs);
 		vitemeo_controls=(View)findViewById(R.id.vitemeo_controls);
 		bottomOptionsView=(View)findViewById(R.id.list_row_options);
@@ -283,99 +291,99 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	  }
 
 	  @Override
-		public void onClick(View view){
-			Log.i(TAG,"onClick() Entering.");
-			switch(view.getId()){
-				case R.id.icon_play:
-					Log.i(TAG,"Play Icon clicked");
-					icon_play.setVisibility(View.INVISIBLE);
-					icon_pause.setVisibility(View.VISIBLE);
-					mVideoView.start();
-					break;
-				case R.id.icon_pause:
-					Log.i(TAG,"Pause Icon clicked");
-					icon_pause.setVisibility(View.INVISIBLE);
-					icon_play.setVisibility(View.VISIBLE);
-					if(mVideoView.isPlaying()){
-					   mVideoView.pause();
+	  public void onClick(View view){
+		Log.i(TAG,"onClick() Entering.");
+		switch(view.getId()){
+			case R.id.icon_play:
+				Log.i(TAG,"Play Icon clicked");
+				icon_play.setVisibility(View.INVISIBLE);
+				icon_pause.setVisibility(View.VISIBLE);
+				mVideoView.start();
+				break;
+			case R.id.icon_pause:
+				Log.i(TAG,"Pause Icon clicked");
+				icon_pause.setVisibility(View.INVISIBLE);
+				icon_play.setVisibility(View.VISIBLE);
+				if(mVideoView.isPlaying()){
+				   mVideoView.pause();
+				}
+				break;
+			case R.id.icon_volume:
+				Log.i(TAG,"Volume Icon clicked");
+				break;
+			case R.id.icon_maximize:
+				Log.i(TAG,"Maximize Icon clicked");
+				break;
+			case R.id.icon_like:
+				Log.i(TAG,"Like Icon clicked");
+				checkIfChannelAlreadyLikeOrDislike(true);
+				break;
+			case R.id.icon_dislike:
+				Log.i(TAG,"Dislike Icon clicked");
+				checkIfChannelAlreadyLikeOrDislike(false);
+				break;
+			case R.id.icon_next:
+				Log.i(TAG,"Next Icon clicked");
+				mVideoView.clearFocus();
+				int currentChannelIDNext=0;
+				currentChannelIDNext=Integer.parseInt(channelDetail.getChannel_id())+1;
+				//Toast.makeText(this,"Current Channel ID : "+channelDetail.getChannel_id(),Toast.LENGTH_LONG).show();
+				displayToast("Current Channel ID : "+channelDetail.getChannel_id());
+				sendNextChannelInfoReq(Integer.toString(currentChannelIDNext));
+				break;
+			case R.id.icon_previous:
+				Log.i(TAG,"Previous Icon clicked");
+				mVideoView.clearFocus();
+				int currentChannelIDPrev=1;
+				currentChannelIDPrev=Integer.parseInt(channelDetail.getChannel_id())-1;
+				if(currentChannelIDPrev<=0){
+				   currentChannelIDPrev=Integer.parseInt(channelDetail.getChannel_id())+1;
+				}
+				//Toast.makeText(this,"Current Channel ID : "+channelDetail.getChannel_id(),Toast.LENGTH_LONG).show();
+				displayToast("Current Channel ID : "+channelDetail.getChannel_id());
+				sendNextChannelInfoReq(Integer.toString(currentChannelIDPrev));
+				break;
+			case R.id.icon_three_liner:
+				boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+				if(drawerOpen){
+					mDrawerLayout.closeDrawer(mDrawerList);
+				}else{
+					if(bottomOptionsView.getVisibility()==View.VISIBLE){
+					   slideOutOptionsView();
 					}
-					break;
-				case R.id.icon_volume:
-					Log.i(TAG,"Volume Icon clicked");
-					break;
-				case R.id.icon_maximize:
-					Log.i(TAG,"Maximize Icon clicked");
-					break;
-				case R.id.icon_like:
-					Log.i(TAG,"Like Icon clicked");
-					checkIfChannelAlreadyLikeOrDislike(true);
-					break;
-				case R.id.icon_dislike:
-					Log.i(TAG,"Dislike Icon clicked");
-					checkIfChannelAlreadyLikeOrDislike(false);
-					break;
-				case R.id.icon_next:
-					Log.i(TAG,"Next Icon clicked");
-					mVideoView.clearFocus();
-					int currentChannelIDNext=0;
-					currentChannelIDNext=Integer.parseInt(channelDetail.getChannel_id())+1;
-					//Toast.makeText(this,"Current Channel ID : "+channelDetail.getChannel_id(),Toast.LENGTH_LONG).show();
-					displayToast("Current Channel ID : "+channelDetail.getChannel_id());
-					sendNextChannelInfoReq(Integer.toString(currentChannelIDNext));
-					break;
-				case R.id.icon_previous:
-					Log.i(TAG,"Previous Icon clicked");
-					mVideoView.clearFocus();
-					int currentChannelIDPrev=1;
-					currentChannelIDPrev=Integer.parseInt(channelDetail.getChannel_id())-1;
-					if(currentChannelIDPrev<=0){
-					   currentChannelIDPrev=Integer.parseInt(channelDetail.getChannel_id())+1;
-					}
-					//Toast.makeText(this,"Current Channel ID : "+channelDetail.getChannel_id(),Toast.LENGTH_LONG).show();
-					displayToast("Current Channel ID : "+channelDetail.getChannel_id());
-					sendNextChannelInfoReq(Integer.toString(currentChannelIDPrev));
-					break;
-				case R.id.icon_three_liner:
-					boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-					if(drawerOpen){
-						mDrawerLayout.closeDrawer(mDrawerList);
-					}else{
-						if(bottomOptionsView.getVisibility()==View.VISIBLE){
-						   slideOutOptionsView();
-						}
-						mDrawerLayout.openDrawer(mDrawerList);
-					}
-					break;
-				case R.id.rel_like:
-					Log.v(TAG,"Rel Like clicked");
-					slideOutOptionsView();
-					break;
-				case R.id.rel_dislike:
-					Log.v(TAG,"Rel Dislike clicked");
-					slideOutOptionsView();
-					break;
-				case R.id.rel_edit:
-					Log.v(TAG,"Rel Edit clicked");
-					slideOutOptionsView();
-					break;
-				case R.id.rel_delete:
-					Log.v(TAG,"Rel Delete clicked");
-					slideOutOptionsView();
-					break;
-				case R.id.rel_profile:
-					Log.v(TAG,"Rel Profile clicked");
-					slideOutOptionsView();
-					break;
-				case R.id.rel_cancel:
-					Log.v(TAG,"Rel Cancel clicked");
-					slideOutOptionsView();
-					break;
-				default:
-					Log.e(TAG,"In Default option");
-					break;
-			}
-			Log.i(TAG,"onClick() Exiting");
+					mDrawerLayout.openDrawer(mDrawerList);
+				}
+				break;
+			case R.id.rel_like:
+				Log.v(TAG,"Rel Like clicked");
+				slideOutOptionsView();
+				break;
+			case R.id.rel_dislike:
+				Log.v(TAG,"Rel Dislike clicked");
+				slideOutOptionsView();
+				break;
+			case R.id.rel_edit:
+				Log.v(TAG,"Rel Edit clicked");
+				slideOutOptionsView();
+				break;
+			case R.id.rel_delete:
+				Log.v(TAG,"Rel Delete clicked");
+				slideOutOptionsView();
+				break;
+			case R.id.rel_profile:
+				Log.v(TAG,"Rel Profile clicked");
+				slideOutOptionsView();
+				break;
+			case R.id.rel_cancel:
+				Log.v(TAG,"Rel Cancel clicked");
+				slideOutOptionsView();
+				break;
+			default:
+				Log.e(TAG,"In Default option");
+				break;
 		}
+		Log.i(TAG,"onClick() Exiting");
+	}
 	  
 	//Populates Menu Items ListView Data.
 	private void setData(){

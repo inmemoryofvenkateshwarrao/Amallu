@@ -275,5 +275,9 @@
         <item name="android:layout_marginLeft">15dp</item>
         <item name="android:layout_marginRight">15dp</item>
     </style>
+    
+    <style name="like_dislike_social_media_layout">
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
      
 </resources>
