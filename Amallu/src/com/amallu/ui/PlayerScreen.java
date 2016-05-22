@@ -94,7 +94,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 						facebook_count_txt_view,google_count_txt_view,twitter_count_txt_view;
 	private ImageView icon_play,icon_pause,icon_maximize,icon_volume,icon_like,icon_dislike,icon_next,icon_previous,menuIcon,
 						icon_facebook,icon_google,icon_twitter;
-	private RelativeLayout rel_like,rel_dislike,rel_edit,rel_delete,rel_profile,rel_cancel;
+	private RelativeLayout rel_like,rel_dislike,rel_edit,rel_delete,rel_profile,rel_cancel,rel_controls,rel_videoview;
 	private View likedislike;
 	public static ChannelInfo channelInfo=null;
 	public static ChannelDetail channelDetail=null;
@@ -202,6 +202,8 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		swiping_tabs=(View)findViewById(R.id.swiping_tabs);
 		vitemeo_controls=(View)findViewById(R.id.vitemeo_controls);
 		bottomOptionsView=(View)findViewById(R.id.list_row_options);
+		rel_controls=(RelativeLayout)findViewById(R.id.rel_controls);
+		rel_videoview=(RelativeLayout)findViewById(R.id.rel_videoview);
 		rel_like=(RelativeLayout)bottomOptionsView.findViewById(R.id.rel_like);
 		rel_dislike=(RelativeLayout)bottomOptionsView.findViewById(R.id.rel_dislike);
 		rel_edit=(RelativeLayout)bottomOptionsView.findViewById(R.id.rel_edit);
@@ -758,43 +760,19 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	    super.onConfigurationChanged(newConfig);
 	    //Checks the orientation of the screen
 	    if(newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE){
-	        Toast.makeText(this, "Landscape", Toast.LENGTH_SHORT).show();
+	        Toast.makeText(this,"Landscape",Toast.LENGTH_SHORT).show();
+	        likedislike.setVisibility(View.GONE);
 	        swiping_tabs.setVisibility(View.GONE);
+	        /*swiping_tabs.setVisibility(View.GONE);
 	        RelativeLayout.LayoutParams params=(RelativeLayout.LayoutParams)likedislike.getLayoutParams();
 	        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-	        likedislike.setLayoutParams(params); //causes layout update
+	        likedislike.setLayoutParams(params);*/ //causes layout update
 	    }else if(newConfig.orientation==Configuration.ORIENTATION_PORTRAIT){
-	        Toast.makeText(this, "Portrait", Toast.LENGTH_SHORT).show();
+	        Toast.makeText(this,"Portrait",Toast.LENGTH_SHORT).show();
+	        likedislike.setVisibility(View.VISIBLE);
 	        swiping_tabs.setVisibility(View.VISIBLE);
-	        
-	        //RelativeLayout.LayoutParams params1=(RelativeLayout.LayoutParams)swiping_tabs.getLayoutParams();
-	        //params1.width=200;
-	        //params1.height=200;
-	        //params1.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-	        //swiping_tabs.setLayoutParams(params1);
-	        //swiping_tabs.invalidate();
-	        //swiping_tabs.requestLayout();
-	        
-	        /*RelativeLayout.LayoutParams params2=(RelativeLayout.LayoutParams)likedislike.getLayoutParams();
-	        params2.addRule(RelativeLayout.ABOVE, R.id.swiping_tabs);
-	        likedislike.setLayoutParams(params2); //causes layout update
-	        //likedislike.requestLayout();
-	        
-	        RelativeLayout.LayoutParams params3=(RelativeLayout.LayoutParams)vitemeo_controls.getLayoutParams();
-	        params3.addRule(RelativeLayout.ABOVE, R.id.likedislike);
-	        vitemeo_controls.setLayoutParams(params3); //causes layout update
-	        
-	        RelativeLayout.LayoutParams params4=(RelativeLayout.LayoutParams)mVideoView.getLayoutParams();
-	        params4.addRule(RelativeLayout.ABOVE, R.id.vitemeo_controls);
-	        mVideoView.setLayoutParams(params4); //causes layout update*/
-	        
-	        swiping_tabs.setVisibility(View.VISIBLE);
-	        RelativeLayout.LayoutParams params2=(RelativeLayout.LayoutParams)likedislike.getLayoutParams();
-	        params2.addRule(RelativeLayout.ABOVE, R.id.swiping_tabs);
-	        likedislike.setLayoutParams(params2); //causes layout update
-	        
 	    }
-	}
+	  }
 
 	  @Override
 	  public boolean onInfo(MediaPlayer mp, int what, int extra){
