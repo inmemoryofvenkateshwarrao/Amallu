@@ -145,11 +145,11 @@
 	        android:visibility="gone"
 	        style="@style/error_text_style"/>
 	    
-	    <RadioGroup
+	    <!-- <RadioGroup
 		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
 		    android:orientation="horizontal"
-		    android:visibility="visible">
+		    android:visibility="gone">
 		    <RadioButton 
 		        android:id="@+id/female_radio_btn"
 		        android:layout_width="wrap_content"
@@ -164,13 +164,140 @@
 		        android:textStyle="bold"
 		        android:text="@string/male"
 		        style="@style/radio_btn_right_style"/>
-	    </RadioGroup>
+	    </RadioGroup> -->
+	    
+	    <LinearLayout 
+	        android:id="@+id/lin_gender"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal">
+	    
+		    <RelativeLayout 
+		        android:id="@+id/rel_female"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content">
+		    
+			    <Button 
+			        android:id="@+id/female_color_btn"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:text="@string/female"
+			        style="@style/small_button_style"
+			        android:textColor="@color/white"
+			        android:textStyle="normal"
+			        android:background="@drawable/small_green_rounded_corners"/>
+			    <Button 
+			        android:id="@+id/female_normal_btn"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:text="@string/female"
+			        style="@style/small_button_style"
+			        android:textColor="@color/black"
+			        android:textStyle="normal"
+			        android:background="@drawable/small_white_rounded_corners"/>
+		    
+		    </RelativeLayout>
+		    
+		    <RelativeLayout 
+		        android:id="@+id/rel_male"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content">
+		    
+			    <Button 
+			        android:id="@+id/male_color_btn"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:text="@string/male"
+			        style="@style/small_button_style"
+			        android:textColor="@color/white"
+			        android:textStyle="normal"
+			        android:background="@drawable/small_green_rounded_corners"/>
+			    <Button 
+			        android:id="@+id/male_normal_btn"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:text="@string/male"
+			        style="@style/small_button_style"
+			        android:textColor="@color/black"
+			        android:textStyle="normal"
+			        android:background="@drawable/small_white_rounded_corners"/>
+		    
+		    </RelativeLayout>
+	    
+	    </LinearLayout>
+	    
+	    <!-- <Switch
+            android:id="@+id/gender_switch"
+            android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textOn="Male"
+	        android:textOff="Female"
+            android:thumb="@drawable/customswitchselector"
+            android:track="@drawable/custom_track"/> -->
+	    
+	    <!-- <Switch
+	        android:id="@+id/gender_switch"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textOn="Male"
+	        android:textOff="Female"/> -->
 	    
 	    <TextView
 	        android:id="@+id/gender_error_txt_view"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="@string/gender_error_msg"
+	        android:visibility="gone"
+	        style="@style/error_text_style"/>
+	    
+	    <EditText 
+	        android:id="@+id/mobno_edit_txt_view"
+	        android:layout_width="fill_parent"
+	        android:hint="@string/mobilenumber"
+	        android:textColorHint="@color/hint_text_color"
+	        android:inputType="number"
+	        android:maxLength="10"
+	        android:singleLine="true"
+	        android:imeOptions="actionNext"
+	        style="@style/edit_text_style"/>
+	    
+	    <TextView
+	        android:id="@+id/mobno_error_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/mobno_error_msg"
+	        android:visibility="gone"
+	        style="@style/error_text_style"/>
+	    
+	    <TextView
+	        android:id="@+id/security_question_label_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/security_question"
+	        android:layout_marginTop="10dp"
+	        android:textColor="@color/forgot_pwd_header"
+	        style="@style/text_size_style"/>
+	    
+	    <Spinner
+		    android:id="@+id/security_spinner"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"/>
+	    
+	    <EditText 
+	        android:id="@+id/answer_edit_txt_view"
+	        android:layout_width="fill_parent"
+	        android:hint="@string/enter_answer"
+	        android:textColorHint="@color/hint_text_color"
+	        android:maxLength="40"
+	        android:singleLine="true"
+	        android:imeOptions="actionDone"
+	        style="@style/edit_text_style"/>
+	    
+	    <TextView
+	        android:id="@+id/answer_error_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/answer_error_msg"
 	        android:visibility="gone"
 	        style="@style/error_text_style"/>
 	    

@@ -1,5 +1,6 @@
 package com.amallu.ui;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.DialogFragment;
@@ -12,11 +13,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 import com.amallu.backend.CustomProgressDialog;
 import com.amallu.backend.ReqResHandler;
@@ -33,15 +38,17 @@ import com.amallu.utility.DateInterface;
 import com.amallu.utility.ErrorCodes;
 import com.amallu.utility.ReqResNodes;
 
-public class SignUpScreen extends SuperActivity implements OnClickListener,OnEditorActionListener,DateInterface{
+public class SignUpScreen extends SuperActivity implements OnClickListener,OnEditorActionListener,DateInterface,OnItemSelectedListener{
 
 	private static final String TAG="SignUpScreen";
 	private EditText first_name_edit_txt_view,last_name_edit_txt_view,email_edit_txt_view,pwd_edit_txt_view,
-					 re_enter_pwd_edit_txt_view,dob_edit_txt_view;
+					 re_enter_pwd_edit_txt_view,dob_edit_txt_view,mobno_edit_txt_view,answer_edit_txt_view;
 	private TextView first_name_error_txt_view,last_name_error_txt_view,email_error_txt_view,pwd_error_txt_view,
-					 re_enter_pwd_error_txt_view,dob_error_txt_view,page_level_error_txt_view,gender_error_txt_view;
-	private RadioButton female_radio_btn,male_radio_btn;
-	private Button signup_btn,login_btn;
+					 re_enter_pwd_error_txt_view,dob_error_txt_view,page_level_error_txt_view,gender_error_txt_view,
+					 mobno_error_txt_view,answer_error_txt_view;
+	//private RadioButton female_radio_btn,male_radio_btn;
+	private Button signup_btn,login_btn,female_color_btn,female_normal_btn,male_color_btn,male_normal_btn;
+	private Spinner security_spinner;
 	
 	//Method executes whenever object is created.
 	@Override
@@ -51,6 +58,7 @@ public class SignUpScreen extends SuperActivity implements OnClickListener,OnEdi
 		setContentView(R.layout.signup);
 		intializeViews();
 		setListeners();
+		setSecuritySpinnerData();
 		Log.i(TAG,"onCreate() Exiting.");
 	}
 	
@@ -64,6 +72,8 @@ public class SignUpScreen extends SuperActivity implements OnClickListener,OnEdi
 		pwd_edit_txt_view=(EditText)findViewById(R.id.pwd_edit_txt_view);
 		re_enter_pwd_edit_txt_view=(EditText)findViewById(R.id.re_enter_pwd_edit_txt_view);
 		dob_edit_txt_view=(EditText)findViewById(R.id.dob_edit_txt_view);
+		mobno_edit_txt_view=(EditText)findViewById(R.id.mobno_edit_txt_view);
+		answer_edit_txt_view=(EditText)findViewById(R.id.answer_edit_txt_view);
 		first_name_error_txt_view=(TextView)findViewById(R.id.first_name_error_txt_view);
 		last_name_error_txt_view=(TextView)findViewById(R.id.last_name_error_txt_view);
 		email_error_txt_view=(TextView)findViewById(R.id.email_error_txt_view);
@@ -71,8 +81,15 @@ public class SignUpScreen extends SuperActivity implements OnClickListener,OnEdi
 		re_enter_pwd_error_txt_view=(TextView)findViewById(R.id.re_enter_pwd_error_txt_view);
 		dob_error_txt_view=(TextView)findViewById(R.id.dob_error_txt_view);
 		gender_error_txt_view=(TextView)findViewById(R.id.gender_error_txt_view);
-		female_radio_btn=(RadioButton)findViewById(R.id.female_radio_btn);
-		male_radio_btn=(RadioButton)findViewById(R.id.male_radio_btn);
+		mobno_error_txt_view=(TextView)findViewById(R.id.mobno_error_txt_view);
+		answer_error_txt_view=(TextView)findViewById(R.id.answer_error_txt_view);
+		//female_radio_btn=(RadioButton)findViewById(R.id.female_radio_btn);
+		//male_radio_btn=(RadioButton)findViewById(R.id.male_radio_btn);
+		female_color_btn=(Button)findViewById(R.id.female_color_btn);
+		female_normal_btn=(Button)findViewById(R.id.female_normal_btn);
+		male_color_btn=(Button)findViewById(R.id.male_color_btn);
+		male_normal_btn=(Button)findViewById(R.id.male_normal_btn);
+		security_spinner=(Spinner)findViewById(R.id.security_spinner);
 		signup_btn=(Button)findViewById(R.id.signup_btn);
 		login_btn=(Button)findViewById(R.id.login_btn);
 		Log.i(TAG,"intializeViews() Exiting.");
@@ -83,7 +100,12 @@ public class SignUpScreen extends SuperActivity implements OnClickListener,OnEdi
 		Log.i(TAG,"setListeners() Entering.");
 		signup_btn.setOnClickListener(this);
 		login_btn.setOnClickListener(this);
-		//emailid_edit_txt_view.setOnEditorActionListener(this);
+		female_color_btn.setOnClickListener(this);
+		female_normal_btn.setOnClickListener(this);
+		male_color_btn.setOnClickListener(this);
+		male_normal_btn.setOnClickListener(this);
+		security_spinner.setOnItemSelectedListener(this);
+		answer_edit_txt_view.setOnEditorActionListener(this);
 		dob_edit_txt_view.setOnTouchListener(new View.OnTouchListener(){
 		  public boolean onTouch(View view,MotionEvent motionEvent){                                                       
 		     //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
@@ -107,7 +129,36 @@ public class SignUpScreen extends SuperActivity implements OnClickListener,OnEdi
 			   }
 			});
 		Log.i(TAG,"setListeners() Exiting");
-	}
+   }
+	
+   //Populates spinner data from API call.
+   private void setSecuritySpinnerData(){
+	 Log.i(TAG,"setSecuritySpinnerData() Entering.");
+	 
+	 //Spinner Drop down elements
+     List<String> categories = new ArrayList<String>();
+     categories.add("WHAT IS YOUR PET'S NAME ?");
+     
+     //Creating adapter for spinner
+     ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,categories);
+     
+     //Drop down layout style - list view with radio button
+     dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+     
+     //attaching data adapter to spinner
+     security_spinner.setAdapter(dataAdapter);
+	 
+	 Log.i(TAG,"setSecuritySpinnerData() Exiting.");
+   }
+	
+   @Override
+   public void onItemSelected(AdapterView<?> parent,View view,int position,long id){
+      //On selecting a spinner item
+      String item = parent.getItemAtPosition(position).toString();
+      //Showing selected spinner item
+      //Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+   }
+   public void onNothingSelected(AdapterView<?> arg0){}
 
 	@Override
 	public void onClick(View view){
@@ -122,6 +173,22 @@ public class SignUpScreen extends SuperActivity implements OnClickListener,OnEdi
 			//startActivity(new Intent(SignUpScreen.this,LoginScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 			launchNextScreen(intent);
 			break;
+		case R.id.female_color_btn:
+			break;
+		case R.id.female_normal_btn:
+			female_normal_btn.setVisibility(View.GONE);
+			female_color_btn.setVisibility(View.VISIBLE);
+			male_color_btn.setVisibility(View.GONE);
+			male_normal_btn.setVisibility(View.VISIBLE);
+			break;
+		case R.id.male_color_btn:
+			break;
+		case R.id.male_normal_btn:
+			male_normal_btn.setVisibility(View.GONE);
+			male_color_btn.setVisibility(View.VISIBLE);
+			female_color_btn.setVisibility(View.GONE);
+			female_normal_btn.setVisibility(View.VISIBLE);
+			break;
 		default:
 			Log.e(TAG,"In Default option");
 			break;
@@ -131,7 +198,7 @@ public class SignUpScreen extends SuperActivity implements OnClickListener,OnEdi
 	
 	//Handles Keyboard Done and Enter button and initiates SignUp API Call.
 	@Override
-	public boolean onEditorAction(TextView v, int actionId, KeyEvent event){
+	public boolean onEditorAction(TextView v,int actionId, KeyEvent event){
 		if((event!=null&&(event.getKeyCode()==KeyEvent.KEYCODE_ENTER))||(actionId==EditorInfo.IME_ACTION_DONE)){
 		   Log.v(TAG, "Enter or Done button pressed");
 		   handleSubmitAndDoneBtn();
@@ -149,10 +216,12 @@ public class SignUpScreen extends SuperActivity implements OnClickListener,OnEdi
 		String password=pwd_edit_txt_view.getText().toString();
 		String confPassword=re_enter_pwd_edit_txt_view.getText().toString();
 		String dob=dob_edit_txt_view.getText().toString();
-		boolean isValidated=validate(emailid,firstname,lastname,password,confPassword,dob);
+		String mobno=mobno_edit_txt_view.getText().toString();
+		String answer=answer_edit_txt_view.getText().toString();
+		boolean isValidated=validate(emailid,firstname,lastname,password,confPassword,dob,mobno,answer);
 		if(isValidated){
 			Log.v(TAG,"SignUp details validated successfully.");
-			String selGender=female_radio_btn.isChecked()?"F":"M";
+			String selGender=(female_color_btn.getVisibility()==View.VISIBLE)?"F":"M";
 			sendSignUpReq(emailid,firstname,lastname,password,confPassword,selGender,dob);
 		}else{
 			Log.v(TAG,"SignUp validation failure.");
@@ -194,12 +263,13 @@ public class SignUpScreen extends SuperActivity implements OnClickListener,OnEdi
 		re_enter_pwd_error_txt_view.setVisibility(View.GONE);
 		dob_error_txt_view.setVisibility(View.GONE);
 		gender_error_txt_view.setVisibility(View.GONE);
+		mobno_error_txt_view.setVisibility(View.GONE);
 		Log.i(TAG,"setErrorTxtViewGone() Exiting.");
 	}
 	
 	//Method to check for Android native validations.
 	private boolean validate(String emailid,String firstname,String lastname,String password,
-			String confPassword,String dob){
+			String confPassword,String dob,String mobno,String answer){
 		Log.i(TAG,"validate() Entering.");
 		boolean isValidated=true;
 		if(emailid==null||emailid.trim().equals("")){
@@ -250,17 +320,39 @@ public class SignUpScreen extends SuperActivity implements OnClickListener,OnEdi
 			re_enter_pwd_error_txt_view.setVisibility(View.VISIBLE);
 			isValidated=false;
 		}
-		if(!female_radio_btn.isChecked()&&!male_radio_btn.isChecked()){
+		/*if(!female_radio_btn.isChecked()&&!male_radio_btn.isChecked()){
 			Log.e(TAG,"Please select Gender");
 			//Attach Error text to View.
 			gender_error_txt_view.setVisibility(View.VISIBLE);
 			isValidated=false;
+		}*/
+		if(female_normal_btn.getVisibility()==View.VISIBLE && male_normal_btn.getVisibility()==View.VISIBLE){
+			gender_error_txt_view.setVisibility(View.VISIBLE);
 		}
 		if(dob==null||dob.trim().equals("")){
 			Log.e(TAG,"Please select DOB");
 			//Attach Error text to View.
 			dob_error_txt_view.setVisibility(View.VISIBLE);
 			dob_error_txt_view.setText(getResources().getString(R.string.dob_error_msg));
+			isValidated=false;
+		}
+		if(mobno==null||mobno.trim().equals("")){
+			Log.e(TAG,"Please enter Mobilenumber");
+			//Attach Error text to View.
+			if(mobno.length()<10){
+			   mobno_error_txt_view.setText(getResources().getString(R.string.mobno_digit_error_msg));
+			   mobno_error_txt_view.setVisibility(View.VISIBLE);
+			}else{
+			   mobno_error_txt_view.setText(getResources().getString(R.string.mobno_error_msg));
+			   mobno_error_txt_view.setVisibility(View.VISIBLE);
+			}
+			
+			isValidated=false;
+		}
+		if(answer==null||answer.trim().equals("")){
+			Log.e(TAG,"Please enter Answer");
+			//Attach Error text to View.
+			answer_error_txt_view.setVisibility(View.VISIBLE);
 			isValidated=false;
 		}
 		Log.i(TAG,"validate() Exiting.");
