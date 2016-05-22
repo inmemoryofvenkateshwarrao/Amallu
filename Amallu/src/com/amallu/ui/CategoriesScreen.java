@@ -162,8 +162,10 @@ public class CategoriesScreen extends SuperActivity implements OnClickListener{
 				Log.v(TAG,"Channels Available for selected Category.");
 				ChannelsByCategoryScreen.channelsList.clear();
 				ChannelsByCategoryScreen.channelsList=channelsHMList;
-				startActivity(new Intent(CategoriesScreen.this,ChannelsByCategoryScreen.class)
-								.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+				Intent intent=new Intent(CategoriesScreen.this,ChannelsByCategoryScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				launchNextScreen(intent);
+				/*startActivity(new Intent(CategoriesScreen.this,ChannelsByCategoryScreen.class)
+								.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));*/
 			}else{
 				Log.e(TAG,"Channels not Available for selected Category.");
 				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));

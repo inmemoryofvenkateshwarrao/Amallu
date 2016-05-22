@@ -317,13 +317,13 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 				break;
 			case R.id.icon_maximize:
 				Log.i(TAG,"Maximize Icon clicked");
-				likedislike.setVisibility(View.GONE);
-		        swiping_tabs.setVisibility(View.GONE);
+				//likedislike.setVisibility(View.GONE);
+		        //swiping_tabs.setVisibility(View.GONE);
 				break;
 			case R.id.icon_minimize:
 				Log.i(TAG,"Minimize Icon clicked");
-				likedislike.setVisibility(View.VISIBLE);
-		        swiping_tabs.setVisibility(View.VISIBLE);
+				//likedislike.setVisibility(View.VISIBLE);
+		        //swiping_tabs.setVisibility(View.VISIBLE);
 				break;
 			case R.id.icon_like:
 				Log.i(TAG,"Like Icon clicked");
@@ -772,8 +772,8 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	        Toast.makeText(this,"Landscape",Toast.LENGTH_SHORT).show();
 	        likedislike.setVisibility(View.GONE);
 	        swiping_tabs.setVisibility(View.GONE);
-	        icon_maximize.setVisibility(View.GONE);
-	        icon_minimize.setVisibility(View.GONE);
+	        //icon_maximize.setVisibility(View.GONE);
+	        //icon_minimize.setVisibility(View.GONE);
 	        /*swiping_tabs.setVisibility(View.GONE);
 	        RelativeLayout.LayoutParams params=(RelativeLayout.LayoutParams)likedislike.getLayoutParams();
 	        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
@@ -782,8 +782,8 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	        Toast.makeText(this,"Portrait",Toast.LENGTH_SHORT).show();
 	        likedislike.setVisibility(View.VISIBLE);
 	        swiping_tabs.setVisibility(View.VISIBLE);
-	        icon_maximize.setVisibility(View.VISIBLE);
-	        icon_minimize.setVisibility(View.VISIBLE);
+	        //icon_maximize.setVisibility(View.VISIBLE);
+	        //icon_minimize.setVisibility(View.VISIBLE);
 	    }
 	  }
 
