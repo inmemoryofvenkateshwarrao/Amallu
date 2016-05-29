@@ -30,9 +30,9 @@ public class FriendsFragment extends Fragment{
 	private FriendsRowViewHolder friendsRowViewHolder;
 	private LayoutInflater friendsInflater;
 	private ListView friends_list;
-	ArrayList<HashMap<String,Object>> friendsArrHMList;
-	HashMap<String,Object> fFragHM=null;
-	FriendsListAdapter friendsListAdapter=null;
+	//ArrayList<HashMap<String,Object>> friendsArrHMList;
+	//HashMap<String,Object> fFragHM=null;
+	private FriendsListAdapter friendsListAdapter=null;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -48,37 +48,6 @@ public class FriendsFragment extends Fragment{
 		friends_list=(ListView)friendsView.findViewById(R.id.friends_list);
 		friends_unavail_txt_view=(TextView)friendsView.findViewById(R.id.friends_unavail_txt_view);
 		Log.i(TAG,"onCreateView() Exiting.");
-		
-		/*friendsArrHMList=new ArrayList<HashMap<String,Object>>();
-		fFragHM=new HashMap<String,Object>();
-		fFragHM.put(ReqResNodes.FRIEND_NAME,"Ashish Mera");
-		fFragHM.put(ReqResNodes.FRIEND_MUTUAL,"Friends (6) Mutual (3)");
-		fFragHM.put(ReqResNodes.CHANNEL_NAME,"Sky TG24");
-		friendsArrHMList.add(fFragHM);
-		
-		fFragHM=new HashMap<String,Object>();
-		fFragHM.put(ReqResNodes.FRIEND_NAME,"Suresh Peddu");
-		fFragHM.put(ReqResNodes.FRIEND_MUTUAL,"Friends (12) Mutual (5)");
-		fFragHM.put(ReqResNodes.CHANNEL_NAME,"Wawa TV");
-		friendsArrHMList.add(fFragHM);
-		
-		fFragHM=new HashMap<String,Object>();
-		fFragHM.put(ReqResNodes.FRIEND_NAME,"Ravi Kumar");
-		fFragHM.put(ReqResNodes.FRIEND_MUTUAL,"Friends (12) Mutual (5)");
-		fFragHM.put(ReqResNodes.CHANNEL_NAME,"BP TV 2");
-		friendsArrHMList.add(fFragHM);*/
-		
-		//refreshFriendsList(friendsArrHMList);
-		
-		/*if(friendsArrHMList!=null && !friendsArrHMList.isEmpty()){
-		   Log.v(TAG,"Friends List Available");
-		   friends_unavail_txt_view.setVisibility(View.GONE);
-		   populateFriendsList(friendsArrHMList);
-		}else{
-		   Log.v(TAG,"Friends List not Available");
-		   friends_unavail_txt_view.setVisibility(View.VISIBLE);
-		}*/
-		
 		return friendsView;		
 	}
 	

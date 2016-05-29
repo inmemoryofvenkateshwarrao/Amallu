@@ -31,6 +31,7 @@ public class FriendsListParser{
 			}else{
 				friend.setIsSuccess(friendsJSONObj.get(ReqResNodes.ISSUCCESS).toString());
 				JSONArray messageJSONArray=(JSONArray)friendsJSONObj.getJSONArray(ReqResNodes.MESSAGE);
+				Log.d(TAG,"messageJSONArray : "+messageJSONArray);
 				for(int friendsArr=0;friendsArr<messageJSONArray.length();friendsArr++){
 					friendRowHM=new HashMap<String,Object>();
 					JSONObject friendItemJSONObj=(JSONObject)messageJSONArray.get(friendsArr);

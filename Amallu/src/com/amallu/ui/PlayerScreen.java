@@ -1277,17 +1277,18 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 			displayToast("Exception occurred while fetching Languages");
 		}else{
 			Friend friend=FriendsListParser.getFriendsListParsedResponse(result);
-			if(friend!=null&& !friend.getFriendsHMList().isEmpty()){
+			if(friend!=null && friend.getFriendsHMList()!=null && !friend.getFriendsHMList().isEmpty()){
 				Log.v(TAG,"Friends List Available.");
 				if(currentTabbedFragment!=null)
-				((FriendsFragment)currentTabbedFragment).refreshFriendsList(friend.getFriendsHMList());
+				   ((FriendsFragment)currentTabbedFragment).refreshFriendsList(friend.getFriendsHMList());
 				//startActivity(new Intent(PlayerScreen.this,LanguagesScreen.class));
 				//overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
 			}else{
 				Log.e(TAG,"Friends List not Available.");
 				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
 				//page_level_error_txt_view.setVisibility(View.VISIBLE);
-				displayToast("Friends List unavailable");
+				if(currentTabbedFragment!=null)
+				   ((FriendsFragment)currentTabbedFragment).refreshFriendsList(null);
 			}
 		}
 		
