@@ -32,6 +32,7 @@ public class FriendsFragment extends Fragment{
 	private ListView friends_list;
 	ArrayList<HashMap<String,Object>> friendsArrHMList;
 	HashMap<String,Object> fFragHM=null;
+	FriendsListAdapter friendsListAdapter=null;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -43,12 +44,12 @@ public class FriendsFragment extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		Log.i(TAG,"onCreateView() Entering.");
-		View watchingView=inflater.inflate(R.layout.friends,container,false);
-		friends_list=(ListView)watchingView.findViewById(R.id.friends_list);
-		friends_unavail_txt_view=(TextView)watchingView.findViewById(R.id.friends_unavail_txt_view);
+		View friendsView=inflater.inflate(R.layout.friends,container,false);
+		friends_list=(ListView)friendsView.findViewById(R.id.friends_list);
+		friends_unavail_txt_view=(TextView)friendsView.findViewById(R.id.friends_unavail_txt_view);
 		Log.i(TAG,"onCreateView() Exiting.");
 		
-		friendsArrHMList=new ArrayList<HashMap<String,Object>>();
+		/*friendsArrHMList=new ArrayList<HashMap<String,Object>>();
 		fFragHM=new HashMap<String,Object>();
 		fFragHM.put(ReqResNodes.FRIEND_NAME,"Ashish Mera");
 		fFragHM.put(ReqResNodes.FRIEND_MUTUAL,"Friends (6) Mutual (3)");
@@ -65,42 +66,43 @@ public class FriendsFragment extends Fragment{
 		fFragHM.put(ReqResNodes.FRIEND_NAME,"Ravi Kumar");
 		fFragHM.put(ReqResNodes.FRIEND_MUTUAL,"Friends (12) Mutual (5)");
 		fFragHM.put(ReqResNodes.CHANNEL_NAME,"BP TV 2");
-		friendsArrHMList.add(fFragHM);
+		friendsArrHMList.add(fFragHM);*/
 		
-		if(friendsArrHMList!=null && !friendsArrHMList.isEmpty()){
+		//refreshFriendsList(friendsArrHMList);
+		
+		/*if(friendsArrHMList!=null && !friendsArrHMList.isEmpty()){
 		   Log.v(TAG,"Friends List Available");
 		   friends_unavail_txt_view.setVisibility(View.GONE);
 		   populateFriendsList(friendsArrHMList);
 		}else{
 		   Log.v(TAG,"Friends List not Available");
 		   friends_unavail_txt_view.setVisibility(View.VISIBLE);
-		}
+		}*/
 		
-		return watchingView;		
+		return friendsView;		
 	}
 	
-	public void test(){
-		
-	}
-	
-	@Override
-	public void onResume(){
-		Log.i(TAG,"onResume() Entering.");
-		Log.i(TAG,"onResume() Exiting.");
-		super.onResume();
-	}
-	
-	@Override
-	public void onPause(){
-		Log.i(TAG,"onPause() Entering.");
-		Log.i(TAG,"onPause() Exiting.");
-		super.onPause();
+	//Method to refresh FriendsList ListView.
+	public void refreshFriendsList(ArrayList<HashMap<String,Object>> friendsArrHMList){
+	  Log.i(TAG,"refreshFriendsList() Entering.");
+	  
+	  if(friendsArrHMList!=null && !friendsArrHMList.isEmpty()){
+		 Log.v(TAG,"Friends List Available");
+		 friends_unavail_txt_view.setVisibility(View.GONE);
+		 populateFriendsList(friendsArrHMList);
+		 FriendsFragment.this.friendsListAdapter.notifyDataSetChanged();
+	  }else{
+		 Log.v(TAG,"Friends List not Available");
+		 friends_unavail_txt_view.setVisibility(View.VISIBLE);
+	  }
+	  
+	  Log.i(TAG,"refreshFriendsList() Exiting.");
 	}
 	
 	//Populates ListView Data.
 	private void populateFriendsList(ArrayList<HashMap<String,Object>> friendsArrHMList){
-	  Log.i(TAG,"setData() Entering.");
-	  FriendsListAdapter friendsListAdapter=new FriendsListAdapter(getContext(),friendsArrHMList,R.layout.friend_row,new String[]{},new int[]{});
+	  Log.i(TAG,"populateFriendsList() Entering.");
+	  friendsListAdapter=new FriendsListAdapter(getContext(),friendsArrHMList,R.layout.friend_row,new String[]{},new int[]{});
 	  friends_list.setAdapter(friendsListAdapter);
 	  friends_list.setOnItemClickListener(new OnItemClickListener(){
 		 @Override
@@ -111,7 +113,7 @@ public class FriendsFragment extends Fragment{
 			//sendChannelsByCategoryReq(categoryID);  
 		 }
 	   });
-	  Log.i(TAG,"setData() Exiting.");
+	  Log.i(TAG,"populateFriendsList() Exiting.");
 	}
 	
 	//Inner Class to make smooth swiping of list view.
@@ -140,12 +142,14 @@ public class FriendsFragment extends Fragment{
             }else{
             	friendsRowViewHolder=(FriendsRowViewHolder)convertView.getTag();
             }
-            HashMap<String,Object> watchingRowHM=(HashMap<String,Object>)friendArrList.get(position);
+            HashMap<String,Object> friendRowHM=(HashMap<String,Object>)friendArrList.get(position);
              
-            friendsRowViewHolder.name_txt_view.setText(watchingRowHM.get(ReqResNodes.FRIEND_NAME).toString());
-            friendsRowViewHolder.friends_mutual_txt_view.setText(watchingRowHM.get(ReqResNodes.FRIEND_MUTUAL).toString());
-            friendsRowViewHolder.channel_name_txt_view.setText(watchingRowHM.get(ReqResNodes.CHANNEL_NAME).toString());
-            //friendsRowViewHolder.extra_text_txt_view.setText(watchingRowHM.get(ReqResNodes.FRIEND_VIEWED_TIME).toString());
+            friendsRowViewHolder.name_txt_view.setText(friendRowHM.get(ReqResNodes.CHAT_NAME).toString());
+            //friendsRowViewHolder.friends_mutual_txt_view.setText(friendRowHM.get(ReqResNodes.FRIEND_MUTUAL).toString());
+            friendsRowViewHolder.friends_mutual_txt_view.setText("Friends (6) Mutual (3)");
+            //friendsRowViewHolder.channel_name_txt_view.setText(friendRowHM.get(ReqResNodes.CHANNEL_NAME).toString());
+            friendsRowViewHolder.channel_name_txt_view.setText("Sky TG24");
+            //friendsRowViewHolder.extra_text_txt_view.setText(friendRowHM.get(ReqResNodes.FRIEND_VIEWED_TIME).toString());
             
             return convertView;
         }

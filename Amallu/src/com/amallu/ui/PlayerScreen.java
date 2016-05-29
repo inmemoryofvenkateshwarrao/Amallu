@@ -123,6 +123,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	//Either from Login or Sign Up to inject user name.
 	public static Context fromContext;
 	private OptionsFragmentPagerAdapter optionsFragmentPagerAdapter;
+	private Fragment currentTabbedFragment;
 	private View bottomOptionsView;
 
 	@Override
@@ -1278,6 +1279,8 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 			Friend friend=FriendsListParser.getFriendsListParsedResponse(result);
 			if(friend!=null&& !friend.getFriendsHMList().isEmpty()){
 				Log.v(TAG,"Friends List Available.");
+				if(currentTabbedFragment!=null)
+				((FriendsFragment)currentTabbedFragment).refreshFriendsList(friend.getFriendsHMList());
 				//startActivity(new Intent(PlayerScreen.this,LanguagesScreen.class));
 				//overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
 			}else{
@@ -1355,7 +1358,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	public void onPageSelected(int position){
 	  Log.i(TAG,"onPageSelected() Entering.");
 	  Log.d(TAG,"onPageSelected Position : "+position);
-	  //updateFragmentsUI(position);
+	  updateFragmentsUI(position);
 	  Log.i(TAG,"onPageSelected onPageSelected() Exiting.");
 	}
 	//End: Used for View Page tabs.
@@ -1365,20 +1368,21 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	  Log.i(TAG,"updateFragmentsUI() Entering.");
 	  
 	  //FragmentManager fragmentManager = getSupportFragmentManager();
-      Fragment fmt = optionsFragmentPagerAdapter.getItem(position);
+	  currentTabbedFragment=optionsFragmentPagerAdapter.getItem(position);
 
-      if(fmt instanceof CommentsFragment){
+      if(currentTabbedFragment instanceof CommentsFragment){
     	 //prepareCommentsHMArrayList();
     	 //((CommentsFragment)fmt).updateCommentsFragmentUI(commentsHMArrList);
-      }else if(fmt instanceof TrendingFragment){
+      }else if(currentTabbedFragment instanceof TrendingFragment){
     	  
-      }else if(fmt instanceof FavoritesFragment){
+      }else if(currentTabbedFragment instanceof FavoritesFragment){
     	  
-      }else if(fmt instanceof WatchingFragment){
+      }else if(currentTabbedFragment instanceof WatchingFragment){
     	  
-      }else if(fmt instanceof FriendsFragment){
-    	  
-      }else if(fmt instanceof ActivitiesFragment){
+      }else if(currentTabbedFragment instanceof FriendsFragment){
+    	  Log.v(TAG,"currentTabbedFragment instanceof FriendsFragment");
+    	  sendFriendsListReq();
+      }else if(currentTabbedFragment instanceof ActivitiesFragment){
     	  
       }
 	  

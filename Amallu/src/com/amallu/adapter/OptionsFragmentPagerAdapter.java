@@ -16,6 +16,7 @@ public class OptionsFragmentPagerAdapter extends FragmentPagerAdapter{
 	
 	final int PAGE_COUNT = 6;
 	private static final String TAG="OptionsFragmentPagerAdapter";
+	Fragment commentsFragment,friendsFragment;
 
 	/** Constructor of the class */
 	public OptionsFragmentPagerAdapter(FragmentManager fm){
@@ -25,7 +26,6 @@ public class OptionsFragmentPagerAdapter extends FragmentPagerAdapter{
 	/** This method will be invoked when a page is requested to create */
 	@Override
 	public Fragment getItem(int fragmentIndex){
-		Fragment fg=null;
 		switch(fragmentIndex){
 			case 0:
 				Log.v(TAG,"Clicked on Comments Tab");
@@ -47,16 +47,19 @@ public class OptionsFragmentPagerAdapter extends FragmentPagerAdapter{
 				return watchingFragment;
 			case 4:
 				Log.v(TAG,"Clicked on Friends Tab");
-				FriendsFragment friendsFragment=new FriendsFragment();
+				if(friendsFragment==null){
+				   friendsFragment=new FriendsFragment();
+				   Log.v(TAG,"Intantiating FriendsFragment.");
+				}else{
+				   Log.v(TAG,"FriendsFragment instance already exists.");
+				}
 				return friendsFragment;
-				/*WatchingFragment friendsFragment=new WatchingFragment();
-				return friendsFragment;*/
 			case 5:
 				Log.v(TAG,"Clicked on Activities Tab");
 				ActivitiesFragment activitiesFragment=new ActivitiesFragment();
 				return activitiesFragment;
 		}
-		return fg;
+		return null;
 	}
 
 	/** Returns the number of pages */

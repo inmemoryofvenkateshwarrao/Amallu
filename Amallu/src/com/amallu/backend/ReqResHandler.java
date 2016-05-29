@@ -8,7 +8,6 @@ import android.util.Log;
 
 import com.amallu.backend.Response.CommonHandlerType;
 import com.amallu.exception.AmalluException;
-import com.amallu.fragment.FriendsFragment;
 import com.amallu.parser.LoginParser;
 import com.amallu.utility.NetworkType;
 import com.amallu.utility.ReqResNodes;
@@ -919,7 +918,7 @@ public class ReqResHandler implements AsyncCallback{
 				}else{
 					//Do Nothing.
 				}
-				//response.updateResponse(uiContext,result,handlerType,exception);
+				response.updateResponse(uiContext,result,handlerType,exception);
 				
 			}
 		}catch(Exception e){
