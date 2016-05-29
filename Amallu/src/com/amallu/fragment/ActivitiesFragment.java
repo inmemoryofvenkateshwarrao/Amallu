@@ -70,7 +70,7 @@ public class ActivitiesFragment extends Fragment{
 	//Populates ListView Data.
 	private void populateActivitiesList(ArrayList<HashMap<String,Object>> activitiesArrHMList){
 	  Log.i(TAG,"populateActivitiesList() Entering.");
-	  activitiesListAdapter=new ActivitiesListAdapter(getContext(),activitiesArrHMList,R.layout.friend_row,new String[]{},new int[]{});
+	  activitiesListAdapter=new ActivitiesListAdapter(getContext(),activitiesArrHMList,R.layout.activitylogrow,new String[]{},new int[]{});
 	  activitylog_list.setAdapter(activitiesListAdapter);
 	  activitylog_list.setOnItemClickListener(new OnItemClickListener(){
 		 @Override
