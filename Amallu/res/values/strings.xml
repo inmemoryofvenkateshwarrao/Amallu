@@ -90,6 +90,7 @@
     <string name="unable_to_fetch_trending_channels">Unable to fetch Trending Channels</string>
     <string name="trending_channels_unavailable">Trending Channels unavailable</string>
     <string name="friends_list_unavailable">Friends list unavailable</string>
+    <string name="activities_list_unavailable">Activities list unavailable</string>
     <string name="unable_to_fetch_friends_list">Unable to fetch Friends list</string>
     <string name="activity_log_unavailable">Activity log unavailable</string>
     <string name="unable_to_fetch_activity_log">Unable to fetch Activity log</string>

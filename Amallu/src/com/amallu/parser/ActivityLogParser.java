@@ -1,7 +1,6 @@
 package com.amallu.parser;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,7 +20,7 @@ public class ActivityLogParser{
 	public static ActivityLog getActivityLogParsedResponse(String activityLogStr){
 		Log.i(TAG,"getActivityLogParsedResponse() Entering.");
 		ActivityLog activityLog=new ActivityLog();
-		List<HashMap<String,Object>> activityLogRowsHMList=new ArrayList<HashMap<String,Object>>();
+		ArrayList<HashMap<String,Object>> activityLogRowsHMList=new ArrayList<HashMap<String,Object>>();
 		HashMap<String,Object> activityLogRowHM;
 		try{
 			

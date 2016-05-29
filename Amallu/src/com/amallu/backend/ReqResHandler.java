@@ -679,6 +679,30 @@ public class ReqResHandler implements AsyncCallback{
 		Log.i(TAG, "friendsListRequest() Exiting.");
 	}
 	
+	//ActivitiesList API Call.
+	//GET Request
+	public void activitiesListRequest(Context context, Response responseHandler,String userID){
+		Log.i(TAG, "activitiesListRequest() Entering.");
+		handlerType = CommonHandlerType.ACTIVITYLOG;
+		
+		response = responseHandler;
+		uiContext = context;
+		
+		//http://www.app.amallu.com/api/activity/friendsactivitylog?_format=json&userid=40
+				
+		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
+							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.ACTIVITYLOG+"&userid="+userID;
+		Log.d(TAG,"ACTIVITYLOG URL : "+url);
+		if(checkNetworkAvailability(context)){
+			Log.v(TAG,"Network is available. Initiating ACTIVITYLOG webservice call.");
+			asyncServiceRequest = new AsyncServiceRequest(this,null,uiContext,ReqResNodes.GET);
+			asyncServiceRequest.execute(url);
+		}else{
+			Log.e(TAG,"Network connection not available.");
+		}
+		Log.i(TAG, "activitiesListRequest() Exiting.");
+	}
+	
 	private boolean checkNetworkAvailability(Context ctx){
 		Log.i(TAG,"checkNetworkAvailability() Entering.");
 		boolean netWorkCheck=true;
@@ -919,7 +943,15 @@ public class ReqResHandler implements AsyncCallback{
 					//Do Nothing.
 				}
 				response.updateResponse(uiContext,result,handlerType,exception);
-				
+			}
+			if(handlerType.equals(CommonHandlerType.ACTIVITYLOG)){
+				Log.v(TAG, "Handler ACTIVITYLOG");
+				if (result.equalsIgnoreCase("Exception")){
+					Log.e(TAG, "ACTIVITYLOG Exception caught.");
+				}else{
+					//Do Nothing.
+				}
+				response.updateResponse(uiContext,result,handlerType,exception);
 			}
 		}catch(Exception e){
 			Log.e("Exception", e.getMessage());

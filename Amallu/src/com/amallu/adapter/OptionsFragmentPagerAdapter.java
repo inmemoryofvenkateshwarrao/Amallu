@@ -14,9 +14,9 @@ import com.amallu.utility.GlobalConsts;
 
 public class OptionsFragmentPagerAdapter extends FragmentPagerAdapter{
 	
-	final int PAGE_COUNT = 6;
+	final int PAGE_COUNT=6;
 	private static final String TAG="OptionsFragmentPagerAdapter";
-	Fragment commentsFragment,friendsFragment;
+	Fragment commentsFragment,friendsFragment,activitiesFragment;
 
 	/** Constructor of the class */
 	public OptionsFragmentPagerAdapter(FragmentManager fm){
@@ -56,7 +56,12 @@ public class OptionsFragmentPagerAdapter extends FragmentPagerAdapter{
 				return friendsFragment;
 			case 5:
 				Log.v(TAG,"Clicked on Activities Tab");
-				ActivitiesFragment activitiesFragment=new ActivitiesFragment();
+				if(activitiesFragment==null){
+				   activitiesFragment=new ActivitiesFragment();
+				   Log.v(TAG,"Intantiating ActivitiesFragment.");
+				}else{
+				   Log.v(TAG,"ActivitiesFragment instance already exists.");
+				}
 				return activitiesFragment;
 		}
 		return null;
@@ -64,7 +69,7 @@ public class OptionsFragmentPagerAdapter extends FragmentPagerAdapter{
 
 	/** Returns the number of pages */
 	@Override
-	public int getCount() {		
+	public int getCount(){		
 		return PAGE_COUNT;
 	}
 	

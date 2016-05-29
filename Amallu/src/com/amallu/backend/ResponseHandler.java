@@ -164,7 +164,7 @@ public class ResponseHandler implements Response{
 			if(result.equalsIgnoreCase("Exception")){
 			   Log.e(TAG, "ACTIVITYLOG Exception caught.");
 			}
-			//((ActivityLogScreen)context).activityLogProceedUI(result,ex);
+			((PlayerScreen)context).activitiesListProceedUI(result,ex);
 		}
 		if(uiHandler.equals(CommonHandlerType.FAVORITECHANNELS)){
 			if(result.equalsIgnoreCase("Exception")){

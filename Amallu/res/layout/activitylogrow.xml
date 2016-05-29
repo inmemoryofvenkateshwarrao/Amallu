@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" 
+	android:layout_height="wrap_content"
+	android:background="@color/white"
+	style="@style/list_row_style">
+	
+    <ImageView android:id="@+id/icon_user"
+       android:layout_width="50dp"
+       android:layout_height="50dp"
+       android:layout_marginRight="10dp"
+       android:src="@drawable/ic_friend_profile"
+       android:contentDescription="@string/image_content_desc"
+       style="@style/icon_layout"/>
+	
+    <TextView
+        android:id="@+id/uname_txt_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blue"
+        android:textStyle="bold"
+        android:layout_toRightOf="@id/icon_user"
+        style="@style/list_item_style"/>
+        
+     <TextView 
+         android:id="@+id/time_txt_view"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:textColor="@color/black"
+         android:layout_toRightOf="@id/uname_txt_view"
+         style="@style/list_item_style"/>
+     
+     <TextView 
+         android:id="@+id/activity_txt_view"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:textColor="@color/black"
+         android:layout_below="@id/time_txt_view"
+         android:layout_toRightOf="@id/icon_user"
+         style="@style/list_item_style"/>
+     
+</RelativeLayout>

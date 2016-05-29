@@ -62,12 +62,14 @@ import com.amallu.fragment.FavoritesFragment;
 import com.amallu.fragment.FriendsFragment;
 import com.amallu.fragment.TrendingFragment;
 import com.amallu.fragment.WatchingFragment;
+import com.amallu.model.ActivityLog;
 import com.amallu.model.ChannelDetail;
 import com.amallu.model.ChannelInfo;
 import com.amallu.model.Comment;
 import com.amallu.model.DisLikeChannel;
 import com.amallu.model.Friend;
 import com.amallu.model.LikeChannel;
+import com.amallu.parser.ActivityLogParser;
 import com.amallu.parser.CategoryListParser;
 import com.amallu.parser.ChannelInfoParser;
 import com.amallu.parser.ChannelsListParser;
@@ -1274,7 +1276,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 			Log.e(TAG, "friendsListProceedUI Exception Case");
 			//page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
 			//page_level_error_txt_view.setVisibility(View.VISIBLE);
-			displayToast("Exception occurred while fetching Languages");
+			displayToast("Exception occurred while fetching FriendsList");
 		}else{
 			Friend friend=FriendsListParser.getFriendsListParsedResponse(result);
 			if(friend!=null && friend.getFriendsHMList()!=null && !friend.getFriendsHMList().isEmpty()){
@@ -1294,10 +1296,55 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		
 		Log.i(TAG,"friendsListProceedUI() Exiting.");
 	}
+	
+	//Sends ActivitiesList API Request.
+	private void sendActivitiesListReq(){
+		Log.i(TAG,"sendActivitiesListReq() Entering.");
+		
+		ReqResHandler req = new ReqResHandler();
+		CustomProgressDialog.show(PlayerScreen.this);
+
+		req.activitiesListRequest(PlayerScreen.this,new ResponseHandler(),LoginParser.getUserID());
+		
+		Log.i(TAG,"sendActivitiesListReq() Exiting.");
+	}
+	
+	//Methods handles the response from Server.
+	public void activitiesListProceedUI(String result,AmalluException amalluEx){
+		Log.i(TAG,"activitiesListProceedUI() Entering.");
+		
+		if(CustomProgressDialog.IsShowing()){
+			Log.v(TAG,"activitiesListProceedUI progress dialog dismissing..");
+			CustomProgressDialog.Dismiss();
+		}
+		if(result.equalsIgnoreCase("Exception")){
+			Log.e(TAG, "activitiesListProceedUI Exception Case");
+			//page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
+			//page_level_error_txt_view.setVisibility(View.VISIBLE);
+			displayToast("Exception occurred while fetching Activity Log");
+		}else{
+			ActivityLog activityLog=ActivityLogParser.getActivityLogParsedResponse(result);
+			if(activityLog!=null && activityLog.getActivityLogHMList()!=null && !activityLog.getActivityLogHMList().isEmpty()){
+				Log.v(TAG,"Activity List Available.");
+				if(currentTabbedFragment!=null)
+				  ((ActivitiesFragment)currentTabbedFragment).refreshActivitiesList(activityLog.getActivityLogHMList());
+				//startActivity(new Intent(PlayerScreen.this,LanguagesScreen.class));
+				//overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+			}else{
+				Log.e(TAG,"Activity List not Available.");
+				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
+				//page_level_error_txt_view.setVisibility(View.VISIBLE);
+				if(currentTabbedFragment!=null)
+				  ((ActivitiesFragment)currentTabbedFragment).refreshActivitiesList(activityLog.getActivityLogHMList());
+			}
+		}
+		
+		Log.i(TAG,"activitiesListProceedUI() Exiting.");
+	}
 
 	private void displayToast(String toastText){
 	  Log.i(TAG,"displayToast() Entering.");
-	  Toast.makeText(this,toastText,Toast.LENGTH_LONG).show();
+	  //Toast.makeText(this,toastText,Toast.LENGTH_LONG).show();
 	  Log.i(TAG,"displayToast() Exiting");
 	}
 	
@@ -1384,7 +1431,8 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
     	  Log.v(TAG,"currentTabbedFragment instanceof FriendsFragment");
     	  sendFriendsListReq();
       }else if(currentTabbedFragment instanceof ActivitiesFragment){
-    	  
+    	  Log.v(TAG,"currentTabbedFragment instanceof ActivitiesFragment");
+    	  sendActivitiesListReq();
       }
 	  
 	  Log.i(TAG,"updateFragmentsUI() Exiting.");
