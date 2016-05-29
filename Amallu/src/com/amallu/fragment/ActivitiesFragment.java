@@ -44,7 +44,7 @@ public class ActivitiesFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState){
 		Log.i(TAG,"onCreateView() Entering.");
 		View activitiesView=inflater.inflate(R.layout.activities,container,false);
-		activitylog_list=(ListView)activitiesView.findViewById(R.id.friends_list);
+		activitylog_list=(ListView)activitiesView.findViewById(R.id.activitylog_list);
 		activities_unavail_txt_view=(TextView)activitiesView.findViewById(R.id.activities_unavail_txt_view);
 		Log.i(TAG,"onCreateView() Exiting.");
 		return activitiesView;		
