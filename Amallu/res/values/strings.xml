@@ -85,7 +85,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="logout">Logout</string>
     
-    <string name="comments_unavailable">Comments unavailable</string>
+    <string name="comments_list_unavailable">Comments list unavailable</string>
     <string name="watching_list_unavailable">Watching list unavailable</string>
     <string name="unable_to_fetch_trending_channels">Unable to fetch Trending Channels</string>
     <string name="trending_channels_unavailable">Trending Channels unavailable</string>

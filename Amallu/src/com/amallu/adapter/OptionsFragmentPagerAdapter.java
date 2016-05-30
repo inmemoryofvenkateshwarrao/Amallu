@@ -29,7 +29,12 @@ public class OptionsFragmentPagerAdapter extends FragmentPagerAdapter{
 		switch(fragmentIndex){
 			case 0:
 				Log.v(TAG,"Clicked on Comments Tab");
-				CommentsFragment commentsFragment=new CommentsFragment();
+				if(commentsFragment==null){
+				   commentsFragment=new CommentsFragment();
+				   Log.v(TAG,"Intantiating CommentsFragment.");
+				}else{
+				   Log.v(TAG,"CommentsFragment instance already exists.");
+				}
 				return commentsFragment;
 			case 1:
 				Log.v(TAG,"Clicked on Trending Tab");

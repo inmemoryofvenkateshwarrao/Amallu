@@ -4,13 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     
-    <!-- <TextView
-	    android:id="@+id/tv"    
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent" 
-	    android:text="Comments Screen"
-	    android:gravity="center"/>   --> 
-	    
 	    <ListView
 	        android:id="@+id/listview_comments"
 	        android:layout_width="fill_parent"
@@ -19,12 +12,14 @@
 	        android:dividerHeight="1dp"
 	        android:background="@color/white"/>
 	    
-	    <!-- <include 
-	        android:id="@+id/list_row_options"
-	        android:layout_width="fill_parent"
+	    <TextView 
+	        android:id="@+id/comments_unavail_txt_view"
+	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_alignParentBottom="true"
-	        android:visibility="visible"
-	        layout="@layout/list_row_options"/> -->
+	        android:text="@string/comments_list_unavailable"
+	        android:textColor="@color/red"
+	        android:layout_centerInParent="true"
+	        android:visibility="gone"
+	        style="@style/normal_text_size_style"/>
 
 </RelativeLayout>

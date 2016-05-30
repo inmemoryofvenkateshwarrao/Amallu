@@ -25,11 +25,13 @@ import com.amallu.utility.ReqResNodes;
 public class CommentsFragment extends Fragment{
 	
 	private static final String TAG="CommentsFragment";
+	private TextView comments_unavail_txt_view;
 	private CommentRowViewHolder commentRowViewHolder;
 	private LayoutInflater commentInflater;
 	private ListView comment_list;
 	public static ArrayList<HashMap<String,Object>> commentsArrList;
 	private OnItemSelectedListener listener;
+	private CommentsAdapter commentListAdapter=null;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -43,23 +45,10 @@ public class CommentsFragment extends Fragment{
 	  Log.i(TAG,"onCreateView() Entering.");
 	  View commentsView = inflater.inflate(R.layout.comments,container,false);
 	  comment_list=(ListView)commentsView.findViewById(R.id.listview_comments);
-	  setCommentsData();	
+	  comments_unavail_txt_view=(TextView)commentsView.findViewById(R.id.comments_unavail_txt_view);
+	  refreshCommentsList(commentsArrList);	
 	  Log.i(TAG,"onCreateView() Exiting.");
 	  return commentsView;		
-	}
-	
-	@Override
-	public void onResume(){
-	  Log.i(TAG,"onResume() Entering.");
-	  Log.i(TAG,"onResume() Exiting.");
-	  super.onResume();
-	}
-	
-	@Override
-	public void onPause(){
-	  Log.i(TAG,"onPause() Entering.");
-	  Log.i(TAG,"onPause() Exiting.");
-	  super.onPause();
 	}
 	
 	//Internal Interface type to communicate with hosted Activity.
@@ -88,7 +77,43 @@ public class CommentsFragment extends Fragment{
 	  Log.i(TAG,"onDetach() Exiting.");
 	}
 	
-	//Method used to Update the UI of Comments if user navigates to Next or Previous Channel.
+	//Method to refresh CommentsList ListView.
+	public void refreshCommentsList(ArrayList<HashMap<String,Object>> commentsArrHMList){
+	  Log.i(TAG,"refreshCommentsList() Entering.");
+	  
+	  if(commentsArrHMList!=null && !commentsArrHMList.isEmpty()){
+		 Log.v(TAG,"Comments List Available");
+		 comments_unavail_txt_view.setVisibility(View.GONE);
+		 populateCommentsList(commentsArrHMList);
+		 CommentsFragment.this.commentListAdapter.notifyDataSetChanged();
+	  }else{
+		 Log.v(TAG,"Comments List not Available");
+		 comments_unavail_txt_view.setVisibility(View.VISIBLE);
+	  }
+	  
+	  Log.i(TAG,"refreshCommentsList() Exiting.");
+	}
+	
+	//Populates ListView Data.
+	private void populateCommentsList(ArrayList<HashMap<String,Object>> commentsArrHMList){
+	  Log.i(TAG,"populateCommentsList() Entering.");
+	  commentListAdapter=new CommentsAdapter(getContext(),commentsArrHMList,R.layout.commentrow,new String[]{},new int[]{});
+	  comment_list.setAdapter(commentListAdapter);
+	  comment_list.setOnItemClickListener(new OnItemClickListener(){
+		 @Override
+		 public void onItemClick(AdapterView<?> parent, View view, int position,long id){
+			HashMap<String,Object> commentRowHM=(HashMap<String,Object>)comment_list.getItemAtPosition(position);
+			if(listener!=null){
+			  listener.onCommentsItemSelected(commentRowHM);	
+			}else{
+			  Log.e(TAG,"Error in attaching CommentsFragment to PlayerScreen : listener=null");
+			}
+		 }
+	   });
+	  Log.i(TAG,"populateCommentsList() Exiting.");
+	}
+	
+	/*//Method used to Update the UI of Comments if user navigates to Next or Previous Channel.
 	public void updateCommentsFragmentUI(ArrayList<HashMap<String,Object>> commentsArrList){
 	  Log.i(TAG,"updateCommentsFragmentUI() Entering.");
 	  
@@ -114,10 +139,10 @@ public class CommentsFragment extends Fragment{
 	  }
 	  
 	  Log.i(TAG,"updateCommentsFragmentUI() Exiting.");
-	}
+	}*/
 	
 	//Populates ListView Data.
-	private void setCommentsData(){
+	/*private void setCommentsData(){
 	  Log.i(TAG,"setData() Entering.");
 	  CommentsAdapter commentListAdapter=new CommentsAdapter(getContext(),commentsArrList,R.layout.commentrow,new String[]{},new int[]{});
 	  comment_list.setAdapter(commentListAdapter);
@@ -130,10 +155,10 @@ public class CommentsFragment extends Fragment{
 			}else{
 			  Log.e(TAG,"Error in attaching CommentsFragment to PlayerScreen : listener=null");
 			}
-		 }
+		  }
 	   });
 	  Log.i(TAG,"setData() Exiting.");
-	}
+	}*/
 	
 	//Inner Class to make smooth swiping of list view.
 	public class CommentsAdapter extends SimpleAdapter{

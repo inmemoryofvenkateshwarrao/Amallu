@@ -48,7 +48,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.amallu.adapter.OptionsFragmentPagerAdapter;
 import com.amallu.backend.CustomProgressDialog;
@@ -863,8 +862,8 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	//Removes Horizontal Scrollbars in HorizontalScrollView programmatically.
 	@SuppressWarnings("unused")
 	private void disableHorizontalScrollBars(){
-		//view.setVerticalScrollBarEnabled(false); 
-		//view.setHorizontalScrollBarEnabled(false);
+	   //view.setVerticalScrollBarEnabled(false); 
+	   //view.setHorizontalScrollBarEnabled(false);
 	}
 	
 	
@@ -1010,7 +1009,7 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 					   PlayerScreen.channelDetail=channelDetail;
 					   //Loads new Channel from API call
 					   setChannelInfoData();
-					   //updateFragmentsUI(0);
+					   updateFragmentsUI(0);
 					 }
 				}
 			}else{
@@ -1354,8 +1353,8 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	
 	@Override
 	protected Dialog onCreateDialog(int id){
-		Log.v(TAG, "onCreateDialog start");
-		Log.v(TAG, "id " + id);
+		Log.i(TAG,"onCreateDialog Entering.");
+		Log.v(TAG,"id "+id);
 		Button yesBtn,noBtn;
 		logoutLayoutInflater=(LayoutInflater)this.getSystemService(LAYOUT_INFLATER_SERVICE);
 		layout=logoutLayoutInflater.inflate(R.layout.logout_alert,(ViewGroup)findViewById(R.id.confirmalert));
@@ -1421,6 +1420,10 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
       if(currentTabbedFragment instanceof CommentsFragment){
     	 //prepareCommentsHMArrayList();
     	 //((CommentsFragment)fmt).updateCommentsFragmentUI(commentsHMArrList);
+    	  if(currentTabbedFragment!=null){
+    		 prepareCommentsHMArrayList();
+			 ((CommentsFragment)currentTabbedFragment).refreshCommentsList(commentsHMArrList);
+    	  }
       }else if(currentTabbedFragment instanceof TrendingFragment){
     	  
       }else if(currentTabbedFragment instanceof FavoritesFragment){
