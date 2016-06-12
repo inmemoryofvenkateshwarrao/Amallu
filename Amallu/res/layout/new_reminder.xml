@@ -1,0 +1,166 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    
+    <RelativeLayout
+        android:id="@+id/header_rel"
+        android:layout_width="fill_parent"
+        android:background="@color/blue"
+        style="@style/page_header_style">
+        
+        <ImageView 
+            android:id="@+id/icon_left_arrow"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_back"
+            android:contentDescription="@string/image_content_desc"
+            style="@style/icon_small_left_layout"/>
+        
+        <TextView 
+	        android:id="@+id/title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/new_reminder"
+	        android:layout_centerInParent="true"
+	        android:textStyle="bold"
+	        style="@style/text_view_style"/>
+        
+    </RelativeLayout>
+
+    <LinearLayout
+       android:id="@+id/change_pwd_details"
+	   android:layout_width="fill_parent"
+	   android:layout_height="wrap_content"
+	   android:orientation="vertical"
+	   android:background="@color/white"
+	   android:layout_below="@id/header_rel"
+	   style="@style/content_style">
+    
+       <TextView
+	        android:id="@+id/page_level_error_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/connectionException"
+	        android:visibility="gone"
+	        style="@style/error_text_style"/>
+    
+       <EditText 
+	        android:id="@+id/reminder_name_txt_view"
+	        android:layout_width="fill_parent"
+	        android:hint="@string/reminder_name"
+	        android:textColorHint="@color/black"
+	        android:textStyle="normal"
+	        android:maxLength="40"
+	        android:singleLine="true"
+	        android:imeOptions="actionNext"
+	        android:background="@color/edit_text_back_color"
+	        style="@style/edit_text_style"/>
+    
+	    <TextView
+	        android:id="@+id/reminder_name_error_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/reminder_name_error_msg"
+	        android:visibility="gone"
+	        style="@style/error_text_style"/>
+	    
+	    <Spinner
+		    android:id="@+id/select_channel_spinner"
+		    android:layout_width="wrap_content"
+		    android:prompt="@string/select_channel"
+		    android:background="@color/edit_text_back_color"
+		    style="@style/edit_text_style"/>
+	    
+	    <TextView
+	        android:id="@+id/select_channel_error_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/select_channel_error_msg"
+	        android:visibility="gone"
+	        style="@style/error_text_style"/>
+	    
+	    <Spinner
+		    android:id="@+id/select_timezone_spinner"
+		    android:layout_width="wrap_content"
+		    android:prompt="@string/select_channel"
+		    android:background="@color/edit_text_back_color"
+		    style="@style/edit_text_style"/>
+	    
+	    <TextView
+	        android:id="@+id/select_timezone_error_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/select_timezone_error_msg"
+	        android:visibility="gone"
+	        style="@style/error_text_style"/>
+	    
+	    <Spinner
+		    android:id="@+id/reminder_type_spinner"
+		    android:layout_width="wrap_content"
+		    android:prompt="@string/reminder_type"
+		    android:background="@color/edit_text_back_color"
+		    style="@style/edit_text_style"/>
+	    
+	    <TextView
+	        android:id="@+id/reminder_type_error_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/reminder_type_error_msg"
+	        android:visibility="gone"
+	        style="@style/error_text_style"/>
+	    
+	    <Spinner
+		    android:id="@+id/reminder_date_time_spinner"
+		    android:layout_width="wrap_content"
+		    android:prompt="@string/reminder_date_time"
+		    android:background="@color/edit_text_back_color"
+		    style="@style/edit_text_style"/>
+	    
+	    <TextView
+	        android:id="@+id/reminder_date_time_error_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/reminder_date_time_error_msg"
+	        android:visibility="gone"
+	        style="@style/error_text_style"/>
+	    
+	    <EditText 
+	        android:id="@+id/share_with_txt_view"
+	        android:layout_width="fill_parent"
+	        android:layout_height="100dp"
+	        android:hint="@string/share_with"
+	        android:textColorHint="@color/hint_text_color"
+	        android:maxLength="40"
+	        android:singleLine="true"
+	        android:background="@color/edit_text_back_color"
+	        android:imeOptions="actionDone"
+	        style="@style/edit_text_style"/>
+    
+	    <TextView
+	        android:id="@+id/share_with_error_txt_view"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/share_with_error_msg"
+	        android:visibility="gone"
+	        style="@style/error_text_style"/>
+	    
+	    <LinearLayout 
+	        android:id="@+id/submit_lin"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        style="@style/cancel_submit_lin">
+	        
+	        <Button 
+		        android:id="@+id/submit_btn"
+		        android:layout_width="0dp"
+		        android:text="@string/submit"
+		        style="@style/button_style"
+		        android:layout_weight="1"/>
+	        
+	    </LinearLayout>
+   
+   </LinearLayout>
+    
+</RelativeLayout>

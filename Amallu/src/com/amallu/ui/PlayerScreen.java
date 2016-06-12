@@ -470,6 +470,10 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 	  menuItemHM.put(ReqResNodes.MENUITEMNAME,ReqResNodes.MENUITEM_PRIVACYPOLICY);
 	  menuItemsList.add(menuItemHM);
 	  
+	  menuItemHM=new HashMap<String,Object>();
+	  menuItemHM.put(ReqResNodes.MENUITEMNAME,ReqResNodes.MENUITEM_PROFILE);
+	  menuItemsList.add(menuItemHM);
+	  
 	  MenuItemAdapter menuItemListAdapter=new MenuItemAdapter(this,menuItemsList,R.layout.categoryrow,new String[]{},new int[]{});
 	  mDrawerList.setAdapter(menuItemListAdapter);
 	  mDrawerList.setOnItemClickListener(new OnItemClickListener(){
@@ -491,17 +495,31 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
             	mDrawerLayout.closeDrawer(mDrawerList);
             }else if(menuItemName.equals(ReqResNodes.MENUITEM_REMINDER)){
             	mDrawerLayout.closeDrawer(mDrawerList);
+            	Intent newReminderIntent=new Intent(PlayerScreen.this,NewReminderScreen.class);
+            	startActivity(newReminderIntent);
+          	    //slide from right to left
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             }/*else if(menuItemName.equals(ReqResNodes.MENUITEM_FRIENDS)){
             	mDrawerLayout.closeDrawer(mDrawerList);
             }else if(menuItemName.equals(ReqResNodes.MENUITEM_ACTIVITIES)){
             	mDrawerLayout.closeDrawer(mDrawerList);           	
             }*/else if(menuItemName.equals(ReqResNodes.MENUITEM_ABOUT)){
-            	mDrawerLayout.closeDrawer(mDrawerList);          	
+            	mDrawerLayout.closeDrawer(mDrawerList);
+            	Intent aboutUsIntent=new Intent(PlayerScreen.this,AboutUsScreen.class);
+            	startActivity(aboutUsIntent);
+          	    //slide from right to left
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             }/*else if(menuItemName.equals(ReqResNodes.MENUITEM_ADVERTISE)){            	
             	mDrawerLayout.closeDrawer(mDrawerList);
             }else if(menuItemName.equals(ReqResNodes.MENUITEM_TERMS)){
             	mDrawerLayout.closeDrawer(mDrawerList);
             }*/else if(menuItemName.equals(ReqResNodes.MENUITEM_PRIVACYPOLICY)){
+            	mDrawerLayout.closeDrawer(mDrawerList);
+            	Intent termsPrivacyPolicyIntent=new Intent(PlayerScreen.this,TermsPrivacyPolicyScreen.class);
+            	startActivity(termsPrivacyPolicyIntent);
+          	    //slide from right to left
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+            }else if(menuItemName.equals(ReqResNodes.MENUITEM_PROFILE)){
             	mDrawerLayout.closeDrawer(mDrawerList);
             }		 
 		 }
@@ -602,6 +620,12 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
                 menuItemRowHolder.vertical_line.setVisibility(View.GONE);
                 menuItemRowHolder.menu_items_divider.setVisibility(View.VISIBLE);
             //}else if(LoginParser.getUserName()!=null && !LoginParser.getUserName().equals("")){
+            }else if(menuItemName.equals(ReqResNodes.MENUITEM_PROFILE)){
+            	menuItemRowHolder.menu_item_icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_profile));
+                menuItemRowHolder.menu_item_name.setText(menuItemName);
+                menuItemRowHolder.logout_btn.setVisibility(View.INVISIBLE);
+                menuItemRowHolder.vertical_line.setVisibility(View.GONE);
+                menuItemRowHolder.menu_items_divider.setVisibility(View.VISIBLE);
             }else if(fromContext instanceof LoginScreen){
             	Log.v(TAG,"fromContext LoginParser");
             	if(menuItemName.equals(LoginParser.getUserName())){

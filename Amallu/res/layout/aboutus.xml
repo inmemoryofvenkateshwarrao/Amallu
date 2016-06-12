@@ -22,17 +22,20 @@
 	        android:id="@+id/title"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="@string/languages"
+	        android:text="@string/terms_privacy_policy"
 	        android:layout_centerInParent="true"
 	        android:textStyle="bold"
 	        style="@style/text_view_style"/>
         
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/language_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/header_rel"/>
-
+        <TextView 
+	        android:id="@+id/title1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="Coming Soon..."
+	        android:layout_centerInParent="true"
+	        android:textColor="@color/black"
+	        style="@style/text_view_style"/>
+    
 </RelativeLayout>

@@ -131,6 +131,7 @@ public class ReqResNodes{
     //public static final String MENUITEM_ADVERTISE="Advertise";
     //public static final String MENUITEM_TERMS="Terms";
     public static final String MENUITEM_PRIVACYPOLICY="Terms & Privacy Policy";
+    public static final String MENUITEM_PROFILE="Profile";
     
     //Menu Items
     public static final String COMMENT_USERNAME="comment_username";

@@ -37,5 +37,6 @@
     <color name="forgot_pwd_header">#02202B</color>
     <color name="hint_text_color">#276A88</color>
     <color name="security_question_color">#075A7D</color>
+    <color name="edit_text_back_color">#F6F6F6</color>
     
 </resources>

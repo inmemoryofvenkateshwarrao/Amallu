@@ -30,6 +30,7 @@
     <string name="enter_emailid">ENTER EMAIL ID</string>
     <string name="enter_answer">Answer</string>
     <string name="submit">SUBMIT</string>
+    <string name="save">SAVE</string>
     <string name="next">NEXT</string>
     <string name="security_question">Security Question</string>
     <string name="cancel">CANCEL</string>
@@ -144,8 +145,28 @@
     <string name="delete">Delete</string>
     <string name="profile">Profile</string>
     
+    <string name="change_password_label">Change Password</string>
     <string name="change_password">New Password</string>
     <string name="confirm_password">Confirm Password</string>
     
-
+	<string name="terms_privacy_policy">Terms &amp; Privacy Policy</string>
+	
+	<!-- Reminder Screen Labels -->
+	<string name="new_reminder">New Reminder</string>
+    <string name="reminder_name">Reminder Name</string>
+    <string name="select_channel">Select Channel</string>
+    <string name="select_timezone">Select Timezone</string>
+    <string name="reminder_type">Reminder Type</string>
+    <string name="reminder_date_time">Reminder Date &amp; Time</string>
+    <string name="share_with">Share with</string>
+    
+    <string name="reminder_name_error_msg">Please enter Reminder name</string>
+    <string name="select_channel_error_msg">Please select Channel</string>
+    <string name="select_timezone_error_msg">Please select Timezone</string>
+    <string name="reminder_type_error_msg">Please select Reminder Type</string>
+    <string name="reminder_date_time_error_msg">Please select Reminder Date &amp; Time</string>
+    <string name="share_with_error_msg">Please enter Share with</string>
+    
 </resources>
+
+

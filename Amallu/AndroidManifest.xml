@@ -97,6 +97,18 @@
             android:name=".ChangePasswordScreen1"
             android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" >
         </activity>
+        <activity
+            android:name=".TermsPrivacyPolicyScreen"
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" >
+        </activity>
+        <activity
+            android:name=".AboutUsScreen"
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" >
+        </activity>
+        <activity
+            android:name=".NewRemindersceen"
+            android:configChanges="orientation|screenSize|smallestScreenSize|locale|keyboard|fontScale|keyboardHidden|navigation" >
+        </activity>
     </application>
 
 </manifest>
