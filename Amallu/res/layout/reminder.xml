@@ -1,0 +1,55 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    
+    <RelativeLayout
+        android:id="@+id/header_rel"
+        android:layout_width="fill_parent"
+        android:background="@color/blue"
+        style="@style/page_header_style">
+        
+        <ImageView 
+            android:id="@+id/icon_left_arrow"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_back"
+            android:contentDescription="@string/image_content_desc"
+            style="@style/icon_small_left_layout"/>
+        
+        <TextView 
+	        android:id="@+id/title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/reminder"
+	        android:layout_centerInParent="true"
+	        android:textStyle="bold"
+	        style="@style/text_view_style"/>
+        
+        <ImageView 
+            android:id="@+id/icon_plus_sign"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@android:drawable/btn_plus"
+            android:contentDescription="@string/image_content_desc"
+            style="@style/icon_small_left_layout"/>
+        
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/reminder_list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/header_rel"/>
+    
+    <TextView
+        android:id="@+id/reminders_unavail_error_txt_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reminders_unavail_error_msg"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        style="@style/error_text_style"/>
+    
+</RelativeLayout>

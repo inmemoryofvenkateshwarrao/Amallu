@@ -1,7 +1,10 @@
 package com.amallu.ui;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
+import com.amallu.utility.ReqResNodes;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -82,24 +85,31 @@ public class NewReminderScreen extends SuperActivity implements OnClickListener,
 	 
 	 List<String> selectChannel = new ArrayList<String>();
      selectChannel.add("Sky TG24");
+     selectChannel.add("Ryas TV");
      ArrayAdapter<String> selectChannelAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,selectChannel);
      selectChannelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
      select_channel_spinner.setAdapter(selectChannelAdapter);
      
      List<String> selectTimezone = new ArrayList<String>();
-     selectChannel.add("UTC+5:30");
+     selectTimezone.add("UTC+5:30");
+     selectTimezone.add("GMT+5:30");
+     selectTimezone.add("EST+5:30");
      ArrayAdapter<String> selectTimezoneAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,selectTimezone);
      selectTimezoneAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
      select_timezone_spinner.setAdapter(selectTimezoneAdapter);
      
      List<String> reminderType = new ArrayList<String>();
-     selectChannel.add("Test Type");
+     reminderType.add("Type1");
+     reminderType.add("Type2");
      ArrayAdapter<String> reminderTypeAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,reminderType);
      reminderTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
      reminder_type_spinner.setAdapter(reminderTypeAdapter);
      
      List<String> reminderDateTime = new ArrayList<String>();
-     selectChannel.add("06/07/2016 18:35");
+     reminderDateTime.add("06/07/2016 18:35");
+     reminderDateTime.add("07/07/2016 12:35");
+     reminderDateTime.add("23/07/2016 12:35");
+     reminderDateTime.add("14/07/2016 12:35");
      ArrayAdapter<String> reminderDateTimeAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,reminderDateTime);
      reminderDateTimeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
      reminder_date_time_spinner.setAdapter(reminderDateTimeAdapter);
@@ -152,10 +162,23 @@ public class NewReminderScreen extends SuperActivity implements OnClickListener,
 	   String reminderTypeSpinnerText=reminder_type_spinner.getSelectedItem().toString();
 	   String reminderDateTimeSpinnerText=reminder_date_time_spinner.getSelectedItem().toString();
 	   String shareWithText=share_with_txt_view.getText().toString();
+	   Log.d(TAG,"reminderNameText : "+reminderNameText);
+	   Log.d(TAG,"channelSpinnerText : "+channelSpinnerText);
+	   Log.d(TAG,"reminderTypeSpinnerText : "+reminderTypeSpinnerText);
+	   Log.d(TAG,"reminderDateTimeSpinnerText : "+reminderDateTimeSpinnerText);
+	   Log.d(TAG,"shareWithText : "+shareWithText);
 	   boolean isValidated=validate(reminderNameText,channelSpinnerText,timezoneSpinnerText,reminderTypeSpinnerText,
 			   				reminderDateTimeSpinnerText,shareWithText);
 	   if(isValidated){
 		  Log.v(TAG,"New Reminder details validated successfully.");
+		  HashMap<String,Object> reminderRowHM=new HashMap<String,Object>();
+		  reminderRowHM.put(ReqResNodes.REMINDER_NAME,reminderNameText);
+		  reminderRowHM.put(ReqResNodes.REMINDER_SHARE_WITH,shareWithText);
+		  reminderRowHM.put(ReqResNodes.REMINDER_CHANNEL_NAME,channelSpinnerText);
+		  reminderRowHM.put(ReqResNodes.REMINDER_TIME_ZONE,timezoneSpinnerText);
+		  reminderRowHM.put(ReqResNodes.REMINDER_DATE_TIME_ZONE,reminderDateTimeSpinnerText);
+		  ReminderScreen.remindersList.add(reminderRowHM);
+		  finish();
 		  launchPreviousScreen();
 		}else{
 		  Log.v(TAG,"New Reminder validation failure.");

@@ -495,8 +495,8 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
             	mDrawerLayout.closeDrawer(mDrawerList);
             }else if(menuItemName.equals(ReqResNodes.MENUITEM_REMINDER)){
             	mDrawerLayout.closeDrawer(mDrawerList);
-            	Intent newReminderIntent=new Intent(PlayerScreen.this,NewReminderScreen.class);
-            	startActivity(newReminderIntent);
+            	Intent reminderIntent=new Intent(PlayerScreen.this,ReminderScreen.class);
+            	startActivity(reminderIntent);
           	    //slide from right to left
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             }/*else if(menuItemName.equals(ReqResNodes.MENUITEM_FRIENDS)){

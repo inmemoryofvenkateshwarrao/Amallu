@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" 
+	android:layout_height="wrap_content"
+	android:layout_margin="10dp"
+	android:background="@color/edit_text_back_color"
+	style="@style/list_row_style">
+	
+   <ImageView android:id="@+id/col1"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:src="@drawable/ic_default_channel"
+       android:contentDescription="@string/image_content_desc"
+       android:layout_centerVertical="true"
+       style="@style/icon_layout"/>
+   
+   <LinearLayout 
+       android:id="@+id/col2"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       android:layout_marginLeft="5dp"
+       android:layout_toRightOf="@id/col1">
+   
+	   <TextView 
+	       android:id="@+id/col2_row1"
+	       android:layout_width="wrap_content"
+	       android:layout_height="wrap_content"
+	       style="@style/normal_text_size_style"
+	       android:textColor="@color/black"
+	       android:textStyle="bold"/>
+	   
+	   <TextView 
+	       android:id="@+id/col2_row2"
+	       android:layout_width="wrap_content"
+	       android:layout_height="wrap_content"
+	       style="@style/normal_text_size_style"
+	       android:textColor="@color/black"
+	       android:textStyle="normal"
+	       android:layout_marginTop="2dp"/>
+	   
+	   <TextView 
+	       android:id="@+id/col2_row3"
+	       android:layout_width="wrap_content"
+	       android:layout_height="wrap_content"
+	       style="@style/normal_text_size_style"
+	       android:textColor="@color/black"
+	       android:textStyle="normal"
+	       android:layout_marginTop="2dp"/>
+	   
+	   <TextView 
+	       android:id="@+id/col2_row4"
+	       android:layout_width="wrap_content"
+	       android:layout_height="wrap_content"
+	       style="@style/normal_text_size_style"
+	       android:textColor="@color/black"
+	       android:textStyle="normal"
+	       android:layout_marginTop="2dp"/>
+   
+   </LinearLayout>
+     
+</RelativeLayout>

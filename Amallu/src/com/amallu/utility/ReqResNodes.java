@@ -145,5 +145,11 @@ public class ReqResNodes{
     public static final String SUCCESS="1";
     public static final String FAILURE="0";
     
+    public static final String REMINDER_NAME="reminder_name";
+    public static final String REMINDER_CHANNEL_NAME="reminder_channel_name";
+    public static final String REMINDER_TIME_ZONE="reminder_time_zone";
+    public static final String REMINDER_DATE_TIME_ZONE="reminder_date_time_zone";
+    public static final String REMINDER_SHARE_WITH="reminder_share_with";
+    
 }
 

@@ -152,6 +152,7 @@
 	<string name="terms_privacy_policy">Terms &amp; Privacy Policy</string>
 	
 	<!-- Reminder Screen Labels -->
+	<string name="reminder">Reminder</string>
 	<string name="new_reminder">New Reminder</string>
     <string name="reminder_name">Reminder Name</string>
     <string name="select_channel">Select Channel</string>
@@ -166,6 +167,7 @@
     <string name="reminder_type_error_msg">Please select Reminder Type</string>
     <string name="reminder_date_time_error_msg">Please select Reminder Date &amp; Time</string>
     <string name="share_with_error_msg">Please enter Share with</string>
+    <string name="reminders_unavail_error_msg">Reminders unavailable</string>
     
 </resources>
 

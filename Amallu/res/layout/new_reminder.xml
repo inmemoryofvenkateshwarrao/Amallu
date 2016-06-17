@@ -29,13 +29,18 @@
         
     </RelativeLayout>
 
+  <ScrollView 
+        android:id="@+id/scroll_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/header_rel">
+    
     <LinearLayout
        android:id="@+id/change_pwd_details"
 	   android:layout_width="fill_parent"
 	   android:layout_height="wrap_content"
 	   android:orientation="vertical"
 	   android:background="@color/white"
-	   android:layout_below="@id/header_rel"
 	   style="@style/content_style">
     
        <TextView
@@ -55,7 +60,6 @@
 	        android:maxLength="40"
 	        android:singleLine="true"
 	        android:imeOptions="actionNext"
-	        android:background="@color/edit_text_back_color"
 	        style="@style/edit_text_style"/>
     
 	    <TextView
@@ -68,9 +72,8 @@
 	    
 	    <Spinner
 		    android:id="@+id/select_channel_spinner"
-		    android:layout_width="wrap_content"
+		    android:layout_width="fill_parent"
 		    android:prompt="@string/select_channel"
-		    android:background="@color/edit_text_back_color"
 		    style="@style/edit_text_style"/>
 	    
 	    <TextView
@@ -83,9 +86,8 @@
 	    
 	    <Spinner
 		    android:id="@+id/select_timezone_spinner"
-		    android:layout_width="wrap_content"
+		    android:layout_width="fill_parent"
 		    android:prompt="@string/select_channel"
-		    android:background="@color/edit_text_back_color"
 		    style="@style/edit_text_style"/>
 	    
 	    <TextView
@@ -98,9 +100,8 @@
 	    
 	    <Spinner
 		    android:id="@+id/reminder_type_spinner"
-		    android:layout_width="wrap_content"
+		    android:layout_width="fill_parent"
 		    android:prompt="@string/reminder_type"
-		    android:background="@color/edit_text_back_color"
 		    style="@style/edit_text_style"/>
 	    
 	    <TextView
@@ -113,9 +114,8 @@
 	    
 	    <Spinner
 		    android:id="@+id/reminder_date_time_spinner"
-		    android:layout_width="wrap_content"
+		    android:layout_width="fill_parent"
 		    android:prompt="@string/reminder_date_time"
-		    android:background="@color/edit_text_back_color"
 		    style="@style/edit_text_style"/>
 	    
 	    <TextView
@@ -134,7 +134,6 @@
 	        android:textColorHint="@color/hint_text_color"
 	        android:maxLength="40"
 	        android:singleLine="true"
-	        android:background="@color/edit_text_back_color"
 	        android:imeOptions="actionDone"
 	        style="@style/edit_text_style"/>
     
@@ -162,5 +161,7 @@
 	    </LinearLayout>
    
    </LinearLayout>
+   
+ </ScrollView>
     
 </RelativeLayout>
