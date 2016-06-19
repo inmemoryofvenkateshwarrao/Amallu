@@ -286,5 +286,23 @@
     <style name="like_dislike_social_media_layout">
         <item name="android:layout_marginTop">7dp</item>
     </style>
+    
+    <style name="text_lable_margin_style"  parent="@style/text_size_style">
+        <item name="android:layout_marginTop">11dp</item>
+    </style>
+    
+    <style name="spinner_style" parent="@style/text_size_style">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_height">65dp</item>
+        <item name="android:layout_width">85dp</item>
+    </style>
+    
+    <style name="profile_spinner_style" parent="@style/edit_text_style">
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">65dp</item>
+    </style>
      
 </resources>

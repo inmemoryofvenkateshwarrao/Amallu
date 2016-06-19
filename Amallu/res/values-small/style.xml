@@ -296,4 +296,15 @@
         <item name="android:layout_height">40dp</item>
     </style>
     
+    <style name="text_lable_margin_style" parent="@style/text_size_style">
+        <item name="android:layout_marginTop">5dp</item>
+    </style>
+    
+    <style name="profile_spinner_style" parent="@style/edit_text_style">
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">45dp</item>
+    </style>
+    
 </resources>

@@ -169,6 +169,20 @@
     <string name="share_with_error_msg">Please enter Share with</string>
     <string name="reminders_unavail_error_msg">Reminders unavailable</string>
     
+    <!-- Profile Screen Labels -->
+	<string name="overview">Overview</string>
+	<string name="firstname">First Name</string>
+    <string name="lastname">Last Name</string>
+    <string name="chatname">Chat Name</string>
+    <string name="birthdate">Birth Date</string>
+    <string name="gender">Gender</string>
+    <string name="addafriend">ADD A FRIEND</string>
+    <string name="addcomment">Add Comment</string>
+    <string name="likechannel">Like Channel</string>
+    <string name="addfriend">Add Friend</string>
+    <string name="privacy_settings">Privacy Settings</string>
+    
+    
 </resources>
 
 

@@ -286,5 +286,16 @@
     <style name="like_dislike_social_media_layout">
         <item name="android:layout_marginTop">8dp</item>
     </style>
+    
+    <style name="text_lable_margin_style"  parent="@style/text_size_style">
+        <item name="android:layout_marginTop">13dp</item>
+    </style>
+    
+    <style name="profile_spinner_style" parent="@style/edit_text_style">
+        <item name="android:layout_marginLeft">13dp</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_width">220dp</item>
+        <item name="android:layout_height">100dp</item>
+    </style>
      
 </resources>

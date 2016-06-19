@@ -38,5 +38,7 @@
     <color name="hint_text_color">#276A88</color>
     <color name="security_question_color">#075A7D</color>
     <color name="edit_text_back_color">#F6F6F6</color>
+    <color name="text_label_color">#838383</color>
+    <color name="edit_text_color">#1B1B1B</color>
     
 </resources>
