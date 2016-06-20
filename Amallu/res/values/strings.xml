@@ -181,6 +181,9 @@
     <string name="likechannel">Like Channel</string>
     <string name="addfriend">Add Friend</string>
     <string name="privacy_settings">Privacy Settings</string>
+    <string name="type_cur_pwd">Type your current password</string>
+    <string name="type_new_pwd">Type your new password</string>
+    <string name="confirm_new_pwd">Confirm new password</string>
     
     
 </resources>

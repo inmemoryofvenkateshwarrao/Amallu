@@ -301,7 +301,7 @@
     <style name="profile_spinner_style" parent="@style/edit_text_style">
         <item name="android:layout_marginLeft">8dp</item>
         <item name="android:layout_marginTop">0dp</item>
-        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_width">230dp</item>
         <item name="android:layout_height">65dp</item>
     </style>
      

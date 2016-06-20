@@ -6,7 +6,7 @@
 	   android:background="@color/white">
 	   
    <RelativeLayout
-       android:id="@+id/profile_change_pwd_header"
+       android:id="@+id/profile_overview_header"
 	   android:layout_width="fill_parent"
 	   android:layout_height="wrap_content"
 	   android:background="@color/white"
@@ -14,16 +14,16 @@
 	   style="@style/content_style">
 	   
        <TextView
-	        android:id="@+id/change_pwd_label"
+	        android:id="@+id/overview_label"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="@string/change_password_label"
+	        android:text="@string/overview"
 	        android:textColor="#2A2A2A"
 	        android:textStyle="normal"
 	        style="@style/text_size_style"/> 
 	        
        <ImageView 
-	        android:id="@+id/icon_right_arrow"
+	        android:id="@+id/overview_expand_collapse"
 	        android:src="@drawable/ic_drawer"
 	        android:contentDescription="@string/image_content_desc"
 	        android:background="@color/white"
@@ -34,17 +34,49 @@
    </RelativeLayout>
    
    <LinearLayout 
-       android:id="@+id/profile_change_pwd_content"
+       android:id="@+id/profile_overview_content"
        android:layout_width="fill_parent"
        android:layout_height="wrap_content"
        android:orientation="vertical"
-       android:layout_below="@id/profile_change_pwd_header">
+       android:layout_below="@id/profile_overview_header">
       
 	   <View 
 	        android:id="@+id/horizontal_line"
 	        android:layout_width="fill_parent"
 	        android:layout_height="1dp"
 	        android:background="#DDDDDD"/>
+	   
+	   <RelativeLayout
+	       android:id="@+id/profile_overview_icon"
+		   android:layout_width="fill_parent"
+		   android:layout_height="wrap_content"
+		   android:background="@color/white"
+		   android:layout_marginBottom="6dp"
+		   style="@style/content_style">
+		   
+	       <ImageView 
+		        android:id="@+id/icon_profile"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:src="@drawable/ic_friend_profile"
+		        android:contentDescription="@string/image_content_desc"
+		        android:background="@color/white"
+		        android:visibility="visible"
+		        android:layout_alignParentLeft="true"
+		        android:layout_centerVertical="true"
+		        style="@style/icon_small_layout"/>
+	       
+	       <TextView
+		        android:id="@+id/profile_name_txt_view"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:textColor="#2A2A2A"
+		        android:textStyle="normal"
+		        android:layout_toRightOf="@id/icon_profile"
+		        android:layout_centerVertical="true"
+		        style="@style/text_size_style"/> 
+	       
+	   </RelativeLayout>
 	   
 	   <LinearLayout
 		   android:layout_width="fill_parent"
@@ -54,16 +86,16 @@
 		   style="@style/content_style">
 		   
 	       <TextView
-		        android:id="@+id/type_cur_pwd_label"
+		        android:id="@+id/first_name_label"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="@string/type_cur_pwd"
+		        android:text="@string/firstname"
 		        android:textColor="@color/text_label_color"
 		        android:textStyle="normal"
 		        style="@style/text_size_style"/> 
 		        
 	       <EditText 
-		        android:id="@+id/type_cur_pwd_edit_txt_view"
+		        android:id="@+id/first_name_edit_txt_view"
 		        android:layout_width="fill_parent"
 		        android:inputType="text"
 		        android:maxLength="40"
@@ -73,16 +105,16 @@
 		        style="@style/edit_text_style"/>
 	       
 	       <TextView
-		        android:id="@+id/type_new_pwd_label"
+		        android:id="@+id/last_name_label"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="@string/type_new_pwd"
+		        android:text="@string/lastname"
 		        android:textColor="@color/text_label_color"
 		        android:textStyle="normal"
 		        style="@style/text_lable_margin_style"/> 
 		        
 	       <EditText 
-		        android:id="@+id/type_new_pwd_edit_txt_view"
+		        android:id="@+id/last_name_edit_txt_view"
 		        android:layout_width="fill_parent"
 		        android:inputType="text"
 		        android:maxLength="40"
@@ -92,16 +124,53 @@
 		        style="@style/edit_text_style"/>
 	       
 	       <TextView
-		        android:id="@+id/confirm_new_pwd_label"
+		        android:id="@+id/chat_name_label"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:text="@string/confirm_new_pwd"
+		        android:text="@string/chatname"
 		        android:textColor="@color/text_label_color"
 		        android:textStyle="normal"
 		        style="@style/text_lable_margin_style"/> 
 		        
 	       <EditText 
-		        android:id="@+id/confirm_new_pwd_edit_txt_view"
+		        android:id="@+id/chat_name_edit_txt_view"
+		        android:layout_width="fill_parent"
+		        android:inputType="text"
+		        android:maxLength="40"
+		        android:singleLine="true"
+		        android:background="@color/edit_text_back_color"
+		        android:textColor="@color/edit_text_color"
+		        style="@style/edit_text_style"/>
+	       
+	       <TextView
+		        android:id="@+id/birth_date_label"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/birthdate"
+		        android:textColor="@color/text_label_color"
+		        android:textStyle="normal"
+		        style="@style/text_lable_margin_style"/> 
+		        
+	       <EditText 
+		        android:id="@+id/birth_date_edit_txt_view"
+		        android:layout_width="fill_parent"
+		        android:maxLength="40"
+		        android:singleLine="true"
+		        android:background="@color/edit_text_back_color"
+		        android:textColor="@color/edit_text_color"
+		        style="@style/edit_text_style"/>
+	       
+	       <TextView
+		        android:id="@+id/gender_label"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/gender"
+		        android:textColor="@color/text_label_color"
+		        android:textStyle="normal"
+		        style="@style/text_lable_margin_style"/> 
+		        
+	       <EditText 
+		        android:id="@+id/gender_edit_txt_view"
 		        android:layout_width="fill_parent"
 		        android:inputType="text"
 		        android:maxLength="40"
@@ -114,10 +183,12 @@
 		        android:id="@+id/add_a_friend_btn"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
-		        android:text="@string/save"
+		        android:text="@string/addafriend"
+		        android:background="@drawable/green_rounded_corners"
 		        android:textStyle="normal"
 		        style="@style/button_style"/>
 		        
+	          
 	   </LinearLayout>
 	   
     </LinearLayout>

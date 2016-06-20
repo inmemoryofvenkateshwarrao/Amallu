@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/app_bg">
+    
+    <RelativeLayout
+        android:id="@+id/header_rel"
+        android:layout_width="fill_parent"
+        android:background="@color/blue"
+        style="@style/page_header_style">
+        
+        <ImageView 
+            android:id="@+id/icon_left_arrow"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_back"
+            android:contentDescription="@string/image_content_desc"
+            style="@style/icon_small_left_layout"/>
+        
+        <TextView 
+	        android:id="@+id/title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/profile"
+	        android:layout_centerInParent="true"
+	        android:textStyle="bold"
+	        style="@style/text_view_style"/>
+        
+    </RelativeLayout>
+    
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/header_rel">
+    
+	 <LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical">
+	   
+	     <include 
+	        android:id="@+id/profile_overview_lay"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        layout="@layout/profile_overview"/>
+	     
+	     <include 
+	        android:id="@+id/profile_privacy_settings_lay"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        layout="@layout/profile_privacy_settings"/>
+	     
+	     <include 
+	        android:id="@+id/profile_change_pwd_lay"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        layout="@layout/profile_change_password"/>
+	    
+	 </LinearLayout>
+	 
+  </ScrollView>
+ 
+</RelativeLayout>

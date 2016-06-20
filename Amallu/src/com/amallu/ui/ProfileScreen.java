@@ -5,6 +5,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.amallu.backend.CustomProgressDialog;
 import com.amallu.backend.ReqResHandler;
@@ -12,18 +17,24 @@ import com.amallu.backend.ResponseHandler;
 import com.amallu.exception.AmalluException;
 import com.amallu.model.Profile;
 import com.amallu.parser.ProfileParser;
-import com.amallu.utility.ErrorCodes;
 
 public class ProfileScreen extends Activity implements OnClickListener{
 
 	private static final String TAG="ProfileScreen";
+	private View profile_overview_lay,profile_privacy_settings_lay,profile_change_pwd_lay;
+	private ImageView icon_left_arrow,overview_expand_collapse,icon_profile,privacy_settings_expand_collapse;
+	private TextView overview_label,profile_name_txt_view;
+	private EditText first_name_edit_txt_view,last_name_edit_txt_view,chat_name_edit_txt_view,birth_date_edit_txt_view,
+	                 gender_edit_txt_view;
+	private Button add_a_friend_btn,submit_btn;
+	private Spinner add_comment_spinner,like_channel_spinner,add_friend_spinner,birth_date_spinner,friends_spinner;
 	
 	//Method executes whenever object is created.
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		Log.i(TAG,"onCreate Entering.");
-		setContentView(R.layout.splash);
+		setContentView(R.layout.profile);
 		intializeViews();
 		setListeners();
 		Log.i(TAG,"onCreate() Exiting.");
@@ -32,8 +43,30 @@ public class ProfileScreen extends Activity implements OnClickListener{
 	//Method to initialize the Views of XML file.
 	private void intializeViews(){
 		Log.i(TAG,"intializeViews() Entering.");
-		//changempin_btn = (Button)findViewById(R.id.changempin_btn);
-		//failureTxt=(TextView)findViewById(R.id.failure_txt);
+		icon_left_arrow=(ImageView)findViewById(R.id.icon_left_arrow);
+		profile_overview_lay=(View)findViewById(R.id.profile_overview_lay);
+		overview_expand_collapse=(ImageView)profile_overview_lay.findViewById(R.id.overview_expand_collapse);
+		icon_profile=(ImageView)profile_overview_lay.findViewById(R.id.icon_profile);
+		overview_label=(TextView)profile_overview_lay.findViewById(R.id.overview_label);
+		profile_name_txt_view=(TextView)profile_overview_lay.findViewById(R.id.profile_name_txt_view);
+		first_name_edit_txt_view=(EditText)profile_overview_lay.findViewById(R.id.first_name_edit_txt_view);
+		last_name_edit_txt_view=(EditText)profile_overview_lay.findViewById(R.id.last_name_edit_txt_view);
+		chat_name_edit_txt_view=(EditText)profile_overview_lay.findViewById(R.id.chat_name_edit_txt_view);
+		birth_date_edit_txt_view=(EditText)profile_overview_lay.findViewById(R.id.birth_date_edit_txt_view);
+		gender_edit_txt_view=(EditText)profile_overview_lay.findViewById(R.id.gender_edit_txt_view);
+		add_a_friend_btn=(Button)profile_overview_lay.findViewById(R.id.add_a_friend_btn);
+		
+		profile_privacy_settings_lay=(View)findViewById(R.id.profile_privacy_settings_lay);
+		privacy_settings_expand_collapse=(ImageView)profile_privacy_settings_lay.findViewById(R.id.privacy_settings_expand_collapse);
+		add_comment_spinner=(Spinner)profile_privacy_settings_lay.findViewById(R.id.add_comment_spinner);
+		like_channel_spinner=(Spinner)profile_privacy_settings_lay.findViewById(R.id.like_channel_spinner);
+		add_friend_spinner=(Spinner)profile_privacy_settings_lay.findViewById(R.id.add_friend_spinner);
+		birth_date_spinner=(Spinner)profile_privacy_settings_lay.findViewById(R.id.birth_date_spinner);
+		friends_spinner=(Spinner)profile_privacy_settings_lay.findViewById(R.id.friends_spinner);
+		submit_btn=(Button)profile_privacy_settings_lay.findViewById(R.id.submit_btn);
+		
+		
+		profile_change_pwd_lay=(View)findViewById(R.id.profile_change_pwd_lay);
 		Log.i(TAG,"intializeViews() Exiting.");
 	}
 

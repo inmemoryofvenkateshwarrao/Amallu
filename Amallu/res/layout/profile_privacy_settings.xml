@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+       xmlns:android="http://schemas.android.com/apk/res/android"
+	   android:layout_width="fill_parent"
+	   android:layout_height="fill_parent"
+	   android:background="@color/white">
+	   
+   <RelativeLayout
+       android:id="@+id/privacy_settings_header"
+	   android:layout_width="fill_parent"
+	   android:layout_height="wrap_content"
+	   android:background="@color/white"
+	   android:layout_marginBottom="6dp"
+	   style="@style/content_style">
+	   
+       <TextView
+	        android:id="@+id/privacy_settings_label"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/privacy_settings"
+	        android:textColor="#2A2A2A"
+	        android:textStyle="normal"
+	        style="@style/text_size_style"/> 
+	        
+       <ImageView 
+	        android:id="@+id/privacy_settings_expand_collapse"
+	        android:src="@drawable/ic_drawer"
+	        android:contentDescription="@string/image_content_desc"
+	        android:background="@color/white"
+	        android:visibility="visible"
+	        android:layout_alignParentRight="true"
+	        style="@style/icon_small_layout"/>
+       
+   </RelativeLayout>
+   
+   <LinearLayout 
+       android:id="@+id/profile_overview_content"
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       android:layout_below="@id/privacy_settings_header">
+      
+	   <View 
+	       android:layout_width="fill_parent"
+	       android:layout_height="1dp"
+	       android:background="#DDDDDD"/>
+	   
+	   <RelativeLayout
+		   android:layout_width="fill_parent"
+		   android:layout_height="wrap_content"
+		   android:background="@color/white"
+		   style="@style/content_style">
+		   
+	       <TextView
+		        android:id="@+id/add_comment_label"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/addcomment"
+		        android:textColor="@color/text_label_color"
+		        android:textStyle="normal"
+		        android:layout_centerVertical="true"
+		        style="@style/text_size_style"/> 
+		        
+	       <Spinner
+			    android:id="@+id/add_comment_spinner"
+			    android:prompt="@string/addcomment"
+			    android:layout_marginTop="0dp"
+			    android:layout_alignParentRight="true"
+			    android:layout_centerVertical="true"
+			    style="@style/profile_spinner_style"/>
+	       
+	   </RelativeLayout>
+	   
+	    <View 
+	       android:layout_width="fill_parent"
+	       android:layout_height="1dp"
+	       android:background="#DDDDDD"/>
+	    
+	    <RelativeLayout
+		   android:layout_width="fill_parent"
+		   android:layout_height="wrap_content"
+		   android:background="@color/white"
+		   android:orientation="horizontal"
+		   style="@style/content_style">
+		   
+	       <TextView
+		        android:id="@+id/like_channel_label"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/likechannel"
+		        android:textColor="@color/text_label_color"
+		        android:textStyle="normal"
+		        android:layout_centerVertical="true"
+		        style="@style/text_size_style"/> 
+		        
+	       <Spinner
+			    android:id="@+id/like_channel_spinner"
+			    android:prompt="@string/likechannel"
+			    android:layout_marginTop="0dp"
+			    android:layout_alignParentRight="true"
+			    android:layout_centerVertical="true"
+			    style="@style/profile_spinner_style"/>
+	       
+	   </RelativeLayout>
+	   
+	    <View 
+	       android:layout_width="fill_parent"
+	       android:layout_height="1dp"
+	       android:background="#DDDDDD"/>
+	    
+	    <RelativeLayout
+		   android:layout_width="fill_parent"
+		   android:layout_height="wrap_content"
+		   android:background="@color/white"
+		   android:orientation="horizontal"
+		   style="@style/content_style">
+		   
+	       <TextView
+		        android:id="@+id/add_friend_label"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/addfriend"
+		        android:textColor="@color/text_label_color"
+		        android:textStyle="normal"
+		        android:layout_centerVertical="true"
+		        style="@style/text_size_style"/> 
+		        
+	       <Spinner
+			    android:id="@+id/add_friend_spinner"
+			    android:prompt="@string/addafriend"
+			    android:layout_marginTop="0dp"
+			    android:layout_alignParentRight="true"
+			    android:layout_centerVertical="true"
+			    style="@style/profile_spinner_style"/>
+	       
+	   </RelativeLayout>
+	   
+	    <View 
+	       android:layout_width="fill_parent"
+	       android:layout_height="1dp"
+	       android:background="#DDDDDD"/>
+	    
+	    <RelativeLayout
+		   android:layout_width="fill_parent"
+		   android:layout_height="wrap_content"
+		   android:background="@color/white"
+		   android:orientation="horizontal"
+		   style="@style/content_style">
+		   
+	       <TextView
+		        android:id="@+id/birth_date_label"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/birthdate"
+		        android:textColor="@color/text_label_color"
+		        android:textStyle="normal"
+		        android:layout_centerVertical="true"
+		        style="@style/text_size_style"/> 
+		        
+	       <Spinner
+			    android:id="@+id/birth_date_spinner"
+			    android:prompt="@string/birthdate"
+			    android:layout_marginTop="0dp"
+			    android:layout_alignParentRight="true"
+			    android:layout_centerVertical="true"
+			    style="@style/profile_spinner_style"/>
+	       
+	   </RelativeLayout>
+	   
+	    <View 
+	       android:layout_width="fill_parent"
+	       android:layout_height="1dp"
+	       android:background="#DDDDDD"/>
+	    
+	    <RelativeLayout
+		   android:layout_width="fill_parent"
+		   android:layout_height="wrap_content"
+		   android:background="@color/white"
+		   android:orientation="horizontal"
+		   style="@style/content_style">
+		   
+	       <TextView
+		        android:id="@+id/friends_label"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/friends"
+		        android:textColor="@color/text_label_color"
+		        android:textStyle="normal"
+		        android:layout_centerVertical="true"
+		        style="@style/text_size_style"/> 
+		        
+	       <Spinner
+			    android:id="@+id/friends_spinner"
+			    android:prompt="@string/friends"
+			    android:layout_marginTop="0dp"
+			    android:layout_alignParentRight="true"
+			    android:layout_centerVertical="true"
+			    style="@style/profile_spinner_style"/>
+	       
+	   </RelativeLayout>
+	   
+	    <View 
+	       android:layout_width="fill_parent"
+	       android:layout_height="1dp"
+	       android:background="#DDDDDD"/>
+	    
+	    <RelativeLayout
+		   android:layout_width="fill_parent"
+		   android:layout_height="wrap_content"
+		   style="@style/content_style">
+	    
+	    <Button 
+	        android:id="@+id/submit_btn"
+	        android:layout_width="fill_parent"
+	        android:text="@string/submit"
+	        android:textStyle="normal"
+	        style="@style/button_style"/>
+	    </RelativeLayout>
+	   
+    </LinearLayout>
+   
+ </RelativeLayout>
