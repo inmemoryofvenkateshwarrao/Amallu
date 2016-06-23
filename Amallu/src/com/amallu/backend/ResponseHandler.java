@@ -125,7 +125,12 @@ public class ResponseHandler implements Response{
 			if(result.equalsIgnoreCase("Exception")){
 			   Log.e(TAG, "CHANGEPASSWORD Exception caught.");
 			}
-			((ChangePasswordScreen)context).changePWDProceedUI(result,ex);
+			if(context instanceof ChangePasswordScreen){
+			   Log.v(TAG,"context instanceof LoginScreen");
+			   ((ChangePasswordScreen)context).changePWDProceedUI(result,ex);
+			}else if(context instanceof ProfileScreen){
+			   ((ProfileScreen)context).changePWDProceedUI(result,ex);
+			}
 		}
 		if(uiHandler.equals(CommonHandlerType.CHANNELSBYCATEGORY)){
 			if(result.equalsIgnoreCase("Exception")){

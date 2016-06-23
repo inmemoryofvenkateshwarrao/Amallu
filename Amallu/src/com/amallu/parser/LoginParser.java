@@ -27,6 +27,8 @@ public class LoginParser{
 				login.setUsername((loginJSONObj.get(ReqResNodes.USERNAME).toString()));
 			if(!loginJSONObj.isNull(ReqResNodes.MESSAGE))
 				login.setMessage((loginJSONObj.get(ReqResNodes.MESSAGE).toString()));
+			if(!loginJSONObj.isNull(ReqResNodes.EMAIL))
+				login.setEmail((loginJSONObj.get(ReqResNodes.EMAIL).toString()));
 		}catch(JSONException e){
 			e.printStackTrace();
 			login=null;
@@ -60,6 +62,18 @@ public class LoginParser{
 	   }
 	   Log.i(TAG,"getUserName() Exiting.");
 	   return userName;
+	}
+	//Returns Logged in Email
+	public static String getEmail(){
+	   Log.i(TAG,"getEmail() Entering.");
+	   String email="";
+	   try{
+		   email=login.getEmail();
+	   }catch(Exception e){
+		   email="";
+	   }
+	   Log.i(TAG,"getEmail() Exiting.");
+	   return email;
 	}
 
 }

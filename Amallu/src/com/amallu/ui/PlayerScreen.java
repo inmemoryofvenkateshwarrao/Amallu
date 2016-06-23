@@ -521,6 +521,10 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             }else if(menuItemName.equals(ReqResNodes.MENUITEM_PROFILE)){
             	mDrawerLayout.closeDrawer(mDrawerList);
+            	Intent profileIntent=new Intent(PlayerScreen.this,ProfileScreen.class);
+            	startActivity(profileIntent);
+          	    //slide from right to left
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             }		 
 		 }
 	   });
