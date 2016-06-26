@@ -42,7 +42,12 @@ public class ResponseHandler implements Response{
 			if(result.equalsIgnoreCase("Exception")){
 			   Log.e(TAG, "PROFILE Exception caught.");
 			}
-			((ProfileScreen)context).proceedUI(result,ex);
+			if(context instanceof ProfileScreen){
+			   Log.v(TAG,"context instanceof ProfileScreen");
+			   ((ProfileScreen)context).proceedUI(result,ex);
+			}else if(context instanceof PlayerScreen){
+			   ((PlayerScreen)context).profileProceedUI(result,ex);	
+			}
 		}
 		if(uiHandler.equals(CommonHandlerType.USERS)){
 			if(result.equalsIgnoreCase("Exception")){
