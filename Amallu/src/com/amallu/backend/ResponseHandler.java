@@ -175,7 +175,7 @@ public class ResponseHandler implements Response{
 			if(result.equalsIgnoreCase("Exception")){
 			   Log.e(TAG, "FAVORITECHANNELS Exception caught.");
 			}
-			//((FavoriteChannelsScreen)context).favoriteChannelsProceedUI(result,ex);
+			((PlayerScreen)context).favoriteChannelsProceedUI(result,ex);
 		}
 	}
 

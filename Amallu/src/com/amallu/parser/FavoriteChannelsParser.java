@@ -1,7 +1,6 @@
 package com.amallu.parser;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,7 +20,7 @@ public class FavoriteChannelsParser{
 	public static FavoriteChannels getFavoriteChannelsParsedResponse(String favoriteChannelsStr){
 		Log.i(TAG,"getFavoriteChannelsParsedResponse() Entering.");
 		FavoriteChannels favoriteChannels=new FavoriteChannels();
-		List<HashMap<String,Object>> favoriteChannelRowsHMList=new ArrayList<HashMap<String,Object>>();
+		ArrayList<HashMap<String,Object>> favoriteChannelRowsHMList=new ArrayList<HashMap<String,Object>>();
 		HashMap<String,Object> favoriteChannelRowHM;
 		try{
 			

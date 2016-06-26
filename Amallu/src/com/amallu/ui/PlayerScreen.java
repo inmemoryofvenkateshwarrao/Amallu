@@ -66,17 +66,22 @@ import com.amallu.model.ChannelDetail;
 import com.amallu.model.ChannelInfo;
 import com.amallu.model.Comment;
 import com.amallu.model.DisLikeChannel;
+import com.amallu.model.FavoriteChannels;
 import com.amallu.model.Friend;
 import com.amallu.model.LikeChannel;
+import com.amallu.model.Login;
+import com.amallu.model.Profile;
 import com.amallu.parser.ActivityLogParser;
 import com.amallu.parser.CategoryListParser;
 import com.amallu.parser.ChannelInfoParser;
 import com.amallu.parser.ChannelsListParser;
 import com.amallu.parser.DisLikeChannelParser;
+import com.amallu.parser.FavoriteChannelsParser;
 import com.amallu.parser.FriendsListParser;
 import com.amallu.parser.LanguageListParser;
 import com.amallu.parser.LikeChannelParser;
 import com.amallu.parser.LoginParser;
+import com.amallu.parser.ProfileParser;
 import com.amallu.parser.SignUpParser;
 import com.amallu.ui.PlayerScreen.MenuItemAdapter.MenuItemRowViewHolder;
 import com.amallu.utility.ErrorCodes;
@@ -521,10 +526,11 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             }else if(menuItemName.equals(ReqResNodes.MENUITEM_PROFILE)){
             	mDrawerLayout.closeDrawer(mDrawerList);
-            	Intent profileIntent=new Intent(PlayerScreen.this,ProfileScreen.class);
-            	startActivity(profileIntent);
+            	//Intent profileIntent=new Intent(PlayerScreen.this,ProfileScreen.class);
+            	//startActivity(profileIntent);
           	    //slide from right to left
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                //overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+            	sendProfileReq(LoginParser.getUserID());
             }		 
 		 }
 	   });
@@ -1182,6 +1188,59 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		
 		Log.i(TAG,"languageProceedUI() Exiting.");
 	}
+	
+	//Method to send Profile API request.
+	private void sendProfileReq(String id){
+		Log.i(TAG,"sendProfileReq() Entering.");
+		
+		ReqResHandler req = new ReqResHandler();
+		CustomProgressDialog.show(PlayerScreen.this);
+
+		req.profileRequest(PlayerScreen.this,new ResponseHandler(),id);
+		
+		Log.i(TAG,"sendProfileReq() Exiting.");
+	}
+	
+	//Methods handles the response from Server.
+	public void profileProceedUI(String result,AmalluException amalluEx){
+		Log.i(TAG,"profileProceedUI() Entering.");
+		
+		if(CustomProgressDialog.IsShowing()) {
+			   Log.v(TAG,"profileProceedUI progress dialog dismissing..");
+			   CustomProgressDialog.Dismiss();
+			}
+			if(result.equalsIgnoreCase("Exception")){
+				Log.e("profileProceedUI", "Exception Case");
+				//page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
+				//page_level_error_txt_view.setVisibility(View.VISIBLE);
+			}else{
+				Profile profile=ProfileParser.getProfileParsedResponse(result);
+				if(profile!=null){
+					Log.v(TAG,"Profile response parsing success.");
+					if(profile.getIsSuccess().equals(ErrorCodes.ISFAILURE)){
+					   Log.e(TAG,"isSuccess Value : "+profile.getIsSuccess());
+					   Log.e(TAG,"Error Message : "+profile.getMessage());
+					   //page_level_error_txt_view.setText(login.getMessage());
+					   //page_level_error_txt_view.setVisibility(View.VISIBLE);
+					}else{
+						Log.v(TAG,"Profile details fetched Successfully. Please find the below details.");
+						Log.d(TAG,"isSuccess : "+profile.getIsSuccess());
+						Log.d(TAG,"userid : "+profile.getUserid());
+						Log.d(TAG,"email : "+profile.getEmailid());
+						Intent profileIntent=new Intent(PlayerScreen.this,ProfileScreen.class);
+		            	startActivity(profileIntent);
+		          	    //slide from right to left
+		                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+					}
+				}else{
+					Log.e(TAG,"login response parsing failed.");
+					//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
+					//page_level_error_txt_view.setVisibility(View.VISIBLE);
+				}
+			}
+		
+		Log.i(TAG,"profileProceedUI() Exiting.");
+	}
 
 	//Sends Like Channel API Request.
 	private void sendLikeChannelReq(String userID,String channelID){
@@ -1277,6 +1336,51 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
 		}
 		
 		Log.i(TAG,"disLikeChannelProceedUI() Exiting.");
+	}
+	
+	//Method to send Favorite API request.
+	private void sendFavoriteChannelsReq(){
+		Log.i(TAG,"sendFavoriteChannelsReq() Entering.");
+		
+		ReqResHandler req = new ReqResHandler();
+		CustomProgressDialog.show(PlayerScreen.this);
+
+		req.favoriteChannelsRequest(PlayerScreen.this,new ResponseHandler(),LoginParser.getUserID());
+		
+		Log.i(TAG,"sendFavoriteChannelsReq() Exiting.");
+	}
+	
+	//Method handles the response from Server.
+	public void favoriteChannelsProceedUI(String result,AmalluException amalluEx){
+		Log.i(TAG,"favoriteChannelsProceedUI() Entering.");
+		
+		if(CustomProgressDialog.IsShowing()){
+			Log.v(TAG,"favoriteChannelsProceedUI progress dialog dismissing..");
+			CustomProgressDialog.Dismiss();
+		}
+		if(result.equalsIgnoreCase("Exception")){
+			Log.e(TAG,"favoriteChannelsProceedUI Exception Case");
+			//page_level_error_txt_view.setText(getResources().getString(R.string.unable_to_login));
+			//page_level_error_txt_view.setVisibility(View.VISIBLE);
+			displayToast("Exception occurred while fetching Favorite Channels List");
+		}else{
+			FavoriteChannels favorite=FavoriteChannelsParser.getFavoriteChannelsParsedResponse(result);
+			if(favorite!=null && favorite.getFavoriteChannelsList()!=null && !favorite.getFavoriteChannelsList().isEmpty()){
+				Log.v(TAG,"Favorite Channel List Available.");
+				if(currentTabbedFragment!=null)
+				  ((FavoritesFragment)currentTabbedFragment).refreshFavoritesList(favorite.getFavoriteChannelsList());
+				//startActivity(new Intent(PlayerScreen.this,LanguagesScreen.class));
+				//overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+			}else{
+				Log.e(TAG,"Favorite Channel List not Available.");
+				//page_level_error_txt_view.setText(getResources().getString(R.string.internal_error));
+				//page_level_error_txt_view.setVisibility(View.VISIBLE);
+				if(currentTabbedFragment!=null)
+				  ((FavoritesFragment)currentTabbedFragment).refreshFavoritesList(null);
+			}
+		}
+		
+		Log.i(TAG,"favoriteChannelsProceedUI() Exiting.");
 	}
 	
 	//Sends FriendsList API Request.
@@ -1455,7 +1559,8 @@ public class PlayerScreen extends FragmentActivity implements OnClickListener,On
       }else if(currentTabbedFragment instanceof TrendingFragment){
     	  
       }else if(currentTabbedFragment instanceof FavoritesFragment){
-    	  
+    	  Log.v(TAG,"currentTabbedFragment instanceof FavoritesFragment");
+    	  sendFavoriteChannelsReq();
       }else if(currentTabbedFragment instanceof WatchingFragment){
     	  
       }else if(currentTabbedFragment instanceof FriendsFragment){

@@ -3,7 +3,6 @@ package com.amallu.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,7 +26,6 @@ import com.amallu.parser.ChangePasswordParser;
 import com.amallu.parser.LoginParser;
 import com.amallu.parser.ProfileParser;
 import com.amallu.utility.ErrorCodes;
-import com.amallu.utility.ReqResNodes;
 
 public class ProfileScreen extends SuperActivity implements OnClickListener,OnItemSelectedListener{
 

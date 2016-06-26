@@ -640,7 +640,7 @@ public class ReqResHandler implements AsyncCallback{
 		response = responseHandler;
 		uiContext = context;
 		
-		//http://www.app.amallu.com/api/channel/favoritechannels?_format=json&userid=xx
+		//http://www.app.amallu.com/api/channel/favoritechannels?_format=json&userid=40
 				
 		String url = URLDetails.PROTOCOL+"://"+URLDetails.HOST
 							+"/"+URLDetails.COMMON_URL+"/"+URLDetails.FAVORITECHANNELS+"&userid="+userID;

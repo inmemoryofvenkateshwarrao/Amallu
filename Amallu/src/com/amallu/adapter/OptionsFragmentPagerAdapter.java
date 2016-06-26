@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.amallu.fragment.ActivitiesFragment;
 import com.amallu.fragment.CommentsFragment;
+import com.amallu.fragment.FavoritesFragment;
 import com.amallu.fragment.FriendsFragment;
 import com.amallu.fragment.TrendingFragment;
 import com.amallu.fragment.WatchingFragment;
@@ -16,7 +17,7 @@ public class OptionsFragmentPagerAdapter extends FragmentPagerAdapter{
 	
 	final int PAGE_COUNT=6;
 	private static final String TAG="OptionsFragmentPagerAdapter";
-	Fragment commentsFragment,friendsFragment,activitiesFragment;
+	Fragment commentsFragment,favoritesFragment,friendsFragment,activitiesFragment;
 
 	/** Constructor of the class */
 	public OptionsFragmentPagerAdapter(FragmentManager fm){
@@ -42,7 +43,13 @@ public class OptionsFragmentPagerAdapter extends FragmentPagerAdapter{
 				return trendingFragment;
 			case 2:
 				Log.v(TAG,"Clicked on Favorites Tab");
-				TrendingFragment favoritesFragment=new TrendingFragment();
+				if(favoritesFragment==null){
+					favoritesFragment=new FavoritesFragment();
+				   Log.v(TAG,"Intantiating FavoritesFragment.");
+				}else{
+				   Log.v(TAG,"FavoritesFragment instance already exists.");
+				}
+				//TrendingFragment favoritesFragment=new TrendingFragment();
 				return favoritesFragment;
 				/*FavoritesFragment favoritesFragment=new FavoritesFragment();
 				return favoritesFragment;*/
