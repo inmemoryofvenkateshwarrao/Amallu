@@ -283,6 +283,7 @@ public class LoginScreen extends SuperActivity implements OnClickListener,OnEdit
 					Log.d(TAG,"userid : "+login.getUserid());
 					Log.d(TAG,"username : "+login.getUsername());
 					Log.d(TAG,"message : "+login.getMessage());
+					//Toast.makeText(this,"Login Successfull calling default channel info",Toast.LENGTH_LONG).show();
 					sendDefaultChannelInfoReq(login.getUserid());
 				}
 			}else{
@@ -387,6 +388,7 @@ public class LoginScreen extends SuperActivity implements OnClickListener,OnEdit
 					PlayerScreen.channelDetail=null;
 					PlayerScreen.channelDetail=channelDetail;
 					PlayerScreen.fromContext=LoginScreen.this;
+					//Toast.makeText(this,"default channel info Successfull calling Player Screen",Toast.LENGTH_LONG).show();
 					Intent playerIntent=new Intent(LoginScreen.this,PlayerScreen.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					launchNextScreen(playerIntent);
 					//startActivity(new Intent(LoginScreen.this,PlayerScreen.class));

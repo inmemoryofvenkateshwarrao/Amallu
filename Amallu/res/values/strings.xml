@@ -152,6 +152,7 @@
     <string name="confirm_password">Confirm Password</string>
     
 	<string name="terms_privacy_policy">Terms &amp; Privacy Policy</string>
+	<string name="about_us">About Us</string>
 	
 	<!-- Reminder Screen Labels -->
 	<string name="reminder">Reminder</string>
